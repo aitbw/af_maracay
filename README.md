@@ -15,7 +15,7 @@ Esta aplicación está constituida de las siguientes tecnologías:
 # Instalación
 * Clona este repositorio
 * Crea una base de datos en MySQL
-* Añade a tu *environment* tres (3) variables para el usuario, *password* y URL de MySQL
+* Añade a tu *environment* cuatro (4) variables para la base de datos, usuario, *password* y URL de MySQL
 * Accede a la carpeta del proyecto
 * En /config, crea un 'database.yml' y agrega lo siguiente:
 ``` yaml
@@ -57,7 +57,7 @@ ruby app.rb
 
 Puedes ver el app en http://localhost:4567
 
-**NOTA**: Debes eliminar los controladores *check_session* y *restrict_access* de *app.rb* para poder acceder a panel de control y poder crear un usuario con permisos administrativos. De lo contrario, no podras acceder al sistema. Y no olvides agregar los controladores de nuevo una vez hecho esto. :)
+**NOTA**: Debes eliminar los controladores *check_session* y *restrict_access* de *app.rb* para acceder al panel de control y crear un usuario con permisos administrativos. De lo contrario, no podrás acceder al sistema. No olvides agregar los controladores de nuevo una vez hecho esto. :)
 
 # Uso
 Esta aplicación web permite:
@@ -68,7 +68,7 @@ Esta aplicación web permite:
 * Control de secciones
 * Control de cursos
 * Control de profesores y sus horas laborales
-* Control de salarios
+* Control de salarios (Administradores)
 * Control de inventario
 * Generación de reportes (Administradores)
 
