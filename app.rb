@@ -34,13 +34,11 @@ post '/signin' do
   end
 end
 
+check_session
+
 get '/dashboard' do
-  if session[:cedula].nil?
-    redirect '/signin', error: 'Debe iniciar sesión para acceder al panel de control.'
-  else
-    titulo('Panel de control — Inicio')
-    erb :index, layout: :'layouts/dashboard'
-  end
+  titulo('Panel de control — Inicio')
+  erb :index, layout: :'layouts/dashboard'
 end
 
 get '/logout' do
@@ -48,16 +46,14 @@ get '/logout' do
   redirect '/signin', notice: 'Usted ha cerrado sesión.'
 end
 
-get '/dashboard/signup' do
-  if session[:cedula].nil? || session[:rol] != 'Admin'
-    redirect '/dashboard'
-  else
-    titulo('Crear nuevo usuario — Panel de control')
-    erb :signup, layout: :'layouts/dashboard'
-  end
+restrict_access
+
+get '/dashboard/users/new_user' do
+  titulo('Crear nuevo usuario — Panel de control')
+  erb :new_user, layout: :'layouts/dashboard'
 end
 
-post '/dashboard/signup' do
+post '/dashboard/users/new_user' do
   if params[:nombre].blank? || params[:cedula].blank? || params[:password].blank?
     redirect '/dashboard/signup', error: 'Debe completar todos los campos.'
   elsif /^\d{6,8}$/.match(params[:cedula]).nil?
@@ -78,13 +74,9 @@ post '/dashboard/signup' do
 end
 
 get '/dashboard/users' do
-  if session[:cedula].nil? || session[:rol] != 'Admin'
-    redirect '/dashboard'
-  else
-    titulo('Lista de usuarios — Panel de control')
-    @users = User.all
-    erb :users, layout: :'layouts/dashboard'
-  end
+  titulo('Lista de usuarios — Panel de control')
+  @users = User.all
+  erb :users, layout: :'layouts/dashboard'
 end
 
 get '/dashboard/users/delete/:id' do
