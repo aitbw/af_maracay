@@ -1,0 +1,26 @@
+<div class="row">
+    <form id="actualizar" action="/edit_user/<%= @id_usuario %>" method="POST">
+        <fieldset>
+            <legend>Actualizar datos</legend>
+            <% if flash[:notice] %>
+                <p class="notice"><%= flash[:notice] %></p>
+            <% end %>
+             <% if flash[:error] %>
+                <p class="error"><%= flash[:error] %></p>
+            <% end %>
+            <label>Nombre</label>
+                <input type="text" name="nombre">
+            <label>Cédula</label>
+                <input type="text" maxlength="10" name="cedula">
+            <label>Rol</label>
+                <select name="rol">
+                    <option value="empty">Rol</option>
+                    <option value="Admin">Administrador</option>
+                    <option value="Recepcionista">Recepcionista</option>
+                </select>
+            <input type="hidden" name="_method" value="PUT">
+            <input type="submit" id="editButton" class="button small" value="Actualizar">
+            <a href="/dashboard/users" class="button small secondary">Cancelar</a>
+        </fieldset>
+    </form>
+</div>
