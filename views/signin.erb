@@ -1,20 +1,18 @@
 <div class="row">
-    <form id="login" action="/signin" method="POST">
-        <fieldset>
-            <legend>Iniciar sesión</legend>
-            <% if flash[:notice] %>
-                <p class="notice"><%= flash[:notice] %></p>
-            <% end %>
-            <% if flash[:error] %>
-                <p class="error"><%= flash[:error] %></p>
-            <% end %>
-            <label>Cédula
-                <input type="text" name="cedula">
-            </label>
-            <label>Contraseña
-                <input type="password" name="password">
-            </label>
-            <input type="submit" id="loginButton" class="button small" value="Iniciar sesión">
-        </fieldset>
-    </form>
+  <form id="login" action="/signin" method="POST">
+    <fieldset>
+      <legend>Iniciar sesión</legend>
+        <% if flash[:notice] %>
+          <p class="notice"><%= flash[:notice] %></p>
+        <% end %>
+        <% if flash[:error] %>
+          <p class="error"><%= flash[:error] %></p>
+        <% end %>
+        <label>Cédula</label>
+            <input type="text" name="cedula">
+        <label>Contraseña</label>
+            <input type="password" name="password">
+        <input type="submit" id="loginButton" class="button small" value="Iniciar sesión">
+    </fieldset>
+  </form>
 </div>

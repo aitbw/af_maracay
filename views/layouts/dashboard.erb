@@ -12,72 +12,124 @@
 </head>
 
 <body>
-      <nav class="top-bar" data-topbar role="navigation">
-      <ul class="title-area">
-      	<li class="name">
-      	<h1><a href="/dashboard">AF Maracay</a></h1>
-      	</li>
+  <nav class="top-bar" data-topbar role="navigation">
+    <ul class="title-area">
+      <li class="name">
+        <h1><a href="/dashboard">AF Maracay</a></h1>
+      </li>
+    </ul>
+
+    <section class="top-bar-section">
+      <ul class="right">
+        <li class="active"><a href="/dashboard/change_password"><%= session[:nombre] %></a></li>
+        <li><a href="/logout">Salir del sistema</a></li>
       </ul>
 
-      <section class="top-bar-section">
-      	<ul class="right">
-      	<li class="active"><a href="/dashboard/change_password"><%= session[:nombre] %></a></li>
-      	<li><a href="/logout">Salir del sistema</a></li>
-      	</ul>
-      	<ul class="left">
-       <li class="has-dropdown not-click">
-       <a>Controles</a>
-            <ul class="dropdown">
-            <li><a href="#">Cuotas</a></li>
-            <li><a href="#">Cursos</a></li>
-            <li><a href="#">Secciones</a></li>
-            <li><a href="#">Inscripciones</a></li>
-            <li><a href="#">Profesores</a></li>
-            </ul>
-      </li>
-      <li class="has-dropdown not-click">
-      <a href="#">Inventario</a>
-        <ul class="dropdown">
-          <li><a href="#">Movimientos</a></li>
-        </ul>
-      </li>
-      <% if session[:rol] == "Admin" %>
+      <ul class="left">
         <li class="has-dropdown not-click">
-        <a href="/dashboard/users">Usuarios</a>
+          <a>Controles</a>
           <ul class="dropdown">
-            <li><a href="/dashboard/users/new_user">Nuevo usuario</a></li>
-          </ul>
-        </li>
-        <li><a href="#">Reportes</a></li>
-      <% end %>
-      	</ul>
-      </section>
-      </nav>
+            <li class="has-dropdown not-click">
+              <a href="#">Cuotas</a>
+                <ul class="dropdown">
+                  <li><a href="#">Morosos</a></li>
+                  <li><a href="#">Solventes</a></li>
+                </ul>
+            </li>
 
-      <div id="main">
-      <%= yield %>
-      </div>
-
-      <footer class="row">
-        <div class="large-12 columns">
-          <hr/>
-          <div class="row">
-            <div class="large-6 columns">
-              <p>© 2015 Alliance Française Maracay, todos los derechos reservados.</p>
-              <p>Calle El Rosal, cruce con Av. Los Laureles. Urb. La Floresta. Maracay, Edo. Aragua, Venezuela.</p>
-              <p>RIF.: J-40267998-0</p>
-            </div>
-            <div class="large-6 columns">
-              <ul class="inline-list right">
-                <li><a href="#">Español</a></li>
-                <li><a href="#">Français</a></li>
+            <li class="has-dropdown not-click">
+              <a href="#">Cursos</a>
+              <ul class="dropdown">
+                <li><a href="#">Nuevo curso</a></li>
               </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
+            </li>
 
-      <script type="text/javascript" src="<%=url("/javascript/responsive-tables.js")%>"></script>
+            <li class="has-dropdown not-click">
+              <a href="#">Estudiantes</a>
+              <ul class="dropdown">
+                <li><a href="#">Nuevo estudiante</a></li>
+                <li><a href="#">Reasignar estudiante</a></li>
+              </ul>
+            </li>
+
+            <li class="has-dropdown not-click">
+              <a href="#">Inscripciones</a>
+              <ul class="dropdown">
+                <li><a href="#">Inscribir estudiante</a></li>
+                <li><a href="#">Estudiantes no inscritos</a></li>
+              </ul>
+            </li>
+
+            <li class="has-dropdown not-click">
+              <a href="#">Profesores</a>
+              <ul class="dropdown">
+                <li><a href="#">Nuevo profesor/a</a></li>
+                <li><a href="#">Reasignar profesor/a</a></li>
+              </ul>
+            </li>
+
+            <li class="has-dropdown not-click">
+              <a href="#">Secciones</a>
+              <ul class="dropdown">
+                <li><a href="#">Nueva sección</a></li>
+                <li><a href="#">Reasignar sección</a></li>
+              </ul>
+            </li>
+          </ul>
+
+          <li class="has-dropdown not-click">
+            <a href="#">Inventario</a>
+            <ul class="dropdown">
+              <li><a href="#">Movimientos</a></li>
+            </ul>
+          </li>
+
+          <% if session[:rol] == "Admin" %>
+            <li class="has-dropdown not-click">
+              <a href="#">Reportes</a>
+              <ul class="dropdown">
+                <li><a href="#">Generar reporte</a></li>
+              </ul>
+            </li>
+
+            <li><a href="#">Salarios</a></li>
+
+            <li class="has-dropdown not-click">
+              <a href="/dashboard/users">Usuarios</a>
+              <ul class="dropdown">
+                <li><a href="/dashboard/users/new_user">Nuevo usuario</a></li>
+              </ul>
+            </li>
+          <% end %>
+      </ul>
+    </section>
+  </nav>
+
+  <div id="main">
+    <%= yield %>
+  </div>
+
+  <footer class="row">
+    <div class="large-12 columns">
+    <hr/>
+      <div class="row">
+        <div class="large-6 columns">
+          <p>© 2015 Alliance Française Maracay, todos los derechos reservados.</p>
+          <p>Calle El Rosal, cruce con Av. Los Laureles. Urb. La Floresta. Maracay, Edo. Aragua, Venezuela.</p>
+          <p>RIF.: J-40267998-0</p>
+        </div>
+
+        <div class="large-6 columns">
+          <ul class="inline-list right">
+            <li><a href="#">Español</a></li>
+            <li><a href="#">Français</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="text/javascript" src="<%=url("/javascript/responsive-tables.js")%>"></script>
 
 </body>
 </html>

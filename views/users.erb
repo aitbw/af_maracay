@@ -1,30 +1,30 @@
 <div class="row">
-    <% if flash[:notice] %>
-        <p class="notice"><%= flash[:notice] %></p>
-    <% end %>
-    <% if flash[:error] %>
-        <p class="error"><%= flash[:error] %></p>
-    <% end %>
-    <table class="responsive">
-        <thead>
-            <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">Cédula</th>
-                <th scope="col">Nivel de acceso</th>
-                <th scope="col">Modificar</th>
-                <th scope="col">Eliminar</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @users.each do |user| %>
-                <tr>
-                    <td><%= user.nombreUsuario %></td>
-                    <td><%= user.cedulaUsuario %></td>
-                    <td><%= user.nivelAcceso %></td>
-                    <td><a href="/dashboard/users/edit/<%= user.idUsuario %>">Modificar</a></td>
-                    <td><a href="/dashboard/users/delete/<%= user.idUsuario %>">Eliminar</a></td>
-                </tr>
-            <% end %>
-        </tbody>
-    </table>
+  <% if flash[:notice] %>
+    <p class="notice"><%= flash[:notice] %></p>
+  <% end %>
+  <% if flash[:error] %>
+    <p class="error"><%= flash[:error] %></p>
+  <% end %>
+  <table class="responsive">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Cédula</th>
+        <th scope="col">Nivel de acceso</th>
+        <th scope="col">Modificar</th>
+        <th scope="col">Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.nombreUsuario %></td>
+          <td><%= user.cedulaUsuario %></td>
+          <td><%= user.nivelAcceso %></td>
+          <td><a href="/dashboard/users/edit/<%= user.idUsuario %>">Modificar</a></td>
+          <td><a href="/dashboard/users/delete/<%= user.idUsuario %>">Eliminar</a></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
