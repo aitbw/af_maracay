@@ -8,14 +8,10 @@ require 'tilt/erubis'
 require 'bcrypt'
 require './environments'
 Dir['./controllers/*.rb'].each { |file| require file }
+Dir['./models/*.rb'].each { |file| require file }
 
 enable :sessions
 set :session_secret, SecureRandom.hex(64)
-
-# Modelo para la tabla 'Usuarios'
-class User < ActiveRecord::Base
-  self.table_name = 'usuarios'
-end
 
 def titulo(title)
   @page_title = title
@@ -54,22 +50,14 @@ get '/dashboard/users/new_user' do
 end
 
 post '/dashboard/users/new_user' do
-  if params[:nombre].blank? || params[:cedula].blank? || params[:password].blank?
-    redirect '/dashboard/signup', error: 'Debe completar todos los campos.'
-  elsif /^\d{6,8}$/.match(params[:cedula]).nil?
-    redirect '/dashboard/signup', error: 'Cédula inválida, intente nuevamente.'
-  elsif User.where(cedulaUsuario: params[:cedula]).present?
-    redirect '/dashboard/signup', error: 'La cédula ya se encuentra en uso.'
+  secure_pass = BCrypt::Password.create(params[:password])
+
+  @usuarios = User.new(nombreUsuario: params[:nombre], cedulaUsuario: params[:cedula], passwordUsuario: secure_pass, nivelAcceso: params[:rol])
+
+  if @usuarios.save
+    redirect '/dashboard/users/new_user', notice: 'Usuario creado exitosamente.'
   else
-    secure_pass = BCrypt::Password.create(params[:password])
-
-    @usuarios = User.new(nombreUsuario: params[:nombre], cedulaUsuario: params[:cedula], passwordUsuario: secure_pass, nivelAcceso: params[:rol])
-
-    if @usuarios.save
-      redirect '/dashboard/signup', notice: 'Usuario creado exitosamente.'
-    else
-      redirect '/dashboard/signup', error: 'Ha ocurrido un error, intente nuevamente.'
-    end
+    redirect '/dashboard/users/new_user', error: 'Ha ocurrido un error, intente nuevamente.'
   end
 end
 
@@ -119,8 +107,8 @@ put '/edit_user/:id' do
 
   if params[:cedula].blank?
     u.cedulaUsuario = u.cedulaUsuario
-  elsif /^\d{6,8}$/.match(params[:cedula]).nil?
-    redirect '/dashboard/users', error: 'Cédula inválida, intente nuevamente.'
+  elsif /\d{6,8}/.match(params[:cedula]).nil?
+    redirect '/dashboard/users', error: 'Cédula inválida.'
   elsif User.where(cedulaUsuario: params[:cedula]).present?
     redirect '/dashboard/users', error: 'La cédula ya existe.'
   else
@@ -150,7 +138,23 @@ put '/change_password/:id' do
   change_password
 end
 
+get '/dashboard/teachers' do
+  titulo('Lista de profesores — Panel de control')
+  @teachers = Teacher.all
+  erb :teachers, layout: :'layouts/dashboard'
+end
+
+get '/dashboard/teachers/new_teacher' do
+  titulo('Crear nuevo profesor/a — Panel de control')
+  erb :new_teacher, layout: :'layouts/dashboard'
+end
+
+post '/dashboard/teachers/new_teacher' do
+  nuevo_profesor
+end
+
 not_found do
+  # TO-DO: 404 erb(:not_found)
   status 404
 end
 

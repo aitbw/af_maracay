@@ -1,0 +1,34 @@
+<div class="row">
+  <% if flash[:notice] %>
+    <p class="notice"><%= flash[:notice] %></p>
+  <% end %>
+  <% if flash[:error] %>
+    <p class="error"><%= flash[:error] %></p>
+  <% end %>
+  <table class="responsive">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Cédula</th>
+        <th scope="col">Fecha de ingreso</th>
+        <th scope="col">Modificar</th>
+        <th scope="col">Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @teachers.each do |teacher| %>
+        <tr>
+          <td><%= teacher.nombreProfesor %></td>
+          <td><%= teacher.correoProfesor %></td>
+          <td><%= teacher.telefonoProfesor %></td>
+          <td><%= teacher.cedulaProfesor %></td>
+          <td><%= teacher.fechaIngreso %></td>
+          <td><a href="/dashboard/users/edit/<%= teacher.idProfesor %>">Modificar</a></td>
+          <td><a href="/dashboard/users/delete/<%= teacher.idProfesor %>">Eliminar</a></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,22 @@
+<div class="row">
+  <form id="registro" action="/dashboard/teachers/new_teacher" method="POST">
+    <fieldset>
+      <legend>Crear nuevo profesor/a</legend>
+        <% if flash[:notice] %>
+          <p class="notice"><%= flash[:notice] %></p>
+        <% end %>
+        <% if flash[:error] %>
+          <p class="error"><%= flash[:error] %></p>
+        <% end %>
+        <label>Nombre</label>
+            <input type="text" name="nombre">
+        <label>Correo</label>
+            <input type="text" name="correo">
+        <label>Teléfono</label>
+            <input type="text" name="telefono">
+        <label>Cédula</label>
+            <input type="text" maxlength="10" name="cedula">
+        <input type="submit" id="registerButton" class="button small" value="Crear profesor/a">
+    </fieldset>
+  </form>
+</div>
