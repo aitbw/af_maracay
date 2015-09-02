@@ -1,7 +1,7 @@
 # Modelo para la tabla 'Profesores'
 class Teacher < ActiveRecord::Base
   self.table_name = 'profesores'
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  VALID_EMAIL_REGEX ||= /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
   validates :nombreProfesor, presence: true
   validates :telefonoProfesor, presence: true, format: { with: /\d{4}-?\d{7}/ }

@@ -145,12 +145,86 @@ get '/dashboard/teachers' do
 end
 
 get '/dashboard/teachers/new_teacher' do
-  titulo('Crear nuevo profesor/a — Panel de control')
+  titulo('Registrar nuevo profesor — Panel de control')
   erb :new_teacher, layout: :'layouts/dashboard'
 end
 
 post '/dashboard/teachers/new_teacher' do
   nuevo_profesor
+end
+
+get '/dashboard/teachers/delete/:id' do
+  begin
+    Teacher.find(params[:id]).present?
+  rescue ActiveRecord::RecordNotFound
+    redirect '/dashboard/teachers', error: 'El profesor no existe.'
+  else
+    @id_profesor = params[:id]
+    @nombre = Teacher.where(idProfesor: params[:id]).pluck(:nombreProfesor).to_s.gsub(/^\["|\"\]$/, '')
+    titulo('Eliminar profesor — Panel de control')
+    erb :delete_teacher, layout: :'layouts/dashboard'
+  end
+end
+
+delete '/delete_teacher/:id' do
+  if Teacher.destroy(params[:id])
+    redirect '/dashboard/teachers', notice: 'Profesor/a eliminado.'
+  else
+    redirect '/dashboard/teachers', error: 'Ha ocurrido un error, intente nuevamente.'
+  end
+end
+
+get '/dashboard/teachers/edit/:id' do
+  begin
+    Teacher.find(params[:id]).present?
+  rescue ActiveRecord::RecordNotFound
+    redirect '/dashboard/teachers', error: 'El profesor no existe.'
+  else
+    @id_profesor = params[:id]
+    titulo('Editar profesor — Panel de control')
+    erb :edit_teacher, layout: :'layouts/dashboard'
+  end
+end
+
+put '/edit_teacher/:id' do
+  t = Teacher.find(params[:id])
+  EMAIL_REGEX ||= /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+
+  t.nombreProfesor = params[:nombre] if params[:nombre].blank? == false
+
+  if params[:correo].blank?
+    t.correoProfesor = t.correoProfesor
+  elsif EMAIL_REGEX.match(params[:correo]).nil?
+    redirect '/dashboard/teachers', error: 'Correo inválido.'
+  elsif Teacher.where(correoProfesor: params[:correo]).present?
+    redirect '/dashboard/teachers', error: 'El correo ya existe.'
+  else
+    t.correoProfesor = params[:correo]
+  end
+
+  if params[:telefono].blank?
+    t.telefonoProfesor = t.telefonoProfesor
+  elsif /\d{4}-?\d{7}/.match(params[:telefono]).nil?
+    redirect '/dashboard/teachers', error: 'Número inválido.'
+  else
+    t.telefonoProfesor = params[:telefono]
+  end
+
+  if params[:cedula].blank?
+    t.cedulaProfesor = t.cedulaProfesor
+  elsif /\d{6,8}/.match(params[:cedula]).nil?
+    redirect '/dashboard/teachers', error: 'Cédula inválida.'
+  elsif Teacher.where(cedulaProfesor: params[:cedula]).present?
+    redirect '/dashboard/teachers', error: 'La cédula ya existe.'
+  else
+    t.cedulaProfesor = params[:cedula]
+  end
+
+  if t.save
+    redirect '/dashboard/teachers', notice: 'Datos actualizados.'
+  else
+    redirect '/dashboard/teachers', error: 'Ha ocurrido un error, intente nuevamente.'
+  end
 end
 
 not_found do
