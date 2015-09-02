@@ -168,7 +168,7 @@ end
 
 delete '/delete_teacher/:id' do
   if Teacher.destroy(params[:id])
-    redirect '/dashboard/teachers', notice: 'Profesor/a eliminado.'
+    redirect '/dashboard/teachers', notice: 'Profesor eliminado.'
   else
     redirect '/dashboard/teachers', error: 'Ha ocurrido un error, intente nuevamente.'
   end

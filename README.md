@@ -30,12 +30,6 @@ development:
   socket: /var/run/mysqld/mysqld.sock
   host: localhost
 ```
-* En tu base de datos, crea una tabla llamada 'usuarios' con los siguientes campos:
-  * idUsuario
-  * nombreUsuario
-  * cedulaUsuario
-  * passwordUsuario
-  * nivelAcceso
 
 * Corre en la consola:
 
