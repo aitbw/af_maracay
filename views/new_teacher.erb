@@ -1,7 +1,7 @@
 <div class="row">
   <form id="registro" action="/dashboard/teachers/new_teacher" method="POST">
     <fieldset>
-      <legend>Crear nuevo profesor/a</legend>
+      <legend>Crear nuevo profesor</legend>
         <% if flash[:notice] %>
           <p class="notice"><%= flash[:notice] %></p>
         <% end %>
@@ -16,7 +16,7 @@
           <input type="text" name="telefono" placeholder="XXXX-XXXXXXX">
         <label>Cédula</label>
           <input type="text" name="cedula">
-        <input type="submit" id="registerButton" class="button small" value="Crear profesor/a">
+        <input type="submit" id="registerButton" class="button small" value="Crear profesor">
     </fieldset>
   </form>
 </div>

@@ -227,6 +227,16 @@ put '/edit_teacher/:id' do
   end
 end
 
+get '/dashboard/teachers/add_bank_account' do
+  titulo('Asignar cuenta bancaria — Panel de control')
+  @teachers = Teacher.all
+  erb :add_bank_account, layout: :'layouts/dashboard'
+end
+
+post '/dashboard/teachers/add_bank_account' do
+  asignar_cuenta
+end
+
 not_found do
   # TO-DO: 404 erb(:not_found)
   status 404

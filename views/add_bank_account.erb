@@ -1,0 +1,34 @@
+<div class="row">
+  <form id="registro" action="/dashboard/teachers/add_bank_account" method="POST">
+    <fieldset>
+      <legend>Asignar cuenta bancaria</legend>
+        <% if flash[:notice] %>
+          <p class="notice"><%= flash[:notice] %></p>
+        <% end %>
+        <% if flash[:error] %>
+          <p class="error"><%= flash[:error] %></p>
+        <% end %>
+        <label>Profesor</label>
+          <select name="profesor">
+            <% @teachers.each do |teacher| %>
+            <option value="<%= teacher.idProfesor %>"><%= teacher.nombreProfesor %></option>
+            <% end %>
+          </select>
+        <label>Banco</label>
+          <select name="banco">
+            <option value="Mercantil">Banco Mercantil</option>
+            <option value="Banesco">Banco Banesco</option>
+            <option value="Venezuela">Banco de Venezuela</option>
+            <option value="Provincial">Banco Provincial</option>
+            <option value="Exterior">Banco Exterior</option>
+            <option value="BOD">Banco Occidental de Descuento</option>
+            <option value="BNC">Banco Nacional de Crédito</option>
+          </select>
+        <label>Número de cuenta</label>
+          <input type="text" name="numero">
+        <label>Tipo de cuenta</label>
+          <input type="text" name="tipo">
+        <input type="submit" id="registerButton" class="button small" value="Asignar cuenta">
+    </fieldset>
+  </form>
+</div>

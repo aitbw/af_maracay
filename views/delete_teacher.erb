@@ -1,12 +1,12 @@
 <div class="row">
   <% if @id_profesor %>
-    <p>¿Está seguro de que quiere eliminar al profesor/a <b><%= @nombre %></b>?</p>
+    <p>¿Está seguro de que quiere eliminar al profesor <b><%= @nombre %></b>?</p>
       <form action="/delete_teacher/<%= @id_profesor %>" method="POST">
         <input type="hidden" name="_method" value="DELETE">
         <input type="submit" value="Eliminar" class="button small danger">
         <a href="/dashboard/teachers" class="button small secondary">Cancelar</a>
       </form>
   <% else %>
-    <p>No se encuentra el profesor/a.</p>
+    <p>No se encuentra el profesor.</p>
   <% end %>
 </div>
