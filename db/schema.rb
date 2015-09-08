@@ -13,13 +13,20 @@
 
 ActiveRecord::Schema.define(version: 0) do
 
+  create_table "bancos", primary_key: "idBanco", force: :cascade do |t|
+    t.string "nombreBanco", limit: 100, null: false
+  end
+
+  add_index "bancos", ["idBanco"], name: "idBanco_UNIQUE", unique: true, using: :btree
+
   create_table "cuentasBanco", primary_key: "idCuentaBanco", force: :cascade do |t|
     t.integer "idProfesor",   limit: 4,  null: false
-    t.string  "bancoCuenta",  limit: 50, null: false
+    t.integer "idBanco",      limit: 4,  null: false
     t.string  "numeroCuenta", limit: 50, null: false
     t.string  "tipoCuenta",   limit: 50, null: false
   end
 
+  add_index "cuentasBanco", ["idBanco"], name: "fk_cuentasBanco_bancos1_idx", using: :btree
   add_index "cuentasBanco", ["idCuentaBanco"], name: "idCuentaBanco_UNIQUE", unique: true, using: :btree
   add_index "cuentasBanco", ["idProfesor"], name: "fk_cuentasBanco_profesores1_idx", using: :btree
 
@@ -207,6 +214,7 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "usuarios", ["cedulaUsuario"], name: "cedulaUsuario_UNIQUE", unique: true, using: :btree
   add_index "usuarios", ["idUsuario"], name: "idUsuario_UNIQUE", unique: true, using: :btree
 
+  add_foreign_key "cuentasBanco", "bancos", column: "idBanco", primary_key: "idBanco", name: "fk_cuentasBanco_bancos1"
   add_foreign_key "cuentasBanco", "profesores", column: "idProfesor", primary_key: "idProfesor", name: "fk_cuentasBanco_profesores1", on_update: :cascade
   add_foreign_key "cuotasEstudiantes", "estudiantes", column: "idEstudiante", primary_key: "idEstudiante", name: "cuota_estudiante", on_update: :cascade
   add_foreign_key "cuotasEstudiantes", "usuarios", column: "idUsuario", primary_key: "idUsuario", name: "fk_cuotasEstudiantes_usuarios1", on_update: :cascade

@@ -15,6 +15,7 @@ gem 'rack_csrf'
 group :development do
   gem 'better_errors'
   gem 'pry'
+  gem 'tux'
   gem 'guard'
   gem 'guard-bundler'
 end

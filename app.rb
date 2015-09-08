@@ -17,6 +17,10 @@ def titulo(title)
   @page_title = title
 end
 
+before '/signin' do
+  redirect '/dashboard' if session[:cedula]
+end
+
 get '/signin' do
   titulo('Iniciar sesión')
   erb :signin, layout: :'layouts/login'
@@ -229,7 +233,8 @@ end
 
 get '/dashboard/teachers/add_bank_account' do
   titulo('Asignar cuenta bancaria — Panel de control')
-  @teachers = Teacher.all
+  @teachers = Teacher.select(:idProfesor, :nombreProfesor)
+  @banks = Bank.all
   erb :add_bank_account, layout: :'layouts/dashboard'
 end
 

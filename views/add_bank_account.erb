@@ -16,18 +16,17 @@
           </select>
         <label>Banco</label>
           <select name="banco">
-            <option value="Mercantil">Banco Mercantil</option>
-            <option value="Banesco">Banco Banesco</option>
-            <option value="Venezuela">Banco de Venezuela</option>
-            <option value="Provincial">Banco Provincial</option>
-            <option value="Exterior">Banco Exterior</option>
-            <option value="BOD">Banco Occidental de Descuento</option>
-            <option value="BNC">Banco Nacional de Crédito</option>
+            <% @banks.each do |bank| %>
+            <option value="<%= bank.idBanco %>"><%= bank.nombreBanco %></option>
+            <% end %>
           </select>
         <label>Número de cuenta</label>
           <input type="text" name="numero">
         <label>Tipo de cuenta</label>
-          <input type="text" name="tipo">
+          <select name="tipo">
+            <option value="Ahorro">Ahorro</option>
+            <option value="Corriente">Corriente</option>
+          </select>
         <input type="submit" id="registerButton" class="button small" value="Asignar cuenta">
     </fieldset>
   </form>
