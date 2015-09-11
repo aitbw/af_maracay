@@ -4,6 +4,8 @@ Esta es una aplicación web diseñada para la Alianza Francesa de Maracay como p
 
 Hecho con ♥ por Angel Perez, desde Venezuela.
 
+[English](./README.en.md) | [Français](./README.fr.md)
+
 # Stack
 
 Esta aplicación está constituida de las siguientes tecnologías:
@@ -40,7 +42,7 @@ bundle install
 * Ahora ejecuta el siguiente comando:
 
 ``` shell
-rake db:create
+rake db:setup
 ```
 
 * Finalmente, inicia el app:
@@ -49,9 +51,9 @@ rake db:create
 ruby app.rb
 ```
 
-Puedes ver el app en http://localhost:4567
-
-**NOTA**: Debes eliminar los controladores *check_session* y *restrict_access* de *app.rb* para acceder al panel de control y crear un usuario con permisos administrativos. De lo contrario, no podrás acceder al sistema. No olvides agregar los controladores de nuevo una vez hecho esto. :)
+Puedes ver el app en http://localhost:4567/signin iniciando sesión con los siguientes datos:
+* Cédula: 123456
+* Password: 123
 
 # Uso
 Esta aplicación web permite:
