@@ -1,13 +1,13 @@
 def authenticate(cedula, password)
   if User.where(cedulaUsuario: cedula).present?
 
-    query = User.where(cedulaUsuario: cedula).pluck(:passwordUsuario).to_s.gsub(/^\["|\"\]$/, '')
-    @user_hash = BCrypt::Password.new(query)
+    query = User.find_by(cedulaUsuario: cedula)
+    @user_hash = BCrypt::Password.new(query.passwordUsuario)
 
     if @user_hash == password
       session[:cedula] = cedula
-      session[:nombre] = User.where(cedulaUsuario: session[:cedula]).pluck(:nombreUsuario).to_s.gsub(/^\["|\"\]$/, '')
-      session[:rol] = User.where(cedulaUsuario: session[:cedula]).pluck(:nivelAcceso).to_s.gsub(/^\["|\"\]$/, '')
+      session[:nombre] = query.nombreUsuario
+      session[:rol] = query.nivelAcceso
       redirect '/dashboard'
     else
       redirect '/signin', error: 'Datos incorrectos, intente nuevamente.'

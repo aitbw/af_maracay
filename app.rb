@@ -17,13 +17,8 @@ def titulo(title)
   @page_title = title
 end
 
-before '/signin' do
-  redirect '/dashboard' if session[:cedula]
-end
-
 get '/signin' do
-  titulo('Iniciar sesión')
-  erb :signin, layout: :'layouts/login'
+  erb :signin
 end
 
 post '/signin' do
@@ -34,8 +29,6 @@ post '/signin' do
   end
 end
 
-check_session
-
 get '/dashboard' do
   titulo('Panel de control — Inicio')
   erb :index, layout: :'layouts/dashboard'
@@ -45,8 +38,6 @@ get '/logout' do
   session.clear
   redirect '/signin', notice: 'Usted ha cerrado sesión.'
 end
-
-restrict_access
 
 get '/dashboard/users/new_user' do
   titulo('Crear nuevo usuario — Panel de control')
@@ -78,7 +69,7 @@ get '/dashboard/users/delete/:id' do
     redirect '/dashboard/users', error: 'El usuario no existe.'
   else
     @id_usuario = params[:id]
-    @nombre = User.where(idUsuario: params[:id]).pluck(:nombreUsuario).to_s.gsub(/^\["|\"\]$/, '')
+    @query = User.find(params[:id])
     titulo('Eliminar usuario — Panel de control')
     erb :delete_user, layout: :'layouts/dashboard'
   end
@@ -164,7 +155,7 @@ get '/dashboard/teachers/delete/:id' do
     redirect '/dashboard/teachers', error: 'El profesor no existe.'
   else
     @id_profesor = params[:id]
-    @nombre = Teacher.where(idProfesor: params[:id]).pluck(:nombreProfesor).to_s.gsub(/^\["|\"\]$/, '')
+    @query = Teacher.find(params[:id])
     titulo('Eliminar profesor — Panel de control')
     erb :delete_teacher, layout: :'layouts/dashboard'
   end
