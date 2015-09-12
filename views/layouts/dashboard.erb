@@ -1,138 +1,91 @@
 <!-- color: #DA002E, #970202, #870724 -->
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/foundation.css")%>">
-    <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/flash_messages.css")%>">
-    <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/responsive-tables.css")%>">
+    <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap.css")%>">
+    <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/fixed-navbar_footer.css")%>">
     <title><%= @page_title %> | AF Maracay</title>
-</head>
+  </head>
 
-<body>
-  <nav class="top-bar" data-topbar role="navigation">
-    <ul class="title-area">
-      <li class="name">
-        <h1><a href="/dashboard">AF Maracay</a></h1>
-      </li>
-    </ul>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/dashboard">AF Maracay</a>
+        </div>
 
-    <section class="top-bar-section">
-      <ul class="right">
-        <li class="active"><a href="/dashboard/change_password"><%= session[:nombre] %></a></li>
-        <li><a href="/logout">Salir del sistema</a></li>
-      </ul>
-
-      <ul class="left">
-        <li class="has-dropdown not-click">
-          <a>Controles</a>
-          <ul class="dropdown">
-            <li class="has-dropdown not-click">
-              <a href="#">Cuotas</a>
-                <ul class="dropdown">
-                  <li><a href="#">Morosos</a></li>
-                  <li><a href="#">Solventes</a></li>
-                </ul>
-            </li>
-
-            <li class="has-dropdown not-click">
-              <a href="#">Cursos</a>
-              <ul class="dropdown">
-                <li><a href="#">Nuevo curso</a></li>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Controles<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Cuotas</a></li>
+                <li><a href="#">Cursos</a></li>
+                <li><a href="#">Estudiantes</a></li>
+                <li><a href="#">Inscripciones</a></li>
+                <li><a href="/dashboard/teachers">Profesores</a></li>
+                <li><a href="#">Secciones</a></li>
               </ul>
             </li>
 
-            <li class="has-dropdown not-click">
-              <a href="#">Estudiantes</a>
-              <ul class="dropdown">
-                <li><a href="#">Nuevo estudiante</a></li>
-                <li><a href="#">Reasignar estudiante</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Inventario<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Movimientos</a></li>
+                <li><a href="#">Ver inventario</a></li>
               </ul>
             </li>
 
-            <li class="has-dropdown not-click">
-              <a href="#">Inscripciones</a>
-              <ul class="dropdown">
-                <li><a href="#">Inscribir estudiante</a></li>
-                <li><a href="#">Estudiantes no inscritos</a></li>
-              </ul>
-            </li>
-
-            <li class="has-dropdown not-click">
-              <a href="/dashboard/teachers">Profesores</a>
-              <ul class="dropdown">
-                <% if session[:rol] == "Admin" %>
-                <li><a href="/dashboard/teachers/add_bank_account">Asignar cuenta bancaria</a></li>
-                <% end %>
-                <li><a href="/dashboard/teachers/new_teacher">Nuevo profesor</a></li>
-                <li><a href="#">Reasignar profesor</a></li>
-              </ul>
-            </li>
-
-            <li class="has-dropdown not-click">
-              <a href="#">Secciones</a>
-              <ul class="dropdown">
-                <li><a href="#">Nueva sección</a></li>
-                <li><a href="#">Reasignar sección</a></li>
-              </ul>
-            </li>
-          </ul>
-
-          <li class="has-dropdown not-click">
-            <a href="#">Inventario</a>
-            <ul class="dropdown">
-              <li><a href="#">Movimientos</a></li>
-            </ul>
-          </li>
-
-          <% if session[:rol] == "Admin" %>
-            <li class="has-dropdown not-click">
-              <a href="#">Reportes</a>
-              <ul class="dropdown">
+            <% if session[:rol] == "Admin" %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes<span class="caret"></span></a>
+              <ul class="dropdown-menu">
                 <li><a href="#">Generar reporte</a></li>
+                <li><a href="#">Ver reportes</a>
               </ul>
             </li>
 
             <li><a href="#">Salarios</a></li>
 
-            <li class="has-dropdown not-click">
-              <a href="/dashboard/users">Usuarios</a>
-              <ul class="dropdown">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/dashboard/users">Lista de usuarios</a></li>
                 <li><a href="/dashboard/users/new_user">Nuevo usuario</a></li>
               </ul>
             </li>
           <% end %>
-      </ul>
-    </section>
-  </nav>
-
-  <div id="main">
-    <%= yield %>
-  </div>
-
-  <footer class="row">
-    <div class="large-12 columns">
-    <hr/>
-      <div class="row">
-        <div class="large-6 columns">
-          <p>© 2015 Alliance Française Maracay, todos los derechos reservados.</p>
-          <p>Calle El Rosal, cruce con Av. Los Laureles. Urb. La Floresta. Maracay, Edo. Aragua, Venezuela.</p>
-          <p>RIF.: J-40267998-0</p>
-        </div>
-
-        <div class="large-6 columns">
-          <ul class="inline-list right">
-            <li><a href="#">Español</a></li>
-            <li><a href="#">Français</a></li>
           </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="/dashboard/change_password"><%= session[:nombre] %></a></li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lenguaje<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Español</a></li>
+                <li><a href="#">Français</a></li>
+              </ul>
+            </li>
+
+            <li><a href="/logout">Cerrar sesión</a></li>
+          </ul>
+
         </div>
       </div>
+    </nav>
+
+    <div id="wrap" class="container">
+      <%= yield %>
     </div>
-  </footer>
 
-  <script type="text/javascript" src="<%=url("/javascript/responsive-tables.js")%>"></script>
+    <!-- TO-DO: Footer -->
 
-</body>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="<%=url("/javascript/bootstrap.js")%>"></script>
+
+  </body>
 </html>

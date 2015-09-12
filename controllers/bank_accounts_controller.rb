@@ -1,7 +1,7 @@
 def asignar_cuenta
-  query = Teacher.find(params[:profesor])
+  query = Teacher.find(params[:id])
 
-  @cuentas = Account.new(idProfesor: params[:profesor], idBanco: params[:banco], numeroCuenta: params[:numero], tipoCuenta: params[:tipo])
+  @cuentas = Account.new(idProfesor: params[:id], idBanco: params[:banco], numeroCuenta: params[:numero], tipoCuenta: params[:tipo])
 
   if @cuentas.save
     redirect '/dashboard/teachers', notice: "Cuenta asignada a #{query.nombreProfesor}"

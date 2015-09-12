@@ -1,34 +1,44 @@
-<div class="row">
-  <% if flash[:notice] %>
-    <p class="notice"><%= flash[:notice] %></p>
-  <% end %>
-  <% if flash[:error] %>
-    <p class="error"><%= flash[:error] %></p>
-  <% end %>
-  <table class="responsive">
-    <thead>
+<% if flash[:notice] %>
+  <p class="text-success"><%= flash[:notice] %></p>
+<% end %>
+<% if flash[:error] %>
+  <p class="text-danger"><%= flash[:error] %></p>
+<% end %>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Nombre</th>
+      <th scope="col">Correo</th>
+      <th scope="col">Teléfono</th>
+      <th scope="col">Cédula</th>
+      <th scope="col">Fecha de ingreso</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @teachers.each do |teacher| %>
       <tr>
-        <th scope="col">Nombre</th>
-        <th scope="col">Correo</th>
-        <th scope="col">Teléfono</th>
-        <th scope="col">Cédula</th>
-        <th scope="col">Fecha de ingreso</th>
-        <th scope="col">Modificar</th>
-        <th scope="col">Eliminar</th>
+        <td><%= teacher.nombreProfesor %></td>
+        <td><%= teacher.correoProfesor %></td>
+        <td><%= teacher.telefonoProfesor %></td>
+        <td><%= teacher.cedulaProfesor %></td>
+        <td><%= teacher.fechaIngreso %></td>
+        <td>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <% if session[:rol] == "Admin" %>
+              <li><a href="/dashboard/teachers/add_bank_account/<%= teacher.idProfesor %>">Asignar cuenta bancaria</a></li>
+              <% end %>
+              <li><a href="/dashboard/teachers/delete/<%= teacher.idProfesor %>">Eliminar</a></li>
+              <li><a href="/dashboard/teachers/edit/<%= teacher.idProfesor %>">Modificar</a></li>
+              <li><a href="/dashboard/teachers/reasign_teacher/<%= teacher.idProfesor %>">Reasignar</a></li>
+            </ul>
+          </div>
+        </td>
       </tr>
-    </thead>
-    <tbody>
-      <% @teachers.each do |teacher| %>
-        <tr>
-          <td><%= teacher.nombreProfesor %></td>
-          <td><%= teacher.correoProfesor %></td>
-          <td><%= teacher.telefonoProfesor %></td>
-          <td><%= teacher.cedulaProfesor %></td>
-          <td><%= teacher.fechaIngreso %></td>
-          <td><a href="/dashboard/teachers/edit/<%= teacher.idProfesor %>">Modificar</a></td>
-          <td><a href="/dashboard/teachers/delete/<%= teacher.idProfesor %>">Eliminar</a></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
+    <% end %>
+  </tbody>
+</table>
+
+<a href="/dashboard/teachers/new_teacher" class="btn btn-success">Crear nuevo profesor</a>

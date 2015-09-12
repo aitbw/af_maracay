@@ -1,12 +1,10 @@
-<div class="row">
-  <% if @id_usuario %>
-    <p>¿Está seguro de que quiere eliminar al usuario <b><%= @query.nombreUsuario %></b>?</p>
-      <form action="/delete_user/<%= @id_usuario %>" method="POST">
-        <input type="hidden" name="_method" value="DELETE">
-        <input type="submit" value="Eliminar" class="button small danger">
-        <a href="/dashboard/users" class="button small secondary">Cancelar</a>
-      </form>
-  <% else %>
-    <p>No se encuentra el usuario.</p>
-  <% end %>
-</div>
+<% if @id_usuario %>
+  <p>¿Está seguro de que quiere eliminar al usuario <b><%= @query.nombreUsuario %></b>?</p>
+    <form action="/delete_user/<%= @id_usuario %>" method="POST">
+      <input type="hidden" name="_method" value="DELETE">
+      <button type="submit" class="btn btn-success">Eliminar</button>
+      <a href="/dashboard/users" class="btn btn-default">Cancelar</a>
+    </form>
+<% else %>
+  <p>No se encuentra el usuario.</p>
+<% end %>

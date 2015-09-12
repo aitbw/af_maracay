@@ -1,26 +1,26 @@
-<div class="row">
-  <form id="actualizar" action="/edit_user/<%= @id_usuario %>" method="POST">
-    <fieldset>
-      <legend>Actualizar datos</legend>
-      <% if flash[:notice] %>
-        <p class="notice"><%= flash[:notice] %></p>
-      <% end %>
-      <% if flash[:error] %>
-        <p class="error"><%= flash[:error] %></p>
-      <% end %>
-      <label>Nombre</label>
-        <input type="text" name="nombre">
-      <label>Cédula</label>
-        <input type="text" name="cedula">
-        <label>Rol</label>
-          <select name="rol">
-            <option value="empty">Rol</option>
-            <option value="Admin">Administrador</option>
-            <option value="Recepcionista">Recepcionista</option>
-          </select>
-        <input type="hidden" name="_method" value="PUT">
-        <input type="submit" id="editButton" class="button small" value="Actualizar">
-        <a href="/dashboard/users" class="button small secondary">Cancelar</a>
-    </fieldset>
-  </form>
-</div>
+<form id="actualizar" action="/edit_user/<%= @id_usuario %>" method="POST">
+  <% if flash[:notice] %>
+    <p class="text-success"><%= flash[:notice] %></p>
+  <% end %>
+  <% if flash[:error] %>
+    <p class="text-danger"><%= flash[:error] %></p>
+  <% end %>
+  <div class="form-group">
+    <label>Nombre</label>
+    <input type="text" class="form-control" name="nombre" placeholder="Nombre">
+  </div>
+  <div class="form-group">
+    <label>Cédula</label>
+    <input type="text" class="form-control" name="cedula" placeholder="Cédula">
+  </div>
+  <label>Rol</label>
+  <select name="rol" class="form-control">
+    <option value="empty">Rol</option>
+    <option value="Admin">Administrador</option>
+    <option value="Recepcionista">Recepcionista</option>
+  </select>
+  <input type="hidden" name="_method" value="PUT">
+  <br />
+  <button type="submit" class="btn btn-success">Actualizar</button>
+  <a href="/dashboard/users" class="btn btn-default">Cancelar</a>
+</form>

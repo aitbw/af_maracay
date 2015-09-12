@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/foundation.css")%>">
+    <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap.css")%>">
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/flash_messages.css")%>">
+    <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/signin.css")%>">
     <title>Iniciar sesión | AF Maracay</title>
-</head>
+  </head>
 
-<body>
+  <body>
 
-<div class="row">
-  <form id="login" action="/signin" method="POST">
-    <fieldset>
-      <legend>Iniciar sesión</legend>
+    <div class="container">
+      <form class="form-signin" action="/signin" method="POST">
+        <h2 class="form-signin-heading">Iniciar sesión</h2>
         <% if flash[:notice] %>
-          <p class="notice"><%= flash[:notice] %></p>
+          <p class="text-success"><%= flash[:notice] %></p>
         <% end %>
         <% if flash[:error] %>
-          <p class="error"><%= flash[:error] %></p>
+          <p class="text-danger"><%= flash[:error] %></p>
         <% end %>
-        <label>Cédula</label>
-            <input type="text" name="cedula">
-        <label>Contraseña</label>
-            <input type="password" name="password">
-        <input type="submit" id="loginButton" class="button small" value="Iniciar sesión">
-    </fieldset>
-  </form>
-</div>
+        <input type="text" class="form-control" name="cedula" placeholder="Cédula" autofocus>
+        <input type="password" class="form-control" name="password" placeholder="Contraseña">
+        <button class="btn btn-lg btn-danger btn-block" type="submit">Iniciar sesión</button>
+      </form>
+    </div>
 
-</body>
+  </body>
 </html>

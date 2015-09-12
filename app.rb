@@ -125,7 +125,7 @@ end
 
 get '/dashboard/change_password' do
   titulo('Cambiar contraseña — Panel de control')
-  @id_usuario = User.where(cedulaUsuario: session[:cedula]).pluck(:idUsuario).to_s.gsub(/\W/, '')
+  @query = User.find_by(cedulaUsuario: session[:cedula])
   erb :change_password, layout: :'layouts/dashboard'
 end
 
@@ -222,14 +222,20 @@ put '/edit_teacher/:id' do
   end
 end
 
-get '/dashboard/teachers/add_bank_account' do
-  titulo('Asignar cuenta bancaria — Panel de control')
-  @teachers = Teacher.select(:idProfesor, :nombreProfesor)
-  @banks = Bank.all
-  erb :add_bank_account, layout: :'layouts/dashboard'
+get '/dashboard/teachers/add_bank_account/:id' do
+  begin
+    Teacher.find(params[:id]).present?
+  rescue ActiveRecord::RecordNotFound
+    redirect '/dashboard/teachers', error: 'El profesor no existe.'
+  else
+    titulo('Asignar cuenta bancaria — Panel de control')
+    @id_profesor = params[:id]
+    @banks = Bank.all
+    erb :add_bank_account, layout: :'layouts/dashboard'
+  end
 end
 
-post '/dashboard/teachers/add_bank_account' do
+post '/dashboard/teachers/add_bank_account/:id' do
   asignar_cuenta
 end
 

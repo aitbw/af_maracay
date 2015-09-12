@@ -1,33 +1,27 @@
-<div class="row">
-  <form id="registro" action="/dashboard/teachers/add_bank_account" method="POST">
-    <fieldset>
-      <legend>Asignar cuenta bancaria</legend>
-        <% if flash[:notice] %>
-          <p class="notice"><%= flash[:notice] %></p>
-        <% end %>
-        <% if flash[:error] %>
-          <p class="error"><%= flash[:error] %></p>
-        <% end %>
-        <label>Profesor</label>
-          <select name="profesor">
-            <% @teachers.each do |teacher| %>
-            <option value="<%= teacher.idProfesor %>"><%= teacher.nombreProfesor %></option>
-            <% end %>
-          </select>
-        <label>Banco</label>
-          <select name="banco">
-            <% @banks.each do |bank| %>
-            <option value="<%= bank.idBanco %>"><%= bank.nombreBanco %></option>
-            <% end %>
-          </select>
-        <label>Número de cuenta</label>
-          <input type="text" name="numero">
-        <label>Tipo de cuenta</label>
-          <select name="tipo">
-            <option value="Ahorro">Ahorro</option>
-            <option value="Corriente">Corriente</option>
-          </select>
-        <input type="submit" id="registerButton" class="button small" value="Asignar cuenta">
-    </fieldset>
-  </form>
-</div>
+<form id="registro" action="/dashboard/teachers/add_bank_account/<%= @id_profesor %>" method="POST">
+  <% if flash[:notice] %>
+    <p class="text-success"><%= flash[:notice] %></p>
+  <% end %>
+  <% if flash[:error] %>
+    <p class="text-danger"><%= flash[:error] %></p>
+  <% end %>
+  <label>Banco</label>
+  <select name="banco" class="form-control">
+    <% @banks.each do |bank| %>
+      <option value="<%= bank.idBanco %>"><%= bank.nombreBanco %></option>
+    <% end %>
+  </select>
+  <br />
+  <div class="form-group">
+    <label>Número de cuenta</label>
+    <input type="text" class="form-control" name="numero" placeholder="Número de cuenta">
+  </div>
+  <label>Tipo de cuenta</label>
+    <select name="tipo" class="form-control">
+      <option value="Ahorro">Ahorro</option>
+      <option value="Corriente">Corriente</option>
+    </select>
+  <br />
+  <button type="submit" class="btn btn-success">Asignar cuenta</button>
+  <a href="/dashboard/teachers" class="btn btn-default">Cancelar</a>
+</form>
