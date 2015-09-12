@@ -12,7 +12,7 @@ Esta aplicación está constituida de las siguientes tecnologías:
 * [Sinatra](https://github.com/sinatra/sinatra)
 * [MySQL](https://www.mysql.com/)
 * [ActiveRecord](https://github.com/janko-m/sinatra-activerecord)
-* [Foundation by ZURB](http://foundation.zurb.com/)
+* [Bootstrap](http://getbootstrap.com/)
 
 # Instalación
 * Clona este repositorio
