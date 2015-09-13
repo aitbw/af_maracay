@@ -16,7 +16,6 @@ Esta aplicación está constituida de las siguientes tecnologías:
 
 # Instalación
 * Clona este repositorio
-* Crea una base de datos en MySQL
 * Añade a tu *environment* cuatro (4) variables para la base de datos, usuario, *password* y URL de MySQL
 * Accede a la carpeta del proyecto
 * En /config, crea un 'database.yml' y agrega lo siguiente:
