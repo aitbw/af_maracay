@@ -1,10 +1,24 @@
 <% if @id_profesor %>
-  <p>¿Está seguro de que quiere eliminar al profesor <b><%= @query.nombreProfesor %></b>?</p>
-    <form action="/delete_teacher/<%= @id_profesor %>" method="POST">
-      <input type="hidden" name="_method" value="DELETE">
-      <button type="submit" class="btn btn-success">Eliminar</button>
-      <a href="/dashboard/teachers" class="btn btn-default">Cancelar</a>
-    </form>
-<% else %>
-  <p>No se encuentra el profesor.</p>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">Eliminar profesor</h3>
+    </div>
+
+    <div class="panel-body">
+        <p>¿Está usted seguro de <b>eliminar</b> este profesor? Esta acción no puede ser revertida.</p>
+        <li><b>Nombre</b>: <%= @query.nombreProfesor %></li>
+        <li><b>Correo</b>: <%= @query.correoProfesor %></li>
+        <li><b>Teléfono</b>: <%= @query.telefonoProfesor %></li>
+        <li><b>Cédula</b>: <%= @query.cedulaProfesor %></li>
+        <li><b>Fecha de ingreso</b>: <%= @query.fechaIngreso %></li>
+        <br />
+        <form action="/delete_teacher/<%= @id_profesor %>" method="POST">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+          <a href="/dashboard/teachers" class="btn btn-default">Cancelar</a>
+        </form>
+        <% else %>
+          <p>No se encuentra el profesor.</p>
+    </div>
+  </div>
 <% end %>
