@@ -1,0 +1,39 @@
+<% if flash[:notice] %>
+  <p class="text-success"><%= flash[:notice] %></p>
+<% end %>
+<% if flash[:error] %>
+  <p class="text-danger"><%= flash[:error] %></p>
+<% end %>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Banco</th>
+      <th scope="col">Número de cuenta</th>
+      <th scope="col">Tipo de cuenta</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @accounts.each do |account| %>
+    <% Bank.where(idBanco: account.idBanco).each do |bank| %>
+      <tr>
+        <td><%= bank.nombreBanco %></td>
+        <td><%= account.numeroCuenta %></td>
+        <td><%= account.tipoCuenta %></td>
+        <td>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="/dashboard/teachers/bank_accounts/<%= @id_profesor %>/delete/<%= account.idCuentaBanco %>">Eliminar</a></li>
+              <li><a href="/dashboard/teachers/bank_accounts/<%= @id_profesor %>/edit/<%= account.idCuentaBanco %>">Modificar</a></li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<a href="/dashboard/teachers/bank_accounts/<%= @id_profesor %>/add" class="btn btn-success">Asignar cuenta bancaria</a>
+<a href="/dashboard/teachers" class="btn btn-default">Atrás</a>

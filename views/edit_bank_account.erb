@@ -1,0 +1,33 @@
+<form id="actualizar" action="/<%= @id_profesor %>/edit_bank_account/<%= @id_cuenta %>" method="POST">
+  <% if flash[:notice] %>
+    <p class="text-success"><%= flash[:notice] %></p>
+  <% end %>
+  <% if flash[:error] %>
+    <p class="text-danger"><%= flash[:error] %></p>
+  <% end %>
+  <label>Banco</label>
+  <select name="banco" class="form-control">
+    <% @bank.each do |bank| %>
+    <option value="<%= bank.idBanco %>"><%= bank.nombreBanco %></option>
+    <% end %>
+  </select>
+  <br />
+  <div class="form-group">
+    <label>Número de cuenta</label>
+    <textarea name="numero" class="form-control"><%= @cuenta.numeroCuenta %></textarea>
+  </div>
+  <label>Tipo de cuenta</label>
+  <select name="tipo" class="form-control">
+    <% if @cuenta.tipoCuenta == "Ahorro" %>
+    <option value="Ahorro" selected>Ahorro</option>
+    <option value="Corriente">Corriente</option>
+    <% else %>
+    <option value="Ahorro">Ahorro</option>
+    <option value="Corriente" selected>Corriente</option>
+    <% end %>
+  </select>
+  <br />
+  <input type="hidden" name="_method" value="PUT">
+  <button type="submit" class="btn btn-success">Actualizar</button>
+  <a href="/dashboard/teachers/bank_accounts/<%= @id_profesor %>" class="btn btn-default">Cancelar</a>
+</form>

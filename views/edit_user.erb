@@ -7,17 +7,21 @@
   <% end %>
   <div class="form-group">
     <label>Nombre</label>
-    <input type="text" class="form-control" name="nombre" placeholder="Nombre">
+    <textarea name="nombre" class="form-control"><%= @user.nombreUsuario %></textarea>
   </div>
   <div class="form-group">
     <label>Cédula</label>
-    <input type="text" class="form-control" name="cedula" placeholder="Cédula">
+    <textarea name="cedula" class="form-control"><%= @user.cedulaUsuario %></textarea>
   </div>
   <label>Rol</label>
   <select name="rol" class="form-control">
-    <option value="empty">Rol</option>
-    <option value="Admin">Administrador</option>
+  <% if @user.nivelAcceso == "Admin" %>
+    <option value="Admin" selected>Administrador</option>
     <option value="Recepcionista">Recepcionista</option>
+  <% else %>
+    <option value="Admin">Administrador</option>
+    <option value="Recepcionista" selected>Recepcionista</option>
+  <% end %>
   </select>
   <input type="hidden" name="_method" value="PUT">
   <br />

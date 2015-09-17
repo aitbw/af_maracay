@@ -28,11 +28,11 @@
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
             <ul class="dropdown-menu">
               <% if session[:rol] == "Admin" %>
-              <li><a href="/dashboard/teachers/add_bank_account/<%= teacher.idProfesor %>">Asignar cuenta bancaria</a></li>
+              <li><a href="/dashboard/teachers/bank_accounts/<%= teacher.idProfesor %>">Cuentas bancarias</a></li>
               <% end %>
               <li><a href="/dashboard/teachers/delete/<%= teacher.idProfesor %>">Eliminar</a></li>
               <li><a href="/dashboard/teachers/edit/<%= teacher.idProfesor %>">Modificar</a></li>
-              <li><a href="/dashboard/teachers/reasign_teacher/<%= teacher.idProfesor %>">Reasignar</a></li>
+              <li><a href="/dashboard/teachers/reassign/<%= teacher.idProfesor %>">Reasignar</a></li>
             </ul>
           </div>
         </td>

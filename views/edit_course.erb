@@ -1,0 +1,38 @@
+<form id="actualizar" action="/edit_course/<%= @id_curso %>" method="POST">
+  <% if flash[:notice] %>
+    <p class="text-success"><%= flash[:notice] %></p>
+  <% end %>
+  <% if flash[:error] %>
+    <p class="text-danger"><%= flash[:error] %></p>
+  <% end %>
+  <label>Tipo</label>
+  <select name="tipo" class="form-control">
+    <% @tipos.each do |tipo| %>
+    <option value="<%= tipo.idTipoCurso %>"><%= tipo.tipoCurso %></option>
+    <% end %>
+  </select>
+  <br />
+  <div class="form-group">
+    <label>Nivel</label>
+    <textarea name="nivel" class="form-control"><%= @query.nivelCurso %></textarea>
+  </div>
+  <div class="form-group">
+    <label>Capacidad</label>
+    <textarea name="capacidad" class="form-control"><%= @query.capacidadCurso %></textarea>
+  </div>
+  <div class="form-group">
+    <label>Inicio del curso</label>
+    <textarea name="inicio" class="form-control"><%= @query.inicioCurso %></textarea>
+  </div>
+  <div class="form-group">
+    <label>Fin del curso</label>
+    <textarea name="fin" class="form-control"><%= @query.finCurso %></textarea>
+  </div>
+  <div class="form-group">
+    <label>Horas académicas</label>
+    <textarea name="horas" class="form-control"><%= @query.horasCurso %></textarea>
+  </div>
+  <input type="hidden" name="_method" value="PUT">
+  <button type="submit" class="btn btn-success">Actualizar</button>
+  <a href="/dashboard/courses" class="btn btn-default">Cancelar</a>
+</form>

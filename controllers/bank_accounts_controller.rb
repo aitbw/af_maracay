@@ -1,11 +1,11 @@
 def asignar_cuenta
   query = Teacher.find(params[:id])
 
-  @cuentas = Account.new(idProfesor: params[:id], idBanco: params[:banco], numeroCuenta: params[:numero], tipoCuenta: params[:tipo])
+  new_account = Account.new(idProfesor: params[:id], idBanco: params[:banco], numeroCuenta: params[:numero], tipoCuenta: params[:tipo])
 
-  if @cuentas.save
-    redirect '/dashboard/teachers', notice: "Cuenta asignada a #{query.nombreProfesor}"
+  if new_account.save
+    redirect "/dashboard/teachers/bank_accounts/#{params[:id]}", notice: "Cuenta asignada a #{query.nombreProfesor}"
   else
-    redirect '/dashboard/teachers', error: 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/teachers/bank_accounts/#{params[:id]}/add", error: 'Ha ocurrido un error, intente nuevamente.'
   end
 end

@@ -1,0 +1,27 @@
+<% if @id_curso %>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">Eliminar curso</h3>
+    </div>
+
+    <div class="panel-body">
+        <p>¿Está usted seguro de <b>eliminar</b> este curso? Esta acción no puede ser revertida.</p>
+        <% Type.where(idTipoCurso: @query.idTipoCurso).select(:tipoCurso).each do |tipo| %>
+        <li><b>Tipo</b>: <%= tipo.tipoCurso %></li>
+        <% end %>
+        <li><b>Nivel</b>: <%= @query.nivelCurso %></li>
+        <li><b>Capacidad</b>: <%= @query.capacidadCurso %></li>
+        <li><b>Fecha de inicio</b>: <%= @query.inicioCurso %></li>
+        <li><b>Fecha de culminación</b>: <%= @query.finCurso %></li>
+        <li><b>Horas académicas</b>: <%= @query.horasCurso %></li>
+        <br />
+        <form action="/delete_course/<%= @id_curso %>" method="POST">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+          <a href="/dashboard/courses" class="btn btn-default">Cancelar</a>
+        </form>
+        <% else %>
+          <p>No se encuentra el curso.</p>
+    </div>
+  </div>
+<% end %>

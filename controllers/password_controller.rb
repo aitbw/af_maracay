@@ -1,10 +1,10 @@
 def change_password
-  if params[:password].blank? || params[:confirm].blank?
+  if (params[:password] || params[:confirm]).blank?
     redirect '/dashboard/change_password', error: 'Debe completar todos los campos.'
   elsif params[:password] != params[:confirm]
     redirect '/dashboard/change_password', error: 'Los campos no coinciden.'
   else
-    u = User.find(params[:id])
+    u = User.find_by(cedulaUsuario: session[:cedula])
 
     new_password = BCrypt::Password.create(params[:password])
 

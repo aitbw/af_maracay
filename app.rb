@@ -7,8 +7,7 @@ require 'sinatra/redirect_with_flash'
 require 'tilt/erubis'
 require 'bcrypt'
 require './environments'
-Dir['./controllers/*.rb'].each { |file| require file }
-Dir['./models/*.rb'].each { |file| require file }
+Dir['./controllers/*.rb', './models/*.rb'].each { |file| require file }
 
 enable :sessions
 set :session_secret, SecureRandom.hex(64)
@@ -22,7 +21,7 @@ get '/signin' do
 end
 
 post '/signin' do
-  if params[:cedula].blank? || params[:password].blank?
+  if (params[:cedula] || params[:password]).blank?
     redirect '/signin', error: 'Debe completar todos los campos.'
   else
     authenticate(params[:cedula], params[:password])
@@ -39,6 +38,12 @@ get '/logout' do
   redirect '/signin', notice: 'Usted ha cerrado sesión.'
 end
 
+get '/dashboard/users' do
+  titulo('Lista de usuarios — Panel de control')
+  @users = User.all
+  erb :users, layout: :'layouts/dashboard'
+end
+
 get '/dashboard/users/new_user' do
   titulo('Crear nuevo usuario — Panel de control')
   erb :new_user, layout: :'layouts/dashboard'
@@ -47,19 +52,13 @@ end
 post '/dashboard/users/new_user' do
   secure_pass = BCrypt::Password.create(params[:password])
 
-  @usuarios = User.new(nombreUsuario: params[:nombre], cedulaUsuario: params[:cedula], passwordUsuario: secure_pass, nivelAcceso: params[:rol])
+  new_user = User.new(nombreUsuario: params[:nombre], cedulaUsuario: params[:cedula], passwordUsuario: secure_pass, nivelAcceso: params[:rol])
 
-  if @usuarios.save
+  if new_user.save
     redirect '/dashboard/users/new_user', notice: 'Usuario creado exitosamente.'
   else
     redirect '/dashboard/users/new_user', error: 'Ha ocurrido un error, intente nuevamente.'
   end
-end
-
-get '/dashboard/users' do
-  titulo('Lista de usuarios — Panel de control')
-  @users = User.all
-  erb :users, layout: :'layouts/dashboard'
 end
 
 get '/dashboard/users/delete/:id' do
@@ -79,7 +78,7 @@ delete '/delete_user/:id' do
   if User.destroy(params[:id])
     redirect '/dashboard/users', notice: 'Usuario eliminado.'
   else
-    redirect '/dashboard/users', error: 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/users/delete/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
   end
 end
 
@@ -90,6 +89,7 @@ get '/dashboard/users/edit/:id' do
     redirect '/dashboard/users', error: 'El usuario no existe.'
   else
     @id_usuario = params[:id]
+    @user = User.find(params[:id])
     titulo('Editar usuario — Panel de control')
     erb :edit_user, layout: :'layouts/dashboard'
   end
@@ -98,38 +98,36 @@ end
 put '/edit_user/:id' do
   u = User.find(params[:id])
 
-  u.nombreUsuario = params[:nombre] if params[:nombre].blank? == false
-
-  if params[:cedula].blank?
-    u.cedulaUsuario = u.cedulaUsuario
-  elsif /\d{6,8}/.match(params[:cedula]).nil?
-    redirect '/dashboard/users', error: 'Cédula inválida.'
-  elsif User.where(cedulaUsuario: params[:cedula]).present?
-    redirect '/dashboard/users', error: 'La cédula ya existe.'
-  else
-    u.cedulaUsuario = params[:cedula]
+  if params[:nombre].blank?
+    redirect "/dashboard/users/edit/#{params[:id]}", error: 'Debe completar todos los campos.'
   end
 
-  if params[:rol] == 'empty'
-    u.nivelAcceso = u.nivelAcceso
+  u.nombreUsuario = params[:nombre]
+  u.nivelAcceso = params[:rol]
+
+  if u.cedulaUsuario == params[:cedula]
+    u.cedulaUsuario = u.cedulaUsuario
+  elsif /\d{6,8}/.match(params[:cedula]).nil?
+    redirect "/dashboard/users/edit/#{params[:id]}", error: 'Cédula inválida.'
+  elsif User.where(cedulaUsuario: params[:cedula]).present?
+    redirect "/dashboard/users/edit/#{params[:id]}", error: 'La cédula ya existe.'
   else
-    u.nivelAcceso = params[:rol]
+    u.cedulaUsuario = params[:cedula]
   end
 
   if u.save
     redirect '/dashboard/users', notice: 'Datos actualizados.'
   else
-    redirect '/dashboard/users', error: 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/users/edit/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
   end
 end
 
 get '/dashboard/change_password' do
   titulo('Cambiar contraseña — Panel de control')
-  @query = User.find_by(cedulaUsuario: session[:cedula])
   erb :change_password, layout: :'layouts/dashboard'
 end
 
-put '/change_password/:id' do
+put '/change_password' do
   change_password
 end
 
@@ -140,7 +138,7 @@ get '/dashboard/teachers' do
 end
 
 get '/dashboard/teachers/new_teacher' do
-  titulo('Registrar nuevo profesor — Panel de control')
+  titulo('Crear nuevo profesor — Panel de control')
   erb :new_teacher, layout: :'layouts/dashboard'
 end
 
@@ -165,7 +163,7 @@ delete '/delete_teacher/:id' do
   if Teacher.destroy(params[:id])
     redirect '/dashboard/teachers', notice: 'Profesor eliminado.'
   else
-    redirect '/dashboard/teachers', error: 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/teachers/delete/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
   end
 end
 
@@ -176,6 +174,7 @@ get '/dashboard/teachers/edit/:id' do
     redirect '/dashboard/teachers', error: 'El profesor no existe.'
   else
     @id_profesor = params[:id]
+    @teacher = Teacher.find(params[:id])
     titulo('Editar profesor — Panel de control')
     erb :edit_teacher, layout: :'layouts/dashboard'
   end
@@ -185,32 +184,34 @@ put '/edit_teacher/:id' do
   t = Teacher.find(params[:id])
   EMAIL_REGEX ||= /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
-  t.nombreProfesor = params[:nombre] if params[:nombre].blank? == false
+  if params[:nombre].blank?
+    redirect "/dashboard/teachers/edit/#{params[:id]}", error: 'Debe completar todos los campos.'
+  end
 
-  if params[:correo].blank?
+  t.nombreProfesor = params[:nombre]
+
+  if t.correoProfesor == params[:correo]
     t.correoProfesor = t.correoProfesor
   elsif EMAIL_REGEX.match(params[:correo]).nil?
-    redirect '/dashboard/teachers', error: 'Correo inválido.'
+    redirect "/dashboard/teachers/edit/#{params[:id]}", error: 'Correo inválido.'
   elsif Teacher.where(correoProfesor: params[:correo]).present?
-    redirect '/dashboard/teachers', error: 'El correo ya existe.'
+    redirect "/dashboard/teachers/edit/#{params[:id]}", error: 'El correo ya existe.'
   else
     t.correoProfesor = params[:correo]
   end
 
-  if params[:telefono].blank?
-    t.telefonoProfesor = t.telefonoProfesor
-  elsif /\d{4}-?\d{7}/.match(params[:telefono]).nil?
-    redirect '/dashboard/teachers', error: 'Número inválido.'
+  if /\d{4}-?\d{7}/.match(params[:telefono]).nil?
+    redirect "/dashboard/teachers/edit/#{params[:id]}", error: 'Número inválido.'
   else
     t.telefonoProfesor = params[:telefono]
   end
 
-  if params[:cedula].blank?
+  if t.cedulaProfesor == params[:cedula]
     t.cedulaProfesor = t.cedulaProfesor
   elsif /\d{6,8}/.match(params[:cedula]).nil?
-    redirect '/dashboard/teachers', error: 'Cédula inválida.'
+    redirect "/dashboard/teachers/edit/#{params[:id]}", error: 'Cédula inválida.'
   elsif Teacher.where(cedulaProfesor: params[:cedula]).present?
-    redirect '/dashboard/teachers', error: 'La cédula ya existe.'
+    redirect "/dashboard/teachers/edit/#{params[:id]}", error: 'La cédula ya existe.'
   else
     t.cedulaProfesor = params[:cedula]
   end
@@ -218,11 +219,24 @@ put '/edit_teacher/:id' do
   if t.save
     redirect '/dashboard/teachers', notice: 'Datos actualizados.'
   else
-    redirect '/dashboard/teachers', error: 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/teachers/edit/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
   end
 end
 
-get '/dashboard/teachers/add_bank_account/:id' do
+get '/dashboard/teachers/bank_accounts/:id' do
+  begin
+    Teacher.find(params[:id]).present?
+  rescue ActiveRecord::RecordNotFound
+    redirect '/dashboard/teachers', error: 'El profesor no existe.'
+  else
+    titulo('Cuentas bancarias — Panel de control')
+    @id_profesor = params[:id]
+    @accounts = Account.where(idProfesor: params[:id])
+    erb :bank_accounts, layout: :'layouts/dashboard'
+  end
+end
+
+get '/dashboard/teachers/bank_accounts/:id/add' do
   begin
     Teacher.find(params[:id]).present?
   rescue ActiveRecord::RecordNotFound
@@ -235,8 +249,136 @@ get '/dashboard/teachers/add_bank_account/:id' do
   end
 end
 
-post '/dashboard/teachers/add_bank_account/:id' do
+post '/dashboard/teachers/bank_accounts/:id/add' do
   asignar_cuenta
+end
+
+get '/dashboard/teachers/bank_accounts/:idT/delete/:idC' do
+  begin
+    (Teacher.find(params[:idT]) || Account.find(params[:idC])).present?
+  rescue ActiveRecord::RecordNotFound
+    redirect '/dashboard/teachers', error: 'El profesor o la cuenta bancaria asociada no existen.'
+  else
+    titulo('Eliminar cuenta bancaria — Panel de control')
+    @id_profesor = params[:idT]
+    @id_cuenta = params[:idC]
+    @cuenta = Account.find(params[:idC])
+    erb :delete_bank_account, layout: :'layouts/dashboard'
+  end
+end
+
+delete '/:idT/delete_bank_account/:idC' do
+  if Account.destroy(params[:idC])
+    redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}", notice: 'Cuenta bancaria eliminada.'
+  else
+    redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}/delete/#{params[:idC]}", error: 'Ha ocurrido un error, intente nuevamente.'
+  end
+end
+
+get '/dashboard/teachers/bank_accounts/:idT/edit/:idC' do
+  begin
+    (Teacher.find(params[:idT]) || Account.find(params[:idC])).present?
+  rescue ActiveRecord::RecordNotFound
+    redirect '/dashboard/teachers', error: 'El profesor o la cuenta bancaria asociada no existen.'
+  else
+    titulo('Editar cuenta bancaria — Panel de control')
+    @id_profesor = params[:idT]
+    @id_cuenta = params[:idC]
+    @cuenta = Account.find(params[:idC])
+    @bank = Bank.all
+    erb :edit_bank_account, layout: :'layouts/dashboard'
+  end
+end
+
+put '/:idT/edit_bank_account/:idC' do
+  c = Account.find(params[:idC])
+
+  c.tipoCuenta = params[:tipo]
+  c.idBanco = params[:banco]
+
+  if /\d{20}/.match(params[:numero]).nil?
+    redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}/edit/#{params[:idC]}", error: 'Número de cuenta inválido.'
+  else
+    c.numeroCuenta = params[:numero]
+  end
+
+  if c.save
+    redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}", notice: 'Datos actualizados.'
+  else
+    redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}/edit/#{params[:idC]}", error: 'Ha ocurrido un error, intente nuevamente.'
+  end
+end
+
+get '/dashboard/courses' do
+  titulo('Cursos — Panel de control')
+  @courses = Course.all
+  erb :courses, layout: :'layouts/dashboard'
+end
+
+get '/dashboard/courses/new_course' do
+  titulo('Crear nuevo curso — Panel de control')
+  @types = Type.select(:idTipoCurso, :tipoCurso)
+  erb :new_course, layout: :'layouts/dashboard'
+end
+
+post '/dashboard/courses/new_course' do
+  nuevo_curso
+end
+
+get '/dashboard/courses/delete/:id' do
+  begin
+    Course.find(params[:id]).present?
+  rescue ActiveRecord::RecordNotFound
+    redirect '/dashboard/courses', error: 'El curso no existe.'
+  else
+    @id_curso = params[:id]
+    @query = Course.find(params[:id])
+    titulo('Eliminar curso — Panel de control')
+    erb :delete_course, layout: :'layouts/dashboard'
+  end
+end
+
+delete '/delete_course/:id' do
+  if Course.destroy(params[:id])
+    redirect '/dashboard/courses', notice: 'Curso eliminado.'
+  else
+    redirect "/dashboard/courses/delete/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
+  end
+end
+
+get '/dashboard/courses/edit/:id' do
+  begin
+    Course.find(params[:id]).present?
+  rescue ActiveRecord::RecordNotFound
+    redirect '/dashboard/courses', error: 'El curso no existe.'
+  else
+    @id_curso = params[:id]
+    @query = Course.find(params[:id])
+    @tipos = Type.all
+    titulo('Editar curso — Panel de control')
+    erb :edit_course, layout: :'layouts/dashboard'
+  end
+end
+
+put '/edit_course/:id' do
+  c = Course.find(params[:id])
+
+  if (params[:nivel] || params[:capacidad] || params[:inicio] || params[:fin] || params[:horas]).blank?
+    redirect "/dashboard/courses/edit/#{params[:id]}", error: 'Debe completar todos los campos.'
+  end
+
+  c.idTipoCurso = params[:tipo]
+  c.nivelCurso = params[:nivel]
+  c.capacidadCurso = params[:capacidad]
+  c.inicioCurso = params[:inicio]
+  c.finCurso = params[:fin]
+  c.horasCurso = params[:horas]
+
+  if c.save
+    redirect '/dashboard/courses', notice: 'Datos actualizados.'
+  else
+    redirect "/dashboard/courses/edit/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
+  end
 end
 
 not_found do

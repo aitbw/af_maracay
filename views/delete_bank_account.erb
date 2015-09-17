@@ -1,0 +1,27 @@
+<% if @id_cuenta %>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">Eliminar cuenta bancaria</h3>
+    </div>
+
+    <div class="panel-body">
+        <p>¿Está usted seguro de <b>eliminar</b> esta cuenta bancaria? Esta acción no puede ser revertida.</p>
+        <% Teacher.where(idProfesor: @cuenta.idProfesor).select(:nombreProfesor).each do |teacher| %>
+        <li><b>Titular</b>: <%= teacher.nombreProfesor %></li>
+        <% end %>
+        <% Bank.where(idBanco: @cuenta.idBanco).each do |bank| %>
+        <li><b>Banco</b>: <%= bank.nombreBanco %></li>
+        <% end %>
+        <li><b>Número de cuenta</b>: <%= @cuenta.numeroCuenta %></li>
+        <li><b>Tipo de cuenta</b>: <%= @cuenta.tipoCuenta %></li>
+        <br />
+        <form action="/<%= @id_profesor %>/delete_bank_account/<%= @id_cuenta %>" method="POST">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+          <a href="/dashboard/teachers/bank_accounts/<%= @id_profesor %>" class="btn btn-default">Cancelar</a>
+        </form>
+        <% else %>
+          <p>No se encuentra la cuenta bancaria.</p>
+    </div>
+  </div>
+<% end %>
