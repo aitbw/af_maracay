@@ -16,9 +16,16 @@ Esta aplicación está constituida de las siguientes tecnologías:
 
 # Instalación
 * Clona este repositorio
-* Añade a tu *environment* cuatro (4) variables para la base de datos, usuario, *password* y URL de MySQL
+* Añade a tu *environment* tres (3) variables para la base de datos, usuario y *password* de MySQL
+* En tu *environment* también añade lo siguiente:
+
+``` shell
+mysql2://{username}:{password}@{host}/{database}
+```
+
 * Accede a la carpeta del proyecto
 * En /config, crea un 'database.yml' y agrega lo siguiente:
+
 ``` yaml
 development:
   adapter: mysql2
@@ -31,6 +38,14 @@ development:
   socket: /var/run/mysqld/mysqld.sock
   host: localhost
 ```
+
+* Asegúrate de tener los siguientes paquetes instalados:
+
+``` shell
+mysql-server libmysqlclient-dev
+```
+
+De lo contrario, instálalos antes de proceder.
 
 * Corre en la consola:
 

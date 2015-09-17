@@ -22,6 +22,9 @@ GEM
       rack (>= 0.9.0)
     bond (0.5.1)
     builder (3.2.2)
+    bullet (4.14.7)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.9.0)
     coderay (1.1.0)
     erubis (2.7.0)
     ffi (1.9.10)
@@ -50,7 +53,7 @@ GEM
     minitest (5.8.0)
     mysql2 (0.3.20)
     nenv (0.2.0)
-    notiffany (0.0.7)
+    notiffany (0.0.8)
       nenv (~> 0.1)
       shellany (~> 0.0)
     pdf-core (0.6.0)
@@ -108,6 +111,7 @@ GEM
       sinatra (>= 1.2.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    uniform_notifier (1.9.0)
 
 PLATFORMS
   ruby
@@ -116,6 +120,7 @@ DEPENDENCIES
   activerecord (~> 4.2.4)
   bcrypt
   better_errors
+  bullet
   guard
   guard-bundler
   mysql2 (~> 0.3.20)

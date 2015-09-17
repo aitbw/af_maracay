@@ -19,6 +19,7 @@ group :development do
   gem 'tux'
   gem 'guard'
   gem 'guard-bundler'
+  gem 'bullet', require: false
 end
 
 group :production do
