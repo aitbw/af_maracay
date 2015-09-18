@@ -13,6 +13,7 @@
     <label>Cédula</label>
     <textarea name="cedula" class="form-control"><%= @user.cedulaUsuario %></textarea>
   </div>
+  <div class="form-group">
   <label>Rol</label>
   <select name="rol" class="form-control">
   <% if @user.nivelAcceso == "Admin" %>
@@ -23,8 +24,8 @@
     <option value="Recepcionista" selected>Recepcionista</option>
   <% end %>
   </select>
+  </div>
   <input type="hidden" name="_method" value="PUT">
-  <br />
   <button type="submit" class="btn btn-success">Actualizar</button>
   <a href="/dashboard/users" class="btn btn-default">Cancelar</a>
 </form>

@@ -5,23 +5,25 @@
   <% if flash[:error] %>
     <p class="text-danger"><%= flash[:error] %></p>
   <% end %>
+  <div class="form-group">
   <label>Banco</label>
   <select name="banco" class="form-control">
     <% @banks.each do |bank| %>
       <option value="<%= bank.idBanco %>"><%= bank.nombreBanco %></option>
     <% end %>
   </select>
-  <br />
+  </div>
   <div class="form-group">
     <label>Número de cuenta</label>
     <input type="text" class="form-control" name="numero" placeholder="Número de cuenta">
   </div>
+  <div class="form-group">
   <label>Tipo de cuenta</label>
     <select name="tipo" class="form-control">
       <option value="Ahorro">Ahorro</option>
       <option value="Corriente">Corriente</option>
     </select>
-  <br />
+  </div>
   <button type="submit" class="btn btn-success">Asignar cuenta</button>
   <a href="/dashboard/teachers/bank_accounts/<%= @id_profesor %>" class="btn btn-default">Cancelar</a>
 </form>

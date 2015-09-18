@@ -1,3 +1,8 @@
+# Modelo para la tabla 'tiposCursos'
+class Type < ActiveRecord::Base
+  self.table_name = 'tiposCursos'
+end
+
 # Modelo para la tabla Cursos
 class Course < ActiveRecord::Base
   self.table_name = 'cursos'
@@ -6,9 +11,4 @@ class Course < ActiveRecord::Base
   validates :inicioCurso, presence: true
   validates :finCurso, presence: true
   validates :horasCurso, presence: true, format: { with: /\d/ }
-end
-
-# Modelo para la tabla 'tiposCursos'
-class Type < ActiveRecord::Base
-  self.table_name = 'tiposCursos'
 end

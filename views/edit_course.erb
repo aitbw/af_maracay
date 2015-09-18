@@ -5,13 +5,14 @@
   <% if flash[:error] %>
     <p class="text-danger"><%= flash[:error] %></p>
   <% end %>
+  <div class="form-group">
   <label>Tipo</label>
   <select name="tipo" class="form-control">
     <% @tipos.each do |tipo| %>
     <option value="<%= tipo.idTipoCurso %>"><%= tipo.tipoCurso %></option>
     <% end %>
   </select>
-  <br />
+  </div>
   <div class="form-group">
     <label>Nivel</label>
     <textarea name="nivel" class="form-control"><%= @query.nivelCurso %></textarea>
