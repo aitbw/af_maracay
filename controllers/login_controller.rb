@@ -1,7 +1,7 @@
 def authenticate(cedula, password)
-  if User.where(cedulaUsuario: cedula).present?
+  if Usuario.where(cedulaUsuario: cedula).present?
 
-    query = User.find_by(cedulaUsuario: cedula)
+    query = Usuario.find_by(cedulaUsuario: cedula)
     @user_hash = BCrypt::Password.new(query.passwordUsuario)
 
     if @user_hash == password

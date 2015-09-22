@@ -6,7 +6,7 @@
 
     <div class="panel-body">
         <p>¿Está usted seguro de <b>eliminar</b> este curso? Esta acción no puede ser revertida.</p>
-        <% Type.where(idTipoCurso: @query.idTipoCurso).select(:tipoCurso).each do |tipo| %>
+        <% Tipo.where(idTipoCurso: @query.idTipoCurso).select(:tipoCurso).each do |tipo| %>
         <li><b>Tipo</b>: <%= tipo.tipoCurso %></li>
         <% end %>
         <li><b>Nivel</b>: <%= @query.nivelCurso %></li>

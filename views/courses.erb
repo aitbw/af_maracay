@@ -18,7 +18,7 @@
   </thead>
   <tbody>
     <% @courses.each do |course| %>
-    <% Type.where(idTipoCurso: course.idTipoCurso).select(:tipoCurso).each do |type| %>
+    <% Tipo.where(idTipoCurso: course.idTipoCurso).select(:tipoCurso).each do |type| %>
       <tr>
         <td><%= type.tipoCurso %></td>
         <td><%= course.nivelCurso %></td>

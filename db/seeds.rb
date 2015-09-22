@@ -1,6 +1,6 @@
 # seeds.rb
 class Tipo < ActiveRecord::Base
-  self.table_name = 'tiposCursos'
+  self.table_name = 'tiposCurso'
 
   Tipo.create(tipoCurso: 'Intensivo AM 1', diasCurso: 'Lun/Mar/Mie/Jue', horarioCurso: '7:30 - 9:30')
   Tipo.create(tipoCurso: 'Intensivo AM 2', diasCurso: 'Lun/Mar/Mie/Jue', horarioCurso: '10:00 - 12:00')
@@ -31,33 +31,35 @@ class Tipo < ActiveRecord::Base
 end
 
 # Modelo para la tabla 'bancos'
-class Bank < ActiveRecord::Base
-  self.table_name = 'bancos'
-
-  Bank.create(nombreBanco: 'Banco Mercantil')
-  Bank.create(nombreBanco: 'Banesco')
-  Bank.create(nombreBanco: 'Banco de Venezuela')
-  Bank.create(nombreBanco: 'Banco Provincial')
-  Bank.create(nombreBanco: 'Banco Exterior')
-  Bank.create(nombreBanco: 'BOD')
-  Bank.create(nombreBanco: 'BNC')
-  Bank.create(nombreBanco: 'Banco Bicentenario')
-  Bank.create(nombreBanco: 'Banco del Tesoro')
-  Bank.create(nombreBanco: 'Bancaribe')
-  Bank.create(nombreBanco: 'Banco Fondo Común')
-  Bank.create(nombreBanco: 'Banco Industrial')
-  Bank.create(nombreBanco: 'Banco Caroní')
-  Bank.create(nombreBanco: 'Sofitasa')
-  Bank.create(nombreBanco: 'Banplus')
-  Bank.create(nombreBanco: 'Banco Activo')
-  Bank.create(nombreBanco: 'Del Sur')
-  Bank.create(nombreBanco: '100% Banco')
+class Banco < ActiveRecord::Base
+  Banco.create(nombreBanco: 'Banco Mercantil')
+  Banco.create(nombreBanco: 'Banesco')
+  Banco.create(nombreBanco: 'Banco de Venezuela')
+  Banco.create(nombreBanco: 'Banco Provincial')
+  Banco.create(nombreBanco: 'Banco Exterior')
+  Banco.create(nombreBanco: 'BOD')
+  Banco.create(nombreBanco: 'BNC')
+  Banco.create(nombreBanco: 'Banco Bicentenario')
+  Banco.create(nombreBanco: 'Banco del Tesoro')
+  Banco.create(nombreBanco: 'Bancaribe')
+  Banco.create(nombreBanco: 'Banco Fondo Común')
+  Banco.create(nombreBanco: 'Banco Industrial')
+  Banco.create(nombreBanco: 'Banco Caroní')
+  Banco.create(nombreBanco: 'Sofitasa')
+  Banco.create(nombreBanco: 'Banplus')
+  Banco.create(nombreBanco: 'Banco Activo')
+  Banco.create(nombreBanco: 'Del Sur')
+  Banco.create(nombreBanco: '100% Banco')
 end
 
 # Modelo para la tabla 'usuarios'
-class User < ActiveRecord::Base
-  self.table_name = 'usuarios'
-
+class Usuario < ActiveRecord::Base
   pass = BCrypt::Password.create(123)
-  User.create(nombreUsuario: 'prueba', cedulaUsuario: '123456', passwordUsuario: pass, nivelAcceso: 'Admin')
+  Usuario.create(nombreUsuario: 'prueba', cedulaUsuario: '123456', passwordUsuario: pass, nivelAcceso: 'Admin')
+end
+
+# Modelo para la tabla 'sedes'
+class Sede < ActiveRecord::Base
+  Sede.create(nombreSede: 'Sede La Floresta')
+  Sede.create(nombreSede: 'Sede Las Delicias')
 end

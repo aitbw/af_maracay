@@ -111,7 +111,7 @@ get '/dashboard/teachers/bank_accounts/:id/add' do
   else
     titulo('Asignar cuenta bancaria — Panel de control')
     @id_profesor = params[:id]
-    @banks = Bank.all
+    @banks = Banco.all
     erb :add_bank_account, layout: :'layouts/dashboard'
   end
 end
@@ -152,7 +152,7 @@ get '/dashboard/teachers/bank_accounts/:idT/edit/:idC' do
     @id_profesor = params[:idT]
     @id_cuenta = params[:idC]
     @cuenta = Account.find(params[:idC])
-    @bank = Bank.all
+    @bank = Banco.all
     erb :edit_bank_account, layout: :'layouts/dashboard'
   end
 end

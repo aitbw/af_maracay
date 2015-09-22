@@ -47,7 +47,7 @@ mysql-server libmysqlclient-dev
 
 De lo contrario, instálalos antes de proceder.
 
-* Corre en la consola:
+* Asegúrate de que Bundler está instalado. Luego, corre en la consola:
 
 ``` shell
 bundle install
@@ -74,8 +74,7 @@ Esta aplicación web permite:
 * Crear, modificar y eliminar usuarios (Administradores)
 * Cambio de contraseña
 * Control de cuotas e inscripciones estudiantiles
-* Control de estudiantes
-* Control de secciones
+* Control de estudiantes y sus calificaciones
 * Control de cursos
 * Control de profesores y sus horas laborales
 * Control de salarios (Administradores)

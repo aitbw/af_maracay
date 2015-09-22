@@ -9,7 +9,7 @@
         <% Teacher.where(idProfesor: @cuenta.idProfesor).select(:nombreProfesor).each do |teacher| %>
         <li><b>Titular</b>: <%= teacher.nombreProfesor %></li>
         <% end %>
-        <% Bank.where(idBanco: @cuenta.idBanco).each do |bank| %>
+        <% Banco.where(idBanco: @cuenta.idBanco).each do |bank| %>
         <li><b>Banco</b>: <%= bank.nombreBanco %></li>
         <% end %>
         <li><b>Número de cuenta</b>: <%= @cuenta.numeroCuenta %></li>

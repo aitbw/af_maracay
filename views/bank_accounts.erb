@@ -15,7 +15,7 @@
   </thead>
   <tbody>
     <% @accounts.each do |account| %>
-    <% Bank.where(idBanco: account.idBanco).each do |bank| %>
+    <% Banco.where(idBanco: account.idBanco).each do |bank| %>
       <tr>
         <td><%= bank.nombreBanco %></td>
         <td><%= account.numeroCuenta %></td>
