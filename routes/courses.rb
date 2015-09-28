@@ -55,7 +55,7 @@ end
 put '/edit_course/:id' do
   edit_course = Curso.find(params[:id])
 
-  if (params[:codigo] || params[:nivel] || params[:capacidad] || params[:inicio] || params[:fin] || params[:cubiertas] || params[:horas]).blank?
+  if (params[:codigo] || params[:nivel] || params[:capacidad]).blank?
     redirect "/dashboard/courses/edit/#{params[:id]}", error: 'Debe completar todos los campos.'
   end
 
@@ -68,6 +68,7 @@ put '/edit_course/:id' do
   end
 
   edit_course.idTipoCurso = params[:tipo]
+  edit_course.idSede = params[:sede]
   edit_course.nivelCurso = params[:nivel]
   edit_course.capacidadCurso = params[:capacidad]
 
