@@ -1,5 +1,5 @@
 def nuevo_curso
-  new_course = Curso.new(idTipoCurso: params[:tipo], idSede: params[:sede], codigoCurso: params[:codigo], nivelCurso: params[:nivel], capacidadCurso: params[:capacidad], inicioCurso: params[:inicio], finCurso: params[:fin], horasCurso: params[:horas])
+  new_course = Curso.new(params[:curso])
 
   if new_course.save
     redirect '/dashboard/courses', notice: 'Curso creado exitosamente.'

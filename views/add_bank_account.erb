@@ -7,7 +7,7 @@
   <% end %>
   <div class="form-group">
   <label>Banco</label>
-  <select name="banco" class="form-control">
+  <select name="cuenta[idBanco]" class="form-control">
     <% @banks.each do |bank| %>
       <option value="<%= bank.idBanco %>"><%= bank.nombreBanco %></option>
     <% end %>
@@ -15,15 +15,16 @@
   </div>
   <div class="form-group">
     <label>Número de cuenta</label>
-    <input type="text" class="form-control" name="numero" placeholder="Número de cuenta">
+    <input type="text" class="form-control" name="cuenta[numeroCuenta]" placeholder="Número de cuenta">
   </div>
   <div class="form-group">
   <label>Tipo de cuenta</label>
-    <select name="tipo" class="form-control">
+    <select name="cuenta[tipoCuenta]" class="form-control">
       <option value="Ahorro">Ahorro</option>
       <option value="Corriente">Corriente</option>
     </select>
   </div>
+  <input type="hidden" name="cuenta[idProfesor]" value="<%= @id_profesor %>">
   <button type="submit" class="btn btn-success">Asignar cuenta</button>
   <a href="/dashboard/teachers/bank_accounts/<%= @id_profesor %>" class="btn btn-default">Cancelar</a>
 </form>

@@ -7,7 +7,7 @@
   <% end %>
   <div class="form-group">
     <label>Curso</label>
-    <select name="curso" class="form-control">
+    <select name="estudiante[idCurso]" class="form-control">
       <% @cursos.each do |curso| %>
       <option value="<%= curso.idCurso %>"><%= curso.codigoCurso %></option>
       <% end %>
@@ -15,19 +15,19 @@
   </div>
   <div class="form-group">
     <label>Nombre</label>
-    <input type="text" class="form-control" name="nombre" placeholder="Nombre">
+    <input type="text" class="form-control" name="estudiante[nombreEstudiante]" placeholder="Nombre">
   </div>
   <div class="form-group">
     <label>Correo</label>
-    <input type="text" class="form-control" name="correo" placeholder="Correo">
+    <input type="text" class="form-control" name="estudiante[correoEstudiante]" placeholder="Correo">
   </div>
   <div class="form-group">
     <label>Teléfono</label>
-    <input type="text" class="form-control" name="telefono" placeholder="Teléfono">
+    <input type="text" class="form-control" name="estudiante[telefonoEstudiante]" placeholder="Teléfono">
   </div>
   <div class="form-group">
     <label>Cédula</label>
-    <input type="text" class="form-control" name="cedula" placeholder="Cédula">
+    <input type="text" class="form-control" name="estudiante[cedulaEstudiante]" placeholder="Cédula">
   </div>
   <button type="submit" class="btn btn-success">Crear estudiante</button>
   <a href="/dashboard/students" class="btn btn-default">Cancelar</a>

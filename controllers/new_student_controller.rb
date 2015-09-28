@@ -1,5 +1,5 @@
 def nuevo_estudiante
-  new_student = Estudiante.new(idCurso: params[:curso], nombreEstudiante: params[:nombre], correoEstudiante: params[:correo], telefonoEstudiante: params[:telefono], cedulaEstudiante: params[:cedula])
+  new_student = Estudiante.new(params[:estudiante])
 
   if new_student.save
     redirect '/dashboard/students', notice: 'Estudiante creado exitosamente.'

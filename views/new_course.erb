@@ -7,7 +7,7 @@
   <% end %>
   <div class="form-group">
   <label>Tipo</label>
-  <select name="tipo" class="form-control">
+  <select name="curso[idTipoCurso]" class="form-control">
     <% @tipos.each do |tipo| %>
     <option value="<%= tipo.idTipoCurso %>"><%= tipo.tipoCurso %></option>
     <% end %>
@@ -15,7 +15,7 @@
   </div>
   <div class="form-group">
   <label>Sede</label>
-  <select name="sede" class="form-control">
+  <select name="curso[idSede]" class="form-control">
     <% @sedes.each do |sede| %>
     <option value="<%= sede.idSede %>"><%= sede.nombreSede %></option>
     <% end %>
@@ -23,20 +23,20 @@
   </div>
   <div class="form-group">
     <label>Código</label>
-    <input type="text" class="form-control" name="codigo" placeholder="XX XX XX">
+    <input type="text" class="form-control" name="curso[codigoCurso]" placeholder="XX XX XX">
   </div>
   <div class="form-group">
     <label>Nivel</label>
-    <input type="text" class="form-control" name="nivel" placeholder="XX-X">
+    <input type="text" class="form-control" name="curso[nivelCurso]" placeholder="XX-X">
   </div>
   <div class="form-group">
     <label>Capacidad</label>
-    <input type="text" class="form-control" name="capacidad" placeholder="Capacidad">
+    <input type="text" class="form-control" name="curso[capacidadCurso]" placeholder="Capacidad">
   </div>
   <div class="form-group">
     <label>Fecha de inicio</label>
       <div class="input-group date" id="fechaizq">
-        <input type="text" class="form-control" name="inicio">
+        <input type="text" class="form-control" name="curso[inicioCurso]">
           <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
           </span>
@@ -45,7 +45,7 @@
   <div class="form-group">
     <label>Fecha de culminación</label>
       <div class="input-group date" id="fechader">
-        <input type="text" class="form-control" name="fin">
+        <input type="text" class="form-control" name="curso[finCurso]">
           <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
           </span>
@@ -53,7 +53,7 @@
   </div>
   <div class="form-group">
     <label>Duración (Horas)</label>
-    <input type="text" class="form-control" name="horas" placeholder="Horas">
+    <input type="text" class="form-control" name="curso[horasCurso]" placeholder="Horas">
   </div>
   <button type="submit" class="btn btn-success">Crear curso</button>
   <a href="/dashboard/courses" class="btn btn-default">Cancelar</a>
