@@ -24,4 +24,6 @@ end
 
 group :production do
   gem 'prawn'
+  gem 'spreadsheet'
+  gem 'statistics'
 end
