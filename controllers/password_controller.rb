@@ -4,7 +4,7 @@ def change_password
   elsif params[:password] != params[:confirm]
     redirect '/dashboard/change_password', error: 'Los campos no coinciden.'
   else
-    u = Usuario.find_by(cedulaUsuario: session[:cedula])
+    u = Usuario.find(session[:id])
 
     new_password = BCrypt::Password.create(params[:password])
 

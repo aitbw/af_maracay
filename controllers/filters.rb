@@ -8,11 +8,11 @@ before %r{^\/dashboard\/users\/*|\/dashboard\/teachers\/bank_accounts\/*} do
 end
 
 before %r{^\/dashboard\/*} do
-  if session[:cedula].nil?
+  if session[:id].nil?
     redirect '/signin', error: 'Debe iniciar sesión para acceder al panel de control.'
   end
 end
 
 before '/signin' do
-  redirect '/dashboard' if session[:cedula]
+  redirect '/dashboard' if session[:id]
 end

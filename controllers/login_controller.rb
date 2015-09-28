@@ -5,7 +5,7 @@ def authenticate(cedula, password)
     @user_hash = BCrypt::Password.new(query.passwordUsuario)
 
     if @user_hash == password
-      session[:cedula] = cedula
+      session[:id] = query.idUsuario
       session[:nombre] = query.nombreUsuario
       session[:rol] = query.nivelAcceso
       redirect '/dashboard'
