@@ -22,7 +22,7 @@
         <td><%= teacher.correoProfesor %></td>
         <td><%= teacher.telefonoProfesor %></td>
         <td><%= teacher.cedulaProfesor %></td>
-        <td><%= teacher.fechaIngreso %></td>
+        <td><%= teacher.fechaIngreso.strftime('%d/%m/%Y') %></td>
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
@@ -30,9 +30,9 @@
               <% if session[:rol] == "Admin" %>
               <li><a href="/dashboard/teachers/bank_accounts/<%= teacher.idProfesor %>">Cuentas bancarias</a></li>
               <% end %>
+              <li><a href="/dashboard/teachers/show_courses/<%= teacher.idProfesor %>">Cursos</a></li>
               <li><a href="/dashboard/teachers/delete/<%= teacher.idProfesor %>">Eliminar</a></li>
               <li><a href="/dashboard/teachers/edit/<%= teacher.idProfesor %>">Modificar</a></li>
-              <li><a href="/dashboard/teachers/reassign/<%= teacher.idProfesor %>">Reasignar</a></li>
             </ul>
           </div>
         </td>

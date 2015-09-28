@@ -10,7 +10,7 @@
         <li><b>Correo</b>: <%= @query.correoProfesor %></li>
         <li><b>Teléfono</b>: <%= @query.telefonoProfesor %></li>
         <li><b>Cédula</b>: <%= @query.cedulaProfesor %></li>
-        <li><b>Fecha de ingreso</b>: <%= @query.fechaIngreso %></li>
+        <li><b>Fecha de ingreso</b>: <%= @query.fechaIngreso.strftime('%d/%m/%Y') %></li>
         <br />
         <form action="/delete_teacher/<%= @id_profesor %>" method="POST">
           <input type="hidden" name="_method" value="DELETE">

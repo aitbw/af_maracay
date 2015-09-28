@@ -8,14 +8,26 @@
   <div class="form-group">
   <label>Tipo</label>
   <select name="tipo" class="form-control">
-    <% @types.each do |type| %>
-    <option value="<%= type.idTipoCurso %>"><%= type.tipoCurso %></option>
+    <% @tipos.each do |tipo| %>
+    <option value="<%= tipo.idTipoCurso %>"><%= tipo.tipoCurso %></option>
     <% end %>
   </select>
   </div>
   <div class="form-group">
+  <label>Sede</label>
+  <select name="sede" class="form-control">
+    <% @sedes.each do |sede| %>
+    <option value="<%= sede.idSede %>"><%= sede.nombreSede %></option>
+    <% end %>
+  </select>
+  </div>
+  <div class="form-group">
+    <label>Código</label>
+    <input type="text" class="form-control" name="codigo" placeholder="XX XX XX">
+  </div>
+  <div class="form-group">
     <label>Nivel</label>
-    <input type="text" class="form-control" name="nivel" placeholder="Nivel">
+    <input type="text" class="form-control" name="nivel" placeholder="XX-X">
   </div>
   <div class="form-group">
     <label>Capacidad</label>
@@ -23,11 +35,21 @@
   </div>
   <div class="form-group">
     <label>Fecha de inicio</label>
-    <input type="text" class="form-control" name="inicio" placeholder="DD/MM/AAAA">
+      <div class="input-group date" id="fechaizq">
+        <input type="text" class="form-control" name="inicio">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+      </div>
   </div>
   <div class="form-group">
     <label>Fecha de culminación</label>
-    <input type="text" class="form-control" name="fin" placeholder="DD/MM/AAAA">
+      <div class="input-group date" id="fechader">
+        <input type="text" class="form-control" name="fin">
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+      </div>
   </div>
   <div class="form-group">
     <label>Duración (Horas)</label>

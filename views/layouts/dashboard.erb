@@ -1,4 +1,3 @@
-<!-- color: #DA002E, #970202, #870724 -->
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -7,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap.css")%>">
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/fixed-navbar_footer.css")%>">
+    <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap-datetimepicker.min.css")%>">
     <title><%= @page_title %> | AF Maracay</title>
   </head>
 
@@ -22,12 +22,9 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Controles<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Cuotas</a></li>
                 <li><a href="/dashboard/courses">Cursos</a></li>
-                <li><a href="#">Estudiantes</a></li>
-                <li><a href="#">Inscripciones</a></li>
+                <li><a href="/dashboard/students">Estudiantes</a></li>
                 <li><a href="/dashboard/teachers">Profesores</a></li>
-                <li><a href="#">Secciones</a></li>
               </ul>
             </li>
 
@@ -82,9 +79,33 @@
     </div>
 
     <!-- TO-DO: Footer -->
-
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript" src="<%=url("/javascript/bootstrap.js")%>"></script>
+    <script type="text/javascript" src="<%=url("/javascript/bootstrap.min.js")%>"></script>
+    <script type="text/javascript" src="<%=url("/javascript/moment.min.js")%>"></script>
+    <script type="text/javascript" src="<%=url("/javascript/bootstrap-datetimepicker.min.js")%>"></script>
+    <script type="text/javascript">
+      $(function () {
+        $('#fechaizq').datetimepicker({
+          format: 'DD/MM/YYYY'
+        });
+        $('#fechader').datetimepicker({
+          format: 'DD/MM/YYYY',
+          useCurrent: false
+        });
+        $('#fechaizq').on('dp.change', function (e) {
+          $('#fechader').data('DateTimePicker').minDate(e.date);
+        });
+        $('#fechader').on('dp.change', function (e) {
+          $('#fechaizq').data('DateTimePicker').maxDate(e.date);
+        });
+      });
+
+      $(function () {
+        $('#fechaind').datetimepicker({
+          format: 'DD/MM/YYYY'
+        });
+      });
+    </script>
 
   </body>
 </html>

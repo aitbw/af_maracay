@@ -1,7 +1,5 @@
 def nuevo_profesor
-  fecha = Time.now.strftime('%d/%m/%Y')
-
-  new_teacher = Teacher.new(nombreProfesor: params[:nombre], correoProfesor: params[:correo], telefonoProfesor: params[:telefono], cedulaProfesor: params[:cedula], fechaIngreso: fecha)
+  new_teacher = Teacher.new(nombreProfesor: params[:nombre], correoProfesor: params[:correo], telefonoProfesor: params[:telefono], cedulaProfesor: params[:cedula], fechaIngreso: params[:ingreso])
 
   if new_teacher.save
     redirect '/dashboard/teachers', notice: 'Profesor creado exitosamente.'

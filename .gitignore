@@ -3,3 +3,5 @@ db/Alianza Francesa Maracay.mwb
 db/Alianza Francesa Maracay.mwb.bak
 db/af_maracay.sql
 log/
+bower_components/
+npm-debug.log

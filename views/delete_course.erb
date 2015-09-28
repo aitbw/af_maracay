@@ -6,13 +6,18 @@
 
     <div class="panel-body">
         <p>¿Está usted seguro de <b>eliminar</b> este curso? Esta acción no puede ser revertida.</p>
+        <li><b>Código</b>: <%= @query.codigoCurso %></li>
         <% Tipo.where(idTipoCurso: @query.idTipoCurso).select(:tipoCurso).each do |tipo| %>
         <li><b>Tipo</b>: <%= tipo.tipoCurso %></li>
         <% end %>
+        <% Sede.where(idSede: @query.idSede).select(:nombreSede).each do |sede| %>
+        <li><b>Sede</b>: <%= sede.nombreSede %></li>
+        <% end %>
         <li><b>Nivel</b>: <%= @query.nivelCurso %></li>
         <li><b>Capacidad</b>: <%= @query.capacidadCurso %></li>
-        <li><b>Fecha de inicio</b>: <%= @query.inicioCurso %></li>
-        <li><b>Fecha de culminación</b>: <%= @query.finCurso %></li>
+        <li><b>Fecha de inicio</b>: <%= @query.inicioCurso.strftime('%d/%m/%Y') %></li>
+        <li><b>Fecha de culminación</b>: <%= @query.finCurso.strftime('%d/%m/%Y') %></li>
+        <li><b>Horas cubiertas</b>: <%= @query.horasCubiertas %></li>
         <li><b>Horas académicas</b>: <%= @query.horasCurso %></li>
         <br />
         <form action="/delete_course/<%= @id_curso %>" method="POST">

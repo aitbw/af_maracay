@@ -1,5 +1,5 @@
 get '/dashboard/users' do
-  titulo('Lista de usuarios — Panel de control')
+  titulo('Usuarios — Panel de control')
   @users = Usuario.all
   erb :users, layout: :'layouts/dashboard'
 end

@@ -1,5 +1,5 @@
 get '/dashboard/teachers' do
-  titulo('Lista de profesores — Panel de control')
+  titulo('Profesores — Panel de control')
   @teachers = Teacher.all
   erb :teachers, layout: :'layouts/dashboard'
 end

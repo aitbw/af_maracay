@@ -7,4 +7,5 @@ class Teacher < ActiveRecord::Base
   validates :telefonoProfesor, presence: true, format: { with: /\d{4}-?\d{7}/ }
   validates :correoProfesor, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
   validates :cedulaProfesor, presence: true, uniqueness: true, format: { with: /\d{6,8}/ }
+  validates :fechaIngreso, presence: true
 end
