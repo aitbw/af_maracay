@@ -1,0 +1,46 @@
+<% if flash[:notice] %>
+  <p class="text-success"><%= flash[:notice] %></p>
+<% end %>
+<% if flash[:error] %>
+  <p class="text-danger"><%= flash[:error] %></p>
+<% end %>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Curso</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Correo</th>
+      <th scope="col">Teléfono</th>
+      <th scope="col">Cédula</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @estudiantes.each do |estudiante| %>
+    <% Curso.where(idCurso: estudiante.idCurso).select(:codigoCurso).each do |curso| %>
+      <tr>
+        <td><%= curso.codigoCurso %></td>
+        <td><%= estudiante.nombreEstudiante %></td>
+        <td><%= estudiante.correoEstudiante %></td>
+        <td><%= estudiante.telefonoEstudiante %></td>
+        <td><%= estudiante.cedulaEstudiante %></td>
+        <td>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="/dashboard/students/grades/<%= estudiante.idEstudiante %>">Calificaciones</a></li>
+              <li><a href="/dashboard/students/fees/<%= estudiante.idEstudiante %>">Cuotas</a></li>
+              <li><a href="/dashboard/students/signups/<%= estudiante.idEstudiante %>">Inscripciones</a></li>
+              <li><a href="/dashboard/students/edit/<%= estudiante.idEstudiante %>">Modificar</a></li>
+              <li><a href="/dashboard/students/delete/<%= estudiante.idEstudiante %>">Eliminar</a></li>
+              <li><a href="/dashboard/students/reassign/<%= estudiante.idEstudiante %>">Reasignar</a></li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<a href="/dashboard/students/new_student" class="btn btn-success">Crear nuevo estudiante</a>

@@ -1,0 +1,34 @@
+<form id="registro" action="/dashboard/students/new_student" method="POST">
+  <% if flash[:notice] %>
+    <p class="text-success"><%= flash[:notice] %></p>
+  <% end %>
+  <% if flash[:error] %>
+    <p class="text-danger"><%= flash[:error] %></p>
+  <% end %>
+  <div class="form-group">
+    <label>Curso</label>
+    <select name="curso" class="form-control">
+      <% @cursos.each do |curso| %>
+      <option value="<%= curso.idCurso %>"><%= curso.codigoCurso %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Nombre</label>
+    <input type="text" class="form-control" name="nombre" placeholder="Nombre">
+  </div>
+  <div class="form-group">
+    <label>Correo</label>
+    <input type="text" class="form-control" name="correo" placeholder="Correo">
+  </div>
+  <div class="form-group">
+    <label>Teléfono</label>
+    <input type="text" class="form-control" name="telefono" placeholder="Teléfono">
+  </div>
+  <div class="form-group">
+    <label>Cédula</label>
+    <input type="text" class="form-control" name="cedula" placeholder="Cédula">
+  </div>
+  <button type="submit" class="btn btn-success">Crear estudiante</button>
+  <a href="/dashboard/students" class="btn btn-default">Cancelar</a>
+</form>
