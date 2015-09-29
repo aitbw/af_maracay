@@ -1,0 +1,27 @@
+<% if @id_estudiante %>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">Eliminar estudiante</h3>
+    </div>
+
+    <div class="panel-body">
+        <p>¿Está usted seguro de <b>eliminar</b> este estudiante? Esta acción no puede ser revertida.</p>
+        <% Curso.where(idCurso: @query.idCurso).select(:codigoCurso).each do |curso| %>
+        <li><b>Curso</b>: <%= curso.codigoCurso %></li>
+        <% end %>
+        <li><b>Nombre</b>: <%= @query.nombreEstudiante %></li>
+        <li><b>Correo</b>: <%= @query.correoEstudiante %></li>
+        <li><b>Teléfono</b>: <%= @query.telefonoEstudiante %></li>
+        <li><b>Cédula</b>: <%= @query.cedulaEstudiante %></li>
+        <br />
+        <b><p class="text-danger">Todos los registros relacionados a este estudiante (calificaciones, cuotas e inscripciones) también serán eliminados.</p></b>
+        <form action="/delete_student/<%= @id_estudiante %>" method="POST">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+          <a href="/dashboard/students" class="btn btn-default">Cancelar</a>
+        </form>
+        <% else %>
+          <p>No se encuentra el estudiante.</p>
+    </div>
+  </div>
+<% end %>
