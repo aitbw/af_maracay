@@ -20,6 +20,7 @@
         <li><b>Horas cubiertas</b>: <%= @query.horasCubiertas %></li>
         <li><b>Horas académicas</b>: <%= @query.horasCurso %></li>
         <br />
+        <b><p class="text-danger">Todos los registros relacionados a este curso también serán eliminados.</p></b>
         <form action="/delete_course/<%= @id_curso %>" method="POST">
           <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="btn btn-danger">Eliminar</button>

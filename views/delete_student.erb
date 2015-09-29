@@ -14,7 +14,7 @@
         <li><b>Teléfono</b>: <%= @query.telefonoEstudiante %></li>
         <li><b>Cédula</b>: <%= @query.cedulaEstudiante %></li>
         <br />
-        <b><p class="text-danger">Todos los registros relacionados a este estudiante (calificaciones, cuotas e inscripciones) también serán eliminados.</p></b>
+        <b><p class="text-danger">Todos los registros relacionados a este estudiante también serán eliminados.</p></b>
         <form action="/delete_student/<%= @id_estudiante %>" method="POST">
           <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="btn btn-danger">Eliminar</button>

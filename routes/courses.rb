@@ -1,12 +1,12 @@
 get '/dashboard/courses' do
-  titulo('Cursos — Panel de control')
+  titulo('Cursos')
   @courses = Curso.all
   @tipos = Tipo.all
   erb :courses, layout: :'layouts/dashboard'
 end
 
 get '/dashboard/courses/new_course' do
-  titulo('Crear nuevo curso — Panel de control')
+  titulo('Crear nuevo curso')
   @tipos = Tipo.select(:idTipoCurso, :tipoCurso)
   @sedes = Sede.all
   erb :new_course, layout: :'layouts/dashboard'
@@ -24,7 +24,7 @@ get '/dashboard/courses/delete/:id' do
   else
     @id_curso = params[:id]
     @query = Curso.find(params[:id])
-    titulo('Eliminar curso — Panel de control')
+    titulo('Eliminar curso')
     erb :delete_course, layout: :'layouts/dashboard'
   end
 end
@@ -47,7 +47,7 @@ get '/dashboard/courses/edit/:id' do
     @query = Curso.find(params[:id])
     @tipos = Tipo.all
     @sedes = Sede.all
-    titulo('Editar curso — Panel de control')
+    titulo('Editar curso')
     erb :edit_course, layout: :'layouts/dashboard'
   end
 end

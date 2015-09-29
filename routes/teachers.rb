@@ -1,11 +1,11 @@
 get '/dashboard/teachers' do
-  titulo('Profesores — Panel de control')
+  titulo('Profesores')
   @teachers = Teacher.all
   erb :teachers, layout: :'layouts/dashboard'
 end
 
 get '/dashboard/teachers/new_teacher' do
-  titulo('Crear nuevo profesor — Panel de control')
+  titulo('Crear nuevo profesor')
   erb :new_teacher, layout: :'layouts/dashboard'
 end
 
@@ -21,7 +21,7 @@ get '/dashboard/teachers/delete/:id' do
   else
     @id_profesor = params[:id]
     @query = Teacher.find(params[:id])
-    titulo('Eliminar profesor — Panel de control')
+    titulo('Eliminar profesor')
     erb :delete_teacher, layout: :'layouts/dashboard'
   end
 end
@@ -42,7 +42,7 @@ get '/dashboard/teachers/edit/:id' do
   else
     @id_profesor = params[:id]
     @teacher = Teacher.find(params[:id])
-    titulo('Editar profesor — Panel de control')
+    titulo('Editar profesor')
     erb :edit_teacher, layout: :'layouts/dashboard'
   end
 end
@@ -96,7 +96,7 @@ get '/dashboard/teachers/bank_accounts/:id' do
   rescue ActiveRecord::RecordNotFound
     redirect '/dashboard/teachers', error: 'El profesor no existe.'
   else
-    titulo('Cuentas bancarias — Panel de control')
+    titulo('Cuentas bancarias')
     @id_profesor = params[:id]
     @accounts = Account.where(idProfesor: params[:id])
     erb :bank_accounts, layout: :'layouts/dashboard'
@@ -109,7 +109,7 @@ get '/dashboard/teachers/bank_accounts/:id/add' do
   rescue ActiveRecord::RecordNotFound
     redirect '/dashboard/teachers', error: 'El profesor no existe.'
   else
-    titulo('Asignar cuenta bancaria — Panel de control')
+    titulo('Asignar cuenta bancaria')
     @id_profesor = params[:id]
     @banks = Banco.all
     erb :add_bank_account, layout: :'layouts/dashboard'
@@ -126,7 +126,7 @@ get '/dashboard/teachers/bank_accounts/:idT/delete/:idC' do
   rescue ActiveRecord::RecordNotFound
     redirect '/dashboard/teachers', error: 'El profesor o la cuenta bancaria asociada no existen.'
   else
-    titulo('Eliminar cuenta bancaria — Panel de control')
+    titulo('Eliminar cuenta bancaria')
     @id_profesor = params[:idT]
     @id_cuenta = params[:idC]
     @cuenta = Account.find(params[:idC])
@@ -148,7 +148,7 @@ get '/dashboard/teachers/bank_accounts/:idT/edit/:idC' do
   rescue ActiveRecord::RecordNotFound
     redirect '/dashboard/teachers', error: 'El profesor o la cuenta bancaria asociada no existen.'
   else
-    titulo('Editar cuenta bancaria — Panel de control')
+    titulo('Editar cuenta bancaria')
     @id_profesor = params[:idT]
     @id_cuenta = params[:idC]
     @cuenta = Account.find(params[:idC])

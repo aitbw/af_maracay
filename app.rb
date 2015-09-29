@@ -29,7 +29,7 @@ post '/signin' do
 end
 
 get '/dashboard' do
-  titulo('Panel de control — Inicio')
+  titulo('Inicio')
   erb :index, layout: :'layouts/dashboard'
 end
 

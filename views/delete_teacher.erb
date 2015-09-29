@@ -12,6 +12,7 @@
         <li><b>Cédula</b>: <%= @query.cedulaProfesor %></li>
         <li><b>Fecha de ingreso</b>: <%= @query.fechaIngreso.strftime('%d/%m/%Y') %></li>
         <br />
+        <b><p class="text-danger">Todos los registros relacionados a este profesor también serán eliminados.</p></b>
         <form action="/delete_teacher/<%= @id_profesor %>" method="POST">
           <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="btn btn-danger">Eliminar</button>

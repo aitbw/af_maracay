@@ -1,11 +1,11 @@
 get '/dashboard/students' do
-  titulo('Estudiantes — Panel de control')
+  titulo('Estudiantes')
   @estudiantes = Estudiante.all
   erb :students, layout: :'layouts/dashboard'
 end
 
 get '/dashboard/students/new_student' do
-  titulo('Crear nuevo estudiante — Panel de control')
+  titulo('Crear nuevo estudiante')
   @cursos = Curso.select(:idCurso, :codigoCurso)
   erb :new_student, layout: :'layouts/dashboard'
 end
@@ -22,7 +22,7 @@ get '/dashboard/students/delete/:id' do
   else
     @id_estudiante = params[:id]
     @query = Estudiante.find(params[:id])
-    titulo('Eliminar estudiante — Panel de control')
+    titulo('Eliminar estudiante')
     erb :delete_student, layout: :'layouts/dashboard'
   end
 end

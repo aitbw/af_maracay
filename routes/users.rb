@@ -1,11 +1,11 @@
 get '/dashboard/users' do
-  titulo('Usuarios — Panel de control')
+  titulo('Usuarios')
   @users = Usuario.all
   erb :users, layout: :'layouts/dashboard'
 end
 
 get '/dashboard/users/new_user' do
-  titulo('Crear nuevo usuario — Panel de control')
+  titulo('Crear nuevo usuario')
   erb :new_user, layout: :'layouts/dashboard'
 end
 
@@ -29,7 +29,7 @@ get '/dashboard/users/delete/:id' do
   else
     @id_usuario = params[:id]
     @query = Usuario.find(params[:id])
-    titulo('Eliminar usuario — Panel de control')
+    titulo('Eliminar usuario')
     erb :delete_user, layout: :'layouts/dashboard'
   end
 end
@@ -50,7 +50,7 @@ get '/dashboard/users/edit/:id' do
   else
     @id_usuario = params[:id]
     @user = Usuario.find(params[:id])
-    titulo('Editar usuario — Panel de control')
+    titulo('Editar usuario')
     erb :edit_user, layout: :'layouts/dashboard'
   end
 end
@@ -83,7 +83,7 @@ put '/edit_user/:id' do
 end
 
 get '/dashboard/change_password' do
-  titulo('Cambiar contraseña — Panel de control')
+  titulo('Cambiar contraseña')
   erb :change_password, layout: :'layouts/dashboard'
 end
 
