@@ -7,11 +7,11 @@
   <% end %>
   <div class="form-group">
     <label>Nombre</label>
-    <textarea name="usuario[nombreUsuario]" class="form-control"><%= @user.nombreUsuario %></textarea>
+    <textarea name="usuario[nombreUsuario]" class="form-control"><%=h @user.nombreUsuario %></textarea>
   </div>
   <div class="form-group">
     <label>Cédula</label>
-    <textarea name="usuario[cedulaUsuario]" class="form-control"><%= @user.cedulaUsuario %></textarea>
+    <textarea name="usuario[cedulaUsuario]" class="form-control"><%=h @user.cedulaUsuario %></textarea>
   </div>
   <div class="form-group">
   <label>Rol</label>

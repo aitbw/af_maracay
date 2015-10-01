@@ -7,7 +7,7 @@
   <% end %>
   <div class="form-group">
     <label>Código</label>
-    <textarea name="curso[codigoCurso]" class="form-control"><%= @query.codigoCurso %></textarea>
+    <textarea name="curso[codigoCurso]" class="form-control"><%=h @query.codigoCurso %></textarea>
   </div>
   <div class="form-group">
   <label>Tipo</label>
@@ -27,11 +27,11 @@
   </div>
   <div class="form-group">
     <label>Nivel</label>
-    <textarea name="curso[nivelCurso]" class="form-control"><%= @query.nivelCurso %></textarea>
+    <textarea name="curso[nivelCurso]" class="form-control"><%=h @query.nivelCurso %></textarea>
   </div>
   <div class="form-group">
     <label>Capacidad</label>
-    <textarea name="curso[capacidadCurso]" class="form-control"><%= @query.capacidadCurso %></textarea>
+    <textarea name="curso[capacidadCurso]" class="form-control"><%=h @query.capacidadCurso %></textarea>
   </div>
   <input type="hidden" name="_method" value="PUT">
   <button type="submit" class="btn btn-success">Actualizar</button>

@@ -12,8 +12,13 @@ Dir['./controllers/*.rb', './models/*.rb', './routes/*.rb'].each { |file| requir
 enable :sessions
 set :session_secret, SecureRandom.hex(64)
 
-def titulo(title)
-  @page_title = title
+helpers do
+  def titulo(title)
+    @page_title = title
+  end
+
+  include Rack::Utils
+  alias_method :h, :escape_html
 end
 
 get '/signin' do

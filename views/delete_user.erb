@@ -6,8 +6,8 @@
 
     <div class="panel-body">
         <p>¿Está usted seguro de <b>eliminar</b> este usuario? Esta acción no puede ser revertida.</p>
-        <li><b>Nombre</b>: <%= @query.nombreUsuario %></li>
-        <li><b>Cédula</b>: <%= @query.cedulaUsuario %></li>
+        <li><b>Nombre</b>: <%=h @query.nombreUsuario %></li>
+        <li><b>Cédula</b>: <%=h @query.cedulaUsuario %></li>
         <li><b>Nivel de acceso</b>: <%= @query.nivelAcceso %></li>
         <br />
         <b><p class="text-danger">Todos los registros relacionados a este usuario también serán eliminados.</p></b>

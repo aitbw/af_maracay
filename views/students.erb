@@ -19,11 +19,11 @@
     <% @estudiantes.each do |estudiante| %>
     <% Curso.where(idCurso: estudiante.idCurso).select(:codigoCurso).each do |curso| %>
       <tr>
-        <td><%= curso.codigoCurso %></td>
-        <td><%= estudiante.nombreEstudiante %></td>
-        <td><%= estudiante.correoEstudiante %></td>
-        <td><%= estudiante.telefonoEstudiante %></td>
-        <td><%= estudiante.cedulaEstudiante %></td>
+        <td><%=h curso.codigoCurso %></td>
+        <td><%=h estudiante.nombreEstudiante %></td>
+        <td><%=h estudiante.correoEstudiante %></td>
+        <td><%=h estudiante.telefonoEstudiante %></td>
+        <td><%=h estudiante.cedulaEstudiante %></td>
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>

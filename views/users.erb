@@ -16,8 +16,8 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.nombreUsuario %></td>
-        <td><%= user.cedulaUsuario %></td>
+        <td><%=h user.nombreUsuario %></td>
+        <td><%=h user.cedulaUsuario %></td>
         <td><%= user.nivelAcceso %></td>
         <td>
           <div class="btn-group">

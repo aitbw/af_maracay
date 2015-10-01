@@ -24,19 +24,19 @@
     <% Tipo.where(idTipoCurso: course.idTipoCurso).select(:tipoCurso).each do |tipo| %>
     <% Sede.where(idSede: course.idSede).select(:nombreSede).each do |sede| %>
       <tr>
-        <td><%= course.codigoCurso %></td>
+        <td><%=h course.codigoCurso %></td>
         <td><%= tipo.tipoCurso %></td>
         <td><%= sede.nombreSede %></td>
-        <td><%= course.nivelCurso %></td>
-        <td><%= course.capacidadCurso %></td>
-        <td><%= course.inicioCurso.strftime('%d/%m/%Y') %></td>
-        <td><%= course.finCurso.strftime('%d/%m/%Y') %></td>
+        <td><%=h course.nivelCurso %></td>
+        <td><%=h course.capacidadCurso %></td>
+        <td><%=h course.inicioCurso.strftime('%d/%m/%Y') %></td>
+        <td><%=h course.finCurso.strftime('%d/%m/%Y') %></td>
         <% if course.horasCurso == 0 %>
         <td>Finalizado</td>
         <td>Finalizado</td>
         <% else %>
-        <td><%= course.horasCubiertas %></td>
-        <td><%= course.horasCurso %></td>
+        <td><%=h course.horasCubiertas %></td>
+        <td><%=h course.horasCurso %></td>
         <% end %>
         <td>
           <div class="btn-group">

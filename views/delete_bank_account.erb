@@ -7,12 +7,12 @@
     <div class="panel-body">
         <p>¿Está usted seguro de <b>eliminar</b> esta cuenta bancaria? Esta acción no puede ser revertida.</p>
         <% Teacher.where(idProfesor: @cuenta.idProfesor).select(:nombreProfesor).each do |teacher| %>
-        <li><b>Titular</b>: <%= teacher.nombreProfesor %></li>
+        <li><b>Titular</b>: <%=h teacher.nombreProfesor %></li>
         <% end %>
         <% Banco.where(idBanco: @cuenta.idBanco).each do |bank| %>
         <li><b>Banco</b>: <%= bank.nombreBanco %></li>
         <% end %>
-        <li><b>Número de cuenta</b>: <%= @cuenta.numeroCuenta %></li>
+        <li><b>Número de cuenta</b>: <%=h @cuenta.numeroCuenta %></li>
         <li><b>Tipo de cuenta</b>: <%= @cuenta.tipoCuenta %></li>
         <br />
         <form action="/<%= @id_profesor %>/delete_bank_account/<%= @id_cuenta %>" method="POST">

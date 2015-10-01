@@ -6,11 +6,11 @@
 
     <div class="panel-body">
         <p>¿Está usted seguro de <b>eliminar</b> este profesor? Esta acción no puede ser revertida.</p>
-        <li><b>Nombre</b>: <%= @query.nombreProfesor %></li>
-        <li><b>Correo</b>: <%= @query.correoProfesor %></li>
-        <li><b>Teléfono</b>: <%= @query.telefonoProfesor %></li>
-        <li><b>Cédula</b>: <%= @query.cedulaProfesor %></li>
-        <li><b>Fecha de ingreso</b>: <%= @query.fechaIngreso.strftime('%d/%m/%Y') %></li>
+        <li><b>Nombre</b>: <%=h @query.nombreProfesor %></li>
+        <li><b>Correo</b>: <%=h @query.correoProfesor %></li>
+        <li><b>Teléfono</b>: <%=h @query.telefonoProfesor %></li>
+        <li><b>Cédula</b>: <%=h @query.cedulaProfesor %></li>
+        <li><b>Fecha de ingreso</b>: <%=h @query.fechaIngreso.strftime('%d/%m/%Y') %></li>
         <br />
         <b><p class="text-danger">Todos los registros relacionados a este profesor también serán eliminados.</p></b>
         <form action="/delete_teacher/<%= @id_profesor %>" method="POST">

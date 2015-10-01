@@ -18,11 +18,11 @@
   <tbody>
     <% @teachers.each do |teacher| %>
       <tr>
-        <td><%= teacher.nombreProfesor %></td>
-        <td><%= teacher.correoProfesor %></td>
-        <td><%= teacher.telefonoProfesor %></td>
-        <td><%= teacher.cedulaProfesor %></td>
-        <td><%= teacher.fechaIngreso.strftime('%d/%m/%Y') %></td>
+        <td><%=h teacher.nombreProfesor %></td>
+        <td><%=h teacher.correoProfesor %></td>
+        <td><%=h teacher.telefonoProfesor %></td>
+        <td><%=h teacher.cedulaProfesor %></td>
+        <td><%=h teacher.fechaIngreso.strftime('%d/%m/%Y') %></td>
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
