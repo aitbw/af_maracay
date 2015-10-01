@@ -9,7 +9,7 @@
   <label>Banco</label>
   <select name="cuenta[idBanco]" class="form-control">
     <% @bank.each do |bank| %>
-    <option value="<%= bank.idBanco %>"><%= bank.nombreBanco %></option>
+    <option <%= "selected" if bank.idBanco == @cuenta.idBanco %> value="<%= bank.idBanco %>"><%= bank.nombreBanco %></option>
     <% end %>
   </select>
   </div>

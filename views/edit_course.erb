@@ -13,7 +13,7 @@
   <label>Tipo</label>
   <select name="curso[idTipoCurso]" class="form-control">
     <% @tipos.each do |tipo| %>
-    <option value="<%= tipo.idTipoCurso %>"><%= tipo.tipoCurso %></option>
+    <option <%= "selected" if tipo.idTipoCurso == @query.idTipoCurso %> value="<%= tipo.idTipoCurso %>"><%= tipo.tipoCurso %></option>
     <% end %>
   </select>
   </div>
@@ -21,7 +21,7 @@
   <label>Sede</label>
   <select name="curso[idSede]" class="form-control">
     <% @sedes.each do |sede| %>
-    <option value="<%= sede.idSede %>"><%= sede.nombreSede %></option>
+    <option <%= "selected" if sede.idSede == @query.idSede %> value="<%= sede.idSede %>"><%= sede.nombreSede %></option>
     <% end %>
   </select>
   </div>
