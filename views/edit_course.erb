@@ -7,11 +7,11 @@
   <% end %>
   <div class="form-group">
     <label>Código</label>
-    <textarea name="codigo" class="form-control"><%= @query.codigoCurso %></textarea>
+    <textarea name="curso[codigoCurso]" class="form-control"><%= @query.codigoCurso %></textarea>
   </div>
   <div class="form-group">
   <label>Tipo</label>
-  <select name="tipo" class="form-control">
+  <select name="curso[idTipoCurso]" class="form-control">
     <% @tipos.each do |tipo| %>
     <option value="<%= tipo.idTipoCurso %>"><%= tipo.tipoCurso %></option>
     <% end %>
@@ -19,7 +19,7 @@
   </div>
   <div class="form-group">
   <label>Sede</label>
-  <select name="sede" class="form-control">
+  <select name="curso[idSede]" class="form-control">
     <% @sedes.each do |sede| %>
     <option value="<%= sede.idSede %>"><%= sede.nombreSede %></option>
     <% end %>
@@ -27,11 +27,11 @@
   </div>
   <div class="form-group">
     <label>Nivel</label>
-    <textarea name="nivel" class="form-control"><%= @query.nivelCurso %></textarea>
+    <textarea name="curso[nivelCurso]" class="form-control"><%= @query.nivelCurso %></textarea>
   </div>
   <div class="form-group">
     <label>Capacidad</label>
-    <textarea name="capacidad" class="form-control"><%= @query.capacidadCurso %></textarea>
+    <textarea name="curso[capacidadCurso]" class="form-control"><%= @query.capacidadCurso %></textarea>
   </div>
   <input type="hidden" name="_method" value="PUT">
   <button type="submit" class="btn btn-success">Actualizar</button>

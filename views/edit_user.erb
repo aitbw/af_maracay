@@ -7,15 +7,15 @@
   <% end %>
   <div class="form-group">
     <label>Nombre</label>
-    <textarea name="nombre" class="form-control"><%= @user.nombreUsuario %></textarea>
+    <textarea name="usuario[nombreUsuario]" class="form-control"><%= @user.nombreUsuario %></textarea>
   </div>
   <div class="form-group">
     <label>Cédula</label>
-    <textarea name="cedula" class="form-control"><%= @user.cedulaUsuario %></textarea>
+    <textarea name="usuario[cedulaUsuario]" class="form-control"><%= @user.cedulaUsuario %></textarea>
   </div>
   <div class="form-group">
   <label>Rol</label>
-  <select name="rol" class="form-control">
+  <select name="usuario[nivelAcceso]" class="form-control">
   <% if @user.nivelAcceso == "Admin" %>
     <option value="Admin" selected>Administrador</option>
     <option value="Recepcionista">Recepcionista</option>

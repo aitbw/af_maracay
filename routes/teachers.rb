@@ -49,39 +49,8 @@ end
 
 put '/edit_teacher/:id' do
   t = Teacher.find(params[:id])
-  EMAIL_REGEX ||= /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
-  if params[:nombre].blank?
-    redirect "/dashboard/teachers/edit/#{params[:id]}", error: 'Debe completar todos los campos.'
-  else
-    t.nombreProfesor = params[:nombre]
-  end
-
-  if t.correoProfesor == params[:correo]
-    t.correoProfesor = t.correoProfesor
-  elsif EMAIL_REGEX.match(params[:correo]).nil?
-    redirect "/dashboard/teachers/edit/#{params[:id]}", error: 'Correo inválido.'
-  elsif Teacher.where(correoProfesor: params[:correo]).present?
-    redirect "/dashboard/teachers/edit/#{params[:id]}", error: 'El correo ya existe.'
-  else
-    t.correoProfesor = params[:correo]
-  end
-
-  if /\d{4}-?\d{7}/.match(params[:telefono]).nil?
-    redirect "/dashboard/teachers/edit/#{params[:id]}", error: 'Número inválido.'
-  else
-    t.telefonoProfesor = params[:telefono]
-  end
-
-  if t.cedulaProfesor == params[:cedula]
-    t.cedulaProfesor = t.cedulaProfesor
-  elsif /\d{6,8}/.match(params[:cedula]).nil?
-    redirect "/dashboard/teachers/edit/#{params[:id]}", error: 'Cédula inválida.'
-  elsif Teacher.where(cedulaProfesor: params[:cedula]).present?
-    redirect "/dashboard/teachers/edit/#{params[:id]}", error: 'La cédula ya existe.'
-  else
-    t.cedulaProfesor = params[:cedula]
-  end
+  t.update(params[:profesor])
 
   if t.save
     redirect '/dashboard/teachers', notice: 'Datos actualizados.'
@@ -160,14 +129,7 @@ end
 put '/:idT/edit_bank_account/:idC' do
   c = Account.find(params[:idC])
 
-  c.tipoCuenta = params[:tipo]
-  c.idBanco = params[:banco]
-
-  if /\d{20}/.match(params[:numero]).nil?
-    redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}/edit/#{params[:idC]}", error: 'Número de cuenta inválido.'
-  else
-    c.numeroCuenta = params[:numero]
-  end
+  c.update(params[:cuenta])
 
   if c.save
     redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}", notice: 'Datos actualizados.'

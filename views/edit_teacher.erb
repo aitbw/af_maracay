@@ -7,19 +7,19 @@
   <% end %>
   <div class="form-group">
     <label>Nombre</label>
-    <textarea name="nombre" class="form-control"><%= @teacher.nombreProfesor %></textarea>
+    <textarea name="profesor[nombreProfesor]" class="form-control"><%= @teacher.nombreProfesor %></textarea>
   </div>
   <div class="form-group">
     <label>Correo</label>
-    <textarea name="correo" class="form-control"><%= @teacher.correoProfesor %></textarea>
+    <textarea name="profesor[correoProfesor]" class="form-control"><%= @teacher.correoProfesor %></textarea>
   </div>
   <div class="form-group">
     <label>Teléfono</label>
-    <textarea name="telefono" class="form-control"><%= @teacher.telefonoProfesor %></textarea>
+    <textarea name="profesor[telefonoProfesor]" class="form-control"><%= @teacher.telefonoProfesor %></textarea>
   </div>
   <div class="form-group">
     <label>Cédula</label>
-    <textarea name="cedula" class="form-control"><%= @teacher.cedulaProfesor %></textarea>
+    <textarea name="profesor[cedulaProfesor]" class="form-control"><%= @teacher.cedulaProfesor %></textarea>
   </div>
   <input type="hidden" name="_method" value="PUT">
   <button type="submit" class="btn btn-success">Actualizar</button>

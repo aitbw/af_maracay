@@ -59,23 +59,7 @@ end
 put '/edit_user/:id' do
   u = Usuario.find(params[:id])
 
-  if params[:nombre].blank?
-    redirect "/dashboard/users/edit/#{params[:id]}", error: 'Debe completar todos los campos.'
-  else
-    u.nombreUsuario = params[:nombre]
-  end
-
-  u.nivelAcceso = params[:rol]
-
-  if u.cedulaUsuario == params[:cedula]
-    u.cedulaUsuario = u.cedulaUsuario
-  elsif /\d{6,8}/.match(params[:cedula]).nil?
-    redirect "/dashboard/users/edit/#{params[:id]}", error: 'Cédula inválida.'
-  elsif Usuario.where(cedulaUsuario: params[:cedula]).present?
-    redirect "/dashboard/users/edit/#{params[:id]}", error: 'La cédula ya existe.'
-  else
-    u.cedulaUsuario = params[:cedula]
-  end
+  u.update(params[:usuario])
 
   if u.save
     redirect '/dashboard/users', notice: 'Datos actualizados.'

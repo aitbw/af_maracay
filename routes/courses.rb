@@ -55,22 +55,7 @@ end
 put '/edit_course/:id' do
   edit_course = Curso.find(params[:id])
 
-  if (params[:codigo] || params[:nivel] || params[:capacidad]).blank?
-    redirect "/dashboard/courses/edit/#{params[:id]}", error: 'Debe completar todos los campos.'
-  end
-
-  if edit_course.codigoCurso == params[:codigo]
-    edit_course.codigoCurso = edit_course.codigoCurso
-  elsif Curso.where(codigoCurso: params[:codigo]).present?
-    redirect "/dashboard/courses/edit/#{params[:id]}", error: 'El código ya se encuentra en uso.'
-  else
-    edit_course.codigoCurso = params[:codigo]
-  end
-
-  edit_course.idTipoCurso = params[:tipo]
-  edit_course.idSede = params[:sede]
-  edit_course.nivelCurso = params[:nivel]
-  edit_course.capacidadCurso = params[:capacidad]
+  edit_course.update(params[:curso])
 
   if edit_course.save
     redirect '/dashboard/courses', notice: 'Datos actualizados.'
