@@ -61,9 +61,10 @@ put '/edit_user/:id' do
 
   if params[:nombre].blank?
     redirect "/dashboard/users/edit/#{params[:id]}", error: 'Debe completar todos los campos.'
+  else
+    u.nombreUsuario = params[:nombre]
   end
 
-  u.nombreUsuario = params[:nombre]
   u.nivelAcceso = params[:rol]
 
   if u.cedulaUsuario == params[:cedula]

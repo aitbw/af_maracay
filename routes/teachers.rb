@@ -53,9 +53,9 @@ put '/edit_teacher/:id' do
 
   if params[:nombre].blank?
     redirect "/dashboard/teachers/edit/#{params[:id]}", error: 'Debe completar todos los campos.'
+  else
+    t.nombreProfesor = params[:nombre]
   end
-
-  t.nombreProfesor = params[:nombre]
 
   if t.correoProfesor == params[:correo]
     t.correoProfesor = t.correoProfesor
