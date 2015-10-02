@@ -3,7 +3,9 @@
     <p class="text-success"><%= flash[:notice] %></p>
   <% end %>
   <% if flash[:error] %>
-    <p class="text-danger"><%= flash[:error] %></p>
+  <% flash[:error].each do |mensaje| %>
+    <p class="text-danger"><%= mensaje %></p>
+  <% end %>
   <% end %>
   <div class="form-group">
     <label>Nombre</label>
@@ -15,7 +17,7 @@
   </div>
   <div class="form-group">
     <label>Contraseña</label>
-    <input type="password" class="form-control" name="password" placeholder="Contraseña">
+    <input type="password" class="form-control" name="usuario[passwordUsuario]" placeholder="Contraseña">
   </div>
   <div class="form-group">
   <label>Rol</label>
