@@ -15,8 +15,6 @@ post '/dashboard/users/new_user' do
   if new_user.valid?
     secure_pass = BCrypt::Password.create(params[:usuario][:passwordUsuario])
     new_user.update(passwordUsuario: secure_pass)
-  else
-    redirect '/dashboard/users/new_user', flash[:error] = new_user.errors.full_messages
   end
 
   if new_user.save
