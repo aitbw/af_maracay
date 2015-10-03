@@ -6,3 +6,4 @@ log/
 bower_components/
 npm-debug.log
 Gemfile.lock
+Guardfile

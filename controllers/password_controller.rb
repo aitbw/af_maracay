@@ -1,19 +1,27 @@
 def change_password
-  if (params[:password] || params[:confirm]).blank?
-    redirect '/dashboard/change_password', error: 'Debe completar todos los campos.'
-  elsif params[:password] != params[:confirm]
-    redirect '/dashboard/change_password', error: 'Los campos no coinciden.'
+  u = Usuario.find(session[:id])
+
+  new_password = BCrypt::Password.create(params[:password])
+
+  u.passwordUsuario = new_password
+
+  if u.save
+    redirect '/dashboard/change_password', notice: 'Cambio de contraseña exitoso.'
   else
-    u = Usuario.find(session[:id])
+    redirect '/dashboard/change_password', error: 'Ha ocurrido un error, intente nuevamente.'
+  end
+end
 
-    new_password = BCrypt::Password.create(params[:password])
+def reset_password
+  u = Usuario.find(params[:id])
 
-    u.passwordUsuario = new_password
+  new_password = BCrypt::Password.create(params[:password])
 
-    if u.save
-      redirect '/dashboard/change_password', notice: 'Cambio de contraseña exitoso.'
-    else
-      redirect '/dashboard/change_password', error: 'Ha ocurrido un error, intente nuevamente.'
-    end
+  u.passwordUsuario = new_password
+
+  if u.save
+    redirect '/dashboard/users', notice: 'Contraseña reestablecida exitosamente.'
+  else
+    redirect "/dashboard/users/reset_password/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
   end
 end

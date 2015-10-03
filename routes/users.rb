@@ -76,5 +76,33 @@ get '/dashboard/change_password' do
 end
 
 put '/change_password' do
-  change_password
+  if (params[:password] || params[:confirm]).blank?
+    redirect '/dashboard/change_password', error: 'Debe completar todos los campos.'
+  elsif params[:password] != params[:confirm]
+    redirect '/dashboard/change_password', error: 'Los campos no coinciden.'
+  else
+    change_password
+  end
+end
+
+get '/dashboard/users/reset_password/:id' do
+  begin
+    Usuario.find(params[:id]).present?
+  rescue ActiveRecord::RecordNotFound
+    redirect '/dashboard/users', error: 'El usuario no existe.'
+  else
+    titulo('Reestablecer contraseña')
+    @id_usuario = params[:id]
+    erb :reset_password, layout: :'layouts/dashboard'
+  end
+end
+
+put '/reset_password/:id' do
+  if (params[:password] || params[:confirm]).blank?
+    redirect "/dashboard/users/reset_password/#{params[:id]}", error: 'Debe completar todos los campos.'
+  elsif params[:password] != params[:confirm]
+    redirect "/dashboard/users/reset_password/#{params[:id]}", error: 'Los campos no coinciden.'
+  else
+    reset_password
+  end
 end
