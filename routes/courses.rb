@@ -60,6 +60,6 @@ put '/edit_course/:id' do
   if edit_course.save
     redirect '/dashboard/courses', notice: 'Datos actualizados.'
   else
-    redirect "/dashboard/courses/edit/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/courses/edit/#{params[:id]}", flash[:error] = edit_course.errors.full_messages
   end
 end

@@ -66,7 +66,7 @@ put '/edit_user/:id' do
   if u.save
     redirect '/dashboard/users', notice: 'Datos actualizados.'
   else
-    redirect "/dashboard/users/edit/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/users/edit/#{params[:id]}", flash[:error] = u.errors.full_messages
   end
 end
 

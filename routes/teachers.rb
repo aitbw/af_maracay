@@ -55,7 +55,7 @@ put '/edit_teacher/:id' do
   if t.save
     redirect '/dashboard/teachers', notice: 'Datos actualizados.'
   else
-    redirect "/dashboard/teachers/edit/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/teachers/edit/#{params[:id]}", flash[:error] = t.errors.full_messages
   end
 end
 
@@ -134,6 +134,6 @@ put '/:idT/edit_bank_account/:idC' do
   if c.save
     redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}", notice: 'Datos actualizados.'
   else
-    redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}/edit/#{params[:idC]}", error: 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}/edit/#{params[:idC]}", flash[:error] = c.errors.full_messages
   end
 end

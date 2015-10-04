@@ -4,6 +4,6 @@ def nuevo_curso
   if new_course.save
     redirect '/dashboard/courses', notice: 'Curso creado exitosamente.'
   else
-    redirect '/dashboard/courses/new_course', error: 'Ha ocurrido un error, intente nuevamente.'
+    redirect '/dashboard/courses/new_course', flash[:error] = new_course.errors.full_messages
   end
 end
