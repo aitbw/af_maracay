@@ -1,6 +1,4 @@
 configure :development do
-  require 'better_errors'
-  require 'bullet'
   set :show_exceptions, true
   enable :logging
 

@@ -1,11 +1,8 @@
 # app.rb
 
-require 'sinatra'
-require 'sinatra/activerecord'
-require 'sinatra/flash'
-require 'sinatra/redirect_with_flash'
+require 'bundler/setup'
+Bundler.require(:default, :development)
 require 'tilt/erubis'
-require 'bcrypt'
 require './environments'
 Dir['./controllers/*.rb', './models/*.rb', './routes/*.rb'].each { |file| require file }
 

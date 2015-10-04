@@ -5,7 +5,5 @@ db/af_maracay.sql
 log/
 bower_components/
 npm-debug.log
-Gemfile.lock
-Guardfile
 .ruby-gemset
 .ruby-version
