@@ -52,21 +52,21 @@ get '/dashboard/users/edit/:id' do
     redirect '/dashboard/users', error: 'El usuario no existe.'
   else
     @id_usuario = params[:id]
-    @user = Usuario.find(params[:id])
+    @query = Usuario.find(params[:id])
     titulo('Editar usuario')
     erb :edit_user, layout: :'layouts/dashboard'
   end
 end
 
 put '/edit_user/:id' do
-  u = Usuario.find(params[:id])
+  edit_user = Usuario.find(params[:id])
 
-  u.update(params[:usuario])
+  edit_user.update(params[:usuario])
 
-  if u.save
+  if edit_user.save
     redirect '/dashboard/users', notice: 'Datos actualizados.'
   else
-    redirect "/dashboard/users/edit/#{params[:id]}", flash[:error] = u.errors.full_messages
+    redirect "/dashboard/users/edit/#{params[:id]}", flash[:error] = edit_user.errors.full_messages
   end
 end
 

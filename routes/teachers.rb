@@ -41,21 +41,21 @@ get '/dashboard/teachers/edit/:id' do
     redirect '/dashboard/teachers', error: 'El profesor no existe.'
   else
     @id_profesor = params[:id]
-    @teacher = Teacher.find(params[:id])
+    @query = Teacher.find(params[:id])
     titulo('Editar profesor')
     erb :edit_teacher, layout: :'layouts/dashboard'
   end
 end
 
 put '/edit_teacher/:id' do
-  t = Teacher.find(params[:id])
+  edit_teacher = Teacher.find(params[:id])
 
-  t.update(params[:profesor])
+  edit_teacher.update(params[:profesor])
 
-  if t.save
+  if edit_teacher.save
     redirect '/dashboard/teachers', notice: 'Datos actualizados.'
   else
-    redirect "/dashboard/teachers/edit/#{params[:id]}", flash[:error] = t.errors.full_messages
+    redirect "/dashboard/teachers/edit/#{params[:id]}", flash[:error] = edit_teacher.errors.full_messages
   end
 end
 
@@ -98,7 +98,7 @@ get '/dashboard/teachers/bank_accounts/:idT/delete/:idC' do
     titulo('Eliminar cuenta bancaria')
     @id_profesor = params[:idT]
     @id_cuenta = params[:idC]
-    @cuenta = Account.find(params[:idC])
+    @query = Account.find(params[:idC])
     erb :delete_bank_account, layout: :'layouts/dashboard'
   end
 end
@@ -120,20 +120,20 @@ get '/dashboard/teachers/bank_accounts/:idT/edit/:idC' do
     titulo('Editar cuenta bancaria')
     @id_profesor = params[:idT]
     @id_cuenta = params[:idC]
-    @cuenta = Account.find(params[:idC])
-    @bank = Banco.all
+    @query = Account.find(params[:idC])
+    @banks = Banco.all
     erb :edit_bank_account, layout: :'layouts/dashboard'
   end
 end
 
 put '/:idT/edit_bank_account/:idC' do
-  c = Account.find(params[:idC])
+  edit_account = Account.find(params[:idC])
 
-  c.update(params[:cuenta])
+  edit_account.update(params[:cuenta])
 
-  if c.save
+  if edit_account.save
     redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}", notice: 'Datos actualizados.'
   else
-    redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}/edit/#{params[:idC]}", flash[:error] = c.errors.full_messages
+    redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}/edit/#{params[:idC]}", flash[:error] = edit_account.errors.full_messages
   end
 end

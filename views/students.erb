@@ -16,24 +16,24 @@
     </tr>
   </thead>
   <tbody>
-    <% @estudiantes.each do |estudiante| %>
-    <% Curso.where(idCurso: estudiante.idCurso).select(:codigoCurso).each do |curso| %>
+    <% @students.each do |student| %>
+    <% Curso.where(idCurso: student.idCurso).select(:codigoCurso).each do |course| %>
       <tr>
-        <td><%=h curso.codigoCurso %></td>
-        <td><%=h estudiante.nombreEstudiante %></td>
-        <td><%=h estudiante.correoEstudiante %></td>
-        <td><%=h estudiante.telefonoEstudiante %></td>
-        <td><%=h estudiante.cedulaEstudiante %></td>
+        <td><%=h course.codigoCurso %></td>
+        <td><%=h student.nombreEstudiante %></td>
+        <td><%=h student.correoEstudiante %></td>
+        <td><%=h student.telefonoEstudiante %></td>
+        <td><%=h student.cedulaEstudiante %></td>
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/dashboard/students/grades/<%= estudiante.idEstudiante %>">Calificaciones</a></li>
-              <li><a href="/dashboard/students/fees/<%= estudiante.idEstudiante %>">Cuotas</a></li>
-              <li><a href="/dashboard/students/delete/<%= estudiante.idEstudiante %>">Eliminar</a></li>
-              <li><a href="/dashboard/students/signups/<%= estudiante.idEstudiante %>">Inscripciones</a></li>
-              <li><a href="/dashboard/students/edit/<%= estudiante.idEstudiante %>">Modificar</a></li>
-              <li><a href="/dashboard/students/reassign/<%= estudiante.idEstudiante %>">Reasignar</a></li>
+              <li><a href="/dashboard/students/grades/<%= student.idEstudiante %>">Calificaciones</a></li>
+              <li><a href="/dashboard/students/fees/<%= student.idEstudiante %>">Cuotas</a></li>
+              <li><a href="/dashboard/students/delete/<%= student.idEstudiante %>">Eliminar</a></li>
+              <li><a href="/dashboard/students/signups/<%= student.idEstudiante %>">Inscripciones</a></li>
+              <li><a href="/dashboard/students/edit/<%= student.idEstudiante %>">Modificar</a></li>
+              <li><a href="/dashboard/students/reassign/<%= student.idEstudiante %>">Reasignar</a></li>
             </ul>
           </div>
         </td>

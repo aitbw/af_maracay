@@ -10,19 +10,19 @@
   <div class="form-group">
   <label>Banco</label>
   <select name="cuenta[idBanco]" class="form-control">
-    <% @bank.each do |bank| %>
-    <option <%= "selected" if bank.idBanco == @cuenta.idBanco %> value="<%= bank.idBanco %>"><%= bank.nombreBanco %></option>
+    <% @banks.each do |bank| %>
+    <option <%= "selected" if bank.idBanco == @query.idBanco %> value="<%= bank.idBanco %>"><%= bank.nombreBanco %></option>
     <% end %>
   </select>
   </div>
   <div class="form-group">
     <label>Número de cuenta</label>
-    <textarea name="cuenta[numeroCuenta]" class="form-control"><%=h @cuenta.numeroCuenta %></textarea>
+    <textarea name="cuenta[numeroCuenta]" class="form-control"><%=h @query.numeroCuenta %></textarea>
   </div>
   <div class="form-group">
   <label>Tipo de cuenta</label>
   <select name="cuenta[tipoCuenta]" class="form-control">
-    <% if @cuenta.tipoCuenta == "Ahorro" %>
+    <% if @query.tipoCuenta == "Ahorro" %>
     <option value="Ahorro" selected>Ahorro</option>
     <option value="Corriente">Corriente</option>
     <% else %>

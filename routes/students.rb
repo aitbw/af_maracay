@@ -1,12 +1,12 @@
 get '/dashboard/students' do
   titulo('Estudiantes')
-  @estudiantes = Estudiante.all
+  @students = Estudiante.all
   erb :students, layout: :'layouts/dashboard'
 end
 
 get '/dashboard/students/new_student' do
   titulo('Crear nuevo estudiante')
-  @cursos = Curso.select(:idCurso, :codigoCurso)
+  @courses = Curso.select(:idCurso, :codigoCurso)
   erb :new_student, layout: :'layouts/dashboard'
 end
 
@@ -42,20 +42,20 @@ get '/dashboard/students/edit/:id' do
     redirect '/dashboard/students', error: 'El estudiante no existe.'
   else
     @id_estudiante = params[:id]
-    @estudiante = Estudiante.find(params[:id])
+    @query = Estudiante.find(params[:id])
     titulo('Editar estudiante')
     erb :edit_student, layout: :'layouts/dashboard'
   end
 end
 
 put '/edit_student/:id' do
-  e = Estudiante.find(params[:id])
+  edit_student = Estudiante.find(params[:id])
 
-  e.update(params[:estudiante])
+  edit_student.update(params[:estudiante])
 
-  if e.save
+  if edit_student.save
     redirect '/dashboard/students', notice: 'Datos actualizados.'
   else
-    redirect "/dashboard/students/edit/#{params[:id]}", flash[:error] = e.errors.full_messages
+    redirect "/dashboard/students/edit/#{params[:id]}", flash[:error] = edit_student.errors.full_messages
   end
 end

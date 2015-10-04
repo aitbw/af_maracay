@@ -6,8 +6,8 @@
 
     <div class="panel-body">
         <p>¿Está usted seguro de <b>eliminar</b> este estudiante? Esta acción no puede ser revertida.</p>
-        <% Curso.where(idCurso: @query.idCurso).select(:codigoCurso).each do |curso| %>
-        <li><b>Curso</b>: <%=h curso.codigoCurso %></li>
+        <% Curso.where(idCurso: @query.idCurso).select(:codigoCurso).each do |course| %>
+        <li><b>Curso</b>: <%=h course.codigoCurso %></li>
         <% end %>
         <li><b>Nombre</b>: <%=h @query.nombreEstudiante %></li>
         <li><b>Correo</b>: <%=h @query.correoEstudiante %></li>

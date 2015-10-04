@@ -9,19 +9,19 @@
   <% end %>
   <div class="form-group">
     <label>Nombre</label>
-    <textarea name="estudiante[nombreEstudiante]" class="form-control"><%=h @estudiante.nombreEstudiante %></textarea>
+    <textarea name="estudiante[nombreEstudiante]" class="form-control"><%=h @query.nombreEstudiante %></textarea>
   </div>
   <div class="form-group">
     <label>Correo</label>
-    <textarea name="estudiante[correoEstudiante]" class="form-control"><%=h @estudiante.correoEstudiante %></textarea>
+    <textarea name="estudiante[correoEstudiante]" class="form-control"><%=h @query.correoEstudiante %></textarea>
   </div>
   <div class="form-group">
     <label>Teléfono</label>
-    <textarea name="estudiante[telefonoEstudiante]" class="form-control"><%=h @estudiante.telefonoEstudiante %></textarea>
+    <textarea name="estudiante[telefonoEstudiante]" class="form-control"><%=h @query.telefonoEstudiante %></textarea>
   </div>
   <div class="form-group">
     <label>Cédula</label>
-    <textarea name="estudiante[cedulaEstudiante]" class="form-control"><%=h @estudiante.cedulaEstudiante %></textarea>
+    <textarea name="estudiante[cedulaEstudiante]" class="form-control"><%=h @query.cedulaEstudiante %></textarea>
   </div>
   <input type="hidden" name="_method" value="PUT">
   <button type="submit" class="btn btn-success">Actualizar</button>
