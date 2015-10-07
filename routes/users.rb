@@ -12,11 +12,6 @@ end
 post '/dashboard/users/new_user' do
   new_user = Usuario.new(params[:usuario])
 
-  if new_user.valid?
-    secure_pass = BCrypt::Password.create(params[:usuario][:passwordUsuario])
-    new_user.update(passwordUsuario: secure_pass)
-  end
-
   if new_user.save
     redirect '/dashboard/users', notice: 'Usuario creado exitosamente.'
   else
