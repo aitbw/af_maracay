@@ -1,0 +1,35 @@
+<form id="nueva_inscripcion" action="/dashboard/students/signups/<%= @id_estudiante %>/add" method="POST">
+  <% if flash[:notice] %>
+    <p class="text-success"><%= flash[:notice] %></p>
+  <% end %>
+  <% if flash[:error] %>
+  <% flash[:error].each do |mensaje| %>
+    <p class="text-danger"><%= mensaje %></p>
+  <% end %>
+  <% end %>
+  <div class="form-group">
+      <label>Costo de inscripción</label>
+      <input type="text" class="form-control" name="inscripcion[costoInscripcion]" placeholder="Monto">
+  </div>
+  <div class="form-group">
+  <label>Método de pago</label>
+      <select name="inscripcion[tipoPago]" class="form-control">
+          <option value="Débito">Tarjeta</option>
+          <option value="Depósito">Depósito</option>
+          <option value="Transferencia">Transferencia</option>
+      </select>
+  </div>
+  <div class="form-group">
+    <label>Fecha de emisión</label>
+    <div class="input-group date" id="fechaind">
+      <input type="text" class="form-control" name="inscripcion[fechaEmision]">
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+  </div>
+  <input type="hidden" name="inscripcion[idEstudiante]" value="<%= @id_estudiante %>">
+  <input type="hidden" name="inscripcion[idUsuario]" value="<%= session[:id] %>">
+  <button type="submit" class="btn btn-success">Crear inscripción</button>
+  <a href="/dashboard/students/signups/<%= @id_estudiante %>" class="btn btn-default">Cancelar</a>
+</form>

@@ -6,6 +6,7 @@ end
 
 get '/dashboard/teachers/new_teacher' do
   titulo('Crear nuevo profesor')
+  @js = ['moment.min.js', 'bootstrap-datetimepicker.min.js']
   erb :new_teacher, layout: :'layouts/dashboard'
 end
 

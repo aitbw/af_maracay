@@ -59,3 +59,39 @@ put '/edit_student/:id' do
     redirect "/dashboard/students/edit/#{params[:id]}", flash[:error] = edit_student.errors.full_messages
   end
 end
+
+get '/dashboard/students/signups/:id' do
+  begin
+    Estudiante.find(params[:id]).present?
+  rescue ActiveRecord::RecordNotFound
+    redirect '/dashboard/students', error: 'El estudiante no existe.'
+  else
+    @id_estudiante = params[:id]
+    @signups = Inscripcion.where(idEstudiante: params[:id])
+    titulo('Inscripciones')
+    erb :signups, layout: :'layouts/dashboard'
+  end
+end
+
+get '/dashboard/students/signups/:id/add' do
+  begin
+    Estudiante.find(params[:id]).present?
+  rescue ActiveRecord::RecordNotFound
+    redirect '/dashboard/students', error: 'El estudiante no existe.'
+  else
+    @id_estudiante = params[:id]
+    @js = ['moment.min.js', 'bootstrap-datetimepicker.min.js']
+    titulo('Nueva inscripción')
+    erb :new_signup, layout: :'layouts/dashboard'
+  end
+end
+
+post '/dashboard/students/signups/:id/add' do
+  new_signup = Inscripcion.new(params[:inscripcion])
+
+  if new_signup.save
+    redirect "/dashboard/students/signups/#{params[:id]}", notice: 'Inscripción generada exitosamente.'
+  else
+    redirect "/dashboard/students/signups/#{params[:id]}/add", flash[:error] = new_signup.errors.full_messages
+  end
+end

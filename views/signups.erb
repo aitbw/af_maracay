@@ -1,0 +1,58 @@
+<% if flash[:notice] %>
+  <p class="text-success"><%= flash[:notice] %></p>
+<% end %>
+<% if flash[:error] %>
+  <p class="text-danger"><%= flash[:error] %></p>
+<% end %>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Emisor</th>
+      <th scope="col">Monto cancelado</th>
+      <th scope="col">Tipo de pago</th>
+      <th scope="col">Fecha de emisión</th>
+      <th scope="col">Fecha de expiración</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Banco</th>
+      <th scope="col">Número de referencia</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @signups.each do |signup| %>
+    <% Usuario.where(idUsuario: signup.idUsuario).select(:nombreUsuario).each do |user| %>
+      <tr>
+        <td><%=h user.nombreUsuario %></td>
+        <td><%=h signup.costoInscripcion %></td>
+        <td><%= signup.tipoPago %></td>
+        <td><%=h signup.fechaEmision.strftime('%d/%m/%Y') %></td>
+        <td><%=h signup.fechaExpiracion.strftime('%d/%m/%Y') %></td>
+        <% if Time.now >= signup.fechaExpiracion %>
+        <td><b><p class="text-danger">Inscripción expirada</p></b></td>
+        <% else %>
+        <td><b><p class="text-success">Inscripción vigente</p></b></td>
+        <% end %>
+        <% if signup.banco == nil %>
+        <td>N/A</td>
+        <td>N/A</td>
+        <% else %>
+        <td><%= signup.banco %></td>
+        <td><%=h signup.numeroReferencia %></td>
+        <% end %>
+        <td>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="/dashboard/students/signups/<%= @id_estudiante %>/delete/<%= signup.idInscripcion %>">Eliminar</a></li>
+              <li><a href="/dashboard/students/signups/<%= @id_estudiante %>/edit/<%= signup.idInscripcion %>">Modificar</a></li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<a href="/dashboard/students/signups/<%= @id_estudiante %>/add" class="btn btn-success">Crear nueva inscripción</a>
+<a href="/dashboard/students" class="btn btn-default">Atrás</a>

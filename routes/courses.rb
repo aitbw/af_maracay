@@ -9,6 +9,7 @@ get '/dashboard/courses/new_course' do
   titulo('Crear nuevo curso')
   @tipos = Tipo.select(:idTipoCurso, :tipoCurso)
   @sedes = Sede.all
+  @js = ['moment.min.js', 'bootstrap-datetimepicker.min.js']
   erb :new_course, layout: :'layouts/dashboard'
 end
 
