@@ -13,8 +13,8 @@
   </div>
   <div class="form-group">
   <label>Método de pago</label>
-      <select name="inscripcion[tipoPago]" class="form-control">
-          <option value="Débito">Tarjeta</option>
+      <select name="inscripcion[tipoPago]" class="form-control" id="metodo">
+          <option value="Débito">Débito</option>
           <option value="Depósito">Depósito</option>
           <option value="Transferencia">Transferencia</option>
       </select>
@@ -27,6 +27,19 @@
         <span class="glyphicon glyphicon-calendar"></span>
       </span>
     </div>
+  </div>
+  <div class="form-group" id="banco" style="display:none;">
+    <label>Banco</label>
+      <select name="inscripcion[banco]" class="form-control">
+        <option value="" selected>Seleccione un banco</option>
+        <% @banks.each do |bank| %>
+        <option value="<%= bank.nombreBanco %>"><%= bank.nombreBanco %></option>
+        <% end %>
+      </select>
+  </div>
+  <div class="form-group" id="referencia" style="display:none;">
+    <label>Número de referencia</label>
+    <input type="text" class="form-control" name="inscripcion[numeroReferencia]" placeholder="Referencia">
   </div>
   <input type="hidden" name="inscripcion[idEstudiante]" value="<%= @id_estudiante %>">
   <input type="hidden" name="inscripcion[idUsuario]" value="<%= session[:id] %>">

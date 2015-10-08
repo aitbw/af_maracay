@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap.css")%>">
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/fixed-navbar_footer.css")%>">
+    <% if @js %>
+    <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap-datetimepicker.min.css")%>">
+    <% end %>
     <title><%= @page_title %> — Panel de control | AF Maracay</title>
   </head>
 
@@ -107,8 +110,18 @@
         });
       });
       </script>
-    <link rel="stylesheet" type="text/css" href="<%=("/stylesheets/bootstrap-datetimepicker.min.css")%>">
     <% end %>
+
+    <script type="text/javascript">
+    var elem = document.getElementById("metodo");
+
+    elem.onchange = function(){
+      var hidden1 = document.getElementById("banco");
+      var hidden2 = document.getElementById("referencia");
+      hidden1.style.display = (this.value == "Débito") ? "none":"block";
+      hidden2.style.display = (this.value == "Débito") ? "none":"block";
+    };
+    </script>
 
     <!-- TO-DO: Footer -->
 

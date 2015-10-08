@@ -45,6 +45,10 @@
               <li><a href="/dashboard/courses/delete/<%= course.idCurso %>">Eliminar</a></li>
               <li><a href="/dashboard/courses/edit/<%= course.idCurso %>">Modificar</a></li>
               <li><a href="/dashboard/courses/show_students/<%= course.idCurso %>">Ver estudiantes</a>
+              <% if course.horasCurso == 0 %>
+              <li><a href="/dashboard/courses/assign_grades/<%= course.idCurso %>">Asignar calificaciones</a></li>
+              <li><a href="/dashboard/courses/promote/<%= course.idCurso %>">Promover</a></li>
+              <% end %>
             </ul>
           </div>
         </td>

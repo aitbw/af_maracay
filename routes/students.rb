@@ -81,6 +81,7 @@ get '/dashboard/students/signups/:id/add' do
   else
     @id_estudiante = params[:id]
     @js = ['moment.min.js', 'bootstrap-datetimepicker.min.js']
+    @banks = Banco.all
     titulo('Nueva inscripción')
     erb :new_signup, layout: :'layouts/dashboard'
   end
