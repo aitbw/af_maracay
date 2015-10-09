@@ -10,6 +10,7 @@
   <div class="form-group">
   <label>Banco</label>
   <select name="cuenta[idBanco]" class="form-control">
+    <option value="" selected>Seleccione un banco</option>
     <% @banks.each do |bank| %>
       <option value="<%= bank.idBanco %>"><%= bank.nombreBanco %></option>
     <% end %>
@@ -22,6 +23,7 @@
   <div class="form-group">
   <label>Tipo de cuenta</label>
     <select name="cuenta[tipoCuenta]" class="form-control">
+      <option value="" selected>Seleccione el tipo de cuenta</option>
       <option value="Ahorro">Ahorro</option>
       <option value="Corriente">Corriente</option>
     </select>

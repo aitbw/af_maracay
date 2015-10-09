@@ -7,6 +7,8 @@ end
 class Curso < ActiveRecord::Base
   COURSE_CODE ||= /[ABC](1|2) [A-Z]{2} \d{2}/
 
+  validates :idTipoCurso, presence: true
+  validates :idSede, presence: true
   validates :codigoCurso, presence: true, uniqueness: true, format: { with: COURSE_CODE }
   validates :nivelCurso, presence: true, format: { with: /[ABC](1|2)-[1-5]{1}/ }
   validates :capacidadCurso, presence: true, format: { with: /\d{2}/ }

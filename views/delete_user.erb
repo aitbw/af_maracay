@@ -6,10 +6,11 @@
 
     <div class="panel-body">
         <p>¿Está usted seguro de <b>eliminar</b> este usuario? Esta acción no puede ser revertida.</p>
+        <ol style="list-style-type:disc;">
         <li><b>Nombre</b>: <%=h @query.nombreUsuario %></li>
         <li><b>Cédula</b>: <%=h @query.cedulaUsuario %></li>
         <li><b>Nivel de acceso</b>: <%= @query.nivelAcceso %></li>
-        <br />
+        </ol>
         <b><p class="text-danger">Todos los registros relacionados a este usuario también serán eliminados.</p></b>
         <form action="/delete_user/<%= @id_usuario %>" method="POST">
           <input type="hidden" name="_method" value="DELETE">

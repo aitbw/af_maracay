@@ -10,6 +10,7 @@
   <div class="form-group">
     <label>Curso</label>
     <select name="estudiante[idCurso]" class="form-control">
+      <option value="" selected>Seleccione un curso</option>
       <% @courses.each do |course| %>
       <option value="<%= course.idCurso %>"><%= course.codigoCurso %></option>
       <% end %>

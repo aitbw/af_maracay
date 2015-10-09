@@ -10,6 +10,7 @@
   <div class="form-group">
   <label>Tipo</label>
   <select name="curso[idTipoCurso]" class="form-control">
+    <option value="" selected>Seleccione un tipo de curso</option>
     <% @tipos.each do |tipo| %>
     <option value="<%= tipo.idTipoCurso %>"><%= tipo.tipoCurso %></option>
     <% end %>
@@ -18,6 +19,7 @@
   <div class="form-group">
   <label>Sede</label>
   <select name="curso[idSede]" class="form-control">
+    <option value="" selected>Seleccione una sede</option>
     <% @sedes.each do |sede| %>
     <option value="<%= sede.idSede %>"><%= sede.nombreSede %></option>
     <% end %>

@@ -96,3 +96,25 @@ post '/dashboard/students/signups/:id/add' do
     redirect "/dashboard/students/signups/#{params[:id]}/add", flash[:error] = new_signup.errors.full_messages
   end
 end
+
+get '/dashboard/students/signups/:idE/delete/:idS' do
+  begin
+    (Estudiante.find(params[:idE]) || Inscripcion.find(params[:idS])).present?
+  rescue ActiveRecord::RecordNotFound
+    redirect '/dashboard/students', error: 'El estudiante o la inscripción asociada no existen.'
+  else
+    titulo('Eliminar inscripción')
+    @id_estudiante = params[:idE]
+    @id_inscripcion = params[:idS]
+    @query = Inscripcion.find(params[:idS])
+    erb :delete_signup, layout: :'layouts/dashboard'
+  end
+end
+
+delete '/:idE/delete_signup/:idS' do
+  if Inscripcion.destroy(params[:idS])
+    redirect "/dashboard/students/signups/#{params[:idE]}", notice: 'Inscripción eliminada.'
+  else
+    redirect "/dashboard/students/signups/#{params[:idE]}/delete/#{params[:idS]}", error: 'Ha ocurrido un error, intente nuevamente.'
+  end
+end
