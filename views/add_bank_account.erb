@@ -24,8 +24,9 @@
   <label>Tipo de cuenta</label>
     <select name="cuenta[tipoCuenta]" class="form-control">
       <option value="" selected>Seleccione el tipo de cuenta</option>
-      <option value="Ahorro">Ahorro</option>
-      <option value="Corriente">Corriente</option>
+      <% ['Ahorro', 'Corriente'].each do |tipo| %>
+      <option value="<%= tipo %>"><%= tipo %></option>
+      <% end %>
     </select>
   </div>
   <input type="hidden" name="cuenta[idProfesor]" value="<%= @id_profesor %>">

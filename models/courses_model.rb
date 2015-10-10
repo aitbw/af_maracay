@@ -14,5 +14,5 @@ class Curso < ActiveRecord::Base
   validates :capacidadCurso, presence: true, format: { with: /\d{2}/ }
   validates :inicioCurso, presence: true
   validates :finCurso, presence: true
-  validates :horasCurso, presence: true, format: { with: /\d/ }
+  validates :horasCurso, presence: true, numericality: { only_integer: true }
 end

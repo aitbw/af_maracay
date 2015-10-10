@@ -18,12 +18,9 @@
   <div class="form-group">
   <label>Rol</label>
   <select name="usuario[nivelAcceso]" class="form-control">
-  <% if @query.nivelAcceso == "Admin" %>
-    <option value="Admin" selected>Administrador</option>
-    <option value="Recepcionista">Recepcionista</option>
-  <% else %>
-    <option value="Admin">Administrador</option>
-    <option value="Recepcionista" selected>Recepcionista</option>
+  <option value="">Seleccione nivel de acceso</option>
+  <% ['Admin', 'Recepcionista'].each do |rol| %>
+  <option <%= "selected" if rol == @query.nivelAcceso %> value="<%= rol %>"><%= rol %></option>
   <% end %>
   </select>
   </div>

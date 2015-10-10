@@ -23,8 +23,9 @@
   <label>Rol</label>
   <select name="usuario[nivelAcceso]" class="form-control">
     <option value="" selected>Seleccione nivel de acceso</option>
-    <option value="Admin">Administrador</option>
-    <option value="Recepcionista">Recepcionista</option>
+    <% ['Admin', 'Recepcionista'].each do |rol| %>
+    <option value="<%= rol %>"><%= rol %></option>
+    <% end %>
   </select>
   </div>
   <button type="submit" class="btn btn-success">Crear usuario</button>

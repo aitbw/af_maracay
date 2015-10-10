@@ -22,12 +22,9 @@
   <div class="form-group">
   <label>Tipo de cuenta</label>
   <select name="cuenta[tipoCuenta]" class="form-control">
-    <% if @query.tipoCuenta == "Ahorro" %>
-    <option value="Ahorro" selected>Ahorro</option>
-    <option value="Corriente">Corriente</option>
-    <% else %>
-    <option value="Ahorro">Ahorro</option>
-    <option value="Corriente" selected>Corriente</option>
+    <option value="">Seleccione el tipo de cuenta</option>
+    <% ['Ahorro', 'Corriente'].each do |tipo| %>
+    <option <%= "selected" if @query.tipoCuenta == tipo %> value="<%= tipo %>"><%= tipo %></option>
     <% end %>
   </select>
   </div>

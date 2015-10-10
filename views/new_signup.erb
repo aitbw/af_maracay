@@ -8,16 +8,16 @@
   <% end %>
   <% end %>
   <div class="form-group">
-      <label>Costo de inscripción</label>
+      <label>Monto de inscripción</label>
       <input type="text" class="form-control" name="inscripcion[costoInscripcion]" placeholder="Monto">
   </div>
   <div class="form-group">
   <label>Método de pago</label>
       <select name="inscripcion[tipoPago]" class="form-control" id="metodo">
           <option value="" selected>Seleccione un método de pago</option>
-          <option value="Débito">Débito</option>
-          <option value="Depósito">Depósito</option>
-          <option value="Transferencia">Transferencia</option>
+          <% ["Débito", "Depósito", "Transferencia"].each do |metodo| %>
+          <option value="<%= metodo %>"><%= metodo %></option>
+          <% end %>
       </select>
   </div>
   <div class="form-group">
