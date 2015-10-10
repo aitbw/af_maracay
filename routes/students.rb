@@ -118,3 +118,30 @@ delete '/:idE/delete_signup/:idS' do
     redirect "/dashboard/students/signups/#{params[:idE]}/delete/#{params[:idS]}", error: 'Ha ocurrido un error, intente nuevamente.'
   end
 end
+
+get '/dashboard/students/signups/:idE/edit/:idS' do
+  begin
+    (Estudiante.find(params[:idE]) || Inscripcion.find(params[:idS])).present?
+  rescue
+    redirect '/dashboard/students', error: 'El estudiante o la inscripción asocaida no existen.'
+  else
+    titulo('Editar inscripción')
+    @id_estudiante = params[:idE]
+    @id_inscripcion  = params[:idS]
+    @query = Inscripcion.find(params[:idS])
+    @banks = Banco.all
+    erb :edit_signup, layout: :'layouts/dashboard'
+  end
+end
+
+put '/:idE/edit_signup/:idS' do
+  edit_signup = Inscripcion.find(params[:idS])
+
+  edit_signup.update(params[:inscripcion])
+
+  if edit_signup.save
+    redirect "/dashboard/students/signups/#{params[:idE]}", notice: 'Datos actualizados.'
+  else
+    redirect "/dashboard/students/signups/#{params[:idE]}/edit/#{params[:idS]}", flash[:error] = edit_signup.errors.full_messages
+  end
+end

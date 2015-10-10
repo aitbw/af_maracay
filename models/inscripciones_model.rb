@@ -4,7 +4,7 @@ class Inscripcion < ActiveRecord::Base
   before_validation :fecha_expiracion
   before_save :limpiar_campos
 
-  validates :costoInscripcion, presence: true
+  validates :costoInscripcion, presence: true, numericality: true
   validates :tipoPago, presence: true
   validates :fechaEmision, presence: true
   validates :fechaExpiracion, presence: true

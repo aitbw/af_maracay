@@ -1,0 +1,39 @@
+<form id="actualizar" action="/<%= @id_estudiante %>/edit_signup/<%= @id_inscripcion %>" method="POST">
+  <% if flash[:notice] %>
+      <p class="text-success"><%= flash[:notice] %></p>
+    <% end %>
+    <% if flash[:error] %>
+    <% flash[:error].each do |mensaje| %>
+      <p class="text-danger"><%= mensaje %></p>
+    <% end %>
+    <% end %>
+    <div class="form-group">
+      <label>Monto de inscripción</label>
+      <textarea name="inscripcion[costoInscripcion]" class="form-control"><%=h @query.costoInscripcion %></textarea>
+    </div>
+    <div class="form-group">
+      <label>Método de pago</label>
+      <select name="inscripcion[tipoPago]" id="metodo" class="form-control">
+        <option value="">Seleccione un método de pago</option>
+        <% ["Débito", "Depósito", "Transferencia"].each do |metodo| %>
+        <option <%= "selected" if metodo == @query.tipoPago %> value="<%= metodo %>"><%= metodo %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="form-group" id="banco" style="display:none;">
+      <label>Banco</label>
+      <select name="inscripcion[banco]" class="form-control">
+        <option value="">Seleccione un banco</option>
+        <% @banks.each do |bank| %>
+        <option <%= "selected" if bank.nombreBanco == @query.banco %> value="<%= bank.nombreBanco %>"><%= bank.nombreBanco %></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="form-group" id="referencia" style="display:none;">
+      <label>Número de referencia</label>
+      <textarea name="inscripcion[numeroReferencia]" class="form-control"><%=h @query.numeroReferencia %></textarea>
+    </div>
+    <input type="hidden" name="_method" value="PUT">
+    <button type="submit" class="btn btn-success">Actualizar</button>
+    <a href="/dashboard/students/signups/<%= @id_estudiante %>" class="btn btn-default">Cancelar</a>
+</form>
