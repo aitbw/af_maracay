@@ -1,6 +1,6 @@
 # Modelo para la tabla 'Usuarios'
 class Usuario < ActiveRecord::Base
-  before_save :cifrar_clave
+  after_validation :cifrar_clave, on: :create
 
   validates :nombreUsuario, presence: true
   validates :cedulaUsuario, presence: true, uniqueness: true, format: { with: /\d{6,8}/ }

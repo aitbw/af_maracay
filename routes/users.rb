@@ -1,3 +1,10 @@
+# Helper to keep exception handling DRY
+def find_user(id)
+  Usuario.find(id).present?
+rescue ActiveRecord::RecordNotFound
+  redirect '/dashboard/users', error: 'El usuario no existe.'
+end
+
 get '/dashboard/users' do
   titulo('Usuarios')
   @users = Usuario.all
@@ -20,11 +27,7 @@ post '/dashboard/users/new_user' do
 end
 
 get '/dashboard/users/delete/:id' do
-  begin
-    Usuario.find(params[:id]).present?
-  rescue ActiveRecord::RecordNotFound
-    redirect '/dashboard/users', error: 'El usuario no existe.'
-  else
+  if find_user(params[:id])
     @id_usuario = params[:id]
     @query = Usuario.find(params[:id])
     titulo('Eliminar usuario')
@@ -33,7 +36,8 @@ get '/dashboard/users/delete/:id' do
 end
 
 delete '/delete_user/:id' do
-  if Usuario.destroy(params[:id])
+  if find_user(params[:id])
+    Usuario.destroy(params[:id])
     redirect '/dashboard/users', notice: 'Usuario eliminado.'
   else
     redirect "/dashboard/users/delete/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
@@ -41,11 +45,7 @@ delete '/delete_user/:id' do
 end
 
 get '/dashboard/users/edit/:id' do
-  begin
-    Usuario.find(params[:id]).present?
-  rescue ActiveRecord::RecordNotFound
-    redirect '/dashboard/users', error: 'El usuario no existe.'
-  else
+  if find_user(params[:id])
     @id_usuario = params[:id]
     @query = Usuario.find(params[:id])
     titulo('Editar usuario')
@@ -54,12 +54,10 @@ get '/dashboard/users/edit/:id' do
 end
 
 put '/edit_user/:id' do
-  edit_user = Usuario.find(params[:id])
-
-  edit_user.update(params[:usuario])
-
-  if edit_user.save
-    redirect '/dashboard/users', notice: 'Datos actualizados.'
+  if find_user(params[:id])
+    edit_user = Usuario.find(params[:id])
+    edit_user.update(params[:usuario])
+    redirect '/dashboard/users', notice: 'Datos actualizados.' if edit_user.save
   else
     redirect "/dashboard/users/edit/#{params[:id]}", flash[:error] = edit_user.errors.full_messages
   end
@@ -81,15 +79,15 @@ put '/change_password' do
 end
 
 get '/dashboard/users/reset_password/:id' do
-  begin
-    Usuario.find(params[:id]).present?
-  rescue ActiveRecord::RecordNotFound
-    redirect '/dashboard/users', error: 'El usuario no existe.'
-  else
+  if find_user(params[:id])
     titulo('Reestablecer contraseña')
     @id_usuario = params[:id]
     erb :reset_password, layout: :'layouts/dashboard'
   end
+end
+
+before '/reset_password/:id' do
+  find_user(params[:id])
 end
 
 put '/reset_password/:id' do

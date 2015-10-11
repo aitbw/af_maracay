@@ -1,7 +1,7 @@
 # Modelo para la tabla 'inscripcionesEstudiantes'
 class Inscripcion < ActiveRecord::Base
   self.table_name = 'inscripcionesEstudiantes'
-  before_validation :fecha_expiracion
+  before_validation :fecha_expiracion, on: :create
   before_save :limpiar_campos
 
   validates :costoInscripcion, presence: true, numericality: true

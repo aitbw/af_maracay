@@ -1,8 +1,10 @@
 def change_password
   user = Usuario.find(session[:id])
-
+rescue ActiveRecord::RecordNotFound
+  session.clear
+  redirect '/signin', error: 'El usuario no existe.'
+else
   new_password = BCrypt::Password.create(params[:password])
-
   user.passwordUsuario = new_password
 
   if user.save
@@ -14,9 +16,7 @@ end
 
 def reset_password
   user = Usuario.find(params[:id])
-
   new_password = BCrypt::Password.create(params[:password])
-
   user.passwordUsuario = new_password
 
   if user.save
