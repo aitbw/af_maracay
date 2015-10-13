@@ -11,18 +11,18 @@
 
   <body>
 
-    <div class="container">
+    <div class="container fade-in">
       <form class="form-signin" action="/signin" method="POST">
-        <h2 class="form-signin-heading">Iniciar sesión</h2>
+        <img class="logo" src="<%=url("/images/logo.png")%>">
         <% if flash[:notice] %>
-          <p class="text-success"><%= flash[:notice] %></p>
+          <p class="alert alert-success" align="center"><%= flash[:notice] %></p>
         <% end %>
         <% if flash[:error] %>
-          <p class="text-danger"><%= flash[:error] %></p>
+          <p class="alert alert-danger" align="center"><%= flash[:error] %></p>
         <% end %>
         <input type="text" class="form-control" name="cedula" placeholder="Cédula" autofocus>
         <input type="password" class="form-control" name="password" placeholder="Contraseña">
-        <button class="btn btn-lg btn-danger btn-block" type="submit">Iniciar sesión</button>
+        <button class="btn btn-lg button btn-block" type="submit">Iniciar sesión</button>
       </form>
     </div>
 
