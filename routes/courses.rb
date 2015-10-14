@@ -1,3 +1,10 @@
+# Helper to keep exception handling DRY
+def find_course(id)
+  Curso.find(id).present?
+rescue ActiveRecord::RecordNotFound
+  redirect '/dashboard/courses', error: 'El curso no existe.'
+end
+
 get '/dashboard/courses' do
   titulo('Cursos')
   @courses = Curso.all
@@ -18,11 +25,7 @@ post '/dashboard/courses/new_course' do
 end
 
 get '/dashboard/courses/delete/:id' do
-  begin
-    Curso.find(params[:id]).present?
-  rescue ActiveRecord::RecordNotFound
-    redirect '/dashboard/courses', error: 'El curso no existe.'
-  else
+  if find_course(params[:id])
     @id_curso = params[:id]
     @query = Curso.find(params[:id])
     titulo('Eliminar curso')
@@ -31,7 +34,8 @@ get '/dashboard/courses/delete/:id' do
 end
 
 delete '/delete_course/:id' do
-  if Curso.destroy(params[:id])
+  if find_course(params[:id])
+    Curso.destroy(params[:id])
     redirect '/dashboard/courses', notice: 'Curso eliminado.'
   else
     redirect "/dashboard/courses/delete/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
@@ -39,11 +43,7 @@ delete '/delete_course/:id' do
 end
 
 get '/dashboard/courses/edit/:id' do
-  begin
-    Curso.find(params[:id]).present?
-  rescue ActiveRecord::RecordNotFound
-    redirect '/dashboard/courses', error: 'El curso no existe.'
-  else
+  if find_course(params[:id])
     @id_curso = params[:id]
     @query = Curso.find(params[:id])
     @tipos = Tipo.all
@@ -54,12 +54,10 @@ get '/dashboard/courses/edit/:id' do
 end
 
 put '/edit_course/:id' do
-  edit_course = Curso.find(params[:id])
-
-  edit_course.update(params[:curso])
-
-  if edit_course.save
-    redirect '/dashboard/courses', notice: 'Datos actualizados.'
+  if find_course(params[:id])
+    edit_course = Curso.find(params[:id])
+    edit_course.update(params[:curso])
+    redirect '/dashboard/courses', notice: 'Datos actualizados.' if edit_course.save
   else
     redirect "/dashboard/courses/edit/#{params[:id]}", flash[:error] = edit_course.errors.full_messages
   end

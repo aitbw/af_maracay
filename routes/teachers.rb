@@ -1,3 +1,16 @@
+# Helpers to keep exception handling DRY
+def find_teacher(id)
+  Teacher.find(id).present?
+rescue ActiveRecord::RecordNotFound
+  redirect '/dashboard/teachers', error: 'El profesor no existe.'
+end
+
+def find_account(profesor, cuenta)
+  Account.find(cuenta).present?
+rescue ActiveRecord::RecordNotFound
+  redirect "/dashboard/teachers/bank_accounts/#{profesor}", error: 'La cuenta asociada no existe.'
+end
+
 get '/dashboard/teachers' do
   titulo('Profesores')
   @teachers = Teacher.all
@@ -15,11 +28,7 @@ post '/dashboard/teachers/new_teacher' do
 end
 
 get '/dashboard/teachers/delete/:id' do
-  begin
-    Teacher.find(params[:id]).present?
-  rescue ActiveRecord::RecordNotFound
-    redirect '/dashboard/teachers', error: 'El profesor no existe.'
-  else
+  if find_teacher(params[:id])
     @id_profesor = params[:id]
     @query = Teacher.find(params[:id])
     titulo('Eliminar profesor')
@@ -28,7 +37,8 @@ get '/dashboard/teachers/delete/:id' do
 end
 
 delete '/delete_teacher/:id' do
-  if Teacher.destroy(params[:id])
+  if find_teacher(params[:id])
+    Teacher.destroy(params[:id])
     redirect '/dashboard/teachers', notice: 'Profesor eliminado.'
   else
     redirect "/dashboard/teachers/delete/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
@@ -36,11 +46,7 @@ delete '/delete_teacher/:id' do
 end
 
 get '/dashboard/teachers/edit/:id' do
-  begin
-    Teacher.find(params[:id]).present?
-  rescue ActiveRecord::RecordNotFound
-    redirect '/dashboard/teachers', error: 'El profesor no existe.'
-  else
+  if find_teacher(params[:id])
     @id_profesor = params[:id]
     @query = Teacher.find(params[:id])
     titulo('Editar profesor')
@@ -49,23 +55,17 @@ get '/dashboard/teachers/edit/:id' do
 end
 
 put '/edit_teacher/:id' do
-  edit_teacher = Teacher.find(params[:id])
-
-  edit_teacher.update(params[:profesor])
-
-  if edit_teacher.save
-    redirect '/dashboard/teachers', notice: 'Datos actualizados.'
+  if find_teacher(params[:id])
+    edit_teacher = Teacher.find(params[:id])
+    edit_teacher.update(params[:profesor])
+    redirect '/dashboard/teachers', notice: 'Datos actualizados.' if edit_teacher.save
   else
     redirect "/dashboard/teachers/edit/#{params[:id]}", flash[:error] = edit_teacher.errors.full_messages
   end
 end
 
 get '/dashboard/teachers/bank_accounts/:id' do
-  begin
-    Teacher.find(params[:id]).present?
-  rescue ActiveRecord::RecordNotFound
-    redirect '/dashboard/teachers', error: 'El profesor no existe.'
-  else
+  if find_teacher(params[:id])
     titulo('Cuentas bancarias')
     @id_profesor = params[:id]
     @accounts = Account.where(idProfesor: params[:id])
@@ -74,11 +74,7 @@ get '/dashboard/teachers/bank_accounts/:id' do
 end
 
 get '/dashboard/teachers/bank_accounts/:id/add' do
-  begin
-    Teacher.find(params[:id]).present?
-  rescue ActiveRecord::RecordNotFound
-    redirect '/dashboard/teachers', error: 'El profesor no existe.'
-  else
+  if find_teacher(params[:id])
     titulo('Asignar cuenta bancaria')
     @id_profesor = params[:id]
     @banks = Banco.all
@@ -87,15 +83,11 @@ get '/dashboard/teachers/bank_accounts/:id/add' do
 end
 
 post '/dashboard/teachers/bank_accounts/:id/add' do
-  asignar_cuenta
+  asignar_cuenta if find_teacher(params[:id])
 end
 
 get '/dashboard/teachers/bank_accounts/:idT/delete/:idC' do
-  begin
-    (Teacher.find(params[:idT]) || Account.find(params[:idC])).present?
-  rescue ActiveRecord::RecordNotFound
-    redirect '/dashboard/teachers', error: 'El profesor o la cuenta bancaria asociada no existen.'
-  else
+  if find_teacher(params[:idT]) && find_account(params[:idT], params[:idC])
     titulo('Eliminar cuenta bancaria')
     @id_profesor = params[:idT]
     @id_cuenta = params[:idC]
@@ -105,7 +97,8 @@ get '/dashboard/teachers/bank_accounts/:idT/delete/:idC' do
 end
 
 delete '/:idT/delete_bank_account/:idC' do
-  if Account.destroy(params[:idC])
+  if find_teacher(params[:idT]) && find_account(params[:idT], params[:idC])
+    Account.destroy(params[:idC])
     redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}", notice: 'Cuenta bancaria eliminada.'
   else
     redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}/delete/#{params[:idC]}", error: 'Ha ocurrido un error, intente nuevamente.'
@@ -113,11 +106,7 @@ delete '/:idT/delete_bank_account/:idC' do
 end
 
 get '/dashboard/teachers/bank_accounts/:idT/edit/:idC' do
-  begin
-    (Teacher.find(params[:idT]) || Account.find(params[:idC])).present?
-  rescue ActiveRecord::RecordNotFound
-    redirect '/dashboard/teachers', error: 'El profesor o la cuenta bancaria asociada no existen.'
-  else
+  if find_teacher(params[:idT]) && find_account(params[:idT], params[:idC])
     titulo('Editar cuenta bancaria')
     @id_profesor = params[:idT]
     @id_cuenta = params[:idC]
@@ -128,12 +117,10 @@ get '/dashboard/teachers/bank_accounts/:idT/edit/:idC' do
 end
 
 put '/:idT/edit_bank_account/:idC' do
-  edit_account = Account.find(params[:idC])
-
-  edit_account.update(params[:cuenta])
-
-  if edit_account.save
-    redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}", notice: 'Datos actualizados.'
+  if find_teacher(params[:idT]) && find_account(params[:idT], params[:idC])
+    edit_account = Account.find(params[:idC])
+    edit_account.update(params[:cuenta])
+    redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}", notice: 'Datos actualizados.' if edit_account.save
   else
     redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}/edit/#{params[:idC]}", flash[:error] = edit_account.errors.full_messages
   end
