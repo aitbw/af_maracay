@@ -2,6 +2,7 @@
 class Teacher < ActiveRecord::Base
   self.table_name = 'profesores'
   VALID_EMAIL_REGEX ||= /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  has_many :accounts, dependent: :destroy, foreign_key: 'idProfesor'
 
   validates :nombreProfesor, presence: true
   validates :telefonoProfesor, presence: true, format: { with: /\d{4}-?\d{7}/ }

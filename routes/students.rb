@@ -6,7 +6,7 @@ rescue ActiveRecord::RecordNotFound
 end
 
 def find_signup(estudiante, inscripcion)
-  Inscripcion.find(inscripcion).present?
+  Signup.find(inscripcion).present?
 rescue ActiveRecord::RecordNotFound
   redirect "/dashboard/students/signups/#{estudiante}", error: 'La inscripción asociada no existe.'
 end
@@ -67,7 +67,7 @@ end
 get '/dashboard/students/signups/:id' do
   if find_student(params[:id])
     @id_estudiante = params[:id]
-    @signups = Inscripcion.where(idEstudiante: params[:id])
+    @signups = Signup.where(idEstudiante: params[:id])
     titulo('Inscripciones')
     erb :signups, layout: :'layouts/dashboard'
   end
@@ -85,7 +85,7 @@ end
 
 post '/dashboard/students/signups/:id/add' do
   if find_student(params[:id])
-    new_signup = Inscripcion.new(params[:inscripcion])
+    new_signup = Signup.new(params[:inscripcion])
 
     if new_signup.save
       redirect "/dashboard/students/signups/#{params[:id]}", notice: 'Inscripción generada exitosamente.'
@@ -100,14 +100,14 @@ get '/dashboard/students/signups/:idE/delete/:idS' do
     titulo('Eliminar inscripción')
     @id_estudiante = params[:idE]
     @id_inscripcion = params[:idS]
-    @query = Inscripcion.find(params[:idS])
+    @query = Signup.find(params[:idS])
     erb :delete_signup, layout: :'layouts/dashboard'
   end
 end
 
 delete '/:idE/delete_signup/:idS' do
   if find_student(params[:idE]) && find_signup(params[:idE], params[:idS])
-    Inscripcion.destroy(params[:idS])
+    Signup.destroy(params[:idS])
     redirect "/dashboard/students/signups/#{params[:idE]}", notice: 'Inscripción eliminada.'
   else
     redirect "/dashboard/students/signups/#{params[:idE]}/delete/#{params[:idS]}", error: 'Ha ocurrido un error, intente nuevamente.'
@@ -119,7 +119,7 @@ get '/dashboard/students/signups/:idE/edit/:idS' do
     titulo('Editar inscripción')
     @id_estudiante = params[:idE]
     @id_inscripcion  = params[:idS]
-    @query = Inscripcion.find(params[:idS])
+    @query = Signup.find(params[:idS])
     @banks = Banco.all
     erb :edit_signup, layout: :'layouts/dashboard'
   end
@@ -127,7 +127,7 @@ end
 
 put '/:idE/edit_signup/:idS' do
   if find_student(params[:idE]) && find_signup(params[:idE], params[:idS])
-    edit_signup = Inscripcion.find(params[:idS])
+    edit_signup = Signup.find(params[:idS])
     edit_signup.update(params[:inscripcion])
     redirect "/dashboard/students/signups/#{params[:idE]}", notice: 'Datos actualizados.' if edit_signup.save
   else

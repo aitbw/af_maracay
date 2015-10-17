@@ -1,6 +1,8 @@
 # Modelo para la tabla 'estudiantes'
 class Estudiante < ActiveRecord::Base
   VALID_EMAIL_REGEX ||= /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  belongs_to :curso
+  has_many :signups, dependent: :destroy, foreign_key: 'idEstudiante'
 
   validates :idCurso, presence: true
   validates :nombreEstudiante, presence: true

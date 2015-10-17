@@ -1,11 +1,15 @@
 # Modelo para la tabla 'tiposCursos'
 class Tipo < ActiveRecord::Base
   self.table_name = 'tiposCurso'
+  has_many :cursos, foreign_key: 'idTipoCurso'
 end
 
 # Modelo para la tabla Cursos
 class Curso < ActiveRecord::Base
   COURSE_CODE ||= /[ABC](1|2) [A-Z]{2} \d{2}/
+  has_many :estudiantes, dependent: :destroy, foreign_key: 'idCurso'
+  belongs_to :tipo
+  belongs_to :sede
 
   validates :idTipoCurso, presence: true
   validates :idSede, presence: true

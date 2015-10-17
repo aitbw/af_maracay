@@ -1,8 +1,10 @@
 # Modelo para la tabla 'inscripcionesEstudiantes'
-class Inscripcion < ActiveRecord::Base
+class Signup < ActiveRecord::Base
   self.table_name = 'inscripcionesEstudiantes'
   before_validation :fecha_expiracion, on: :create
   before_save :limpiar_campos
+  belongs_to :estudiante
+  belongs_to :usuario
 
   validates :costoInscripcion, presence: true, numericality: true
   validates :tipoPago, presence: true
