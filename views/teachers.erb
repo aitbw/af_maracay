@@ -28,11 +28,11 @@
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
             <ul class="dropdown-menu">
               <% if session[:rol] == "Admin" %>
-              <li><a href="/dashboard/teachers/bank_accounts/<%= teacher.idProfesor %>">Cuentas bancarias</a></li>
+              <li><a href="/dashboard/teachers/<%= teacher.idProfesor %>/bank_accounts">Cuentas bancarias</a></li>
               <% end %>
-              <li><a href="/dashboard/teachers/show_courses/<%= teacher.idProfesor %>">Cursos</a></li>
-              <li><a href="/dashboard/teachers/delete/<%= teacher.idProfesor %>">Eliminar</a></li>
-              <li><a href="/dashboard/teachers/edit/<%= teacher.idProfesor %>">Modificar</a></li>
+              <li><a href="/dashboard/teachers/<%= teacher.idProfesor %>/show_courses">Cursos</a></li>
+              <li><a href="/dashboard/teachers/<%= teacher.idProfesor %>/delete">Eliminar</a></li>
+              <li><a href="/dashboard/teachers/<%= teacher.idProfesor %>/edit">Modificar</a></li>
             </ul>
           </div>
         </td>
@@ -41,4 +41,4 @@
   </tbody>
 </table>
 
-<a href="/dashboard/teachers/new_teacher" class="btn btn-success">Crear nuevo profesor</a>
+<a href="/dashboard/teachers/new_teacher" class="btn btn-success">Nuevo profesor</a>

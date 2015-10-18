@@ -28,12 +28,12 @@
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/dashboard/students/grades/<%= student.idEstudiante %>">Calificaciones</a></li>
-              <li><a href="/dashboard/students/fees/<%= student.idEstudiante %>">Cuotas</a></li>
-              <li><a href="/dashboard/students/delete/<%= student.idEstudiante %>">Eliminar</a></li>
-              <li><a href="/dashboard/students/signups/<%= student.idEstudiante %>">Inscripciones</a></li>
-              <li><a href="/dashboard/students/edit/<%= student.idEstudiante %>">Modificar</a></li>
-              <li><a href="/dashboard/students/reassign/<%= student.idEstudiante %>">Reasignar</a></li>
+              <li><a href="/dashboard/students/<%= student.idEstudiante %>/grades">Calificaciones</a></li>
+              <li><a href="/dashboard/students/<%= student.idEstudiante %>/fees">Cuotas</a></li>
+              <li><a href="/dashboard/students/<%= student.idEstudiante %>/delete">Eliminar</a></li>
+              <li><a href="/dashboard/students/<%= student.idEstudiante %>/signups">Inscripciones</a></li>
+              <li><a href="/dashboard/students/<%= student.idEstudiante %>/edit">Modificar</a></li>
+              <li><a href="/dashboard/students/<%= student.idEstudiante %>/reassign">Reasignar</a></li>
             </ul>
           </div>
         </td>
@@ -43,4 +43,4 @@
   </tbody>
 </table>
 
-<a href="/dashboard/students/new_student" class="btn btn-success">Crear nuevo estudiante</a>
+<a href="/dashboard/students/new_student" class="btn btn-success">Nuevo estudiante</a>

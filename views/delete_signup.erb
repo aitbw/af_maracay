@@ -28,7 +28,7 @@
         <form action="/<%= @id_estudiante %>/delete_signup/<%= @id_inscripcion %>" method="POST">
           <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="btn btn-danger">Eliminar</button>
-          <a href="/dashboard/students/signups/<%= @id_estudiante %>" class="btn btn-default">Cancelar</a>
+          <a href="/dashboard/students/<%= @id_estudiante %>/signups" class="btn btn-default">Cancelar</a>
         </form>
     </div>
   </div>

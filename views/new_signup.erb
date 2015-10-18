@@ -1,4 +1,4 @@
-<form id="nueva_inscripcion" action="/dashboard/students/signups/<%= @id_estudiante %>/add" method="POST">
+<form id="nueva_inscripcion" action="/dashboard/students/<%= @id_estudiante %>/signups/add" method="POST">
   <% if flash[:notice] %>
     <p class="text-success"><%= flash[:notice] %></p>
   <% end %>
@@ -44,6 +44,6 @@
   </div>
   <input type="hidden" name="inscripcion[idEstudiante]" value="<%= @id_estudiante %>">
   <input type="hidden" name="inscripcion[idUsuario]" value="<%= session[:id] %>">
-  <button type="submit" class="btn btn-success">Crear inscripción</button>
-  <a href="/dashboard/students/signups/<%= @id_estudiante %>" class="btn btn-default">Cancelar</a>
+  <button type="submit" class="btn btn-success">Generar inscripción</button>
+  <a href="/dashboard/students/<%= @id_estudiante %>/signups" class="btn btn-default">Cancelar</a>
 </form>

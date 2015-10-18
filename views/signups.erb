@@ -43,8 +43,8 @@
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/dashboard/students/signups/<%= @id_estudiante %>/delete/<%= signup.idInscripcion %>">Eliminar</a></li>
-              <li><a href="/dashboard/students/signups/<%= @id_estudiante %>/edit/<%= signup.idInscripcion %>">Modificar</a></li>
+              <li><a href="/dashboard/students/<%= @id_estudiante %>/signups/<%= signup.idInscripcion %>/delete">Eliminar</a></li>
+              <li><a href="/dashboard/students/<%= @id_estudiante %>/signups/<%= signup.idInscripcion %>/edit">Modificar</a></li>
             </ul>
           </div>
         </td>
@@ -54,5 +54,5 @@
   </tbody>
 </table>
 
-<a href="/dashboard/students/signups/<%= @id_estudiante %>/add" class="btn btn-success">Crear nueva inscripción</a>
+<a href="/dashboard/students/<%= @id_estudiante %>/signups/add" class="btn btn-success">Nueva inscripción</a>
 <a href="/dashboard/students" class="btn btn-default">Atrás</a>

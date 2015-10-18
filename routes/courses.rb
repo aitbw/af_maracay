@@ -5,6 +5,10 @@ rescue ActiveRecord::RecordNotFound
   redirect '/dashboard/courses', error: 'El curso no existe.'
 end
 
+before %r{\/(delete|edit)_course\/(\d)} do |_action, id|
+  find_course(id)
+end
+
 get '/dashboard/courses' do
   titulo('Cursos')
   @courses = Curso.all
@@ -24,7 +28,7 @@ post '/dashboard/courses/new_course' do
   nuevo_curso
 end
 
-get '/dashboard/courses/delete/:id' do
+get '/dashboard/courses/:id/delete' do
   if find_course(params[:id])
     @id_curso = params[:id]
     @query = Curso.find(params[:id])
@@ -34,15 +38,14 @@ get '/dashboard/courses/delete/:id' do
 end
 
 delete '/delete_course/:id' do
-  if find_course(params[:id])
-    Curso.destroy(params[:id])
+  if Curso.destroy(params[:id])
     redirect '/dashboard/courses', notice: 'Curso eliminado.'
   else
-    redirect "/dashboard/courses/delete/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/courses/#{params[:id]}/delete", error: 'Ha ocurrido un error, intente nuevamente.'
   end
 end
 
-get '/dashboard/courses/edit/:id' do
+get '/dashboard/courses/:id/edit' do
   if find_course(params[:id])
     @id_curso = params[:id]
     @query = Curso.find(params[:id])
@@ -54,11 +57,11 @@ get '/dashboard/courses/edit/:id' do
 end
 
 put '/edit_course/:id' do
-  if find_course(params[:id])
-    edit_course = Curso.find(params[:id])
-    edit_course.update(params[:curso])
-    redirect '/dashboard/courses', notice: 'Datos actualizados.' if edit_course.save
+  edit_course = Curso.find(params[:id])
+  edit_course.update(params[:curso])
+  if edit_course.save
+    redirect '/dashboard/courses', notice: 'Datos actualizados.'
   else
-    redirect "/dashboard/courses/edit/#{params[:id]}", flash[:error] = edit_course.errors.full_messages
+    redirect "/dashboard/courses/#{params[:id]}/edit", flash[:error] = edit_course.errors.full_messages
   end
 end

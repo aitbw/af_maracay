@@ -22,6 +22,6 @@ def reset_password
   if user.save
     redirect '/dashboard/users', notice: 'Contraseña reestablecida exitosamente.'
   else
-    redirect "/dashboard/users/reset_password/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/users/#{params[:id]}/reset_password", error: 'Ha ocurrido un error, intente nuevamente.'
   end
 end

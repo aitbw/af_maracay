@@ -24,8 +24,8 @@
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/dashboard/teachers/bank_accounts/<%= @id_profesor %>/delete/<%= account.idCuentaBanco %>">Eliminar</a></li>
-              <li><a href="/dashboard/teachers/bank_accounts/<%= @id_profesor %>/edit/<%= account.idCuentaBanco %>">Modificar</a></li>
+              <li><a href="/dashboard/teachers/<%= @id_profesor %>/bank_accounts/<%= account.idCuentaBanco %>/delete">Eliminar</a></li>
+              <li><a href="/dashboard/teachers/<%= @id_profesor %>/bank_accounts/<%= account.idCuentaBanco %>/edit">Modificar</a></li>
             </ul>
           </div>
         </td>
@@ -35,5 +35,5 @@
   </tbody>
 </table>
 
-<a href="/dashboard/teachers/bank_accounts/<%= @id_profesor %>/add" class="btn btn-success">Asignar cuenta bancaria</a>
+<a href="/dashboard/teachers/<%= @id_profesor %>/bank_accounts/add" class="btn btn-success">Asignar cuenta bancaria</a>
 <a href="/dashboard/teachers" class="btn btn-default">Atrás</a>

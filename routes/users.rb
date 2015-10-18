@@ -5,6 +5,14 @@ rescue ActiveRecord::RecordNotFound
   redirect '/dashboard/users', error: 'El usuario no existe.'
 end
 
+before %r{\/(delete|edit)_user\/(\d)} do |_action, id|
+  find_user(id)
+end
+
+before '/reset_password/:id' do
+  find_user(params[:id])
+end
+
 get '/dashboard/users' do
   titulo('Usuarios')
   @users = Usuario.all
@@ -26,7 +34,7 @@ post '/dashboard/users/new_user' do
   end
 end
 
-get '/dashboard/users/delete/:id' do
+get '/dashboard/users/:id/delete' do
   if find_user(params[:id])
     @id_usuario = params[:id]
     @query = Usuario.find(params[:id])
@@ -36,15 +44,14 @@ get '/dashboard/users/delete/:id' do
 end
 
 delete '/delete_user/:id' do
-  if find_user(params[:id])
-    Usuario.destroy(params[:id])
+  if Usuario.destroy(params[:id])
     redirect '/dashboard/users', notice: 'Usuario eliminado.'
   else
-    redirect "/dashboard/users/delete/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/users/#{params[:id]}/delete", error: 'Ha ocurrido un error, intente nuevamente.'
   end
 end
 
-get '/dashboard/users/edit/:id' do
+get '/dashboard/users/:id/edit' do
   if find_user(params[:id])
     @id_usuario = params[:id]
     @query = Usuario.find(params[:id])
@@ -54,12 +61,12 @@ get '/dashboard/users/edit/:id' do
 end
 
 put '/edit_user/:id' do
-  if find_user(params[:id])
-    edit_user = Usuario.find(params[:id])
-    edit_user.update(params[:usuario])
-    redirect '/dashboard/users', notice: 'Datos actualizados.' if edit_user.save
+  edit_user = Usuario.find(params[:id])
+  edit_user.update(params[:usuario])
+  if edit_user.save
+    redirect '/dashboard/users', notice: 'Datos actualizados.'
   else
-    redirect "/dashboard/users/edit/#{params[:id]}", flash[:error] = edit_user.errors.full_messages
+    redirect "/dashboard/users/#{params[:id]}/edit", flash[:error] = edit_user.errors.full_messages
   end
 end
 
@@ -78,7 +85,7 @@ put '/change_password' do
   end
 end
 
-get '/dashboard/users/reset_password/:id' do
+get '/dashboard/users/:id/reset_password' do
   if find_user(params[:id])
     titulo('Reestablecer contraseña')
     @id_usuario = params[:id]
@@ -86,15 +93,11 @@ get '/dashboard/users/reset_password/:id' do
   end
 end
 
-before '/reset_password/:id' do
-  find_user(params[:id])
-end
-
 put '/reset_password/:id' do
   if (params[:password] || params[:confirm]).blank?
-    redirect "/dashboard/users/reset_password/#{params[:id]}", error: 'Debe completar todos los campos.'
+    redirect "/dashboard/users/#{params[:id]}/reset_password", error: 'Debe completar todos los campos.'
   elsif params[:password] != params[:confirm]
-    redirect "/dashboard/users/reset_password/#{params[:id]}", error: 'Los campos no coinciden.'
+    redirect "/dashboard/users/#{params[:id]}/reset_password", error: 'Los campos no coinciden.'
   else
     reset_password
   end

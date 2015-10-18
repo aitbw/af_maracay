@@ -19,7 +19,7 @@
         <form action="/<%= @id_profesor %>/delete_bank_account/<%= @id_cuenta %>" method="POST">
           <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="btn btn-danger">Eliminar</button>
-          <a href="/dashboard/teachers/bank_accounts/<%= @id_profesor %>" class="btn btn-default">Cancelar</a>
+          <a href="/dashboard/teachers/<%= @id_profesor %>/bank_accounts" class="btn btn-default">Cancelar</a>
         </form>
     </div>
   </div>

@@ -8,7 +8,15 @@ end
 def find_account(profesor, cuenta)
   Account.find(cuenta).present?
 rescue ActiveRecord::RecordNotFound
-  redirect "/dashboard/teachers/bank_accounts/#{profesor}", error: 'La cuenta asociada no existe.'
+  redirect "/dashboard/teachers/#{profesor}/bank_accounts", error: 'La cuenta asociada no existe.'
+end
+
+before %r{\/(delete|edit)_teacher\/(\d)} do |_action, id|
+  find_teacher(id)
+end
+
+before %r{\/(\d)\/(delete|edit)_bank_account\/(\d)} do |profesor, _action, cuenta|
+  find_teacher(profesor) && find_account(profesor, cuenta)
 end
 
 get '/dashboard/teachers' do
@@ -27,7 +35,7 @@ post '/dashboard/teachers/new_teacher' do
   nuevo_profesor
 end
 
-get '/dashboard/teachers/delete/:id' do
+get '/dashboard/teachers/:id/delete' do
   if find_teacher(params[:id])
     @id_profesor = params[:id]
     @query = Teacher.find(params[:id])
@@ -37,15 +45,14 @@ get '/dashboard/teachers/delete/:id' do
 end
 
 delete '/delete_teacher/:id' do
-  if find_teacher(params[:id])
-    Teacher.destroy(params[:id])
+  if Teacher.destroy(params[:id])
     redirect '/dashboard/teachers', notice: 'Profesor eliminado.'
   else
-    redirect "/dashboard/teachers/delete/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/teachers/#{params[:id]}/delete", error: 'Ha ocurrido un error, intente nuevamente.'
   end
 end
 
-get '/dashboard/teachers/edit/:id' do
+get '/dashboard/teachers/:id/edit' do
   if find_teacher(params[:id])
     @id_profesor = params[:id]
     @query = Teacher.find(params[:id])
@@ -55,16 +62,16 @@ get '/dashboard/teachers/edit/:id' do
 end
 
 put '/edit_teacher/:id' do
-  if find_teacher(params[:id])
-    edit_teacher = Teacher.find(params[:id])
-    edit_teacher.update(params[:profesor])
-    redirect '/dashboard/teachers', notice: 'Datos actualizados.' if edit_teacher.save
+  edit_teacher = Teacher.find(params[:id])
+  edit_teacher.update(params[:profesor])
+  if edit_teacher.save
+    redirect '/dashboard/teachers', notice: 'Datos actualizados.'
   else
-    redirect "/dashboard/teachers/edit/#{params[:id]}", flash[:error] = edit_teacher.errors.full_messages
+    redirect "/dashboard/teachers/#{params[:id]}/edit", flash[:error] = edit_teacher.errors.full_messages
   end
 end
 
-get '/dashboard/teachers/bank_accounts/:id' do
+get '/dashboard/teachers/:id/bank_accounts' do
   if find_teacher(params[:id])
     titulo('Cuentas bancarias')
     @id_profesor = params[:id]
@@ -73,7 +80,7 @@ get '/dashboard/teachers/bank_accounts/:id' do
   end
 end
 
-get '/dashboard/teachers/bank_accounts/:id/add' do
+get '/dashboard/teachers/:id/bank_accounts/add' do
   if find_teacher(params[:id])
     titulo('Asignar cuenta bancaria')
     @id_profesor = params[:id]
@@ -82,11 +89,11 @@ get '/dashboard/teachers/bank_accounts/:id/add' do
   end
 end
 
-post '/dashboard/teachers/bank_accounts/:id/add' do
+post '/dashboard/teachers/:id/bank_accounts/add' do
   asignar_cuenta if find_teacher(params[:id])
 end
 
-get '/dashboard/teachers/bank_accounts/:idT/delete/:idC' do
+get '/dashboard/teachers/:idT/bank_accounts/:idC/delete' do
   if find_teacher(params[:idT]) && find_account(params[:idT], params[:idC])
     titulo('Eliminar cuenta bancaria')
     @id_profesor = params[:idT]
@@ -97,15 +104,14 @@ get '/dashboard/teachers/bank_accounts/:idT/delete/:idC' do
 end
 
 delete '/:idT/delete_bank_account/:idC' do
-  if find_teacher(params[:idT]) && find_account(params[:idT], params[:idC])
-    Account.destroy(params[:idC])
-    redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}", notice: 'Cuenta bancaria eliminada.'
+  if Account.destroy(params[:idC])
+    redirect "/dashboard/teachers/#{params[:idT]}/bank_accounts", notice: 'Cuenta bancaria eliminada.'
   else
-    redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}/delete/#{params[:idC]}", error: 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/teachers/#{params[:idT]}/bank_accounts/#{params[:idC]}/delete", error: 'Ha ocurrido un error, intente nuevamente.'
   end
 end
 
-get '/dashboard/teachers/bank_accounts/:idT/edit/:idC' do
+get '/dashboard/teachers/:idT/bank_accounts/:idC/edit' do
   if find_teacher(params[:idT]) && find_account(params[:idT], params[:idC])
     titulo('Editar cuenta bancaria')
     @id_profesor = params[:idT]
@@ -117,11 +123,11 @@ get '/dashboard/teachers/bank_accounts/:idT/edit/:idC' do
 end
 
 put '/:idT/edit_bank_account/:idC' do
-  if find_teacher(params[:idT]) && find_account(params[:idT], params[:idC])
-    edit_account = Account.find(params[:idC])
-    edit_account.update(params[:cuenta])
-    redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}", notice: 'Datos actualizados.' if edit_account.save
+  edit_account = Account.find(params[:idC])
+  edit_account.update(params[:cuenta])
+  if edit_account.save
+    redirect "/dashboard/teachers/#{params[:idT]}/bank_accounts", notice: 'Datos actualizados.'
   else
-    redirect "/dashboard/teachers/bank_accounts/#{params[:idT]}/edit/#{params[:idC]}", flash[:error] = edit_account.errors.full_messages
+    redirect "/dashboard/teachers/#{params[:idT]}/bank_accounts/#{params[:idC]}/edit", flash[:error] = edit_account.errors.full_messages
   end
 end

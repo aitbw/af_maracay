@@ -23,9 +23,9 @@
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/dashboard/users/edit/<%= user.idUsuario %>">Modificar</a></li>
-              <li><a href="/dashboard/users/delete/<%= user.idUsuario %>">Eliminar</a></li>
-              <li><a href="/dashboard/users/reset_password/<%= user.idUsuario %>">Reestablecer contraseña</a></li>
+              <li><a href="/dashboard/users/<%= user.idUsuario %>/edit">Modificar</a></li>
+              <li><a href="/dashboard/users/<%= user.idUsuario %>/delete">Eliminar</a></li>
+              <li><a href="/dashboard/users/<%= user.idUsuario %>/reset_password">Reestablecer contraseña</a></li>
             </ul>
           </div>
         </td>
@@ -34,4 +34,4 @@
   </tbody>
 </table>
 
-<a href="/dashboard/users/new_user" class="btn btn-success">Crear nuevo usuario</a>
+<a href="/dashboard/users/new_user" class="btn btn-success">Nuevo usuario</a>

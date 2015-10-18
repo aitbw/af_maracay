@@ -8,7 +8,15 @@ end
 def find_signup(estudiante, inscripcion)
   Signup.find(inscripcion).present?
 rescue ActiveRecord::RecordNotFound
-  redirect "/dashboard/students/signups/#{estudiante}", error: 'La inscripción asociada no existe.'
+  redirect "/dashboard/students/#{estudiante}/signups", error: 'La inscripción asociada no existe.'
+end
+
+before %r{\/(delete|edit)_student\/(\d)} do |_action, id|
+  find_student(id)
+end
+
+before %r{\/(\d)\/(delete|edit)_signup\/(\d)} do |estudiante, _action, inscripcion|
+  find_student(estudiante) && find_signup(estudiante, inscripcion)
 end
 
 get '/dashboard/students' do
@@ -27,7 +35,7 @@ post '/dashboard/students/new_student' do
   nuevo_estudiante
 end
 
-get '/dashboard/students/delete/:id' do
+get '/dashboard/students/:id/delete' do
   if find_student(params[:id])
     @id_estudiante = params[:id]
     @query = Estudiante.find(params[:id])
@@ -37,15 +45,14 @@ get '/dashboard/students/delete/:id' do
 end
 
 delete '/delete_student/:id' do
-  if find_student(params[:id])
-    Estudiante.destroy(params[:id])
+  if Estudiante.destroy(params[:id])
     redirect '/dashboard/students', notice: 'Estudiante eliminado.'
   else
-    redirect "/dashboard/students/delete/#{params[:id]}", error: 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/students/#{params[:id]}/delete", error: 'Ha ocurrido un error, intente nuevamente.'
   end
 end
 
-get '/dashboard/students/edit/:id' do
+get '/dashboard/students/:id/edit' do
   if find_student(params[:id])
     @id_estudiante = params[:id]
     @query = Estudiante.find(params[:id])
@@ -55,16 +62,16 @@ get '/dashboard/students/edit/:id' do
 end
 
 put '/edit_student/:id' do
-  if find_student(params[:id])
-    edit_student = Estudiante.find(params[:id])
-    edit_student.update(params[:estudiante])
-    redirect '/dashboard/students', notice: 'Datos actualizados.' if edit_student.save
+  edit_student = Estudiante.find(params[:id])
+  edit_student.update(params[:estudiante])
+  if edit_student.save
+    redirect '/dashboard/students', notice: 'Datos actualizados.'
   else
     redirect "/dashboard/students/edit/#{params[:id]}", flash[:error] = edit_student.errors.full_messages
   end
 end
 
-get '/dashboard/students/signups/:id' do
+get '/dashboard/students/:id/signups' do
   if find_student(params[:id])
     @id_estudiante = params[:id]
     @signups = Signup.where(idEstudiante: params[:id])
@@ -73,7 +80,7 @@ get '/dashboard/students/signups/:id' do
   end
 end
 
-get '/dashboard/students/signups/:id/add' do
+get '/dashboard/students/:id/signups/add' do
   if find_student(params[:id])
     @id_estudiante = params[:id]
     @js = ['moment.min.js', 'bootstrap-datetimepicker.min.js']
@@ -83,19 +90,19 @@ get '/dashboard/students/signups/:id/add' do
   end
 end
 
-post '/dashboard/students/signups/:id/add' do
+post '/dashboard/students/:id/signups/add' do
   if find_student(params[:id])
     new_signup = Signup.new(params[:inscripcion])
 
     if new_signup.save
-      redirect "/dashboard/students/signups/#{params[:id]}", notice: 'Inscripción generada exitosamente.'
+      redirect "/dashboard/students/#{params[:id]}/signups", notice: 'Inscripción generada exitosamente.'
     else
-      redirect "/dashboard/students/signups/#{params[:id]}/add", flash[:error] = new_signup.errors.full_messages
+      redirect "/dashboard/students/#{params[:id]}/signups/add", flash[:error] = new_signup.errors.full_messages
     end
   end
 end
 
-get '/dashboard/students/signups/:idE/delete/:idS' do
+get '/dashboard/students/:idE/signups/:idS/delete' do
   if find_student(params[:idE]) && find_signup(params[:idE], params[:idS])
     titulo('Eliminar inscripción')
     @id_estudiante = params[:idE]
@@ -106,15 +113,14 @@ get '/dashboard/students/signups/:idE/delete/:idS' do
 end
 
 delete '/:idE/delete_signup/:idS' do
-  if find_student(params[:idE]) && find_signup(params[:idE], params[:idS])
-    Signup.destroy(params[:idS])
-    redirect "/dashboard/students/signups/#{params[:idE]}", notice: 'Inscripción eliminada.'
+  if Signup.destroy(params[:idS])
+    redirect "/dashboard/students/#{params[:idE]}/signups", notice: 'Inscripción eliminada.'
   else
-    redirect "/dashboard/students/signups/#{params[:idE]}/delete/#{params[:idS]}", error: 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/students/#{params[:idE]}/signups/#{params[:idS]}/delete", error: 'Ha ocurrido un error, intente nuevamente.'
   end
 end
 
-get '/dashboard/students/signups/:idE/edit/:idS' do
+get '/dashboard/students/:idE/signups/:idS/edit' do
   if find_student(params[:idE]) && find_signup(params[:idE], params[:idS])
     titulo('Editar inscripción')
     @id_estudiante = params[:idE]
@@ -126,11 +132,11 @@ get '/dashboard/students/signups/:idE/edit/:idS' do
 end
 
 put '/:idE/edit_signup/:idS' do
-  if find_student(params[:idE]) && find_signup(params[:idE], params[:idS])
-    edit_signup = Signup.find(params[:idS])
-    edit_signup.update(params[:inscripcion])
-    redirect "/dashboard/students/signups/#{params[:idE]}", notice: 'Datos actualizados.' if edit_signup.save
+  edit_signup = Signup.find(params[:idS])
+  edit_signup.update(params[:inscripcion])
+  if edit_signup.save
+    redirect "/dashboard/students/#{params[:idE]}/signups", notice: 'Datos actualizados.'
   else
-    redirect "/dashboard/students/signups/#{params[:idE]}/edit/#{params[:idS]}", flash[:error] = edit_signup.errors.full_messages
+    redirect "/dashboard/students/#{params[:idE]}/signups/#{params[:idS]}/edit", flash[:error] = edit_signup.errors.full_messages
   end
 end

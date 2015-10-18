@@ -42,12 +42,12 @@
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/dashboard/courses/delete/<%= course.idCurso %>">Eliminar</a></li>
-              <li><a href="/dashboard/courses/edit/<%= course.idCurso %>">Modificar</a></li>
-              <li><a href="/dashboard/courses/show_students/<%= course.idCurso %>">Ver estudiantes</a>
+              <li><a href="/dashboard/courses/<%= course.idCurso %>/delete">Eliminar</a></li>
+              <li><a href="/dashboard/courses/<%= course.idCurso %>/edit">Modificar</a></li>
+              <li><a href="/dashboard/courses/<%= course.idCurso %>/show_students">Ver estudiantes</a>
               <% if course.horasCurso == 0 %>
-              <li><a href="/dashboard/courses/assign_grades/<%= course.idCurso %>">Asignar calificaciones</a></li>
-              <li><a href="/dashboard/courses/promote/<%= course.idCurso %>">Promover</a></li>
+              <li><a href="/dashboard/courses/<%= course.idCurso %>/assign_grades">Asignar calificaciones</a></li>
+              <li><a href="/dashboard/courses/<%= course.idCurso %>/promote">Promover</a></li>
               <% end %>
             </ul>
           </div>
@@ -60,7 +60,7 @@
 </table>
 
 <a href="/dashboard/courses/new_course" class="btn btn-success">Crear nuevo curso</a>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tiposCurso">Ver tipos de curso</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tiposCurso">Tipos de curso</button>
 
 <div class="modal fade" id="tiposCurso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
