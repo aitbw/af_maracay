@@ -8,7 +8,8 @@ end
 def find_account(profesor, cuenta)
   Account.find(cuenta).present?
 rescue ActiveRecord::RecordNotFound
-  redirect "/dashboard/teachers/#{profesor}/bank_accounts", error: 'La cuenta asociada no existe.'
+  flash[:error] = 'La cuenta asociada no existe.'
+  redirect "/dashboard/teachers/#{profesor}/bank_accounts"
 end
 
 before %r{\/(delete|edit)_teacher\/(\d)} do |_action, id|
@@ -48,7 +49,8 @@ delete '/delete_teacher/:id' do
   if Teacher.destroy(params[:id])
     redirect '/dashboard/teachers', notice: 'Profesor eliminado.'
   else
-    redirect "/dashboard/teachers/#{params[:id]}/delete", error: 'Ha ocurrido un error, intente nuevamente.'
+    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/teachers/#{params[:id]}/delete"
   end
 end
 
@@ -67,7 +69,8 @@ put '/edit_teacher/:id' do
   if edit_teacher.save
     redirect '/dashboard/teachers', notice: 'Datos actualizados.'
   else
-    redirect "/dashboard/teachers/#{params[:id]}/edit", flash[:error] = edit_teacher.errors.full_messages
+    flash[:error] = edit_teacher.errors.full_messages
+    redirect "/dashboard/teachers/#{params[:id]}/edit"
   end
 end
 
@@ -105,9 +108,11 @@ end
 
 delete '/:idT/delete_bank_account/:idC' do
   if Account.destroy(params[:idC])
-    redirect "/dashboard/teachers/#{params[:idT]}/bank_accounts", notice: 'Cuenta bancaria eliminada.'
+    flash[:notice] = 'Cuenta bancaria eliminada.'
+    redirect "/dashboard/teachers/#{params[:idT]}/bank_accounts"
   else
-    redirect "/dashboard/teachers/#{params[:idT]}/bank_accounts/#{params[:idC]}/delete", error: 'Ha ocurrido un error, intente nuevamente.'
+    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/teachers/#{params[:idT]}/bank_accounts/#{params[:idC]}/delete"
   end
 end
 
@@ -126,8 +131,10 @@ put '/:idT/edit_bank_account/:idC' do
   edit_account = Account.find(params[:idC])
   edit_account.update(params[:cuenta])
   if edit_account.save
-    redirect "/dashboard/teachers/#{params[:idT]}/bank_accounts", notice: 'Datos actualizados.'
+    flash[:notice] = 'Datos actualizados.'
+    redirect "/dashboard/teachers/#{params[:idT]}/bank_accounts"
   else
-    redirect "/dashboard/teachers/#{params[:idT]}/bank_accounts/#{params[:idC]}/edit", flash[:error] = edit_account.errors.full_messages
+    flash[:error] = edit_account.errors.full_messages
+    redirect "/dashboard/teachers/#{params[:idT]}/bank_accounts/#{params[:idC]}/edit"
   end
 end

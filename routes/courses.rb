@@ -41,7 +41,8 @@ delete '/delete_course/:id' do
   if Curso.destroy(params[:id])
     redirect '/dashboard/courses', notice: 'Curso eliminado.'
   else
-    redirect "/dashboard/courses/#{params[:id]}/delete", error: 'Ha ocurrido un error, intente nuevamente.'
+    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/courses/#{params[:id]}/delete"
   end
 end
 
@@ -62,6 +63,7 @@ put '/edit_course/:id' do
   if edit_course.save
     redirect '/dashboard/courses', notice: 'Datos actualizados.'
   else
-    redirect "/dashboard/courses/#{params[:id]}/edit", flash[:error] = edit_course.errors.full_messages
+    flash[:error] = edit_course.errors.full_messages
+    redirect "/dashboard/courses/#{params[:id]}/edit"
   end
 end

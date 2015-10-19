@@ -1,17 +1,14 @@
 def change_password
   user = Usuario.find(session[:id])
-rescue ActiveRecord::RecordNotFound
-  session.clear
-  redirect '/signin', error: 'El usuario no existe.'
-else
   new_password = BCrypt::Password.create(params[:password])
   user.passwordUsuario = new_password
 
   if user.save
-    redirect '/dashboard/change_password', notice: 'Cambio de contraseña exitoso.'
+    flash[:notice] = 'Cambio de contraseña exitoso.'
   else
-    redirect '/dashboard/change_password', error: 'Ha ocurrido un error, intente nuevamente.'
+    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
   end
+  redirect '/dashboard/change_password'
 end
 
 def reset_password
@@ -20,8 +17,10 @@ def reset_password
   user.passwordUsuario = new_password
 
   if user.save
-    redirect '/dashboard/users', notice: 'Contraseña reestablecida exitosamente.'
+    flash[:notice] = 'Contraseña reestablecida exitosamente.'
+    redirect '/dashboard/users'
   else
-    redirect "/dashboard/users/#{params[:id]}/reset_password", error: 'Ha ocurrido un error, intente nuevamente.'
+    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/users/#{params[:id]}/reset_password"
   end
 end

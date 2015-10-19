@@ -13,6 +13,13 @@ before '/reset_password/:id' do
   find_user(params[:id])
 end
 
+before '/change_password' do
+  if find_user(session[:id]) == false
+    session.clear
+    redirect '/signin', error: 'El usuario no existe.'
+  end
+end
+
 get '/dashboard/users' do
   titulo('Usuarios')
   @users = Usuario.all
@@ -30,7 +37,8 @@ post '/dashboard/users/new_user' do
   if new_user.save
     redirect '/dashboard/users', notice: 'Usuario creado exitosamente.'
   else
-    redirect '/dashboard/users/new_user', flash[:error] = new_user.errors.full_messages
+    flash[:error] = new_user.errors.full_messages
+    redirect '/dashboard/users/new_user'
   end
 end
 
@@ -47,7 +55,8 @@ delete '/delete_user/:id' do
   if Usuario.destroy(params[:id])
     redirect '/dashboard/users', notice: 'Usuario eliminado.'
   else
-    redirect "/dashboard/users/#{params[:id]}/delete", error: 'Ha ocurrido un error, intente nuevamente.'
+    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
+    redirect "/dashboard/users/#{params[:id]}/delete"
   end
 end
 
@@ -66,7 +75,8 @@ put '/edit_user/:id' do
   if edit_user.save
     redirect '/dashboard/users', notice: 'Datos actualizados.'
   else
-    redirect "/dashboard/users/#{params[:id]}/edit", flash[:error] = edit_user.errors.full_messages
+    flash[:error] = edit_user.errors.full_messages
+    redirect "/dashboard/users/#{params[:id]}/edit"
   end
 end
 
@@ -77,12 +87,13 @@ end
 
 put '/change_password' do
   if (params[:password] || params[:confirm]).blank?
-    redirect '/dashboard/change_password', error: 'Debe completar todos los campos.'
+    flash[:error] = 'Debe completar todos los campos.'
   elsif params[:password] != params[:confirm]
-    redirect '/dashboard/change_password', error: 'Los campos no coinciden.'
+    flash[:error] = 'Los campos no coinciden.'
   else
     change_password
   end
+  redirect '/dashboard/change_password'
 end
 
 get '/dashboard/users/:id/reset_password' do
@@ -95,10 +106,11 @@ end
 
 put '/reset_password/:id' do
   if (params[:password] || params[:confirm]).blank?
-    redirect "/dashboard/users/#{params[:id]}/reset_password", error: 'Debe completar todos los campos.'
+    flash[:error] = 'Debe completar todos los campos.'
   elsif params[:password] != params[:confirm]
-    redirect "/dashboard/users/#{params[:id]}/reset_password", error: 'Los campos no coinciden.'
+    flash[:error] = 'Los campos no coinciden.'
   else
     reset_password
   end
+  redirect "/dashboard/users/#{params[:id]}/reset_password"
 end

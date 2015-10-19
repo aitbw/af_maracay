@@ -3,7 +3,9 @@
     <div class="panel-heading">
         <h3 class="panel-title">Eliminar inscripción</h3>
     </div>
-
+    <% if flash[:error] %>
+      <p class="error"><%= flash[:error] %></p>
+    <% end %>
     <div class="panel-body">
         <p>¿Está usted seguro de <b>eliminar</b> esta inscripción? Esta acción no puede ser revertida.</p>
         <% Estudiante.where(idEstudiante: @query.idEstudiante).select(:nombreEstudiante).each do |student| %>
