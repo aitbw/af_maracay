@@ -1,7 +1,4 @@
 <form id="registro" action="/dashboard/users/new_user" method="POST">
-  <% if flash[:notice] %>
-    <p class="text-success"><%= flash[:notice] %></p>
-  <% end %>
   <% if flash[:error] %>
   <% flash[:error].each do |mensaje| %>
     <p class="text-danger"><%= mensaje %></p>

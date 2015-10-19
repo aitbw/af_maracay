@@ -1,0 +1,40 @@
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    16% {
+       opacity: 1;
+    }
+    84% {
+       opacity: 1;
+    }
+    100% {
+       opacity: 0;
+    }
+}
+
+.success {
+  padding: 15px 20px;
+  color: #fff;
+  background: rgba(0,0,10,0.7);
+  display: inline-block;
+  position: fixed;
+  right: 15px;
+  opacity: 0;
+  text-align: center;
+  -webkit-animation: fadeInOut 6s;
+  animation: fadeInOut 6s;
+}
+
+.error {
+  padding: 15px 20px;
+  color: #fff;
+  background: rgba(0,0,10,0.7);
+  display: inline-block;
+  position: fixed;
+  right: 15px;
+  opacity: 0;
+  text-align: center;
+  -webkit-animation: fadeInOut 6s;
+  animation: fadeInOut 6s;
+}
