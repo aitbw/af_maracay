@@ -77,7 +77,7 @@ end
 get '/dashboard/students/:id/signups' do
   if find_student(params[:id])
     @id_estudiante = params[:id]
-    @signups = Signup.where(idEstudiante: params[:id])
+    @signups = Signup.where(idEstudiante: params[:id]).order(fechaEmision: :desc)
     titulo('Inscripciones')
     erb :signups, layout: :'layouts/dashboard'
   end

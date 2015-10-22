@@ -14,7 +14,9 @@ before '/reset_password/:id' do
 end
 
 before '/change_password' do
-  if find_user(session[:id]) == false
+  begin
+    Usuario.find(session[:id]).present?
+  rescue ActiveRecord::RecordNotFound
     session.clear
     redirect '/signin', error: 'El usuario no existe.'
   end
