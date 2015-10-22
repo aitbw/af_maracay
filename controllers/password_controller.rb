@@ -1,7 +1,6 @@
 def change_password
   user = Usuario.find(session[:id])
-  new_password = BCrypt::Password.create(params[:password])
-  user.passwordUsuario = new_password
+  user.passwordUsuario = params[:password]
 
   if user.save
     flash[:notice] = 'Cambio de contraseña exitoso.'
@@ -13,8 +12,7 @@ end
 
 def reset_password
   user = Usuario.find(params[:id])
-  new_password = BCrypt::Password.create(params[:password])
-  user.passwordUsuario = new_password
+  user.passwordUsuario = params[:password]
 
   if user.save
     flash[:notice] = 'Contraseña reestablecida exitosamente.'

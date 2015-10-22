@@ -1,6 +1,6 @@
 # Modelo para la tabla 'Usuarios'
 class Usuario < ActiveRecord::Base
-  after_validation :cifrar_clave, on: :create
+  after_validation :cifrar_clave
   has_many :signups, dependent: :destroy, foreign_key: 'idUsuario'
 
   validates :nombreUsuario, presence: true
