@@ -6,8 +6,25 @@ require 'tilt/erubis'
 require './environments'
 Dir['./controllers/*.rb', './models/*.rb', './routes/*.rb'].each { |file| require file }
 
-enable :sessions
-set :session_secret, SecureRandom.hex(64)
+configure do
+  enable :sessions
+  set :session_secret, SecureRandom.hex(64)
+  use Sinatra::CacheAssets, max_age: 86_400
+  Rack::Builder.new do
+    cookie_settings = {
+      path: '/',
+      expire_after: 86_400,
+      secure: true,
+      httponly: true
+    }
+    use Rack::Session::EncryptedCookie, cookie_settings
+    use Rack::Csrf, raise: true
+  end
+end
+
+before do
+  cache_control :public, :must_revalidate
+end
 
 helpers do
   def titulo(title)
