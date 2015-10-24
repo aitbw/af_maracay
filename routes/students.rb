@@ -69,7 +69,7 @@ put '/edit_student/:id' do
   if edit_student.save
     redirect '/dashboard/students', notice: 'Datos actualizados.'
   else
-    flash[:error] = edit_student.errors.full_messages
+    flash[:errors] = edit_student.errors.full_messages
     redirect "/dashboard/students/edit/#{params[:id]}"
   end
 end
@@ -101,7 +101,7 @@ post '/dashboard/students/:id/signups/add' do
       flash[:notice] = 'Inscripción generada exitosamente.'
       redirect "/dashboard/students/#{params[:id]}/signups"
     else
-      flash[:error] = new_signup.errors.full_messages
+      flash[:errors] = new_signup.errors.full_messages
       redirect "/dashboard/students/#{params[:id]}/signups/add"
     end
   end
@@ -145,7 +145,7 @@ put '/:idE/edit_signup/:idS' do
     flash[:notice] = 'Datos actualizados.'
     redirect "/dashboard/students/#{params[:idE]}/signups"
   else
-    flash[:error] = edit_signup.errors.full_messages
+    flash[:errors] = edit_signup.errors.full_messages
     redirect "/dashboard/students/#{params[:idE]}/signups/#{params[:idS]}/edit"
   end
 end

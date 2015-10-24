@@ -39,7 +39,7 @@ post '/dashboard/users/new_user' do
   if new_user.save
     redirect '/dashboard/users', notice: 'Usuario creado exitosamente.'
   else
-    flash[:error] = new_user.errors.full_messages
+    flash[:errors] = new_user.errors.full_messages
     redirect '/dashboard/users/new_user'
   end
 end
@@ -77,7 +77,7 @@ put '/edit_user/:id' do
   if edit_user.save
     redirect '/dashboard/users', notice: 'Datos actualizados.'
   else
-    flash[:error] = edit_user.errors.full_messages
+    flash[:errors] = edit_user.errors.full_messages
     redirect "/dashboard/users/#{params[:id]}/edit"
   end
 end

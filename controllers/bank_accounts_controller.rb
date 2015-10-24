@@ -5,7 +5,7 @@ def asignar_cuenta
     flash[:notice] = 'Cuenta asignada exitosamente.'
     redirect "/dashboard/teachers/#{params[:id]}/bank_accounts"
   else
-    flash[:error] = new_account.errors.full_messages
+    flash[:errors] = new_account.errors.full_messages
     redirect "/dashboard/teachers/#{params[:id]}/bank_accounts/add"
   end
 end

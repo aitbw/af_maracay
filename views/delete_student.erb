@@ -3,9 +3,6 @@
     <div class="panel-heading">
         <h3 class="panel-title">Eliminar estudiante</h3>
     </div>
-    <% if flash[:error] %>
-      <p class="error"><%= flash[:error] %></p>
-    <% end %>
     <div class="panel-body">
         <p>¿Está usted seguro de <b>eliminar</b> este estudiante? Esta acción no puede ser revertida.</p>
         <% Curso.where(idCurso: @query.idCurso).select(:codigoCurso).each do |course| %>

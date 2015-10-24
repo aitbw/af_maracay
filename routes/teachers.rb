@@ -69,7 +69,7 @@ put '/edit_teacher/:id' do
   if edit_teacher.save
     redirect '/dashboard/teachers', notice: 'Datos actualizados.'
   else
-    flash[:error] = edit_teacher.errors.full_messages
+    flash[:errors] = edit_teacher.errors.full_messages
     redirect "/dashboard/teachers/#{params[:id]}/edit"
   end
 end
@@ -134,7 +134,7 @@ put '/:idT/edit_bank_account/:idC' do
     flash[:notice] = 'Datos actualizados.'
     redirect "/dashboard/teachers/#{params[:idT]}/bank_accounts"
   else
-    flash[:error] = edit_account.errors.full_messages
+    flash[:errors] = edit_account.errors.full_messages
     redirect "/dashboard/teachers/#{params[:idT]}/bank_accounts/#{params[:idC]}/edit"
   end
 end

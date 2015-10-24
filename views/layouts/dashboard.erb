@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap.css")%>">
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/fixed-navbar_footer.css")%>">
-    <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/notifications.css")%>">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <% if @js %>
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap-datetimepicker.min.css")%>">
     <% end %>
@@ -78,9 +78,10 @@
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="<%=url("/javascript/bootstrap.min.js")%>"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <% if @js %>
       <% @js.each do |script| %>
-      <%= "<script src=\"/javascript/#{script}\"></script>" %>
+      <script type="text/javascript" src="<%=url("/javascript/#{script}")%>"></script>
       <% end %>
 
       <script type="text/javascript">
@@ -105,6 +106,25 @@
           format: 'DD/MM/YYYY'
         });
       });
+      </script>
+    <% end %>
+
+    <% if flash[:notice] %>
+      <script type="text/javascript">
+        toastr.success('<%= flash[:notice] %>');
+      </script>
+    <% end %>
+    <% if flash[:error] %>
+      <script type="text/javascript">
+        toastr.error('<%= flash[:error] %>');
+      </script>
+    <% end %>
+
+    <% if flash[:errors] %>
+      <script type="text/javascript">
+        <% flash[:errors].reverse_each do |mensaje| %>
+        toastr.error('<%= h(mensaje) %>');
+        <% end %>
       </script>
     <% end %>
 

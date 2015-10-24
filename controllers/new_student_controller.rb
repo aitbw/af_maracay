@@ -4,7 +4,7 @@ def nuevo_estudiante
   if new_student.save
     redirect '/dashboard/students', notice: 'Estudiante creado exitosamente.'
   else
-    flash[:error] = new_student.errors.full_messages
+    flash[:errors] = new_student.errors.full_messages
     redirect '/dashboard/students/new_student'
   end
 end

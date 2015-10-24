@@ -3,9 +3,6 @@
     <div class="panel-heading">
         <h3 class="panel-title">Eliminar cuenta bancaria</h3>
     </div>
-    <% if flash[:error] %>
-      <p class="error"><%= flash[:error] %></p>
-    <% end %>
     <div class="panel-body">
         <p>¿Está usted seguro de <b>eliminar</b> esta cuenta bancaria? Esta acción no puede ser revertida.</p>
         <% Teacher.where(idProfesor: @query.idProfesor).select(:nombreProfesor).each do |teacher| %>

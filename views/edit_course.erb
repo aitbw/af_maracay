@@ -1,9 +1,4 @@
 <form id="actualizar" action="/edit_course/<%= @id_curso %>" method="POST">
-  <% if flash[:error] %>
-  <% flash[:error].each do |mensaje| %>
-    <p class="text-danger"><%= mensaje %></p>
-  <% end %>
-  <% end %>
   <div class="form-group">
     <label>Código</label>
     <textarea name="curso[codigoCurso]" class="form-control"><%=h @query.codigoCurso %></textarea>
