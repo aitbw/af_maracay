@@ -22,11 +22,12 @@ GEM
       rack (>= 0.9.0)
     bond (0.5.1)
     builder (3.2.2)
-    bullet (4.14.9)
+    bullet (4.14.10)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
     chartkick (1.4.1)
     coderay (1.1.0)
+    encrypted_cookie (0.0.4)
     erubis (2.7.0)
     i18n (0.7.0)
     json (1.8.3)
@@ -67,6 +68,8 @@ GEM
     sinatra-activerecord (2.0.9)
       activerecord (>= 3.2)
       sinatra (~> 1.0)
+    sinatra-cache-assets (0.0.3)
+      sinatra (>= 1.0)
     sinatra-flash (0.3.0)
       sinatra (>= 1.0.0)
     sinatra-r18n (2.0.4)
@@ -99,6 +102,7 @@ DEPENDENCIES
   better_errors
   bullet
   chartkick (>= 1.4.1)
+  encrypted_cookie
   mysql2 (= 0.3.20)
   prawn (>= 2.0.2)
   pry
@@ -108,6 +112,7 @@ DEPENDENCIES
   rake (>= 10.4.2)
   sinatra (= 1.4.6)
   sinatra-activerecord (>= 2.0.8)
+  sinatra-cache-assets
   sinatra-flash (>= 0.3.0)
   sinatra-r18n (>= 2.0.4)
   sinatra-redirect-with-flash (>= 0.2.1)

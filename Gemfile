@@ -19,6 +19,8 @@ gem 'spreadsheet', '>= 1.0.7'
 gem 'statistics', '>= 1.0.0'
 gem 'chartkick', '>= 1.4.1'
 gem 'puma', '>= 2.14.0'
+gem 'encrypted_cookie'
+gem 'sinatra-cache-assets', require: 'sinatra/cache_assets'
 
 group :development do
   gem 'better_errors'
