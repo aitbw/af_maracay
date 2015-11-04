@@ -1,4 +1,5 @@
 configure :development do
+  Bundler.require(:development)
   set :show_exceptions, true
   enable :logging
 
