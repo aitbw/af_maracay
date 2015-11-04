@@ -7,7 +7,7 @@
   <label>Método de pago</label>
       <select name="inscripcion[tipoPago]" class="form-control" id="metodo">
           <option value="" selected>Seleccione un método de pago</option>
-          <% ["Débito", "Depósito", "Transferencia"].each do |metodo| %>
+          <% ["Débito", "Depósito", "Transferencia", "Crédito"].each do |metodo| %>
           <option value="<%= metodo %>"><%= metodo %></option>
           <% end %>
       </select>

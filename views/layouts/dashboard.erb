@@ -134,8 +134,8 @@
     elem.onchange = function(){
       var hidden1 = document.getElementById("banco");
       var hidden2 = document.getElementById("referencia");
-      hidden1.style.display = (this.value == "Débito" || this.value == "") ? "none":"block";
-      hidden2.style.display = (this.value == "Débito" || this.value == "") ? "none":"block";
+      hidden1.style.display = (this.value == "Débito" || this.value == "" || this.value == "Crédito") ? "none":"block";
+      hidden2.style.display = (this.value == "Débito" || this.value == "" || this.value == "Crédito") ? "none":"block";
     };
     </script>
 

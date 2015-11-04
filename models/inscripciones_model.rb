@@ -2,6 +2,7 @@
 class Signup < ActiveRecord::Base
   self.table_name = 'inscripcionesEstudiantes'
   before_validation :fecha_expiracion, on: :create
+  after_validation :pago_con_credito
   before_save :limpiar_campos
   belongs_to :estudiante
   belongs_to :usuario
@@ -24,6 +25,10 @@ class Signup < ActiveRecord::Base
   end
 
   def limpiar_campos
-    self.banco = '' && self.numeroReferencia = '' if tipoPago == 'Débito'
+    self.banco = '' && self.numeroReferencia = '' if tipoPago == 'Débito' || tipoPago == 'Crédito'
+  end
+
+  def pago_con_credito
+    self.costoInscripcion += costoInscripcion * 0.1 if tipoPago == 'Crédito'
   end
 end
