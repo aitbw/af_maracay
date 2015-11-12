@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20151106204535) do
 
   create_table "bancos", primary_key: "idBanco", force: :cascade do |t|
     t.string "nombreBanco", limit: 100, null: false
@@ -42,14 +42,15 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "cuentasBanco", ["idProfesor"], name: "fk_cuentasBanco_profesores1_idx", using: :btree
 
   create_table "cuotasEstudiantes", primary_key: "idCuota", force: :cascade do |t|
-    t.integer "idEstudiante",     limit: 4,  null: false
-    t.integer "idUsuario",        limit: 4,  null: false
-    t.float   "montoCuota",       limit: 24, null: false
-    t.string  "tipoPago",         limit: 50, null: false
-    t.date    "fechaEmision",                null: false
-    t.date    "fechaExpiracion",             null: false
+    t.integer "idEstudiante",     limit: 4,   null: false
+    t.integer "idUsuario",        limit: 4,   null: false
+    t.float   "montoCuota",       limit: 24,  null: false
+    t.string  "tipoPago",         limit: 50,  null: false
+    t.date    "fechaEmision",                 null: false
+    t.date    "fechaExpiracion",              null: false
     t.string  "banco",            limit: 50
     t.string  "numeroReferencia", limit: 50
+    t.string  "estado_cuota",     limit: 150
   end
 
   add_index "cuotasEstudiantes", ["idCuota"], name: "idCuota_UNIQUE", unique: true, using: :btree
@@ -113,14 +114,15 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "horasProfesores", ["idProfesor"], name: "horas_profesor_idx", using: :btree
 
   create_table "inscripcionesEstudiantes", primary_key: "idInscripcion", force: :cascade do |t|
-    t.integer "idEstudiante",     limit: 4,  null: false
-    t.integer "idUsuario",        limit: 4,  null: false
-    t.float   "costoInscripcion", limit: 24, null: false
-    t.string  "tipoPago",         limit: 50, null: false
-    t.date    "fechaEmision",                null: false
-    t.date    "fechaExpiracion",             null: false
-    t.string  "banco",            limit: 50
-    t.string  "numeroReferencia", limit: 50
+    t.integer "idEstudiante",       limit: 4,   null: false
+    t.integer "idUsuario",          limit: 4,   null: false
+    t.float   "costoInscripcion",   limit: 24,  null: false
+    t.string  "tipoPago",           limit: 50,  null: false
+    t.date    "fechaEmision",                   null: false
+    t.date    "fechaExpiracion",                null: false
+    t.string  "banco",              limit: 50
+    t.string  "numeroReferencia",   limit: 50
+    t.string  "estado_inscripcion", limit: 150
   end
 
   add_index "inscripcionesEstudiantes", ["idEstudiante"], name: "inscripcion_estudiante_idx", using: :btree
@@ -162,6 +164,18 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "profesores", ["cedulaProfesor"], name: "cedulaProfesor_UNIQUE", unique: true, using: :btree
   add_index "profesores", ["correoProfesor"], name: "correoProfesor_UNIQUE", unique: true, using: :btree
   add_index "profesores", ["idProfesor"], name: "idProfesor_UNIQUE", unique: true, using: :btree
+
+  create_table "proveedores", primary_key: "id_proveedor", force: :cascade do |t|
+    t.string "nombre_proveedor",    limit: 150, null: false
+    t.string "rif_proveedor",       limit: 15,  null: false
+    t.string "numero_proveedor",    limit: 15,  null: false
+    t.string "correo_proveedor",    limit: 150, null: false
+    t.string "direccion_proveedor", limit: 255, null: false
+    t.string "encargado",           limit: 150, null: false
+  end
+
+  add_index "proveedores", ["correo_proveedor"], name: "correo_proveedor_UNIQUE", unique: true, using: :btree
+  add_index "proveedores", ["rif_proveedor"], name: "rif_proveedor_UNIQUE", unique: true, using: :btree
 
   create_table "sedes", primary_key: "idSede", force: :cascade do |t|
     t.string "nombreSede", limit: 75, null: false
