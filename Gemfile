@@ -26,6 +26,5 @@ gem 'sinatra-cache-assets', require: 'sinatra/cache_assets'
 group :development do
   gem 'better_errors'
   gem 'pry'
-  gem 'tux'
   gem 'bullet'
 end
