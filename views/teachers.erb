@@ -12,21 +12,21 @@
   <tbody>
     <% @teachers.each do |teacher| %>
       <tr>
-        <td><%=h teacher.nombreProfesor %></td>
-        <td><%=h teacher.correoProfesor %></td>
-        <td><%=h teacher.telefonoProfesor %></td>
-        <td><%=h teacher.cedulaProfesor %></td>
-        <td><%=h teacher.fechaIngreso.strftime('%d/%m/%Y') %></td>
+        <td><%=h teacher.teacher_name %></td>
+        <td><%=h teacher.teacher_email %></td>
+        <td><%=h teacher.teacher_phone %></td>
+        <td><%=h teacher.teacher_cedula %></td>
+        <td><%=h teacher.entry_date.strftime('%d/%m/%Y') %></td>
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <% if session[:rol] == "Admin" %>
-              <li><a href="/dashboard/teachers/<%= teacher.idProfesor %>/bank_accounts">Cuentas bancarias</a></li>
+              <% if session[:role] == 'Admin' %>
+              <li><a href="/dashboard/teachers/<%= teacher.teacher_id %>/bank_accounts">Cuentas bancarias</a></li>
               <% end %>
-              <li><a href="/dashboard/teachers/<%= teacher.idProfesor %>/show_courses">Cursos</a></li>
-              <li><a href="/dashboard/teachers/<%= teacher.idProfesor %>/delete">Eliminar</a></li>
-              <li><a href="/dashboard/teachers/<%= teacher.idProfesor %>/edit">Modificar</a></li>
+              <li><a href="/dashboard/teachers/<%= teacher.teacher_id %>/courses">Cursos asignados</a></li>
+              <li><a href="/dashboard/teachers/<%= teacher.teacher_id %>/delete">Eliminar</a></li>
+              <li><a href="/dashboard/teachers/<%= teacher.teacher_id %>/edit">Modificar</a></li>
             </ul>
           </div>
         </td>
@@ -35,4 +35,6 @@
   </tbody>
 </table>
 
+<% if session[:role] == 'Admin' %>
 <a href="/dashboard/teachers/new_teacher" class="btn btn-success">Nuevo profesor</a>
+<% end %>

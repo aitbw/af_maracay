@@ -9,17 +9,17 @@
   </thead>
   <tbody>
     <% @accounts.each do |account| %>
-    <% Banco.where(idBanco: account.idBanco).each do |bank| %>
+    <% Bank.where(bank_id: account.bank_id).each do |bank| %>
       <tr>
-        <td><%= bank.nombreBanco %></td>
-        <td><%=h account.numeroCuenta %></td>
-        <td><%= account.tipoCuenta %></td>
+        <td><%= bank.bank_name %></td>
+        <td><%=h account.account_number %></td>
+        <td><%= account.account_type %></td>
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/dashboard/teachers/<%= @id_profesor %>/bank_accounts/<%= account.idCuentaBanco %>/delete">Eliminar</a></li>
-              <li><a href="/dashboard/teachers/<%= @id_profesor %>/bank_accounts/<%= account.idCuentaBanco %>/edit">Modificar</a></li>
+              <li><a href="/dashboard/teachers/<%= @teacher_id %>/bank_accounts/<%= account.bank_account_id %>/delete">Eliminar</a></li>
+              <li><a href="/dashboard/teachers/<%= @teacher_id %>/bank_accounts/<%= account.bank_account_id %>/edit">Modificar</a></li>
             </ul>
           </div>
         </td>
@@ -29,5 +29,5 @@
   </tbody>
 </table>
 
-<a href="/dashboard/teachers/<%= @id_profesor %>/bank_accounts/add" class="btn btn-success">Asignar cuenta bancaria</a>
+<a href="/dashboard/teachers/<%= @teacher_id %>/bank_accounts/add" class="btn btn-success">Asignar cuenta bancaria</a>
 <a href="/dashboard/teachers" class="btn btn-default">Atrás</a>

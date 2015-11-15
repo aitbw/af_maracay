@@ -39,7 +39,9 @@
               </ul>
             </li>
 
-          <% if session[:rol] == "Admin" %>
+            <li><a href="#">Proveedores</a></li>
+
+          <% if session[:role] == 'Admin' %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes<span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -55,7 +57,7 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="/dashboard/change_password"><%= session[:nombre] %></a></li>
+            <li class="active"><a href="/dashboard/change_password"><%= session[:name] %></a></li>
 
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lenguaje<span class="caret"></span></a>
@@ -86,23 +88,23 @@
 
       <script type="text/javascript">
       $(function () {
-        $('#fechaizq').datetimepicker({
+        $('#leftDatePicker').datetimepicker({
           format: 'DD/MM/YYYY'
         });
-        $('#fechader').datetimepicker({
+        $('#rightDatePicker').datetimepicker({
           format: 'DD/MM/YYYY',
           useCurrent: false
         });
-        $('#fechaizq').on('dp.change', function (e) {
-          $('#fechader').data('DateTimePicker').minDate(e.date);
+        $('#leftDatePicker').on('dp.change', function (e) {
+          $('#rightDatePicker').data('DateTimePicker').minDate(e.date);
         });
-        $('#fechader').on('dp.change', function (e) {
-          $('#fechaizq').data('DateTimePicker').maxDate(e.date);
+        $('#rightDatePicker').on('dp.change', function (e) {
+          $('#leftDatePicker').data('DateTimePicker').maxDate(e.date);
         });
       });
 
       $(function () {
-        $('#fechaind').datetimepicker({
+        $('#datePicker').datetimepicker({
           format: 'DD/MM/YYYY'
         });
       });
@@ -122,20 +124,20 @@
 
     <% if flash[:errors] %>
       <script type="text/javascript">
-        <% flash[:errors].reverse_each do |mensaje| %>
-        toastr.error('<%= h(mensaje) %>');
+        <% flash[:errors].reverse_each do |error| %>
+        toastr.error('<%= h(error) %>');
         <% end %>
       </script>
     <% end %>
 
     <script type="text/javascript">
-    var elem = document.getElementById("metodo");
+    var paymentType = document.getElementById("paymentType");
 
-    elem.onchange = function(){
-      var hidden1 = document.getElementById("banco");
-      var hidden2 = document.getElementById("referencia");
-      hidden1.style.display = (this.value == "Débito" || this.value == "" || this.value == "Crédito") ? "none":"block";
-      hidden2.style.display = (this.value == "Débito" || this.value == "" || this.value == "Crédito") ? "none":"block";
+    paymentType.onchange = function(){
+      var bank = document.getElementById("bank");
+      var referenceNumber = document.getElementById("referenceNumber");
+      bank.style.display = (this.value != "Transferencia") ? "none":"block";
+      referenceNumber.style.display = (this.value == "Efectivo") ? "none":"block";
     };
     </script>
 

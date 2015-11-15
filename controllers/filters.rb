@@ -4,7 +4,7 @@ before %r{\/dashboard\/(users\/*|teachers\/\d\/bank_accounts\/*)} do
   # Restringir acceso a las siguientes rutas:
   # '/dashboard/wages'
   # '/dashboard/reports'
-  redirect '/dashboard' if session[:rol] != 'Admin'
+  redirect '/dashboard' if session[:role] != 'Admin'
 end
 
 before %r{\/dashboard\/*} do

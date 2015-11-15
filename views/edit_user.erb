@@ -1,18 +1,18 @@
-<form id="actualizar" action="/edit_user/<%= @id_usuario %>" method="POST">
+<form action="/edit_user/<%= @user_id %>" method="POST">
   <div class="form-group">
     <label>Nombre</label>
-    <textarea name="usuario[nombreUsuario]" class="form-control"><%=h @query.nombreUsuario %></textarea>
+    <textarea name="user[user_name]" class="form-control"><%=h @user.user_name %></textarea>
   </div>
   <div class="form-group">
     <label>Cédula</label>
-    <textarea name="usuario[cedulaUsuario]" class="form-control"><%=h @query.cedulaUsuario %></textarea>
+    <textarea name="user[user_cedula]" class="form-control"><%=h @user.user_cedula %></textarea>
   </div>
   <div class="form-group">
   <label>Rol</label>
-  <select name="usuario[nivelAcceso]" class="form-control">
+  <select name="user[access_level]" class="form-control">
   <option value="">Seleccione nivel de acceso</option>
-  <% ['Admin', 'Recepcionista'].each do |rol| %>
-  <option <%= "selected" if rol == @query.nivelAcceso %> value="<%= rol %>"><%= rol %></option>
+  <% ['Admin', 'Recepcionista'].each do |role| %>
+  <option <%= "selected" if role == @user.access_level %> value="<%= role %>"><%= role %></option>
   <% end %>
   </select>
   </div>

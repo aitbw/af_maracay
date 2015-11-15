@@ -1,5 +1,5 @@
-def asignar_cuenta
-  new_account = Account.new(params[:cuenta])
+def assign_account
+  new_account = BankAccount.new(params[:account])
 
   if new_account.save
     flash[:notice] = 'Cuenta asignada exitosamente.'

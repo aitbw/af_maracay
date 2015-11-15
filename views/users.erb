@@ -10,16 +10,16 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%=h user.nombreUsuario %></td>
-        <td><%=h user.cedulaUsuario %></td>
-        <td><%= user.nivelAcceso %></td>
+        <td><%=h user.user_name %></td>
+        <td><%=h user.user_cedula %></td>
+        <td><%= user.access_level %></td>
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/dashboard/users/<%= user.idUsuario %>/edit">Modificar</a></li>
-              <li><a href="/dashboard/users/<%= user.idUsuario %>/delete">Eliminar</a></li>
-              <li><a href="/dashboard/users/<%= user.idUsuario %>/reset_password">Reestablecer contraseña</a></li>
+              <li><a href="/dashboard/users/<%= user.user_id %>/edit">Modificar</a></li>
+              <li><a href="/dashboard/users/<%= user.user_id %>/delete">Eliminar</a></li>
+              <li><a href="/dashboard/users/<%= user.user_id %>/reset_password">Reestablecer contraseña</a></li>
             </ul>
           </div>
         </td>

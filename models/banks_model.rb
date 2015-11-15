@@ -1,4 +1,4 @@
-# Modelo para la tabla 'bancos'
-class Banco < ActiveRecord::Base
-  has_many :accounts, foreign_key: 'idBanco'
+# Model for 'banks' table
+class Bank < ActiveRecord::Base
+  has_many :bankaccounts
 end

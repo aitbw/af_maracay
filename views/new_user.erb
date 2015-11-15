@@ -1,22 +1,22 @@
-<form id="registro" action="/dashboard/users/new_user" method="POST">
+<form action="/dashboard/users/new_user" method="POST">
   <div class="form-group">
     <label>Nombre</label>
-    <input type="text" class="form-control" name="usuario[nombreUsuario]" placeholder="Nombre">
+    <input type="text" class="form-control" name="user[user_name]" placeholder="Nombre">
   </div>
   <div class="form-group">
     <label>Cédula</label>
-    <input type="text" class="form-control" name="usuario[cedulaUsuario]" placeholder="Cédula">
+    <input type="text" class="form-control" name="user[user_cedula]" placeholder="Cédula">
   </div>
   <div class="form-group">
     <label>Contraseña</label>
-    <input type="password" class="form-control" name="usuario[passwordUsuario]" placeholder="Contraseña">
+    <input type="password" class="form-control" name="user[user_password]" placeholder="Contraseña">
   </div>
   <div class="form-group">
   <label>Rol</label>
-  <select name="usuario[nivelAcceso]" class="form-control">
+  <select name="user[access_level]" class="form-control">
     <option value="" selected>Seleccione nivel de acceso</option>
-    <% ['Admin', 'Recepcionista'].each do |rol| %>
-    <option value="<%= rol %>"><%= rol %></option>
+    <% ['Admin', 'Recepcionista'].each do |role| %>
+    <option value="<%= role %>"><%= role %></option>
     <% end %>
   </select>
   </div>

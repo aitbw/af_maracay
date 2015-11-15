@@ -1,31 +1,35 @@
-<form id="actualizar" action="/<%= @id_estudiante %>/edit_signup/<%= @id_inscripcion %>" method="POST">
+<form action="/<%= @student_id %>/edit_signup/<%= @signup_id %>" method="POST">
     <div class="form-group">
       <label>Monto de inscripción</label>
-      <textarea name="inscripcion[costoInscripcion]" class="form-control"><%=h @query.costoInscripcion %></textarea>
+      <textarea name="signup[signup_amount]" class="form-control"><%=h @signup.signup_amount %></textarea>
     </div>
     <div class="form-group">
       <label>Método de pago</label>
-      <select name="inscripcion[tipoPago]" id="metodo" class="form-control">
+      <select name="signup[payment_type]" id="paymentType" class="form-control">
         <option value="">Seleccione un método de pago</option>
-        <% ["Débito", "Depósito", "Transferencia", "Crédito"].each do |metodo| %>
-        <option <%= "selected" if metodo == @query.tipoPago %> value="<%= metodo %>"><%= metodo %></option>
+        <% ["Débito", "Depósito", "Transferencia", "Crédito", "Efectivo"].each do |method| %>
+        <option <%= "selected" if method == @signup.payment_type %> value="<%= method %>" disabled><%= method %></option>
         <% end %>
       </select>
     </div>
-    <div class="form-group" id="banco" style="display:none;">
+    <% if @signup.payment_type == 'Depósito' || @signup.payment_type == 'Transferencia' %>
+    <div class="form-group">
       <label>Banco</label>
-      <select name="inscripcion[banco]" class="form-control">
+      <select name="signup[bank]" class="form-control">
         <option value="">Seleccione un banco</option>
         <% @banks.each do |bank| %>
-        <option <%= "selected" if bank.nombreBanco == @query.banco %> value="<%= bank.nombreBanco %>"><%= bank.nombreBanco %></option>
+        <option <%= "selected" if bank.bank_name == @signup.bank %> value="<%= bank.bank_name %>"><%= bank.bank_name %></option>
         <% end %>
       </select>
     </div>
-    <div class="form-group" id="referencia" style="display:none;">
+    <% end %>
+    <% if @signup.payment_type != 'Efectivo' %>
+    <div class="form-group">
       <label>Número de referencia</label>
-      <textarea name="inscripcion[numeroReferencia]" class="form-control"><%=h @query.numeroReferencia %></textarea>
+      <textarea name="signup[reference_number]" class="form-control"><%=h @signup.reference_number %></textarea>
     </div>
+    <% end %>
     <input type="hidden" name="_method" value="PUT">
     <button type="submit" class="btn btn-success">Actualizar</button>
-    <a href="/dashboard/students/<%= @id_estudiante %>/signups" class="btn btn-default">Cancelar</a>
+    <a href="/dashboard/students/<%= @student_id %>/signups" class="btn btn-default">Cancelar</a>
 </form>

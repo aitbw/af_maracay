@@ -1,5 +1,5 @@
-def nuevo_profesor
-  new_teacher = Teacher.new(params[:profesor])
+def new_teacher
+  new_teacher = Teacher.new(params[:teacher])
 
   if new_teacher.save
     redirect '/dashboard/teachers', notice: 'Profesor creado exitosamente.'

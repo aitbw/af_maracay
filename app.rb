@@ -27,7 +27,7 @@ before do
 end
 
 helpers do
-  def titulo(title)
+  def set_page_title(title)
     @page_title = title
   end
 
@@ -48,7 +48,7 @@ post '/signin' do
 end
 
 get '/dashboard' do
-  titulo('Inicio')
+  set_page_title('Inicio')
   erb :index, layout: :'layouts/dashboard'
 end
 

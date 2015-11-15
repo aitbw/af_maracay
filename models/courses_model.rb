@@ -1,22 +1,22 @@
-# Modelo para la tabla 'tiposCursos'
-class Tipo < ActiveRecord::Base
-  self.table_name = 'tiposCurso'
-  has_many :cursos, foreign_key: 'idTipoCurso'
+# Model for 'course_types' table
+class CourseType < ActiveRecord::Base
+  has_many :courses
 end
 
-# Modelo para la tabla Cursos
-class Curso < ActiveRecord::Base
+# Model for 'courses' table
+class Course < ActiveRecord::Base
   COURSE_CODE ||= /[ABC](1|2)[A-Z]{2}\d{2}/
-  has_many :estudiantes, dependent: :destroy, foreign_key: 'idCurso'
-  belongs_to :tipo
-  belongs_to :sede
+  COURSE_LEVEL ||= /[ABC](1|2)-(?:[01][0-9]|1[0-5])/
+  has_many :students, dependent: :destroy
+  belongs_to :coursetype
+  belongs_to :office
 
-  validates :idTipoCurso, presence: true
-  validates :idSede, presence: true
-  validates :codigoCurso, presence: true, uniqueness: true, format: { with: COURSE_CODE }
-  validates :nivelCurso, presence: true, format: { with: /[ABC](1|2)-[1-5]{1}/ }
-  validates :capacidadCurso, presence: true, format: { with: /\d{2}/ }
-  validates :inicioCurso, presence: true
-  validates :finCurso, presence: true
-  validates :horasCurso, presence: true, numericality: { only_integer: true }
+  validates :course_type_id, presence: true
+  validates :office_id, presence: true
+  validates :course_code, presence: true, uniqueness: true, format: { with: COURSE_CODE }
+  validates :course_level, presence: true, format: { with: COURSE_LEVEL }
+  validates :course_capacity, presence: true, format: { with: /\d{2}/ }
+  validates :start_date, presence: true
+  validates :completion_date, presence: true
+  validates :course_hours, presence: true, numericality: { only_integer: true }
 end

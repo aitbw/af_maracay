@@ -1,4 +1,4 @@
-<% if @id_curso %>
+<% if @course_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
         <h3 class="panel-title">Eliminar curso</h3>
@@ -6,22 +6,22 @@
     <div class="panel-body">
         <p>¿Está usted seguro de <b>eliminar</b> este curso? Esta acción no puede ser revertida.</p>
         <ol style="list-style-type:disc;">
-        <li><b>Código</b>: <%=h @query.codigoCurso %></li>
-        <% Tipo.where(idTipoCurso: @query.idTipoCurso).select(:tipoCurso).each do |tipo| %>
-        <li><b>Tipo</b>: <%= tipo.tipoCurso %></li>
+        <li><b>Código</b>: <%=h @course.course_code %></li>
+        <% CourseType.where(course_type_id: @course.course_type_id).select(:course_type).each do |type| %>
+        <li><b>Tipo</b>: <%= type.course_type %></li>
         <% end %>
-        <% Sede.where(idSede: @query.idSede).select(:nombreSede).each do |sede| %>
-        <li><b>Sede</b>: <%= sede.nombreSede %></li>
+        <% Office.where(office_id: @course.office_id).select(:office_name).each do |office| %>
+        <li><b>Sede</b>: <%= office.office_name %></li>
         <% end %>
-        <li><b>Nivel</b>: <%=h @query.nivelCurso %></li>
-        <li><b>Capacidad</b>: <%=h @query.capacidadCurso %></li>
-        <li><b>Fecha de inicio</b>: <%=h @query.inicioCurso.strftime('%d/%m/%Y') %></li>
-        <li><b>Fecha de culminación</b>: <%=h @query.finCurso.strftime('%d/%m/%Y') %></li>
-        <li><b>Horas cubiertas</b>: <%=h @query.horasCubiertas %></li>
-        <li><b>Horas académicas</b>: <%=h @query.horasCurso %></li>
+        <li><b>Nivel</b>: <%=h @course.course_level %></li>
+        <li><b>Capacidad</b>: <%=h @course.course_capacity %></li>
+        <li><b>Fecha de inicio</b>: <%=h @course.start_date.strftime('%d/%m/%Y') %></li>
+        <li><b>Fecha de culminación</b>: <%=h @course.completion_date.strftime('%d/%m/%Y') %></li>
+        <li><b>Horas cubiertas</b>: <%=h @course.hours_covered %></li>
+        <li><b>Horas académicas</b>: <%=h @course.course_hours %></li>
         </ol>
         <b><p class="text-danger">Todos los registros relacionados a este curso también serán eliminados.</p></b>
-        <form action="/delete_course/<%= @id_curso %>" method="POST">
+        <form action="/delete_course/<%= @course_id %>" method="POST">
           <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="btn btn-danger">Eliminar</button>
           <a href="/dashboard/courses" class="btn btn-default">Cancelar</a>

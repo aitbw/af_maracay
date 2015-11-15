@@ -1,33 +1,36 @@
-<% if @id_inscripcion %>
+<% if @signup_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
         <h3 class="panel-title">Eliminar inscripción</h3>
     </div>
     <div class="panel-body">
         <p>¿Está usted seguro de <b>eliminar</b> esta inscripción? Esta acción no puede ser revertida.</p>
-        <% Estudiante.where(idEstudiante: @query.idEstudiante).select(:nombreEstudiante).each do |student| %>
         <ol style="list-style-type:disc;">
-        <li><b>Estudiante</b>: <%=h student.nombreEstudiante %></li>
+        <% Student.where(student_id: @signup.student_id).select(:student_name).each do |student| %>
+        <li><b>Estudiante</b>: <%=h student.student_name %></li>
         <% end %>
-        <% Usuario.where(idUsuario: @query.idUsuario).each do |user| %>
-        <li><b>Emisor</b>: <%=h user.nombreUsuario %></li>
+        <% User.where(user_id: @signup.user_id).select(:user_name).each do |user| %>
+        <li><b>Emisor</b>: <%=h user.user_name %></li>
         <% end %>
-        <li><b>Monto cancelado</b>: <%=h @query.costoInscripcion %></li>
-        <li><b>Método de pago</b>: <%= @query.tipoPago %></li>
-        <li><b>Fecha de emision</b>: <%= @query.fechaEmision.strftime('%d/%m/%Y') %></li>
-        <li><b>Fecha de expiración</b>: <%= @query.fechaExpiracion.strftime('%d/%m/%Y') %></li>
-        <% if @query.banco == '' %>
+        <li><b>Monto cancelado</b>: <%=h @signup.signup_amount %></li>
+        <li><b>Método de pago</b>: <%= @signup.payment_type %></li>
+        <li><b>Fecha de emision</b>: <%= @signup.issue_date.strftime('%d/%m/%Y') %></li>
+        <li><b>Fecha de expiración</b>: <%= @signup.expiration_date.strftime('%d/%m/%Y') %></li>
+        <% if @signup.bank.empty? %>
         <li><b>Banco</b>: N/A</li>
+        <% else %>
+        <li><b>Banco</b>: <%= @signup.bank %></li>
+        <% end %>
+        <% if @signup.payment_type == 'Efectivo' %>
         <li><b>Número de referencia</b>: N/A</li>
         <% else %>
-        <li><b>Banco</b>: <%= @query.banco %></li>
-        <li><b>Número de referencia</b>: <%=h @query.numeroReferencia %></li>
+        <li><b>Número de referencia</b>: <%=h @signup.numeroReferencia %></li>
         <% end %>
         </ol>
-        <form action="/<%= @id_estudiante %>/delete_signup/<%= @id_inscripcion %>" method="POST">
+        <form action="/<%= @student_id %>/delete_signup/<%= @signup_id %>" method="POST">
           <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="btn btn-danger">Eliminar</button>
-          <a href="/dashboard/students/<%= @id_estudiante %>/signups" class="btn btn-default">Cancelar</a>
+          <a href="/dashboard/students/<%= @student_id %>/signups" class="btn btn-default">Cancelar</a>
         </form>
     </div>
   </div>

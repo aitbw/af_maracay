@@ -1,12 +1,14 @@
-# Modelo para la tabla 'estudiantes'
-class Estudiante < ActiveRecord::Base
-  VALID_EMAIL_REGEX ||= /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-  belongs_to :curso
-  has_many :signups, dependent: :destroy, foreign_key: 'idEstudiante'
+# Model for 'students' table
+class Student < ActiveRecord::Base
+  VALID_EMAIL ||= /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  VALID_NUMBER ||= /04(12|14|24|16|26)-?\d{7}/
+  belongs_to :course
+  has_many :signups, dependent: :destroy
+  has_many :fees, dependent: :destroy
 
-  validates :idCurso, presence: true
-  validates :nombreEstudiante, presence: true
-  validates :correoEstudiante, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
-  validates :telefonoEstudiante, presence: true, format: { with: /\d{4}-?\d{7}/ }
-  validates :cedulaEstudiante, presence: true, uniqueness: true, format: { with: /\d{6,8}/ }
+  validates :course_id, presence: true
+  validates :student_name, presence: true
+  validates :student_email, presence: true, uniqueness: true, format: { with: VALID_EMAIL }
+  validates :student_phone, presence: true, format: { with: VALID_NUMBER }
+  validates :student_cedula, presence: true, uniqueness: true, format: { with: /\d{6,8}/ }
 end

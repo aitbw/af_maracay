@@ -1,31 +1,31 @@
-<form id="actualizar" action="/edit_course/<%= @id_curso %>" method="POST">
+<form action="/edit_course/<%= @course_id %>" method="POST">
   <div class="form-group">
     <label>Código</label>
-    <textarea name="curso[codigoCurso]" class="form-control"><%=h @query.codigoCurso %></textarea>
+    <textarea name="course[course_code]" class="form-control"><%=h @course.course_code %></textarea>
   </div>
   <div class="form-group">
   <label>Tipo</label>
-  <select name="curso[idTipoCurso]" class="form-control">
-    <% @tipos.each do |tipo| %>
-    <option <%= "selected" if tipo.idTipoCurso == @query.idTipoCurso %> value="<%= tipo.idTipoCurso %>"><%= tipo.tipoCurso %></option>
+  <select name="course[course_type_id]" class="form-control">
+    <% @types.each do |type| %>
+    <option <%= "selected" if type.course_type_id == @course.course_type_id %> value="<%= type.course_type_id %>"><%= type.course_type %></option>
     <% end %>
   </select>
   </div>
   <div class="form-group">
   <label>Sede</label>
-  <select name="curso[idSede]" class="form-control">
-    <% @sedes.each do |sede| %>
-    <option <%= "selected" if sede.idSede == @query.idSede %> value="<%= sede.idSede %>"><%= sede.nombreSede %></option>
+  <select name="course[office_id]" class="form-control">
+    <% @offices.each do |office| %>
+    <option <%= "selected" if office.office_id == @course.office_id %> value="<%= office.office_id %>"><%= office.office_name %></option>
     <% end %>
   </select>
   </div>
   <div class="form-group">
     <label>Nivel</label>
-    <textarea name="curso[nivelCurso]" class="form-control"><%=h @query.nivelCurso %></textarea>
+    <textarea name="course[course_level]" class="form-control"><%=h @course.course_level %></textarea>
   </div>
   <div class="form-group">
     <label>Capacidad</label>
-    <textarea name="curso[capacidadCurso]" class="form-control"><%=h @query.capacidadCurso %></textarea>
+    <textarea name="course[course_capacity]" class="form-control"><%=h @course.course_capacity %></textarea>
   </div>
   <input type="hidden" name="_method" value="PUT">
   <button type="submit" class="btn btn-success">Actualizar</button>

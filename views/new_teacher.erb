@@ -1,24 +1,28 @@
-<form id="registro" action="/dashboard/teachers/new_teacher" method="POST">
+<form action="/dashboard/teachers/new_teacher" method="POST">
   <div class="form-group">
     <label>Nombre</label>
-    <input type="text" class="form-control" name="profesor[nombreProfesor]" placeholder="Nombre">
+    <input type="text" class="form-control" name="teacher[teacher_name]" placeholder="Nombre">
   </div>
   <div class="form-group">
     <label>Correo</label>
-    <input type="email" class="form-control" name="profesor[correoProfesor]" placeholder="Correo">
+    <input type="email" class="form-control" name="teacher[teacher_email]" placeholder="Correo">
   </div>
   <div class="form-group">
     <label>Teléfono</label>
-    <input type="text" class="form-control" name="profesor[telefonoProfesor]" placeholder="XXXX-XXXXXXX">
+    <input type="text" class="form-control" name="teacher[teacher_phone]" placeholder="Teléfono">
   </div>
   <div class="form-group">
     <label>Cédula</label>
-    <input type="text" class="form-control" name="profesor[cedulaProfesor]" placeholder="Cédula">
+    <input type="text" class="form-control" name="teacher[teacher_cedula]" placeholder="Cédula">
+  </div>
+  <div class="form-group">
+    <label>Salario</label>
+    <input type="text" class="form-control" name="teacher[teacher_wage]" placeholder="Salario">
   </div>
   <div class="form-group">
     <label>Fecha de ingreso</label>
-    <div class="input-group date" id="fechaind">
-      <input type="text" class="form-control" name="profesor[fechaIngreso]">
+    <div class="input-group date" id="datePicker">
+      <input type="text" class="form-control" name="teacher[entry_date]">
       <span class="input-group-addon">
         <span class="glyphicon glyphicon-calendar"></span>
       </span>

@@ -1,22 +1,22 @@
-<form id="actualizar" action="/<%= @id_profesor %>/edit_bank_account/<%= @id_cuenta %>" method="POST">
+<form action="/<%= @teacher_id %>/edit_bank_account/<%= @bank_account_id %>" method="POST">
   <div class="form-group">
   <label>Banco</label>
-  <select name="cuenta[idBanco]" class="form-control">
+  <select name="account[bank_id]" class="form-control">
     <% @banks.each do |bank| %>
-    <option <%= "selected" if bank.idBanco == @query.idBanco %> value="<%= bank.idBanco %>"><%= bank.nombreBanco %></option>
+    <option <%= "selected" if bank.bank_id == @account.bank_id %> value="<%= bank.bank_id %>"><%= bank.bank_name %></option>
     <% end %>
   </select>
   </div>
   <div class="form-group">
     <label>Número de cuenta</label>
-    <textarea name="cuenta[numeroCuenta]" class="form-control"><%=h @query.numeroCuenta %></textarea>
+    <textarea name="account[account_number]" class="form-control"><%=h @account.account_number %></textarea>
   </div>
   <div class="form-group">
   <label>Tipo de cuenta</label>
-  <select name="cuenta[tipoCuenta]" class="form-control">
+  <select name="account[account_type]" class="form-control">
     <option value="">Seleccione el tipo de cuenta</option>
-    <% ['Ahorro', 'Corriente'].each do |tipo| %>
-    <option <%= "selected" if @query.tipoCuenta == tipo %> value="<%= tipo %>"><%= tipo %></option>
+    <% ['Ahorro', 'Corriente'].each do |type| %>
+    <option <%= "selected" if @account.account_type == type %> value="<%= type %>"><%= type %></option>
     <% end %>
   </select>
   </div>

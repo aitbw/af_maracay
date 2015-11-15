@@ -1,10 +1,9 @@
-# Modelo para la tabla 'cuentasBanco'
-class Account < ActiveRecord::Base
-  self.table_name = 'cuentasBanco'
+# Model for 'bank_accounts' table
+class BankAccount < ActiveRecord::Base
   belongs_to :teacher
-  belongs_to :banco
+  belongs_to :bank
 
-  validates :idBanco, presence: true
-  validates :numeroCuenta, presence: true, format: { with: /\d{20}/ }, uniqueness: { scope: :idBanco }
-  validates :tipoCuenta, presence: true
+  validates :bank_id, presence: true
+  validates :account_number, presence: true, format: { with: /\d{20}/ }, uniqueness: { scope: :bank_id }
+  validates :account_type, presence: true
 end

@@ -8,40 +8,40 @@
       <th scope="col">Capacidad</th>
       <th scope="col">Inicio del curso</th>
       <th scope="col">Fin del curso</th>
-      <th scope="col">Horas cubiertas</th>
       <th scope="col">Horas académicas</th>
+      <th scope="col">Horas cubiertas</th>
       <th scope="col">Acciones</th>
     </tr>
   </thead>
   <tbody>
     <% @courses.each do |course| %>
-    <% Tipo.where(idTipoCurso: course.idTipoCurso).select(:tipoCurso).each do |tipo| %>
-    <% Sede.where(idSede: course.idSede).select(:nombreSede).each do |sede| %>
+    <% CourseType.where(course_type_id: course.course_type_id).select(:course_type).each do |type| %>
+    <% Office.where(office_id: course.office_id).select(:office_name).each do |office| %>
       <tr>
-        <td><%=h course.codigoCurso %></td>
-        <td><%= tipo.tipoCurso %></td>
-        <td><%= sede.nombreSede %></td>
-        <td><%=h course.nivelCurso %></td>
-        <td><%=h course.capacidadCurso %></td>
-        <td><%=h course.inicioCurso.strftime('%d/%m/%Y') %></td>
-        <td><%=h course.finCurso.strftime('%d/%m/%Y') %></td>
-        <% if course.horasCurso == 0 %>
+        <td><%=h course.course_code %></td>
+        <td><%= type.course_type %></td>
+        <td><%= office.office_name %></td>
+        <td><%=h course.course_level %></td>
+        <td><%=h course.course_capacity %></td>
+        <td><%=h course.start_date.strftime('%d/%m/%Y') %></td>
+        <td><%=h course.completion_date.strftime('%d/%m/%Y') %></td>
+        <% if course.course_hours == 0 %>
         <td>Finalizado</td>
         <td>Finalizado</td>
         <% else %>
-        <td><%=h course.horasCubiertas %></td>
-        <td><%=h course.horasCurso %></td>
+        <td><%=h course.course_hours %></td>
+        <td><%=h course.hours_covered %></td>
         <% end %>
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/dashboard/courses/<%= course.idCurso %>/delete">Eliminar</a></li>
-              <li><a href="/dashboard/courses/<%= course.idCurso %>/edit">Modificar</a></li>
-              <li><a href="/dashboard/courses/<%= course.idCurso %>/show_students">Ver estudiantes</a>
-              <% if course.horasCurso == 0 %>
-              <li><a href="/dashboard/courses/<%= course.idCurso %>/assign_grades">Asignar calificaciones</a></li>
-              <li><a href="/dashboard/courses/<%= course.idCurso %>/promote">Promover</a></li>
+              <li><a href="/dashboard/courses/<%= course.course_id %>/delete">Eliminar</a></li>
+              <li><a href="/dashboard/courses/<%= course.course_id %>/edit">Modificar</a></li>
+              <li><a href="/dashboard/courses/<%= course.course_id %>/show_students">Ver estudiantes</a>
+              <% if course.course_hours == 0 %>
+              <li><a href="/dashboard/courses/<%= course.course_id %>/assign_grades">Asignar calificaciones</a></li>
+              <li><a href="/dashboard/courses/<%= course.course_id %>/promote">Promover</a></li>
               <% end %>
             </ul>
           </div>
@@ -73,11 +73,11 @@
             </tr>
           </thead>
           <tbody>
-            <% @tipos.each do |tipo| %>
+            <% @types.each do |type| %>
               <tr>
-                <td><%= tipo.tipoCurso %></td>
-                <td><%= tipo.diasCurso%></td>
-                <td><%= tipo.horarioCurso %></td>
+                <td><%= type.course_type %></td>
+                <td><%= type.course_days %></td>
+                <td><%= type.course_schedule %></td>
               </tr>
             <% end %>
           </tbody>

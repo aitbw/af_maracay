@@ -14,31 +14,34 @@
   </thead>
   <tbody>
     <% @signups.each do |signup| %>
-    <% Usuario.where(idUsuario: signup.idUsuario).select(:nombreUsuario).each do |user| %>
+    <% User.where(user_id: signup.user_id).select(:user_name).each do |user| %>
       <tr>
-        <td><%=h user.nombreUsuario %></td>
-        <td><%=h signup.costoInscripcion %></td>
-        <td><%= signup.tipoPago %></td>
-        <td><%=h signup.fechaEmision.strftime('%d/%m/%Y') %></td>
-        <td><%=h signup.fechaExpiracion.strftime('%d/%m/%Y') %></td>
-        <% if Time.now >= signup.fechaExpiracion %>
-        <td><b><p class="text-danger">Inscripción expirada</p></b></td>
+        <td><%=h user.user_name %></td>
+        <td><%=h signup.signup_amount %></td>
+        <td><%= signup.payment_type %></td>
+        <td><%=h signup.issue_date.strftime('%d/%m/%Y') %></td>
+        <td><%=h signup.expiration_date.strftime('%d/%m/%Y') %></td>
+        <% if signup.signup_status.include?('expirada') %>
+        <td><b><p class="text-danger"><%= signup.signup_status %></p></b></td>
         <% else %>
-        <td><b><p class="text-success">Inscripción vigente</p></b></td>
+        <td><b><p class="text-success"><%= signup.signup_status %></p></b></td>
         <% end %>
-        <% if signup.banco == '' %>
-        <td>N/A</td>
+        <% if signup.bank.empty? %>
         <td>N/A</td>
         <% else %>
-        <td><%= signup.banco %></td>
-        <td><%=h signup.numeroReferencia %></td>
+        <td><%= signup.bank %></td>
+        <% end %>
+        <% if signup.payment_type == 'Efectivo' %>
+        <td>N/A</td>
+        <% else %>
+        <td><%=h signup.reference_number %></td>
         <% end %>
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/dashboard/students/<%= @id_estudiante %>/signups/<%= signup.idInscripcion %>/delete">Eliminar</a></li>
-              <li><a href="/dashboard/students/<%= @id_estudiante %>/signups/<%= signup.idInscripcion %>/edit">Modificar</a></li>
+              <li><a href="/dashboard/students/<%= @student_id %>/signups/<%= signup.signup_id %>/delete">Eliminar</a></li>
+              <li><a href="/dashboard/students/<%= @student_id %>/signups/<%= signup.signup_id %>/edit">Modificar</a></li>
             </ul>
           </div>
         </td>
@@ -48,5 +51,5 @@
   </tbody>
 </table>
 
-<a href="/dashboard/students/<%= @id_estudiante %>/signups/add" class="btn btn-success">Nueva inscripción</a>
+<a href="/dashboard/students/<%= @student_id %>/signups/add" class="btn btn-success">Nueva inscripción</a>
 <a href="/dashboard/students" class="btn btn-default">Atrás</a>

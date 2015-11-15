@@ -1,4 +1,4 @@
-<% if @id_profesor %>
+<% if @teacher_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
         <h3 class="panel-title">Eliminar profesor</h3>
@@ -6,14 +6,14 @@
     <div class="panel-body">
         <p>¿Está usted seguro de <b>eliminar</b> este profesor? Esta acción no puede ser revertida.</p>
         <ol style="list-style-type:disc;">
-        <li><b>Nombre</b>: <%=h @query.nombreProfesor %></li>
-        <li><b>Correo</b>: <%=h @query.correoProfesor %></li>
-        <li><b>Teléfono</b>: <%=h @query.telefonoProfesor %></li>
-        <li><b>Cédula</b>: <%=h @query.cedulaProfesor %></li>
-        <li><b>Fecha de ingreso</b>: <%=h @query.fechaIngreso.strftime('%d/%m/%Y') %></li>
+        <li><b>Nombre</b>: <%=h @teacher.teacher_name %></li>
+        <li><b>Correo</b>: <%=h @teacher.teacher_email %></li>
+        <li><b>Teléfono</b>: <%=h @teacher.teacher_phone %></li>
+        <li><b>Cédula</b>: <%=h @teacher.teacher_cedula %></li>
+        <li><b>Fecha de ingreso</b>: <%=h @teacher.entry_date.strftime('%d/%m/%Y') %></li>
         </ol>
         <b><p class="text-danger">Todos los registros relacionados a este profesor también serán eliminados.</p></b>
-        <form action="/delete_teacher/<%= @id_profesor %>" method="POST">
+        <form action="/delete_teacher/<%= @teacher_id %>" method="POST">
           <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="btn btn-danger">Eliminar</button>
           <a href="/dashboard/teachers" class="btn btn-default">Cancelar</a>

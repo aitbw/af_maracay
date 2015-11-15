@@ -1,5 +1,5 @@
-def nuevo_curso
-  new_course = Curso.new(params[:curso])
+def new_course
+  new_course = Course.new(params[:course])
 
   if new_course.save
     redirect '/dashboard/courses', notice: 'Curso creado exitosamente.'

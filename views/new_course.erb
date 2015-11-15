@@ -1,38 +1,38 @@
-<form id="registro" action="/dashboard/courses/new_course" method="POST">
+<form action="/dashboard/courses/new_course" method="POST">
   <div class="form-group">
   <label>Tipo</label>
-  <select name="curso[idTipoCurso]" class="form-control">
+  <select name="course[course_type_id]" class="form-control">
     <option value="" selected>Seleccione un tipo de curso</option>
-    <% @tipos.each do |tipo| %>
-    <option value="<%= tipo.idTipoCurso %>"><%= tipo.tipoCurso %></option>
+    <% @types.each do |type| %>
+    <option value="<%= type.course_type_id %>"><%= type.course_type %></option>
     <% end %>
   </select>
   </div>
   <div class="form-group">
   <label>Sede</label>
-  <select name="curso[idSede]" class="form-control">
+  <select name="course[office_id]" class="form-control">
     <option value="" selected>Seleccione una sede</option>
-    <% @sedes.each do |sede| %>
-    <option value="<%= sede.idSede %>"><%= sede.nombreSede %></option>
+    <% @offices.each do |office| %>
+    <option value="<%= office.office_id %>"><%= office.office_name %></option>
     <% end %>
   </select>
   </div>
   <div class="form-group">
     <label>Código</label>
-    <input type="text" class="form-control" name="curso[codigoCurso]" placeholder="XX XX XX">
+    <input type="text" class="form-control" name="course[course_code]" placeholder="XXXXXX">
   </div>
   <div class="form-group">
     <label>Nivel</label>
-    <input type="text" class="form-control" name="curso[nivelCurso]" placeholder="XX-X">
+    <input type="text" class="form-control" name="course[course_level]" placeholder="XX-XX">
   </div>
   <div class="form-group">
     <label>Capacidad</label>
-    <input type="text" class="form-control" name="curso[capacidadCurso]" placeholder="Capacidad">
+    <input type="text" class="form-control" name="course[course_capacity]" placeholder="Capacidad">
   </div>
   <div class="form-group">
     <label>Fecha de inicio</label>
-      <div class="input-group date" id="fechaizq">
-        <input type="text" class="form-control" name="curso[inicioCurso]">
+      <div class="input-group date" id="leftDatePicker">
+        <input type="text" class="form-control" name="course[start_date]">
           <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
           </span>
@@ -40,8 +40,8 @@
   </div>
   <div class="form-group">
     <label>Fecha de culminación</label>
-      <div class="input-group date" id="fechader">
-        <input type="text" class="form-control" name="curso[finCurso]">
+      <div class="input-group date" id="rightDatePicker">
+        <input type="text" class="form-control" name="course[completion_date]">
           <span class="input-group-addon">
             <span class="glyphicon glyphicon-calendar"></span>
           </span>
@@ -49,7 +49,7 @@
   </div>
   <div class="form-group">
     <label>Duración (Horas)</label>
-    <input type="text" class="form-control" name="curso[horasCurso]" placeholder="Horas">
+    <input type="text" class="form-control" name="course[course_hours]" placeholder="Horas">
   </div>
   <button type="submit" class="btn btn-success">Crear curso</button>
   <a href="/dashboard/courses" class="btn btn-default">Cancelar</a>

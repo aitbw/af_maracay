@@ -1,24 +1,24 @@
-<% if @id_cuenta %>
+<% if @bank_account_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
         <h3 class="panel-title">Eliminar cuenta bancaria</h3>
     </div>
     <div class="panel-body">
         <p>¿Está usted seguro de <b>eliminar</b> esta cuenta bancaria? Esta acción no puede ser revertida.</p>
-        <% Teacher.where(idProfesor: @query.idProfesor).select(:nombreProfesor).each do |teacher| %>
         <ol style="list-style-type:disc;">
-        <li><b>Titular</b>: <%=h teacher.nombreProfesor %></li>
+        <% Teacher.where(teacher_id: @account.teacher_id).select(:teacher_name).each do |teacher| %>
+        <li><b>Titular</b>: <%=h teacher.teacher_name %></li>
         <% end %>
-        <% Banco.where(idBanco: @query.idBanco).each do |bank| %>
-        <li><b>Banco</b>: <%= bank.nombreBanco %></li>
+        <% Bank.where(bank_id: @account.bank_id).each do |bank| %>
+        <li><b>Banco</b>: <%= bank.bank_name %></li>
         <% end %>
-        <li><b>Número de cuenta</b>: <%=h @query.numeroCuenta %></li>
-        <li><b>Tipo de cuenta</b>: <%= @query.tipoCuenta %></li>
+        <li><b>Número de cuenta</b>: <%=h @account.account_number %></li>
+        <li><b>Tipo de cuenta</b>: <%= @account.account_type %></li>
         </ol>
-        <form action="/<%= @id_profesor %>/delete_bank_account/<%= @id_cuenta %>" method="POST">
+        <form action="/<%= @teacher_id %>/delete_bank_account/<%= @account_id %>" method="POST">
           <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="btn btn-danger">Eliminar</button>
-          <a href="/dashboard/teachers/<%= @id_profesor %>/bank_accounts" class="btn btn-default">Cancelar</a>
+          <a href="/dashboard/teachers/<%= @teacher_id %>/bank_accounts" class="btn btn-default">Cancelar</a>
         </form>
     </div>
   </div>

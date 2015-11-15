@@ -1,11 +1,11 @@
 # Helper to keep exception handling DRY
 def find_user(id)
-  Usuario.find(id).present?
+  User.find(id).present?
 rescue ActiveRecord::RecordNotFound
   redirect '/dashboard/users', error: 'El usuario no existe.'
 end
 
-before %r{\/(delete|edit)_user\/(\d)} do |_action, id|
+before %r{\/(delete|edit)_user\/(\d)} do |_, id|
   find_user(id)
 end
 
@@ -15,7 +15,7 @@ end
 
 before '/change_password' do
   begin
-    Usuario.find(session[:id]).present?
+    User.find(session[:id]).present?
   rescue ActiveRecord::RecordNotFound
     session.clear
     redirect '/signin', error: 'El usuario no existe.'
@@ -23,18 +23,18 @@ before '/change_password' do
 end
 
 get '/dashboard/users' do
-  titulo('Usuarios')
-  @users = Usuario.all
+  set_page_title('Usuarios')
+  @users = User.all
   erb :users, layout: :'layouts/dashboard'
 end
 
 get '/dashboard/users/new_user' do
-  titulo('Crear nuevo usuario')
+  set_page_title('Crear nuevo usuario')
   erb :new_user, layout: :'layouts/dashboard'
 end
 
 post '/dashboard/users/new_user' do
-  new_user = Usuario.new(params[:usuario])
+  new_user = User.new(params[:user])
 
   if new_user.save
     redirect '/dashboard/users', notice: 'Usuario creado exitosamente.'
@@ -46,15 +46,15 @@ end
 
 get '/dashboard/users/:id/delete' do
   if find_user(params[:id])
-    @id_usuario = params[:id]
-    @query = Usuario.find(params[:id])
-    titulo('Eliminar usuario')
+    @user_id = params[:id]
+    @user = User.find(params[:id])
+    set_page_title('Eliminar usuario')
     erb :delete_user, layout: :'layouts/dashboard'
   end
 end
 
 delete '/delete_user/:id' do
-  if Usuario.destroy(params[:id])
+  if User.destroy(params[:id])
     redirect '/dashboard/users', notice: 'Usuario eliminado.'
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
@@ -64,16 +64,16 @@ end
 
 get '/dashboard/users/:id/edit' do
   if find_user(params[:id])
-    @id_usuario = params[:id]
-    @query = Usuario.find(params[:id])
-    titulo('Editar usuario')
+    @user_id = params[:id]
+    @user = User.find(params[:id])
+    set_page_title('Editar usuario')
     erb :edit_user, layout: :'layouts/dashboard'
   end
 end
 
 put '/edit_user/:id' do
-  edit_user = Usuario.find(params[:id])
-  edit_user.update(params[:usuario])
+  edit_user = User.find(params[:id])
+  edit_user.update(params[:user])
   if edit_user.save
     redirect '/dashboard/users', notice: 'Datos actualizados.'
   else
@@ -83,7 +83,7 @@ put '/edit_user/:id' do
 end
 
 get '/dashboard/change_password' do
-  titulo('Cambiar contraseña')
+  set_page_title('Cambiar contraseña')
   erb :change_password, layout: :'layouts/dashboard'
 end
 
@@ -100,8 +100,8 @@ end
 
 get '/dashboard/users/:id/reset_password' do
   if find_user(params[:id])
-    titulo('Reestablecer contraseña')
-    @id_usuario = params[:id]
+    set_page_title('Reestablecer contraseña')
+    @user_id = params[:id]
     erb :reset_password, layout: :'layouts/dashboard'
   end
 end
