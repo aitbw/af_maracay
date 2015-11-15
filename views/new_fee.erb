@@ -1,0 +1,41 @@
+<form action="/dashboard/students/<%= @student_id %>/fees/add" method="POST">
+  <div class="form-group">
+      <label>Monto de cuota</label>
+      <input type="text" class="form-control" name="fee[fee_amount]" placeholder="Monto">
+  </div>
+  <div class="form-group">
+  <label>Método de pago</label>
+      <select name="fee[payment_type]" class="form-control" id="paymentType">
+          <option value="" selected>Seleccione un método de pago</option>
+          <% ["Débito", "Depósito", "Transferencia", "Crédito"].each do |method| %>
+          <option value="<%= method %>"><%= method %></option>
+          <% end %>
+      </select>
+  </div>
+  <div class="form-group">
+    <label>Fecha de emisión</label>
+    <div class="input-group date" id="datePicker">
+      <input type="text" class="form-control" name="fee[issue_date]">
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+  </div>
+  <div class="form-group" id="bank" style="display:none;">
+    <label>Banco</label>
+      <select name="fee[bank]" class="form-control">
+        <option value="" selected>Seleccione un banco</option>
+        <% @banks.each do |bank| %>
+        <option value="<%= bank.bank_name %>"><%= bank.bank_name %></option>
+        <% end %>
+      </select>
+  </div>
+  <div class="form-group" id="referenceNumber" style="display:none;">
+    <label>Número de referencia</label>
+    <input type="text" class="form-control" name="fee[reference_number]" placeholder="Referencia">
+  </div>
+  <input type="hidden" name="fee[student_id]" value="<%= @student_id %>">
+  <input type="hidden" name="fee[user_id]" value="<%= session[:id] %>">
+  <button type="submit" class="btn btn-success">Generar cuota</button>
+  <a href="/dashboard/students/<%= @student_id %>/fees" class="btn btn-default">Cancelar</a>
+</form>

@@ -1,52 +1,52 @@
 # Helpers to keep exception handling DRY
 def find_student(id)
-  Estudiante.find(id).present?
+  Student.find(id).present?
 rescue ActiveRecord::RecordNotFound
   redirect '/dashboard/students', error: 'El estudiante no existe.'
 end
 
-def find_signup(estudiante, inscripcion)
-  Signup.find(inscripcion).present?
+def find_signup(student, signup)
+  Signup.find(signup).present?
 rescue ActiveRecord::RecordNotFound
   flash[:error] = 'La inscripción asociada no existe.'
-  redirect "/dashboard/students/#{estudiante}/signups"
+  redirect "/dashboard/students/#{student}/signups"
 end
 
-before %r{\/(delete|edit)_student\/(\d)} do |_action, id|
+before %r{\/(delete|edit)_student\/(\d)} do |_, id|
   find_student(id)
 end
 
-before %r{\/(\d)\/(delete|edit)_signup\/(\d)} do |estudiante, _action, inscripcion|
-  find_student(estudiante) && find_signup(estudiante, inscripcion)
+before %r{\/(\d)\/(delete|edit)_signup\/(\d)} do |student, _, signup|
+  find_student(student) && find_signup(student, signup)
 end
 
 get '/dashboard/students' do
-  titulo('Estudiantes')
-  @students = Estudiante.all
+  set_page_title('Estudiantes')
+  @students = Student.all
   erb :students, layout: :'layouts/dashboard'
 end
 
 get '/dashboard/students/new_student' do
-  titulo('Crear nuevo estudiante')
-  @courses = Curso.select(:idCurso, :codigoCurso)
+  set_page_title('Crear nuevo estudiante')
+  @courses = Course.select(:course_id, :course_code)
   erb :new_student, layout: :'layouts/dashboard'
 end
 
 post '/dashboard/students/new_student' do
-  nuevo_estudiante
+  new_student
 end
 
 get '/dashboard/students/:id/delete' do
   if find_student(params[:id])
-    @id_estudiante = params[:id]
-    @query = Estudiante.find(params[:id])
-    titulo('Eliminar estudiante')
+    @student_id = params[:id]
+    @student = Student.find(params[:id])
+    set_page_title('Eliminar estudiante')
     erb :delete_student, layout: :'layouts/dashboard'
   end
 end
 
 delete '/delete_student/:id' do
-  if Estudiante.destroy(params[:id])
+  if Student.destroy(params[:id])
     redirect '/dashboard/students', notice: 'Estudiante eliminado.'
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
@@ -56,16 +56,16 @@ end
 
 get '/dashboard/students/:id/edit' do
   if find_student(params[:id])
-    @id_estudiante = params[:id]
-    @query = Estudiante.find(params[:id])
-    titulo('Editar estudiante')
+    @student_id = params[:id]
+    @student = Student.find(params[:id])
+    set_page_title('Editar estudiante')
     erb :edit_student, layout: :'layouts/dashboard'
   end
 end
 
 put '/edit_student/:id' do
-  edit_student = Estudiante.find(params[:id])
-  edit_student.update(params[:estudiante])
+  edit_student = Student.find(params[:id])
+  edit_student.update(params[:student])
   if edit_student.save
     redirect '/dashboard/students', notice: 'Datos actualizados.'
   else
@@ -76,26 +76,26 @@ end
 
 get '/dashboard/students/:id/signups' do
   if find_student(params[:id])
-    @id_estudiante = params[:id]
-    @signups = Signup.where(idEstudiante: params[:id]).order(fechaEmision: :desc)
-    titulo('Inscripciones')
+    @student_id = params[:id]
+    @signups = Signup.where(student_id: params[:id]).order(issue_date: :desc)
+    set_page_title('Inscripciones')
     erb :signups, layout: :'layouts/dashboard'
   end
 end
 
 get '/dashboard/students/:id/signups/add' do
   if find_student(params[:id])
-    @id_estudiante = params[:id]
+    @student_id = params[:id]
     @js = ['moment.min.js', 'bootstrap-datetimepicker.min.js']
-    @banks = Banco.all
-    titulo('Nueva inscripción')
+    @banks = Bank.all
+    set_page_title('Nueva inscripción')
     erb :new_signup, layout: :'layouts/dashboard'
   end
 end
 
 post '/dashboard/students/:id/signups/add' do
   if find_student(params[:id])
-    new_signup = Signup.new(params[:inscripcion])
+    new_signup = Signup.new(params[:signup])
 
     if new_signup.save
       flash[:notice] = 'Inscripción generada exitosamente.'
@@ -107,45 +107,78 @@ post '/dashboard/students/:id/signups/add' do
   end
 end
 
-get '/dashboard/students/:idE/signups/:idS/delete' do
-  if find_student(params[:idE]) && find_signup(params[:idE], params[:idS])
-    titulo('Eliminar inscripción')
-    @id_estudiante = params[:idE]
-    @id_inscripcion = params[:idS]
-    @query = Signup.find(params[:idS])
+get '/dashboard/students/:student/signups/:signup/delete' do
+  if find_student(params[:student]) && find_signup(params[:student], params[:signup])
+    set_page_title('Eliminar inscripción')
+    @student_id = params[:student]
+    @signup_id = params[:signup]
+    @student = Signup.find(params[:signup])
     erb :delete_signup, layout: :'layouts/dashboard'
   end
 end
 
-delete '/:idE/delete_signup/:idS' do
-  if Signup.destroy(params[:idS])
+delete '/:student/delete_signup/:signup' do
+  if Signup.destroy(params[:signup])
     flash[:notice] = 'Inscripción eliminada.'
-    redirect "/dashboard/students/#{params[:idE]}/signups"
+    redirect "/dashboard/students/#{params[:student]}/signups"
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
-    redirect "/dashboard/students/#{params[:idE]}/signups/#{params[:idS]}/delete"
+    redirect "/dashboard/students/#{params[:student]}/signups/#{params[:signup]}/delete"
   end
 end
 
-get '/dashboard/students/:idE/signups/:idS/edit' do
-  if find_student(params[:idE]) && find_signup(params[:idE], params[:idS])
-    titulo('Editar inscripción')
-    @id_estudiante = params[:idE]
-    @id_inscripcion  = params[:idS]
-    @query = Signup.find(params[:idS])
+get '/dashboard/students/:student/signups/:signup/edit' do
+  if find_student(params[:student]) && find_signup(params[:student], params[:signup])
+    set_page_title('Editar inscripción')
+    @student_id = params[:student]
+    @signup_id  = params[:signup]
+    @student = Signup.find(params[:signup])
     @banks = Banco.all
     erb :edit_signup, layout: :'layouts/dashboard'
   end
 end
 
-put '/:idE/edit_signup/:idS' do
-  edit_signup = Signup.find(params[:idS])
-  edit_signup.update(params[:inscripcion])
+put '/:student/edit_signup/:signup' do
+  edit_signup = Signup.find(params[:signup])
+  edit_signup.update(params[:signup])
   if edit_signup.save
     flash[:notice] = 'Datos actualizados.'
-    redirect "/dashboard/students/#{params[:idE]}/signups"
+    redirect "/dashboard/students/#{params[:student]}/signups"
   else
     flash[:errors] = edit_signup.errors.full_messages
-    redirect "/dashboard/students/#{params[:idE]}/signups/#{params[:idS]}/edit"
+    redirect "/dashboard/students/#{params[:student]}/signups/#{params[:signup]}/edit"
+  end
+end
+
+get '/dashboard/students/:id/fees' do
+  if find_student(params[:id])
+    set_page_title('Cuotas')
+    @student_id = params[:id]
+    @fees = Fee.where(student_id: params[:id]).order(issue_date: :desc)
+    erb :fees, layout: :'layouts/dashboard'
+  end
+end
+
+get '/dashboard/students/:id/fees/add' do
+  if find_student(params[:id])
+    set_page_title('Nueva cuota')
+    @banks = Bank.all
+    @js = ['moment.min.js', 'bootstrap-datetimepicker.min.js']
+    @student_id = params[:id]
+    erb :new_fee, layout: :'layouts/dashboard'
+  end
+end
+
+post '/dashboard/students/:id/fees/add' do
+  if find_student(params[:id])
+    new_fee = Fee.new(params[:fee])
+
+    if new_fee.save
+      flash[:notice] = 'Cuota generada exitosamente.'
+      redirect "/dashboard/students/#{params[:id]}/fees"
+    else
+      flash[:errors] = new_fee.errors.full_messages
+      redirect "#{request.path_info}"
+    end
   end
 end
