@@ -12,12 +12,24 @@ rescue ActiveRecord::RecordNotFound
   redirect "/dashboard/students/#{student}/signups"
 end
 
+def find_fee(student, fee)
+  Fee.find(fee).present?
+rescue ActiveRecord::RecordNotFound
+  flash[:error] = 'La cuota asociada no existe.'
+  redirect "/dashboard/students/#{student}/fees"
+end
+
 before %r{\/(delete|edit)_student\/(\d)} do |_, id|
   find_student(id)
 end
 
-before %r{\/(\d)\/(delete|edit)_signup\/(\d)} do |student, _, signup|
-  find_student(student) && find_signup(student, signup)
+before %r{\/(\d)\/(delete|edit)_(signup|fee)\/(\d)} do |student, _, action, id|
+  case action
+  when 'signup'
+    find_student(student) && find_signup(student, id)
+  when 'fee'
+    find_student(student) && find_fee(student, id)
+  end
 end
 
 get '/dashboard/students' do
@@ -180,5 +192,43 @@ post '/dashboard/students/:id/fees/add' do
       flash[:errors] = new_fee.errors.full_messages
       redirect "#{request.path_info}"
     end
+  end
+end
+
+get '/dashboard/students/:student/fees/:fee/delete' do
+  if find_student(params[:student]) && find_fee(params[:student], params[:fee])
+    set_page_title('Eliminar cuota')
+    @fee = Fee.find(params[:fee])
+    erb :delete_fee, layout: :'layouts/dashboard'
+  end
+end
+
+delete '/dashboard/students/:student/fees/:fee/delete' do
+  if Fee.destroy(params[:fee])
+    flash[:notice] = 'Cuota eliminada.'
+    redirect "/dashboard/students/#{params[:student]}/fees"
+  else
+    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
+    redirect "#{request.path_info}"
+  end
+end
+
+get '/dashboard/students/:student/fees/:fee/edit' do
+  if find_student(params[:student]) && find_fee(params[:student], params[:fee])
+    set_page_title('Editar cuota')
+    @fee = Fee.find(params[:fee])
+    erb :edit_fee, layout: :'layouts/dashboard'
+  end
+end
+
+put '/dashboard/students/:student/fees/:fee/edit' do
+  edit_fee = Fee.find(params[:fee])
+  edit_fee.update(params[:form])
+  if edit_fee.save
+    flash[:notice] = 'Datos actualizados.'
+    redirect "/dashboard/students/#{params[:student]}/fees"
+  else
+    flash[:error] = 'Ha ocurrido un erorr, intente nuevamente.'
+    redirect "#{request.path_info}"
   end
 end

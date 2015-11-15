@@ -1,0 +1,33 @@
+<% if @fee.fee_id %>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      <h3 class="panel-title">Eliminar cuota</h3>
+    </div>
+    <div class="panel-body">
+        <p>¿Está usted seguro de <b>eliminar</b> esta cuota? Esta acción no puede ser revertida.</p>
+        <ol style="list-style-type:disc;">
+        <% Student.where(student_id: @fee.student_id).select(:student_name).each do |student| %>
+        <li><b>Estudiante</b>: <%=h student.student_name %></li>
+        <% end %>
+        <% User.where(user_id: @fee.user_id).select(:user_name).each do |user| %>
+        <li><b>Emisor</b>: <%=h user.user_name %></li>
+        <% end %>
+        <li><b>Monto cancelado</b>: <%=h @fee.fee_amount %></li>
+        <li><b>Método de pago</b>: <%= @fee.payment_type %></li>
+        <li><b>Fecha de emision</b>: <%= @fee.issue_date.strftime('%d/%m/%Y') %></li>
+        <li><b>Fecha de expiración</b>: <%= @fee.expiration_date.strftime('%d/%m/%Y') %></li>
+        <% unless @fee.bank.empty? %>
+        <li><b>Banco</b>: <%= @fee.bank %></li>
+        <% end %>
+        <% unless @fee.payment_type == 'Efectivo' %>
+        <li><b>Número de referencia</b>: <%=h @fee.reference_number %></li>
+        <% end %>
+        </ol>
+        <form action="/dashboard/students/<%= @fee.student_id %>/fees/<%= @fee.fee_id %>/delete" method="POST">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+          <a href="/dashboard/students/<%= @fee.student_id %>/fees" class="btn btn-default">Cancelar</a>
+        </form>
+    </div>
+  </div>
+<% end %>
