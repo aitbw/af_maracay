@@ -8,7 +8,7 @@ class Course < ActiveRecord::Base
   COURSE_CODE ||= /[ABC](1|2)[A-Z]{2}\d{2}/
   COURSE_LEVEL ||= /[ABC](1|2)-(?:[01][0-9]|1[0-5])/
   has_many :students, dependent: :destroy
-  belongs_to :coursetype
+  belongs_to :course_types
   belongs_to :office
 
   validates :course_type_id, presence: true

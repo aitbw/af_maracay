@@ -18,9 +18,9 @@ end
 class Signup < ActiveRecord::Base
   include ActiveModel::Validations
   before_validation :expiration_date, on: :create
-  after_validation :signup_status
+  after_validation :signup_status, on: :create
   after_validation :credit_payment_fee
-  after_validation :set_bank
+  after_validation :set_bank, on: :create
   before_save :clean_fields
   belongs_to :student
   belongs_to :user

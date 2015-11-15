@@ -1,4 +1,4 @@
 # Model for 'banks' table
 class Bank < ActiveRecord::Base
-  has_many :bankaccounts
+  has_many :bank_accounts
 end
