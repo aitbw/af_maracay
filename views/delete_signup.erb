@@ -24,7 +24,7 @@
         <% if @signup.payment_type == 'Efectivo' %>
         <li><b>Número de referencia</b>: N/A</li>
         <% else %>
-        <li><b>Número de referencia</b>: <%=h @signup.numeroReferencia %></li>
+        <li><b>Número de referencia</b>: <%=h @signup.reference_number %></li>
         <% end %>
         </ol>
         <form action="/<%= @student_id %>/delete_signup/<%= @signup_id %>" method="POST">

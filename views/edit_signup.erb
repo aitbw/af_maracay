@@ -1,32 +1,30 @@
 <form action="/<%= @student_id %>/edit_signup/<%= @signup_id %>" method="POST">
     <div class="form-group">
       <label>Monto de inscripción</label>
-      <textarea name="signup[signup_amount]" class="form-control"><%=h @signup.signup_amount %></textarea>
+      <textarea name="form[signup_amount]" class="form-control"><%=h @signup.signup_amount %></textarea>
     </div>
     <div class="form-group">
       <label>Método de pago</label>
-      <select name="signup[payment_type]" id="paymentType" class="form-control">
-        <option value="">Seleccione un método de pago</option>
+      <select name="form[payment_type]" id="paymentType" class="form-control">
         <% ["Débito", "Depósito", "Transferencia", "Crédito", "Efectivo"].each do |method| %>
         <option <%= "selected" if method == @signup.payment_type %> value="<%= method %>" disabled><%= method %></option>
         <% end %>
       </select>
     </div>
-    <% if @signup.payment_type == 'Depósito' || @signup.payment_type == 'Transferencia' %>
+    <% if @signup.payment_type == 'Transferencia' %>
     <div class="form-group">
       <label>Banco</label>
-      <select name="signup[bank]" class="form-control">
-        <option value="">Seleccione un banco</option>
+      <select name="form[bank]" class="form-control">
         <% @banks.each do |bank| %>
-        <option <%= "selected" if bank.bank_name == @signup.bank %> value="<%= bank.bank_name %>"><%= bank.bank_name %></option>
+        <option <%= "selected" if bank.bank_name == @signup.bank %> value="<%= bank.bank_name %>" disabled><%= bank.bank_name %></option>
         <% end %>
       </select>
     </div>
     <% end %>
-    <% if @signup.payment_type != 'Efectivo' %>
+    <% unless @signup.payment_type == 'Efectivo' %>
     <div class="form-group">
       <label>Número de referencia</label>
-      <textarea name="signup[reference_number]" class="form-control"><%=h @signup.reference_number %></textarea>
+      <textarea name="form[reference_number]" class="form-control"><%=h @signup.reference_number %></textarea>
     </div>
     <% end %>
     <input type="hidden" name="_method" value="PUT">

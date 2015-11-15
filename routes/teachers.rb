@@ -65,7 +65,7 @@ end
 
 put '/edit_teacher/:id' do
   edit_teacher = Teacher.find(params[:id])
-  edit_teacher.update(params[:profesor])
+  edit_teacher.update(params[:teacher])
   if edit_teacher.save
     redirect '/dashboard/teachers', notice: 'Datos actualizados.'
   else
@@ -121,7 +121,7 @@ get '/dashboard/teachers/:teacher/bank_accounts/:account/edit' do
     set_page_title('Editar cuenta bancaria')
     @teacher_id = params[:teacher]
     @bank_account_id = params[:account]
-    @teacher = BankAccount.find(params[:account])
+    @account = BankAccount.find(params[:account])
     @banks = Bank.all
     erb :edit_bank_account, layout: :'layouts/dashboard'
   end
@@ -129,7 +129,7 @@ end
 
 put '/:teacher/edit_bank_account/:account' do
   edit_account = BankAccount.find(params[:account])
-  edit_account.update(params[:account])
+  edit_account.update(params[:form])
   if edit_account.save
     flash[:notice] = 'Datos actualizados.'
     redirect "/dashboard/teachers/#{params[:teacher]}/bank_accounts"

@@ -15,7 +15,7 @@
         <li><b>Número de cuenta</b>: <%=h @account.account_number %></li>
         <li><b>Tipo de cuenta</b>: <%= @account.account_type %></li>
         </ol>
-        <form action="/<%= @teacher_id %>/delete_bank_account/<%= @account_id %>" method="POST">
+        <form action="/<%= @teacher_id %>/delete_bank_account/<%= @bank_account_id %>" method="POST">
           <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="btn btn-danger">Eliminar</button>
           <a href="/dashboard/teachers/<%= @teacher_id %>/bank_accounts" class="btn btn-default">Cancelar</a>

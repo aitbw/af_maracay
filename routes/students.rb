@@ -112,7 +112,7 @@ get '/dashboard/students/:student/signups/:signup/delete' do
     set_page_title('Eliminar inscripción')
     @student_id = params[:student]
     @signup_id = params[:signup]
-    @student = Signup.find(params[:signup])
+    @signup = Signup.find(params[:signup])
     erb :delete_signup, layout: :'layouts/dashboard'
   end
 end
@@ -132,15 +132,15 @@ get '/dashboard/students/:student/signups/:signup/edit' do
     set_page_title('Editar inscripción')
     @student_id = params[:student]
     @signup_id  = params[:signup]
-    @student = Signup.find(params[:signup])
-    @banks = Banco.all
+    @signup = Signup.find(params[:signup])
+    @banks = Bank.all
     erb :edit_signup, layout: :'layouts/dashboard'
   end
 end
 
 put '/:student/edit_signup/:signup' do
   edit_signup = Signup.find(params[:signup])
-  edit_signup.update(params[:signup])
+  edit_signup.update(params[:form])
   if edit_signup.save
     flash[:notice] = 'Datos actualizados.'
     redirect "/dashboard/students/#{params[:student]}/signups"

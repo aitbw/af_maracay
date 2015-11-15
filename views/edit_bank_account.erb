@@ -1,7 +1,7 @@
 <form action="/<%= @teacher_id %>/edit_bank_account/<%= @bank_account_id %>" method="POST">
   <div class="form-group">
   <label>Banco</label>
-  <select name="account[bank_id]" class="form-control">
+  <select name="form[bank_id]" class="form-control">
     <% @banks.each do |bank| %>
     <option <%= "selected" if bank.bank_id == @account.bank_id %> value="<%= bank.bank_id %>"><%= bank.bank_name %></option>
     <% end %>
@@ -9,11 +9,11 @@
   </div>
   <div class="form-group">
     <label>Número de cuenta</label>
-    <textarea name="account[account_number]" class="form-control"><%=h @account.account_number %></textarea>
+    <textarea name="form[account_number]" class="form-control"><%=h @account.account_number %></textarea>
   </div>
   <div class="form-group">
   <label>Tipo de cuenta</label>
-  <select name="account[account_type]" class="form-control">
+  <select name="form[account_type]" class="form-control">
     <option value="">Seleccione el tipo de cuenta</option>
     <% ['Ahorro', 'Corriente'].each do |type| %>
     <option <%= "selected" if @account.account_type == type %> value="<%= type %>"><%= type %></option>
