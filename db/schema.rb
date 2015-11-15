@@ -11,232 +11,226 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151106204535) do
+ActiveRecord::Schema.define(version: 0) do
 
-  create_table "bancos", primary_key: "idBanco", force: :cascade do |t|
-    t.string "nombreBanco", limit: 100, null: false
+  create_table 'bank_accounts', primary_key: 'bank_account_id', force: :cascade do |t|
+    t.string  'account_number',  limit: 50, null: false
+    t.string  'account_type',    limit: 50, null: false
+    t.integer 'teacher_id',      limit: 4,  null: false
+    t.integer 'bank_id',         limit: 4,  null: false
   end
 
-  add_index "bancos", ["idBanco"], name: "idBanco_UNIQUE", unique: true, using: :btree
+  add_index 'bank_accounts', ['bank_account_id'], name: 'bank_account_id_UNIQUE', unique: true, using: :btree
+  add_index 'bank_accounts', ['bank_id'], name: 'fk_bank_accounts_banks1_idx', using: :btree
+  add_index 'bank_accounts', ['teacher_id'], name: 'fk_bank_accounts_teachers1_idx', using: :btree
 
-  create_table "calificacionesEstudiantes", primary_key: "idCalificacion", force: :cascade do |t|
-    t.integer "idEstudiante",      limit: 4, null: false
-    t.integer "idCurso",           limit: 4, null: false
-    t.integer "calificacion",      limit: 4, null: false
-    t.date    "fechaCalificacion",           null: false
+  create_table 'banks', primary_key: 'bank_id', force: :cascade do |t|
+    t.string 'bank_name', limit: 100, null: false
   end
 
-  add_index "calificacionesEstudiantes", ["idCalificacion"], name: "idCalificacion_UNIQUE", unique: true, using: :btree
-  add_index "calificacionesEstudiantes", ["idCurso"], name: "calificacion_curso_idx", using: :btree
-  add_index "calificacionesEstudiantes", ["idEstudiante"], name: "calificacion_estudiante_idx", using: :btree
+  add_index 'banks', ['bank_id'], name: 'bank_id_UNIQUE', unique: true, using: :btree
 
-  create_table "cuentasBanco", primary_key: "idCuentaBanco", force: :cascade do |t|
-    t.integer "idProfesor",   limit: 4,  null: false
-    t.integer "idBanco",      limit: 4,  null: false
-    t.string  "numeroCuenta", limit: 50, null: false
-    t.string  "tipoCuenta",   limit: 50, null: false
+  create_table 'course_teachers', id: false, force: :cascade do |t|
+    t.integer 'courses_course_id',   limit: 4, null: false
+    t.integer 'teachers_teacher_id', limit: 4, null: false
   end
 
-  add_index "cuentasBanco", ["idBanco"], name: "fk_cuentasBanco_bancos1_idx", using: :btree
-  add_index "cuentasBanco", ["idCuentaBanco"], name: "idCuentaBanco_UNIQUE", unique: true, using: :btree
-  add_index "cuentasBanco", ["idProfesor"], name: "fk_cuentasBanco_profesores1_idx", using: :btree
+  add_index 'course_teachers', ['courses_course_id'], name: 'fk_courses_has_teachers_courses1_idx', using: :btree
+  add_index 'course_teachers', ['teachers_teacher_id'], name: 'fk_courses_has_teachers_teachers1_idx', using: :btree
 
-  create_table "cuotasEstudiantes", primary_key: "idCuota", force: :cascade do |t|
-    t.integer "idEstudiante",     limit: 4,   null: false
-    t.integer "idUsuario",        limit: 4,   null: false
-    t.float   "montoCuota",       limit: 24,  null: false
-    t.string  "tipoPago",         limit: 50,  null: false
-    t.date    "fechaEmision",                 null: false
-    t.date    "fechaExpiracion",              null: false
-    t.string  "banco",            limit: 50
-    t.string  "numeroReferencia", limit: 50
-    t.string  "estado_cuota",     limit: 150
+  create_table 'course_types', primary_key: 'course_type_id', force: :cascade do |t|
+    t.string 'course_type',     limit: 50, null: false
+    t.string 'course_days',     limit: 50, null: false
+    t.string 'course_schedule', limit: 50, null: false
   end
 
-  add_index "cuotasEstudiantes", ["idCuota"], name: "idCuota_UNIQUE", unique: true, using: :btree
-  add_index "cuotasEstudiantes", ["idEstudiante"], name: "cuota_estudiante_idx", using: :btree
-  add_index "cuotasEstudiantes", ["idUsuario"], name: "fk_cuotasEstudiantes_usuarios1_idx", using: :btree
+  add_index 'course_types', ['course_type_id'], name: 'course_type_id_UNIQUE', unique: true, using: :btree
 
-  create_table "cursos", primary_key: "idCurso", force: :cascade do |t|
-    t.integer "idTipoCurso",    limit: 4,              null: false
-    t.integer "idSede",         limit: 4,              null: false
-    t.string  "codigoCurso",    limit: 50,             null: false
-    t.string  "nivelCurso",     limit: 50,             null: false
-    t.integer "capacidadCurso", limit: 4,              null: false
-    t.date    "inicioCurso",                           null: false
-    t.date    "finCurso",                              null: false
-    t.integer "horasCurso",     limit: 4,              null: false
-    t.integer "horasCubiertas", limit: 4,  default: 0, null: false
+  create_table 'courses', primary_key: 'course_id', force: :cascade do |t|
+    t.string  'course_code',     limit: 50,             null: false
+    t.string  'course_level',    limit: 50,             null: false
+    t.integer 'course_capacity', limit: 4,              null: false
+    t.date    'start_date',                             null: false
+    t.date    'completion_date',                        null: false
+    t.integer 'course_hours',    limit: 4,              null: false
+    t.integer 'hours_covered',   limit: 4,  default: 0, null: false
+    t.integer 'course_type_id',  limit: 4,              null: false
+    t.integer 'office_id',       limit: 4,              null: false
   end
 
-  add_index "cursos", ["idCurso"], name: "idCurso_UNIQUE", unique: true, using: :btree
-  add_index "cursos", ["idSede"], name: "sede_curso_idx", using: :btree
-  add_index "cursos", ["idTipoCurso"], name: "tipo_curso_idx", using: :btree
+  add_index 'courses', ['course_id'], name: 'course_id_UNIQUE', unique: true, using: :btree
+  add_index 'courses', ['course_type_id'], name: 'fk_courses_course_types1_idx', using: :btree
+  add_index 'courses', ['office_id'], name: 'fk_courses_offices1_idx', using: :btree
 
-  create_table "cursos_has_profesores", id: false, force: :cascade do |t|
-    t.integer "cursos_idCurso",        limit: 4, null: false
-    t.integer "profesores_idProfesor", limit: 4, null: false
+  create_table 'fees', primary_key: 'fee_id', force: :cascade do |t|
+    t.float   'fee_amount',       limit: 24, null: false
+    t.string  'payment_type',     limit: 50, null: false
+    t.date    'issue_date',                  null: false
+    t.date    'expiration_date',             null: false
+    t.string  'bank',             limit: 50
+    t.string  'reference_number', limit: 50
+    t.string  'fee_status',       limit: 50, null: false
+    t.integer 'user_id',          limit: 4,  null: false
+    t.integer 'student_id',       limit: 4,  null: false
   end
 
-  add_index "cursos_has_profesores", ["cursos_idCurso"], name: "fk_cursos_has_profesores_cursos1_idx", using: :btree
-  add_index "cursos_has_profesores", ["profesores_idProfesor"], name: "fk_cursos_has_profesores_profesores1_idx", using: :btree
+  add_index 'fees', ['fee_id'], name: 'fee_id_UNIQUE', unique: true, using: :btree
+  add_index 'fees', ['student_id'], name: 'fk_fees_students1_idx', using: :btree
+  add_index 'fees', ['user_id'], name: 'fk_fees_users1_idx', using: :btree
 
-  create_table "escalafon", primary_key: "idSalario", force: :cascade do |t|
-    t.integer "idProfesor",  limit: 4,   null: false
-    t.string  "tipoSalario", limit: 200, null: false
+  create_table 'grades', primary_key: 'grade_id', force: :cascade do |t|
+    t.integer 'grade',      limit: 4, null: false
+    t.date    'grade_date',           null: false
+    t.integer 'student_id', limit: 4, null: false
+    t.integer 'course_id',  limit: 4, null: false
   end
 
-  add_index "escalafon", ["idProfesor"], name: "escalafon_profesor_idx", using: :btree
-  add_index "escalafon", ["idSalario"], name: "idTipoSalario_UNIQUE", unique: true, using: :btree
+  add_index 'grades', ['course_id'], name: 'fk_grades_courses1_idx', using: :btree
+  add_index 'grades', ['grade_id'], name: 'grade_id_UNIQUE', unique: true, using: :btree
+  add_index 'grades', ['student_id'], name: 'fk_grades_students1_idx', using: :btree
 
-  create_table "estudiantes", primary_key: "idEstudiante", force: :cascade do |t|
-    t.integer "idCurso",            limit: 4,   null: false
-    t.string  "nombreEstudiante",   limit: 150, null: false
-    t.string  "correoEstudiante",   limit: 150, null: false
-    t.string  "telefonoEstudiante", limit: 15,  null: false
-    t.string  "cedulaEstudiante",   limit: 10,  null: false
+  create_table 'item_movements', id: false, force: :cascade do |t|
+    t.integer 'items_item_id',         limit: 4, null: false
+    t.integer 'movements_movement_id', limit: 4, null: false
   end
 
-  add_index "estudiantes", ["cedulaEstudiante"], name: "cedulaEstudiante_UNIQUE", unique: true, using: :btree
-  add_index "estudiantes", ["correoEstudiante"], name: "correoEstudiante_UNIQUE", unique: true, using: :btree
-  add_index "estudiantes", ["idCurso"], name: "curso_estudiante_idx", using: :btree
-  add_index "estudiantes", ["idEstudiante"], name: "ID_UNIQUE", unique: true, using: :btree
+  add_index 'item_movements', ['items_item_id'], name: 'fk_items_has_movements_items1_idx', using: :btree
+  add_index 'item_movements', ['movements_movement_id'], name: 'fk_items_has_movements_movements1_idx', using: :btree
 
-  create_table "horasProfesores", primary_key: "idHora", force: :cascade do |t|
-    t.integer "idProfesor",     limit: 4, null: false
-    t.integer "idCurso",        limit: 4, null: false
-    t.integer "horasCubiertas", limit: 4, null: false
-    t.date    "fechaHoras",               null: false
+  create_table 'items', primary_key: 'item_id', force: :cascade do |t|
+    t.string  'item_name',   limit: 100, null: false
+    t.integer 'item_amount', limit: 4,   null: false
+    t.string  'item_type',   limit: 50,  null: false
+    t.float   'item_price',  limit: 24,  null: false
   end
 
-  add_index "horasProfesores", ["idCurso"], name: "horas_curso_idx", using: :btree
-  add_index "horasProfesores", ["idHora"], name: "idClase_UNIQUE", unique: true, using: :btree
-  add_index "horasProfesores", ["idProfesor"], name: "horas_profesor_idx", using: :btree
+  add_index 'items', ['item_id'], name: 'item_id_UNIQUE', unique: true, using: :btree
 
-  create_table "inscripcionesEstudiantes", primary_key: "idInscripcion", force: :cascade do |t|
-    t.integer "idEstudiante",       limit: 4,   null: false
-    t.integer "idUsuario",          limit: 4,   null: false
-    t.float   "costoInscripcion",   limit: 24,  null: false
-    t.string  "tipoPago",           limit: 50,  null: false
-    t.date    "fechaEmision",                   null: false
-    t.date    "fechaExpiracion",                null: false
-    t.string  "banco",              limit: 50
-    t.string  "numeroReferencia",   limit: 50
-    t.string  "estado_inscripcion", limit: 150
+  create_table 'movements', primary_key: 'movement_id', force: :cascade do |t|
+    t.string  'movement_type',   limit: 50, null: false
+    t.integer 'movement_amount', limit: 4,  null: false
+    t.date    'movement_date',              null: false
   end
 
-  add_index "inscripcionesEstudiantes", ["idEstudiante"], name: "inscripcion_estudiante_idx", using: :btree
-  add_index "inscripcionesEstudiantes", ["idInscripcion"], name: "idInscripcion_UNIQUE", unique: true, using: :btree
-  add_index "inscripcionesEstudiantes", ["idUsuario"], name: "fk_incripcionesEstudiantes_usuarios1_idx", using: :btree
+  add_index 'movements', ['movement_id'], name: 'movement_id_UNIQUE', unique: true, using: :btree
 
-  create_table "inventario", primary_key: "idItem", force: :cascade do |t|
-    t.string  "nombreItem",   limit: 100, null: false
-    t.integer "cantidadItem", limit: 4,   null: false
-    t.string  "tipoItem",     limit: 50,  null: false
+  create_table 'office_items', id: false, force: :cascade do |t|
+    t.integer 'offices_office_id', limit: 4, null: false
+    t.integer 'items_item_id',     limit: 4, null: false
   end
 
-  add_index "inventario", ["idItem"], name: "idInventario_UNIQUE", unique: true, using: :btree
+  add_index 'office_items', ['items_item_id'], name: 'fk_offices_has_items_items1_idx', using: :btree
+  add_index 'office_items', ['offices_office_id'], name: 'fk_offices_has_items_offices1_idx', using: :btree
 
-  create_table "inventario_has_movimientos", id: false, force: :cascade do |t|
-    t.integer "inventario_idItem",        limit: 4, null: false
-    t.integer "movimientos_idMovimiento", limit: 4, null: false
+  create_table 'office_movements', id: false, force: :cascade do |t|
+    t.integer 'offices_office_id',     limit: 4, null: false
+    t.integer 'movements_movement_id', limit: 4, null: false
   end
 
-  add_index "inventario_has_movimientos", ["inventario_idItem"], name: "fk_inventario_has_movimientos_inventario1_idx", using: :btree
-  add_index "inventario_has_movimientos", ["movimientos_idMovimiento"], name: "fk_inventario_has_movimientos_movimientos1_idx", using: :btree
+  add_index 'office_movements', ['movements_movement_id'], name: 'fk_offices_has_movements_movements1_idx', using: :btree
+  add_index 'office_movements', ['offices_office_id'], name: 'fk_offices_has_movements_offices1_idx', using: :btree
 
-  create_table "movimientos", primary_key: "idMovimiento", force: :cascade do |t|
-    t.string  "tipoMovimiento",     limit: 50, null: false
-    t.integer "cantidadMovimiento", limit: 4,  null: false
-    t.date    "fechaMovimiento"
+  create_table 'offices', primary_key: 'office_id', force: :cascade do |t|
+    t.string 'office_name', limit: 75, null: false
   end
 
-  add_index "movimientos", ["idMovimiento"], name: "idMovimiento_UNIQUE", unique: true, using: :btree
+  add_index 'offices', ['office_id'], name: 'office_id_UNIQUE', unique: true, using: :btree
 
-  create_table "profesores", primary_key: "idProfesor", force: :cascade do |t|
-    t.string "nombreProfesor",   limit: 150, null: false
-    t.string "correoProfesor",   limit: 150, null: false
-    t.string "telefonoProfesor", limit: 15,  null: false
-    t.string "cedulaProfesor",   limit: 10,  null: false
-    t.date   "fechaIngreso",                 null: false
+  create_table 'providers', primary_key: 'provider_id', force: :cascade do |t|
+    t.string 'provider_name',    limit: 150, null: false
+    t.string 'provider_rif',     limit: 15,  null: false
+    t.string 'provider_phone',   limit: 15,  null: false
+    t.string 'provider_email',   limit: 150, null: false
+    t.string 'provider_address', limit: 255, null: false
+    t.string 'manager',          limit: 150, null: false
   end
 
-  add_index "profesores", ["cedulaProfesor"], name: "cedulaProfesor_UNIQUE", unique: true, using: :btree
-  add_index "profesores", ["correoProfesor"], name: "correoProfesor_UNIQUE", unique: true, using: :btree
-  add_index "profesores", ["idProfesor"], name: "idProfesor_UNIQUE", unique: true, using: :btree
+  add_index 'providers', ['provider_email'], name: 'provider_email_UNIQUE', unique: true, using: :btree
+  add_index 'providers', ['provider_id'], name: 'provider_id_UNIQUE', unique: true, using: :btree
+  add_index 'providers', ['provider_rif'], name: 'provider_rif_UNIQUE', unique: true, using: :btree
 
-  create_table "proveedores", primary_key: "id_proveedor", force: :cascade do |t|
-    t.string "nombre_proveedor",    limit: 150, null: false
-    t.string "rif_proveedor",       limit: 15,  null: false
-    t.string "numero_proveedor",    limit: 15,  null: false
-    t.string "correo_proveedor",    limit: 150, null: false
-    t.string "direccion_proveedor", limit: 255, null: false
-    t.string "encargado",           limit: 150, null: false
+  create_table 'signups', primary_key: 'signup_id', force: :cascade do |t|
+    t.float   'signup_amount',    limit: 24, null: false
+    t.string  'payment_type',     limit: 50, null: false
+    t.date    'issue_date',                  null: false
+    t.date    'expiration_date',             null: false
+    t.string  'bank',             limit: 50
+    t.string  'reference_number', limit: 50
+    t.string  'signup_status',    limit: 50, null: false
+    t.integer 'user_id',          limit: 4,  null: false
+    t.integer 'student_id',       limit: 4,  null: false
   end
 
-  add_index "proveedores", ["correo_proveedor"], name: "correo_proveedor_UNIQUE", unique: true, using: :btree
-  add_index "proveedores", ["rif_proveedor"], name: "rif_proveedor_UNIQUE", unique: true, using: :btree
+  add_index 'signups', ['signup_id'], name: 'signup_id_UNIQUE', unique: true, using: :btree
+  add_index 'signups', ['student_id'], name: 'fk_signups_students1_idx', using: :btree
+  add_index 'signups', ['user_id'], name: 'fk_signups_users1_idx', using: :btree
 
-  create_table "sedes", primary_key: "idSede", force: :cascade do |t|
-    t.string "nombreSede", limit: 75, null: false
+  create_table 'students', primary_key: 'student_id', force: :cascade do |t|
+    t.string  'student_name',   limit: 150, null: false
+    t.string  'student_email',  limit: 150, null: false
+    t.string  'student_phone',  limit: 15,  null: false
+    t.string  'student_cedula', limit: 10,  null: false
+    t.integer 'course_id',      limit: 4,   null: false
   end
 
-  add_index "sedes", ["idSede"], name: "idSede_UNIQUE", unique: true, using: :btree
+  add_index 'students', ['course_id'], name: 'fk_students_courses1_idx', using: :btree
+  add_index 'students', ['student_cedula'], name: 'student_cedula_UNIQUE', unique: true, using: :btree
+  add_index 'students', ['student_email'], name: 'student_email_UNIQUE', unique: true, using: :btree
+  add_index 'students', ['student_id'], name: 'ID_UNIQUE', unique: true, using: :btree
 
-  create_table "sedes_has_inventario", id: false, force: :cascade do |t|
-    t.integer "sedes_idSede",      limit: 4, null: false
-    t.integer "inventario_idItem", limit: 4, null: false
+  create_table 'teacher_hours', primary_key: 'teacher_hour_id', force: :cascade do |t|
+    t.integer 'hours_covered', limit: 4, null: false
+    t.date    'date_covered',            null: false
+    t.integer 'teacher_id',    limit: 4, null: false
+    t.integer 'course_id',     limit: 4, null: false
   end
 
-  add_index "sedes_has_inventario", ["inventario_idItem"], name: "fk_sedes_has_inventario_inventario1_idx", using: :btree
-  add_index "sedes_has_inventario", ["sedes_idSede"], name: "fk_sedes_has_inventario_sedes1_idx", using: :btree
+  add_index 'teacher_hours', ['course_id'], name: 'fk_teachers_hours_courses1_idx', using: :btree
+  add_index 'teacher_hours', ['teacher_hour_id'], name: 'hours_id_UNIQUE', unique: true, using: :btree
+  add_index 'teacher_hours', ['teacher_id'], name: 'fk_teachers_hours_teachers1_idx', using: :btree
 
-  create_table "sedes_has_movimientos", id: false, force: :cascade do |t|
-    t.integer "sedes_idSede",             limit: 4, null: false
-    t.integer "movimientos_idMovimiento", limit: 4, null: false
+  create_table 'teachers', primary_key: 'teacher_id', force: :cascade do |t|
+    t.string 'teacher_name',   limit: 150, null: false
+    t.string 'teacher_email',  limit: 150, null: false
+    t.string 'teacher_phone',  limit: 15,  null: false
+    t.string 'teacher_cedula', limit: 10,  null: false
+    t.float  'teacher_wage',   limit: 24,  null: false
+    t.date   'entry_date',                 null: false
   end
 
-  add_index "sedes_has_movimientos", ["movimientos_idMovimiento"], name: "fk_sedes_has_movimientos_movimientos1_idx", using: :btree
-  add_index "sedes_has_movimientos", ["sedes_idSede"], name: "fk_sedes_has_movimientos_sedes1_idx", using: :btree
+  add_index 'teachers', ['teacher_cedula'], name: 'teacher_cedula_UNIQUE', unique: true, using: :btree
+  add_index 'teachers', ['teacher_email'], name: 'teacher_email_UNIQUE', unique: true, using: :btree
+  add_index 'teachers', ['teacher_id'], name: 'teacher_id_UNIQUE', unique: true, using: :btree
 
-  create_table "tiposCurso", primary_key: "idTipoCurso", force: :cascade do |t|
-    t.string "tipoCurso",    limit: 50, null: false
-    t.string "diasCurso",    limit: 50, null: false
-    t.string "horarioCurso", limit: 50, null: false
+  create_table 'users', primary_key: 'user_id', force: :cascade do |t|
+    t.string 'user_name',     limit: 150, null: false
+    t.string 'user_cedula',   limit: 10,  null: false
+    t.string 'user_password', limit: 255, null: false
+    t.string 'access_level',  limit: 50,  null: false
   end
 
-  add_index "tiposCurso", ["idTipoCurso"], name: "idTipoCurso_UNIQUE", unique: true, using: :btree
+  add_index 'users', ['user_cedula'], name: 'user_cedula_UNIQUE', unique: true, using: :btree
+  add_index 'users', ['user_id'], name: 'user_id_UNIQUE', unique: true, using: :btree
 
-  create_table "usuarios", primary_key: "idUsuario", force: :cascade do |t|
-    t.string "nombreUsuario",   limit: 150, null: false
-    t.string "cedulaUsuario",   limit: 10,  null: false
-    t.string "passwordUsuario", limit: 255, null: false
-    t.string "nivelAcceso",     limit: 50,  null: false
-  end
-
-  add_index "usuarios", ["cedulaUsuario"], name: "cedulaUsuario_UNIQUE", unique: true, using: :btree
-  add_index "usuarios", ["idUsuario"], name: "idUsuario_UNIQUE", unique: true, using: :btree
-
-  add_foreign_key "calificacionesEstudiantes", "cursos", column: "idCurso", primary_key: "idCurso", name: "calificacion_curso"
-  add_foreign_key "calificacionesEstudiantes", "estudiantes", column: "idEstudiante", primary_key: "idEstudiante", name: "calificacion_estudiante"
-  add_foreign_key "cuentasBanco", "bancos", column: "idBanco", primary_key: "idBanco", name: "fk_cuentasBanco_bancos1"
-  add_foreign_key "cuentasBanco", "profesores", column: "idProfesor", primary_key: "idProfesor", name: "fk_cuentasBanco_profesores1", on_update: :cascade
-  add_foreign_key "cuotasEstudiantes", "estudiantes", column: "idEstudiante", primary_key: "idEstudiante", name: "cuota_estudiante", on_update: :cascade
-  add_foreign_key "cuotasEstudiantes", "usuarios", column: "idUsuario", primary_key: "idUsuario", name: "fk_cuotasEstudiantes_usuarios1", on_update: :cascade
-  add_foreign_key "cursos", "sedes", column: "idSede", primary_key: "idSede", name: "sede_curso"
-  add_foreign_key "cursos", "tiposCurso", column: "idTipoCurso", primary_key: "idTipoCurso", name: "tipo_curso", on_update: :cascade
-  add_foreign_key "cursos_has_profesores", "cursos", column: "cursos_idCurso", primary_key: "idCurso", name: "fk_cursos_has_profesores_cursos1"
-  add_foreign_key "cursos_has_profesores", "profesores", column: "profesores_idProfesor", primary_key: "idProfesor", name: "fk_cursos_has_profesores_profesores1"
-  add_foreign_key "escalafon", "profesores", column: "idProfesor", primary_key: "idProfesor", name: "escalafon_profesor"
-  add_foreign_key "estudiantes", "cursos", column: "idCurso", primary_key: "idCurso", name: "curso_estudiante", on_update: :cascade
-  add_foreign_key "horasProfesores", "cursos", column: "idCurso", primary_key: "idCurso", name: "horas_curso", on_update: :cascade
-  add_foreign_key "horasProfesores", "profesores", column: "idProfesor", primary_key: "idProfesor", name: "horas_profesor", on_update: :cascade
-  add_foreign_key "inscripcionesEstudiantes", "estudiantes", column: "idEstudiante", primary_key: "idEstudiante", name: "inscripcion_estudiante", on_update: :cascade
-  add_foreign_key "inscripcionesEstudiantes", "usuarios", column: "idUsuario", primary_key: "idUsuario", name: "fk_incripcionesEstudiantes_usuarios1", on_update: :cascade
-  add_foreign_key "inventario_has_movimientos", "inventario", column: "inventario_idItem", primary_key: "idItem", name: "fk_inventario_has_movimientos_inventario1", on_update: :cascade
-  add_foreign_key "inventario_has_movimientos", "movimientos", column: "movimientos_idMovimiento", primary_key: "idMovimiento", name: "fk_inventario_has_movimientos_movimientos1", on_update: :cascade
-  add_foreign_key "sedes_has_inventario", "inventario", column: "inventario_idItem", primary_key: "idItem", name: "fk_sedes_has_inventario_inventario1"
-  add_foreign_key "sedes_has_inventario", "sedes", column: "sedes_idSede", primary_key: "idSede", name: "fk_sedes_has_inventario_sedes1"
-  add_foreign_key "sedes_has_movimientos", "movimientos", column: "movimientos_idMovimiento", primary_key: "idMovimiento", name: "fk_sedes_has_movimientos_movimientos1", on_update: :cascade
-  add_foreign_key "sedes_has_movimientos", "sedes", column: "sedes_idSede", primary_key: "idSede", name: "fk_sedes_has_movimientos_sedes1", on_update: :cascade
+  add_foreign_key 'bank_accounts', 'banks', primary_key: 'bank_id', name: 'fk_bank_accounts_banks1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'bank_accounts', 'teachers', primary_key: 'teacher_id', name: 'fk_bank_accounts_teachers1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'course_teachers', 'courses', column: 'courses_course_id', primary_key: 'course_id', name: 'fk_courses_has_teachers_courses1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'course_teachers', 'teachers', column: 'teachers_teacher_id', primary_key: 'teacher_id', name: 'fk_courses_has_teachers_teachers1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'courses', 'course_types', primary_key: 'course_type_id', name: 'fk_courses_course_types1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'courses', 'offices', primary_key: 'office_id', name: 'fk_courses_offices1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'fees', 'students', primary_key: 'student_id', name: 'fk_fees_students1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'fees', 'users', primary_key: 'user_id', name: 'fk_fees_users1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'grades', 'courses', primary_key: 'course_id', name: 'fk_grades_courses1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'grades', 'students', primary_key: 'student_id', name: 'fk_grades_students1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'item_movements', 'items', column: 'items_item_id', primary_key: 'item_id', name: 'fk_items_has_movements_items1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'item_movements', 'movements', column: 'movements_movement_id', primary_key: 'movement_id', name: 'fk_items_has_movements_movements1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'office_items', 'items', column: 'items_item_id', primary_key: 'item_id', name: 'fk_offices_has_items_items1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'office_items', 'offices', column: 'offices_office_id', primary_key: 'office_id', name: 'fk_offices_has_items_offices1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'office_movements', 'movements', column: 'movements_movement_id', primary_key: 'movement_id', name: 'fk_offices_has_movements_movements1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'office_movements', 'offices', column: 'offices_office_id', primary_key: 'office_id', name: 'fk_offices_has_movements_offices1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'signups', 'students', primary_key: 'student_id', name: 'fk_signups_students1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'signups', 'users', primary_key: 'user_id', name: 'fk_signups_users1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'students', 'courses', primary_key: 'course_id', name: 'fk_students_courses1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'teacher_hours', 'courses', primary_key: 'course_id', name: 'fk_teachers_hours_courses1', on_update: :cascade, on_delete: :cascade
+  add_foreign_key 'teacher_hours', 'teachers', primary_key: 'teacher_id', name: 'fk_teachers_hours_teachers1', on_update: :cascade, on_delete: :cascade
 end
