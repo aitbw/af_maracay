@@ -6,7 +6,7 @@ class ReferenceNumberValidator < ActiveModel::Validator
     case record.payment_type
     when 'Débito', 'Crédito'
       unless /\d{4}/.match(record.reference_number)
-        record.errors[:reference_number].push('Número de referencia inválido.')
+        record.errors[:reference_number].push('is invalid')
       end
     end
   end

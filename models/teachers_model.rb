@@ -8,5 +8,6 @@ class Teacher < ActiveRecord::Base
   validates :teacher_phone, presence: true, format: { with: VALID_NUMBER }
   validates :teacher_email, presence: true, uniqueness: true, format: { with: VALID_EMAIL }
   validates :teacher_cedula, presence: true, uniqueness: true, format: { with: /\d{6,8}/ }
+  validates :teacher_wage, presence: true, numericality: true
   validates :entry_date, presence: true
 end
