@@ -1,24 +1,24 @@
 def change_password
-  user = Usuario.find(session[:id])
-  user.passwordUsuario = params[:password]
+  user = User.find(session[:id])
+  user.user_password = BCrypt::Password.create(params[:password])
 
   if user.save
     flash[:notice] = 'Cambio de contraseña exitoso.'
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
   end
-  redirect '/dashboard/change_password'
+  redirect "#{request.path_info}"
 end
 
 def reset_password
-  user = Usuario.find(params[:id])
-  user.passwordUsuario = params[:password]
+  user = User.find(params[:id])
+  user.user_password = BCrypt::Password.create(params[:password])
 
   if user.save
     flash[:notice] = 'Contraseña reestablecida exitosamente.'
     redirect '/dashboard/users'
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
-    redirect "/dashboard/users/#{params[:id]}/reset_password"
+    redirect "#{request.path_info}"
   end
 end

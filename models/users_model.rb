@@ -1,6 +1,6 @@
 # Model for 'users' table
 class User < ActiveRecord::Base
-  after_validation :encrypt_password
+  after_validation :encrypt_password, on: :create
   has_many :signups, dependent: :destroy
   has_many :fees, dependent: :destroy
 
