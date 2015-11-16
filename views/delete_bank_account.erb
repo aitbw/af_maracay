@@ -1,4 +1,4 @@
-<% if @bank_account_id %>
+<% if @account.bank_account_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
         <h3 class="panel-title">Eliminar cuenta bancaria</h3>
@@ -10,15 +10,15 @@
         <li><b>Titular</b>: <%=h teacher.teacher_name %></li>
         <% end %>
         <% Bank.where(bank_id: @account.bank_id).each do |bank| %>
-        <li><b>Banco</b>: <%= bank.bank_name %></li>
+        <li><b>Banco</b>: <%=h bank.bank_name %></li>
         <% end %>
-        <li><b>Número de cuenta</b>: <%=h @account.account_number %></li>
+        <li><b>Número de cuenta</b>: <%= @account.account_number %></li>
         <li><b>Tipo de cuenta</b>: <%= @account.account_type %></li>
         </ol>
-        <form action="/<%= @teacher_id %>/delete_bank_account/<%= @bank_account_id %>" method="POST">
+        <form action="/dashboard/teachers/<%= @account.teacher_id %>/bank_accounts/<%= @account.bank_account_id %>/delete" method="POST">
           <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="btn btn-danger">Eliminar</button>
-          <a href="/dashboard/teachers/<%= @teacher_id %>/bank_accounts" class="btn btn-default">Cancelar</a>
+          <a href="/dashboard/teachers/<%= @account.teacher_id %>/bank_accounts" class="btn btn-default">Cancelar</a>
         </form>
     </div>
   </div>

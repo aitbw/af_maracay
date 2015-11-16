@@ -12,12 +12,12 @@
         <% User.where(user_id: @fee.user_id).select(:user_name).each do |user| %>
         <li><b>Emisor</b>: <%=h user.user_name %></li>
         <% end %>
-        <li><b>Monto cancelado</b>: <%=h @fee.fee_amount %></li>
+        <li><b>Monto cancelado</b>: <%= @fee.fee_amount %> BsF.</li>
         <li><b>Método de pago</b>: <%= @fee.payment_type %></li>
         <li><b>Fecha de emision</b>: <%= @fee.issue_date.strftime('%d/%m/%Y') %></li>
         <li><b>Fecha de expiración</b>: <%= @fee.expiration_date.strftime('%d/%m/%Y') %></li>
         <% unless @fee.bank.empty? %>
-        <li><b>Banco</b>: <%= @fee.bank %></li>
+        <li><b>Banco</b>: <%=h @fee.bank %></li>
         <% end %>
         <% unless @fee.payment_type == 'Efectivo' %>
         <li><b>Número de referencia</b>: <%=h @fee.reference_number %></li>

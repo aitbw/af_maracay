@@ -5,15 +5,15 @@ rescue ActiveRecord::RecordNotFound
   redirect '/dashboard/users', error: 'El usuario no existe.'
 end
 
-before %r{\/(delete|edit)_user\/(\d)} do |_, id|
+before %r{\/dashboard\/users\/(\d)\/(delete|edit)} do |id, _|
   find_user(id)
 end
 
-before '/reset_password/:id' do
+before '/dashboard/users/:id/reset_password' do
   find_user(params[:id])
 end
 
-before '/change_password' do
+before '/dashboard/change_password' do
   begin
     User.find(session[:id]).present?
   rescue ActiveRecord::RecordNotFound
@@ -40,45 +40,43 @@ post '/dashboard/users/new_user' do
     redirect '/dashboard/users', notice: 'Usuario creado exitosamente.'
   else
     flash[:errors] = new_user.errors.full_messages
-    redirect '/dashboard/users/new_user'
+    redirect "#{request.path_info}"
   end
 end
 
 get '/dashboard/users/:id/delete' do
   if find_user(params[:id])
-    @user_id = params[:id]
     @user = User.find(params[:id])
     set_page_title('Eliminar usuario')
     erb :delete_user, layout: :'layouts/dashboard'
   end
 end
 
-delete '/delete_user/:id' do
+delete '/dashboard/users/:id/delete' do
   if User.destroy(params[:id])
     redirect '/dashboard/users', notice: 'Usuario eliminado.'
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
-    redirect "/dashboard/users/#{params[:id]}/delete"
+    redirect "#{request.path_info}"
   end
 end
 
 get '/dashboard/users/:id/edit' do
   if find_user(params[:id])
-    @user_id = params[:id]
     @user = User.find(params[:id])
     set_page_title('Editar usuario')
     erb :edit_user, layout: :'layouts/dashboard'
   end
 end
 
-put '/edit_user/:id' do
+put '/dashboard/users/:id/edit' do
   edit_user = User.find(params[:id])
   edit_user.update(params[:user])
   if edit_user.save
     redirect '/dashboard/users', notice: 'Datos actualizados.'
   else
     flash[:errors] = edit_user.errors.full_messages
-    redirect "/dashboard/users/#{params[:id]}/edit"
+    redirect "#{request.path_info}"
   end
 end
 
@@ -87,7 +85,7 @@ get '/dashboard/change_password' do
   erb :change_password, layout: :'layouts/dashboard'
 end
 
-put '/change_password' do
+put '/dashboard/change_password' do
   if (params[:password] || params[:confirm]).blank?
     flash[:error] = 'Debe completar todos los campos.'
   elsif params[:password] != params[:confirm]
@@ -95,7 +93,7 @@ put '/change_password' do
   else
     change_password
   end
-  redirect '/dashboard/change_password'
+  redirect "#{request.path_info}"
 end
 
 get '/dashboard/users/:id/reset_password' do
@@ -106,7 +104,7 @@ get '/dashboard/users/:id/reset_password' do
   end
 end
 
-put '/reset_password/:id' do
+put '/dashboard/users/:id/reset_password' do
   if (params[:password] || params[:confirm]).blank?
     flash[:error] = 'Debe completar todos los campos.'
   elsif params[:password] != params[:confirm]
@@ -114,5 +112,5 @@ put '/reset_password/:id' do
   else
     reset_password
   end
-  redirect "/dashboard/users/#{params[:id]}/reset_password"
+  redirect "#{request.path_info}"
 end

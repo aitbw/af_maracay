@@ -1,7 +1,7 @@
 <form action="/dashboard/students/<%= @fee.student_id %>/fees/<%= @fee.fee_id %>/edit" method="POST">
     <div class="form-group">
-      <label>Monto de cuota</label>
-      <textarea name="form[fee_amount]" class="form-control"><%=h @fee.fee_amount %></textarea>
+      <label>Monto de cuota (BsF.)</label>
+      <textarea name="form[fee_amount]" class="form-control"><%= @fee.fee_amount %></textarea>
     </div>
     <div class="form-group">
       <label>Método de pago</label>
@@ -16,17 +16,15 @@
       <label>Banco</label>
       <select name="form[bank]" class="form-control">
         <% @banks.each do |bank| %>
-        <option <%= "selected" if bank.bank_name == @fee.bank %> value="<%= bank.bank_name %>" disabled><%= bank.bank_name %></option>
+        <option <%= "selected" if bank.bank_name == @fee.bank %> value="<%= bank.bank_name %>" disabled><%=h bank.bank_name %></option>
         <% end %>
       </select>
     </div>
     <% end %>
-    <% unless @fee.payment_type == 'Efectivo' %>
     <div class="form-group">
       <label>Número de referencia</label>
       <textarea name="form[reference_number]" class="form-control"><%=h @fee.reference_number %></textarea>
     </div>
-    <% end %>
     <input type="hidden" name="_method" value="PUT">
     <button type="submit" class="btn btn-success">Actualizar</button>
     <a href="/dashboard/students/<%= @fee.student_id %>/fees" class="btn btn-default">Cancelar</a>

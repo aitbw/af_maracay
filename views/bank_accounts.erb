@@ -11,15 +11,15 @@
     <% @accounts.each do |account| %>
     <% Bank.where(bank_id: account.bank_id).each do |bank| %>
       <tr>
-        <td><%= bank.bank_name %></td>
-        <td><%=h account.account_number %></td>
+        <td><%=h bank.bank_name %></td>
+        <td><%= account.account_number %></td>
         <td><%= account.account_type %></td>
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/dashboard/teachers/<%= @teacher_id %>/bank_accounts/<%= account.bank_account_id %>/delete">Eliminar</a></li>
-              <li><a href="/dashboard/teachers/<%= @teacher_id %>/bank_accounts/<%= account.bank_account_id %>/edit">Modificar</a></li>
+              <li><a href="/dashboard/teachers/<%= account.teacher_id %>/bank_accounts/<%= account.bank_account_id %>/delete">Eliminar</a></li>
+              <li><a href="/dashboard/teachers/<%= account.teacher_id %>/bank_accounts/<%= account.bank_account_id %>/edit">Modificar</a></li>
             </ul>
           </div>
         </td>

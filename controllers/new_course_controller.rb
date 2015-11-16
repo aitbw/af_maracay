@@ -5,6 +5,6 @@ def new_course
     redirect '/dashboard/courses', notice: 'Curso creado exitosamente.'
   else
     flash[:errors] = new_course.errors.full_messages
-    redirect '/dashboard/courses/new_course'
+    redirect "#{request.path_info}"
   end
 end

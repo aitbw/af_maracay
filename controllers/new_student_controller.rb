@@ -5,6 +5,6 @@ def new_student
     redirect '/dashboard/students', notice: 'Estudiante creado exitosamente.'
   else
     flash[:errors] = new_student.errors.full_messages
-    redirect '/dashboard/students/new_student'
+    redirect "#{request.path_info}"
   end
 end

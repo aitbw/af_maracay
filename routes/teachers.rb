@@ -12,11 +12,11 @@ rescue ActiveRecord::RecordNotFound
   redirect "/dashboard/teachers/#{teacher}/bank_accounts"
 end
 
-before %r{\/(delete|edit)_teacher\/(\d)} do |_, id|
+before %r{\/dashboard\/teachers\/(\d)\/(delete|edit)} do |id, _|
   find_teacher(id)
 end
 
-before %r{\/(\d)\/(delete|edit)_bank_account\/(\d)} do |teacher, _, account|
+before %r{\/dashboard\/teachers\/(\d)\/bank_accounts\/(\d)\/(delete|edit)} do |teacher, account, _|
   find_teacher(teacher) && find_account(teacher, account)
 end
 
@@ -37,40 +37,34 @@ post '/dashboard/teachers/new_teacher' do
 end
 
 get '/dashboard/teachers/:id/delete' do
-  if find_teacher(params[:id])
-    @teacher_id = params[:id]
-    @teacher = Teacher.find(params[:id])
-    set_page_title('Eliminar profesor')
-    erb :delete_teacher, layout: :'layouts/dashboard'
-  end
+  @teacher = Teacher.find(params[:id])
+  set_page_title('Eliminar profesor')
+  erb :delete_teacher, layout: :'layouts/dashboard'
 end
 
-delete '/delete_teacher/:id' do
+delete '/dashboard/teachers/:id/delete' do
   if Teacher.destroy(params[:id])
     redirect '/dashboard/teachers', notice: 'Profesor eliminado.'
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
-    redirect "/dashboard/teachers/#{params[:id]}/delete"
+    redirect "#{request.path_info}"
   end
 end
 
 get '/dashboard/teachers/:id/edit' do
-  if find_teacher(params[:id])
-    @teacher_id = params[:id]
-    @teacher = Teacher.find(params[:id])
-    set_page_title('Editar profesor')
-    erb :edit_teacher, layout: :'layouts/dashboard'
-  end
+  @teacher = Teacher.find(params[:id])
+  set_page_title('Editar profesor')
+  erb :edit_teacher, layout: :'layouts/dashboard'
 end
 
-put '/edit_teacher/:id' do
+put '/dashboard/teachers/:id/edit' do
   edit_teacher = Teacher.find(params[:id])
   edit_teacher.update(params[:teacher])
   if edit_teacher.save
     redirect '/dashboard/teachers', notice: 'Datos actualizados.'
   else
     flash[:errors] = edit_teacher.errors.full_messages
-    redirect "/dashboard/teachers/#{params[:id]}/edit"
+    redirect "#{request.path_info}"
   end
 end
 
@@ -97,37 +91,29 @@ post '/dashboard/teachers/:id/bank_accounts/add' do
 end
 
 get '/dashboard/teachers/:teacher/bank_accounts/:account/delete' do
-  if find_teacher(params[:teacher]) && find_account(params[:teacher], params[:account])
-    set_page_title('Eliminar cuenta bancaria')
-    @teacher_id = params[:teacher]
-    @bank_account_id = params[:account]
-    @account = BankAccount.find(params[:account])
-    erb :delete_bank_account, layout: :'layouts/dashboard'
-  end
+  set_page_title('Eliminar cuenta bancaria')
+  @account = BankAccount.find(params[:account])
+  erb :delete_bank_account, layout: :'layouts/dashboard'
 end
 
-delete '/:teacher/delete_bank_account/:account' do
+delete '/dashboard/teachers/:teacher/bank_accounts/:account/delete' do
   if BankAccount.destroy(params[:account])
     flash[:notice] = 'Cuenta bancaria eliminada.'
     redirect "/dashboard/teachers/#{params[:teacher]}/bank_accounts"
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
-    redirect "/dashboard/teachers/#{params[:teacher]}/bank_accounts/#{params[:account]}/delete"
+    redirect "#{request.path_info}"
   end
 end
 
 get '/dashboard/teachers/:teacher/bank_accounts/:account/edit' do
-  if find_teacher(params[:teacher]) && find_account(params[:teacher], params[:account])
-    set_page_title('Editar cuenta bancaria')
-    @teacher_id = params[:teacher]
-    @bank_account_id = params[:account]
-    @account = BankAccount.find(params[:account])
-    @banks = Bank.all
-    erb :edit_bank_account, layout: :'layouts/dashboard'
-  end
+  set_page_title('Editar cuenta bancaria')
+  @account = BankAccount.find(params[:account])
+  @banks = Bank.all
+  erb :edit_bank_account, layout: :'layouts/dashboard'
 end
 
-put '/:teacher/edit_bank_account/:account' do
+put '/dashboard/teachers/:teacher/bank_accounts/:account/edit' do
   edit_account = BankAccount.find(params[:account])
   edit_account.update(params[:form])
   if edit_account.save
@@ -135,6 +121,6 @@ put '/:teacher/edit_bank_account/:account' do
     redirect "/dashboard/teachers/#{params[:teacher]}/bank_accounts"
   else
     flash[:errors] = edit_account.errors.full_messages
-    redirect "/dashboard/teachers/#{params[:teacher]}/bank_accounts/#{params[:account]}/edit"
+    redirect "#{request.path_info}"
   end
 end

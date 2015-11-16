@@ -6,6 +6,6 @@ def assign_account
     redirect "/dashboard/teachers/#{params[:id]}/bank_accounts"
   else
     flash[:errors] = new_account.errors.full_messages
-    redirect "/dashboard/teachers/#{params[:id]}/bank_accounts/add"
+    redirect "#{request.path_info}"
   end
 end

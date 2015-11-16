@@ -18,19 +18,19 @@
     <% CourseType.where(course_type_id: course.course_type_id).select(:course_type).each do |type| %>
     <% Office.where(office_id: course.office_id).select(:office_name).each do |office| %>
       <tr>
-        <td><%=h course.course_code %></td>
+        <td><%= course.course_code %></td>
         <td><%= type.course_type %></td>
         <td><%= office.office_name %></td>
-        <td><%=h course.course_level %></td>
-        <td><%=h course.course_capacity %></td>
-        <td><%=h course.start_date.strftime('%d/%m/%Y') %></td>
-        <td><%=h course.completion_date.strftime('%d/%m/%Y') %></td>
+        <td><%= course.course_level %></td>
+        <td><%= course.course_capacity %></td>
+        <td><%= course.start_date.strftime('%d/%m/%Y') %></td>
+        <td><%= course.completion_date.strftime('%d/%m/%Y') %></td>
         <% if course.course_hours == 0 %>
         <td>Finalizado</td>
         <td>Finalizado</td>
         <% else %>
-        <td><%=h course.course_hours %></td>
-        <td><%=h course.hours_covered %></td>
+        <td><%= course.course_hours %></td>
+        <td><%= course.hours_covered %></td>
         <% end %>
         <td>
           <div class="btn-group">
@@ -54,9 +54,9 @@
 </table>
 
 <a href="/dashboard/courses/new_course" class="btn btn-success">Crear nuevo curso</a>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tiposCurso">Tipos de curso</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#courseTypes">Tipos de curso</button>
 
-<div class="modal fade" id="tiposCurso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="courseTypes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

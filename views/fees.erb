@@ -17,10 +17,10 @@
     <% User.where(user_id: fee.user_id).select(:user_name).each do |user| %>
       <tr>
         <td><%=h user.user_name %></td>
-        <td><%=h fee.fee_amount %></td>
+        <td><%= fee.fee_amount %> BsF.</td>
         <td><%= fee.payment_type %></td>
-        <td><%=h fee.issue_date.strftime('%d/%m/%Y') %></td>
-        <td><%=h fee.expiration_date.strftime('%d/%m/%Y') %></td>
+        <td><%= fee.issue_date.strftime('%d/%m/%Y') %></td>
+        <td><%= fee.expiration_date.strftime('%d/%m/%Y') %></td>
         <% if fee.fee_status.include?('expirada') %>
         <td><b><p class="text-danger"><%= fee.fee_status %></p></b></td>
         <% else %>
@@ -29,7 +29,7 @@
         <% if fee.bank.empty? %>
         <td>N/A</td>
         <% else %>
-        <td><%= fee.bank %></td>
+        <td><%=h fee.bank %></td>
         <% end %>
         <% if fee.payment_type == 'Efectivo' %>
         <td>N/A</td>
@@ -40,8 +40,8 @@
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/dashboard/students/<%= @student_id %>/fees/<%= fee.fee_id %>/delete">Eliminar</a></li>
-              <li><a href="/dashboard/students/<%= @student_id %>/fees/<%= fee.fee_id %>/edit">Modificar</a></li>
+              <li><a href="/dashboard/students/<%= fee.student_id %>/fees/<%= fee.fee_id %>/delete">Eliminar</a></li>
+              <li><a href="/dashboard/students/<%= fee.student_id %>/fees/<%= fee.fee_id %>/edit">Modificar</a></li>
             </ul>
           </div>
         </td>

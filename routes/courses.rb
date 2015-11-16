@@ -5,7 +5,7 @@ rescue ActiveRecord::RecordNotFound
   redirect '/dashboard/courses', error: 'El curso no existe.'
 end
 
-before %r{\/(delete|edit)_course\/(\d)} do |_, id|
+before %r{\/dashboard\/courses\/(\d)\/(delete|edit)} do |id, _|
   find_course(id)
 end
 
@@ -30,25 +30,23 @@ end
 
 get '/dashboard/courses/:id/delete' do
   if find_course(params[:id])
-    @course_id = params[:id]
     @course = Course.find(params[:id])
     set_page_title('Eliminar curso')
     erb :delete_course, layout: :'layouts/dashboard'
   end
 end
 
-delete '/delete_course/:id' do
+delete '/dashboard/courses/:id/delete' do
   if Course.destroy(params[:id])
     redirect '/dashboard/courses', notice: 'Curso eliminado.'
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
-    redirect "/dashboard/courses/#{params[:id]}/delete"
+    redirect "#{request.path_info}"
   end
 end
 
 get '/dashboard/courses/:id/edit' do
   if find_course(params[:id])
-    @course_id = params[:id]
     @course = Course.find(params[:id])
     @types = CourseType.all
     @offices = Office.all
@@ -57,13 +55,13 @@ get '/dashboard/courses/:id/edit' do
   end
 end
 
-put '/edit_course/:id' do
+put '/dashboard/courses/:id/edit' do
   edit_course = Course.find(params[:id])
   edit_course.update(params[:course])
   if edit_course.save
     redirect '/dashboard/courses', notice: 'Datos actualizados.'
   else
     flash[:errors] = edit_course.errors.full_messages
-    redirect "/dashboard/courses/#{params[:id]}/edit"
+    redirect "#{request.path_info}"
   end
 end

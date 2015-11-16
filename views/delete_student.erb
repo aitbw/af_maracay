@@ -1,4 +1,4 @@
-<% if @student_id %>
+<% if @student.student_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
         <h3 class="panel-title">Eliminar estudiante</h3>
@@ -10,12 +10,12 @@
         <li><b>Curso</b>: <%=h course.course_code %></li>
         <% end %>
         <li><b>Nombre</b>: <%=h @student.student_name %></li>
-        <li><b>Correo</b>: <%=h @student.student_email %></li>
-        <li><b>Teléfono</b>: <%=h @student.student_phone %></li>
-        <li><b>Cédula</b>: <%=h @student.student_cedula %></li>
+        <li><b>Correo</b>: <%= @student.student_email %></li>
+        <li><b>Teléfono</b>: <%= @student.student_phone %></li>
+        <li><b>Cédula</b>: <%= @student.student_cedula %></li>
         </ol>
         <b><p class="text-danger">Todos los registros relacionados a este estudiante también serán eliminados.</p></b>
-        <form action="/delete_student/<%= @student_id %>" method="POST">
+        <form action="/dashboard/students/<%= @student.student_id %>/delete" method="POST">
           <input type="hidden" name="_method" value="DELETE">
           <button type="submit" class="btn btn-danger">Eliminar</button>
           <a href="/dashboard/students" class="btn btn-default">Cancelar</a>

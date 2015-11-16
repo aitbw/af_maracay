@@ -17,10 +17,10 @@
     <% User.where(user_id: signup.user_id).select(:user_name).each do |user| %>
       <tr>
         <td><%=h user.user_name %></td>
-        <td><%=h signup.signup_amount %></td>
+        <td><%= signup.signup_amount %> BsF.</td>
         <td><%= signup.payment_type %></td>
-        <td><%=h signup.issue_date.strftime('%d/%m/%Y') %></td>
-        <td><%=h signup.expiration_date.strftime('%d/%m/%Y') %></td>
+        <td><%= signup.issue_date.strftime('%d/%m/%Y') %></td>
+        <td><%= signup.expiration_date.strftime('%d/%m/%Y') %></td>
         <% if signup.signup_status.include?('expirada') %>
         <td><b><p class="text-danger"><%= signup.signup_status %></p></b></td>
         <% else %>
@@ -29,7 +29,7 @@
         <% if signup.bank.empty? %>
         <td>N/A</td>
         <% else %>
-        <td><%= signup.bank %></td>
+        <td><%=h signup.bank %></td>
         <% end %>
         <% if signup.payment_type == 'Efectivo' %>
         <td>N/A</td>
@@ -40,8 +40,8 @@
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/dashboard/students/<%= @student_id %>/signups/<%= signup.signup_id %>/delete">Eliminar</a></li>
-              <li><a href="/dashboard/students/<%= @student_id %>/signups/<%= signup.signup_id %>/edit">Modificar</a></li>
+              <li><a href="/dashboard/students/<%= signup.student_id %>/signups/<%= signup.signup_id %>/delete">Eliminar</a></li>
+              <li><a href="/dashboard/students/<%= signup.student_id %>/signups/<%= signup.signup_id %>/edit">Modificar</a></li>
             </ul>
           </div>
         </td>

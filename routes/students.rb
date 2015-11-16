@@ -19,15 +19,15 @@ rescue ActiveRecord::RecordNotFound
   redirect "/dashboard/students/#{student}/fees"
 end
 
-before %r{\/(delete|edit)_student\/(\d)} do |_, id|
+before %r{\/dashboard\/students\/(\d)\/(delete|edit)} do |id, _|
   find_student(id)
 end
 
-before %r{\/(\d)\/(delete|edit)_(signup|fee)\/(\d)} do |student, _, action, id|
+before %r{\/dashboard\/students\/(\d)\/(signups|fees)\/(\d)\/(delete|edit)} do |student, action, id, _|
   case action
-  when 'signup'
+  when 'signups'
     find_student(student) && find_signup(student, id)
-  when 'fee'
+  when 'fees'
     find_student(student) && find_fee(student, id)
   end
 end
@@ -49,40 +49,34 @@ post '/dashboard/students/new_student' do
 end
 
 get '/dashboard/students/:id/delete' do
-  if find_student(params[:id])
-    @student_id = params[:id]
-    @student = Student.find(params[:id])
-    set_page_title('Eliminar estudiante')
-    erb :delete_student, layout: :'layouts/dashboard'
-  end
+  @student = Student.find(params[:id])
+  set_page_title('Eliminar estudiante')
+  erb :delete_student, layout: :'layouts/dashboard'
 end
 
-delete '/delete_student/:id' do
+delete '/dashboard/students/:id/delete' do
   if Student.destroy(params[:id])
     redirect '/dashboard/students', notice: 'Estudiante eliminado.'
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
-    redirect "/dashboard/students/#{params[:id]}/delete"
+    redirect "#{request.path_info}"
   end
 end
 
 get '/dashboard/students/:id/edit' do
-  if find_student(params[:id])
-    @student_id = params[:id]
-    @student = Student.find(params[:id])
-    set_page_title('Editar estudiante')
-    erb :edit_student, layout: :'layouts/dashboard'
-  end
+  @student = Student.find(params[:id])
+  set_page_title('Editar estudiante')
+  erb :edit_student, layout: :'layouts/dashboard'
 end
 
-put '/edit_student/:id' do
+put '/dashboard/students/:id/edit' do
   edit_student = Student.find(params[:id])
   edit_student.update(params[:student])
   if edit_student.save
     redirect '/dashboard/students', notice: 'Datos actualizados.'
   else
     flash[:errors] = edit_student.errors.full_messages
-    redirect "/dashboard/students/edit/#{params[:id]}"
+    redirect "#{request.path_info}"
   end
 end
 
@@ -114,43 +108,35 @@ post '/dashboard/students/:id/signups/add' do
       redirect "/dashboard/students/#{params[:id]}/signups"
     else
       flash[:errors] = new_signup.errors.full_messages
-      redirect "/dashboard/students/#{params[:id]}/signups/add"
+      redirect "#{request.path_info}"
     end
   end
 end
 
 get '/dashboard/students/:student/signups/:signup/delete' do
-  if find_student(params[:student]) && find_signup(params[:student], params[:signup])
-    set_page_title('Eliminar inscripción')
-    @student_id = params[:student]
-    @signup_id = params[:signup]
-    @signup = Signup.find(params[:signup])
-    erb :delete_signup, layout: :'layouts/dashboard'
-  end
+  set_page_title('Eliminar inscripción')
+  @signup = Signup.find(params[:signup])
+  erb :delete_signup, layout: :'layouts/dashboard'
 end
 
-delete '/:student/delete_signup/:signup' do
+delete '/dashboard/students/:student/signups/:signup/delete' do
   if Signup.destroy(params[:signup])
     flash[:notice] = 'Inscripción eliminada.'
     redirect "/dashboard/students/#{params[:student]}/signups"
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
-    redirect "/dashboard/students/#{params[:student]}/signups/#{params[:signup]}/delete"
+    redirect "#{request.path_info}"
   end
 end
 
 get '/dashboard/students/:student/signups/:signup/edit' do
-  if find_student(params[:student]) && find_signup(params[:student], params[:signup])
-    set_page_title('Editar inscripción')
-    @student_id = params[:student]
-    @signup_id  = params[:signup]
-    @signup = Signup.find(params[:signup])
-    @banks = Bank.all
-    erb :edit_signup, layout: :'layouts/dashboard'
-  end
+  set_page_title('Editar inscripción')
+  @signup = Signup.find(params[:signup])
+  @banks = Bank.all
+  erb :edit_signup, layout: :'layouts/dashboard'
 end
 
-put '/:student/edit_signup/:signup' do
+put '/dashboard/students/:student/signups/:signup/edit' do
   edit_signup = Signup.find(params[:signup])
   edit_signup.update(params[:form])
   if edit_signup.save
@@ -158,7 +144,7 @@ put '/:student/edit_signup/:signup' do
     redirect "/dashboard/students/#{params[:student]}/signups"
   else
     flash[:errors] = edit_signup.errors.full_messages
-    redirect "/dashboard/students/#{params[:student]}/signups/#{params[:signup]}/edit"
+    redirect "#{request.path_info}"
   end
 end
 
@@ -196,11 +182,9 @@ post '/dashboard/students/:id/fees/add' do
 end
 
 get '/dashboard/students/:student/fees/:fee/delete' do
-  if find_student(params[:student]) && find_fee(params[:student], params[:fee])
-    set_page_title('Eliminar cuota')
-    @fee = Fee.find(params[:fee])
-    erb :delete_fee, layout: :'layouts/dashboard'
-  end
+  set_page_title('Eliminar cuota')
+  @fee = Fee.find(params[:fee])
+  erb :delete_fee, layout: :'layouts/dashboard'
 end
 
 delete '/dashboard/students/:student/fees/:fee/delete' do
@@ -214,11 +198,9 @@ delete '/dashboard/students/:student/fees/:fee/delete' do
 end
 
 get '/dashboard/students/:student/fees/:fee/edit' do
-  if find_student(params[:student]) && find_fee(params[:student], params[:fee])
-    set_page_title('Editar cuota')
-    @fee = Fee.find(params[:fee])
-    erb :edit_fee, layout: :'layouts/dashboard'
-  end
+  set_page_title('Editar cuota')
+  @fee = Fee.find(params[:fee])
+  erb :edit_fee, layout: :'layouts/dashboard'
 end
 
 put '/dashboard/students/:student/fees/:fee/edit' do
