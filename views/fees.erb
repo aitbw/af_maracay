@@ -51,7 +51,7 @@
   </tbody>
 </table>
 
-<% if @fees.empty? || Date.today >= @fees.last.expiration_date %>
+<% if @fees.empty? || Date.today >= @fees.take.expiration_date %>
 <a href="/dashboard/students/<%= @student_id %>/fees/add" class="btn btn-success">Nueva cuota</a>
 <% end %>
 <a href="/dashboard/students" class="btn btn-default">Atrás</a>

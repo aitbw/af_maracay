@@ -51,7 +51,7 @@
   </tbody>
 </table>
 
-<% if @signups.empty? || Date.today >= @signups.last.expiration_date %>
+<% if @signups.empty? || Date.today >= @signups.take.expiration_date %>
 <a href="/dashboard/students/<%= @student_id %>/signups/add" class="btn btn-success">Nueva inscripción</a>
 <% end %>
 <a href="/dashboard/students" class="btn btn-default">Atrás</a>
