@@ -39,3 +39,18 @@
   <button type="submit" class="btn btn-success">Generar cuota</button>
   <a href="/dashboard/students/<%= @student_id %>/fees" class="btn btn-default">Cancelar</a>
 </form>
+
+<script type="text/javascript">
+  $(function () {
+    $('#datePicker').datetimepicker({
+      format: 'DD/MM/YYYY'
+    });
+  });
+
+  var paymentType = document.getElementById("paymentType");
+
+  paymentType.onchange = function(){
+    var bank = document.getElementById("bank");
+    bank.style.display = (this.value != "Transferencia") ? "none":"block";
+  };
+</script>

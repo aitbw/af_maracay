@@ -10,6 +10,8 @@
     <% if @js %>
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap-datetimepicker.min.css")%>">
     <% end %>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" async></script>
+    <script type="text/javascript" src="<%=url("/javascript/list.min.js")%>"></script>
     <title><%= @page_title %> — Panel de control | AF Maracay</title>
   </head>
 
@@ -78,37 +80,12 @@
       <%= yield %>
     </div>
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript" src="<%=url("/javascript/bootstrap.min.js")%>"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" defer></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <% if @js %>
       <% @js.each do |script| %>
       <script type="text/javascript" src="<%=url("/javascript/#{script}")%>"></script>
       <% end %>
-
-      <script type="text/javascript">
-      $(function () {
-        $('#leftDatePicker').datetimepicker({
-          format: 'DD/MM/YYYY'
-        });
-        $('#rightDatePicker').datetimepicker({
-          format: 'DD/MM/YYYY',
-          useCurrent: false
-        });
-        $('#leftDatePicker').on('dp.change', function (e) {
-          $('#rightDatePicker').data('DateTimePicker').minDate(e.date);
-        });
-        $('#rightDatePicker').on('dp.change', function (e) {
-          $('#leftDatePicker').data('DateTimePicker').maxDate(e.date);
-        });
-      });
-
-      $(function () {
-        $('#datePicker').datetimepicker({
-          format: 'DD/MM/YYYY'
-        });
-      });
-      </script>
     <% end %>
 
     <% if flash[:notice] %>
@@ -116,6 +93,7 @@
         toastr.success('<%= flash[:notice] %>');
       </script>
     <% end %>
+
     <% if flash[:error] %>
       <script type="text/javascript">
         toastr.error('<%= flash[:error] %>');
@@ -129,17 +107,6 @@
         <% end %>
       </script>
     <% end %>
-
-    <script type="text/javascript">
-    var paymentType = document.getElementById("paymentType");
-
-    paymentType.onchange = function(){
-      var bank = document.getElementById("bank");
-      var referenceNumber = document.getElementById("referenceNumber");
-      bank.style.display = (this.value != "Transferencia") ? "none":"block";
-      referenceNumber.style.display = (this.value == "Efectivo") ? "none":"block";
-    };
-    </script>
 
     <!-- TO-DO: Footer -->
 
