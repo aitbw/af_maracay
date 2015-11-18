@@ -1,33 +1,50 @@
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">Nombre</th>
-      <th scope="col">Cédula</th>
-      <th scope="col">Nivel de acceso</th>
-      <th scope="col">Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%=h user.user_name %></td>
-        <td><%= user.user_cedula %></td>
-        <td><%= user.access_level %></td>
-        <td>
-          <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <% unless @users.where(access_level: 'Admin').count == 1 %>
-              <li><a href="/dashboard/users/<%= user.user_id %>/edit">Modificar</a></li>
-              <li><a href="/dashboard/users/<%= user.user_id %>/delete">Eliminar</a></li>
-              <% end %>
-              <li><a href="/dashboard/users/<%= user.user_id %>/reset_password">Reestablecer contraseña</a></li>
-            </ul>
-          </div>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div id="users">
+  <form class="form-inline">
+    <div class="form-group">
+      <input class="search form-control" placeholder="Buscar por cédula">
+    </div>
+    <a href="/dashboard/users/new_user" class="btn btn-success">Nuevo usuario</a>
+  </form>
 
-<a href="/dashboard/users/new_user" class="btn btn-success">Nuevo usuario</a>
+  <br />
+
+  <table class="table table-bordered table-responsive">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Cédula</th>
+        <th scope="col">Nivel de acceso</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody class="list">
+      <% @users.each do |user| %>
+        <tr>
+          <td><%=h user.user_name %></td>
+          <td class="cedula"><%= user.user_cedula %></td>
+          <td><%= user.access_level %></td>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <% unless @users.where(access_level: 'Admin').count == 1 %>
+                <li><a href="/dashboard/users/<%= user.user_id %>/edit">Modificar</a></li>
+                <li><a href="/dashboard/users/<%= user.user_id %>/delete">Eliminar</a></li>
+                <% end %>
+                <li><a href="/dashboard/users/<%= user.user_id %>/reset_password">Reestablecer contraseña</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script type="text/javascript">
+  var options = {
+    valueNames: [ 'cedula' ]
+  }
+
+  var userList = new List('users', options);
+</script>

@@ -1,42 +1,59 @@
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">Curso</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Correo</th>
-      <th scope="col">Teléfono</th>
-      <th scope="col">Cédula</th>
-      <th scope="col">Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @students.each do |student| %>
-    <% Course.where(course_id: student.course_id).select(:course_code).each do |course| %>
-      <tr>
-        <td><%= course.course_code %></td>
-        <td><%=h student.student_name %></td>
-        <td><%= student.student_email %></td>
-        <td><%= student.student_phone %></td>
-        <td><%= student.student_cedula %></td>
-        <td>
-          <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li><a href="/dashboard/students/<%= student.student_id %>/grades">Calificaciones</a></li>
-              <% if student.signups.count >= 1 %>
-              <li><a href="/dashboard/students/<%= student.student_id %>/fees">Cuotas</a></li>
-              <% end %>
-              <li><a href="/dashboard/students/<%= student.student_id %>/delete">Eliminar</a></li>
-              <li><a href="/dashboard/students/<%= student.student_id %>/signups">Inscripciones</a></li>
-              <li><a href="/dashboard/students/<%= student.student_id %>/edit">Modificar</a></li>
-              <li><a href="/dashboard/students/<%= student.student_id %>/reassign">Reasignar</a></li>
-            </ul>
-          </div>
-        </td>
-      </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+<div id="students">
+  <form class="form-inline">
+    <div class="form-group">
+      <input class="search form-control" placeholder="Buscar por cédula">
+      <a href="/dashboard/students/new_student" class="btn btn-success">Nuevo estudiante</a>
+    </div>
+  </form>
 
-<a href="/dashboard/students/new_student" class="btn btn-success">Nuevo estudiante</a>
+  <br />
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Curso</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Cédula</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody class="list">
+      <% @students.each do |student| %>
+      <% Course.where(course_id: student.course_id).select(:course_code).each do |course| %>
+        <tr>
+          <td><%= course.course_code %></td>
+          <td><%=h student.student_name %></td>
+          <td><%= student.student_email %></td>
+          <td><%= student.student_phone %></td>
+          <td class="cedula"><%= student.student_cedula %></td>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="/dashboard/students/<%= student.student_id %>/grades">Calificaciones</a></li>
+                <% if student.signups.count >= 1 %>
+                <li><a href="/dashboard/students/<%= student.student_id %>/fees">Cuotas</a></li>
+                <% end %>
+                <li><a href="/dashboard/students/<%= student.student_id %>/delete">Eliminar</a></li>
+                <li><a href="/dashboard/students/<%= student.student_id %>/signups">Inscripciones</a></li>
+                <li><a href="/dashboard/students/<%= student.student_id %>/edit">Modificar</a></li>
+                <li><a href="/dashboard/students/<%= student.student_id %>/reassign">Reasignar</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script type="text/javascript">
+  var options = {
+    valueNames: [ 'cedula' ]
+  }
+
+  var studentList = new List('students', options);
+</script>

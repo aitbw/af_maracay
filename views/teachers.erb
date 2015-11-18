@@ -1,40 +1,57 @@
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">Nombre</th>
-      <th scope="col">Correo</th>
-      <th scope="col">Teléfono</th>
-      <th scope="col">Cédula</th>
-      <th scope="col">Fecha de ingreso</th>
-      <th scope="col">Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @teachers.each do |teacher| %>
-      <tr>
-        <td><%=h teacher.teacher_name %></td>
-        <td><%= teacher.teacher_email %></td>
-        <td><%= teacher.teacher_phone %></td>
-        <td><%= teacher.teacher_cedula %></td>
-        <td><%= teacher.entry_date.strftime('%d/%m/%Y') %></td>
-        <td>
-          <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <% if session[:role] == 'Admin' %>
-              <li><a href="/dashboard/teachers/<%= teacher.teacher_id %>/bank_accounts">Cuentas bancarias</a></li>
-              <% end %>
-              <li><a href="/dashboard/teachers/<%= teacher.teacher_id %>/courses">Cursos asignados</a></li>
-              <li><a href="/dashboard/teachers/<%= teacher.teacher_id %>/delete">Eliminar</a></li>
-              <li><a href="/dashboard/teachers/<%= teacher.teacher_id %>/edit">Modificar</a></li>
-            </ul>
-          </div>
-        </td>
-      </tr>
+<div id="teachers">
+  <form class="form-inline">
+    <div class="form-group">
+      <input class="search form-control" placeholder="Buscar por cédula">
+    </div>
+    <% if session[:role] == 'Admin' %>
+      <a href="/dashboard/teachers/new_teacher" class="btn btn-success">Nuevo profesor</a>
     <% end %>
-  </tbody>
-</table>
+  </form>
 
-<% if session[:role] == 'Admin' %>
-<a href="/dashboard/teachers/new_teacher" class="btn btn-success">Nuevo profesor</a>
-<% end %>
+  <br />
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Cédula</th>
+        <th scope="col">Fecha de ingreso</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody class="list">
+      <% @teachers.each do |teacher| %>
+        <tr>
+          <td><%=h teacher.teacher_name %></td>
+          <td><%= teacher.teacher_email %></td>
+          <td><%= teacher.teacher_phone %></td>
+          <td class="cedula"><%= teacher.teacher_cedula %></td>
+          <td><%= teacher.entry_date.strftime('%d/%m/%Y') %></td>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <% if session[:role] == 'Admin' %>
+                <li><a href="/dashboard/teachers/<%= teacher.teacher_id %>/bank_accounts">Cuentas bancarias</a></li>
+                <% end %>
+                <li><a href="/dashboard/teachers/<%= teacher.teacher_id %>/courses">Cursos asignados</a></li>
+                <li><a href="/dashboard/teachers/<%= teacher.teacher_id %>/delete">Eliminar</a></li>
+                <li><a href="/dashboard/teachers/<%= teacher.teacher_id %>/edit">Modificar</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script type="text/javascript">
+  var options = {
+    valueNames: [ 'cedula' ]
+  }
+
+  var teacherList = new List('teachers', options)
+</script>
