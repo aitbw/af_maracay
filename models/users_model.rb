@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :fees, dependent: :destroy
 
   validates :user_name, presence: true
-  validates :user_cedula, presence: true, uniqueness: true, format: { with: /\d{6,8}/ }
+  validates :user_cedula, presence: true, uniqueness: true, numericality: { only_integer: true }, length: { in: 6..8 }
   validates :user_password, presence: true
   validates :access_level, presence: true
 

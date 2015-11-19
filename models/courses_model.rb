@@ -15,7 +15,7 @@ class Course < ActiveRecord::Base
   validates :office_id, presence: true
   validates :course_code, presence: true, uniqueness: true, format: { with: COURSE_CODE }
   validates :course_level, presence: true, format: { with: COURSE_LEVEL }
-  validates :course_capacity, presence: true, format: { with: /\d{2}/ }
+  validates :course_capacity, presence: true, numericality: { only_integer: true }, length: { is: 2 }
   validates :start_date, presence: true
   validates :completion_date, presence: true
   validates :course_hours, presence: true, numericality: { only_integer: true }
