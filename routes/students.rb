@@ -208,7 +208,7 @@ put '/dashboard/students/:student/fees/:fee/edit' do
     flash[:notice] = 'Datos actualizados.'
     redirect "/dashboard/students/#{params[:student]}/fees"
   else
-    flash[:error] = 'Ha ocurrido un erorr, intente nuevamente.'
+    flash[:errors] = edit_fee.errors.full_messages
     redirect "#{request.path_info}"
   end
 end
