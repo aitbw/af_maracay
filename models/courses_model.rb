@@ -1,8 +1,3 @@
-# Model for 'course_types' table
-class CourseType < ActiveRecord::Base
-  has_many :courses
-end
-
 # Model for 'courses' table
 class Course < ActiveRecord::Base
   COURSE_CODE ||= /[ABC](1|2)[A-Z]{2}\d{2}/
