@@ -30,7 +30,7 @@ end
 
 get '/dashboard/users/new_user' do
   set_page_title('Crear nuevo usuario')
-  erb :new_user, layout: :'layouts/dashboard'
+  erb :'new/new_user', layout: :'layouts/dashboard'
 end
 
 post '/dashboard/users/new_user' do
@@ -48,7 +48,7 @@ get '/dashboard/users/:id/delete' do
   if find_user(params[:id])
     @user = User.find(params[:id])
     set_page_title('Eliminar usuario')
-    erb :delete_user, layout: :'layouts/dashboard'
+    erb :'delete/delete_user', layout: :'layouts/dashboard'
   end
 end
 
@@ -65,7 +65,7 @@ get '/dashboard/users/:id/edit' do
   if find_user(params[:id])
     @user = User.find(params[:id])
     set_page_title('Editar usuario')
-    erb :edit_user, layout: :'layouts/dashboard'
+    erb :'edit/edit_user', layout: :'layouts/dashboard'
   end
 end
 

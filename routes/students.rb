@@ -41,7 +41,7 @@ end
 get '/dashboard/students/new_student' do
   set_page_title('Crear nuevo estudiante')
   @courses = Course.where.not(course_hours: 0).select(:course_id, :course_code)
-  erb :new_student, layout: :'layouts/dashboard'
+  erb :'new/new_student', layout: :'layouts/dashboard'
 end
 
 post '/dashboard/students/new_student' do
@@ -51,7 +51,7 @@ end
 get '/dashboard/students/:id/delete' do
   @student = Student.find(params[:id])
   set_page_title('Eliminar estudiante')
-  erb :delete_student, layout: :'layouts/dashboard'
+  erb :'delete/delete_student', layout: :'layouts/dashboard'
 end
 
 delete '/dashboard/students/:id/delete' do
@@ -66,7 +66,7 @@ end
 get '/dashboard/students/:id/edit' do
   @student = Student.find(params[:id])
   set_page_title('Editar estudiante')
-  erb :edit_student, layout: :'layouts/dashboard'
+  erb :'edit/edit_student', layout: :'layouts/dashboard'
 end
 
 put '/dashboard/students/:id/edit' do
@@ -95,7 +95,7 @@ get '/dashboard/students/:id/signups/add' do
     @js = ['moment.min.js', 'bootstrap-datetimepicker.min.js']
     @banks = Bank.all
     set_page_title('Nueva inscripción')
-    erb :new_signup, layout: :'layouts/dashboard'
+    erb :'new/new_signup', layout: :'layouts/dashboard'
   end
 end
 
@@ -116,7 +116,7 @@ end
 get '/dashboard/students/:student/signups/:signup/delete' do
   set_page_title('Eliminar inscripción')
   @signup = Signup.find(params[:signup])
-  erb :delete_signup, layout: :'layouts/dashboard'
+  erb :'delete/delete_signup', layout: :'layouts/dashboard'
 end
 
 delete '/dashboard/students/:student/signups/:signup/delete' do
@@ -133,7 +133,7 @@ get '/dashboard/students/:student/signups/:signup/edit' do
   set_page_title('Editar inscripción')
   @signup = Signup.find(params[:signup])
   @banks = Bank.all
-  erb :edit_signup, layout: :'layouts/dashboard'
+  erb :'edit/edit_signup', layout: :'layouts/dashboard'
 end
 
 put '/dashboard/students/:student/signups/:signup/edit' do
@@ -162,7 +162,7 @@ get '/dashboard/students/:id/fees/add' do
     @banks = Bank.all
     @js = ['moment.min.js', 'bootstrap-datetimepicker.min.js']
     @student_id = params[:id]
-    erb :new_fee, layout: :'layouts/dashboard'
+    erb :'new/new_fee', layout: :'layouts/dashboard'
   end
 end
 
@@ -183,7 +183,7 @@ end
 get '/dashboard/students/:student/fees/:fee/delete' do
   set_page_title('Eliminar cuota')
   @fee = Fee.find(params[:fee])
-  erb :delete_fee, layout: :'layouts/dashboard'
+  erb :'delete/delete_fee', layout: :'layouts/dashboard'
 end
 
 delete '/dashboard/students/:student/fees/:fee/delete' do
@@ -199,7 +199,7 @@ end
 get '/dashboard/students/:student/fees/:fee/edit' do
   set_page_title('Editar cuota')
   @fee = Fee.find(params[:fee])
-  erb :edit_fee, layout: :'layouts/dashboard'
+  erb :'edit/edit_fee', layout: :'layouts/dashboard'
 end
 
 put '/dashboard/students/:student/fees/:fee/edit' do

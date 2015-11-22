@@ -21,7 +21,7 @@ get '/dashboard/courses/new_course' do
   @types = CourseType.select(:course_type_id, :course_type)
   @offices = Office.all
   @js = ['moment.min.js', 'bootstrap-datetimepicker.min.js']
-  erb :new_course, layout: :'layouts/dashboard'
+  erb :'new/new_course', layout: :'layouts/dashboard'
 end
 
 post '/dashboard/courses/new_course' do
@@ -32,7 +32,7 @@ get '/dashboard/courses/:id/delete' do
   if find_course(params[:id])
     @course = Course.find(params[:id])
     set_page_title('Eliminar curso')
-    erb :delete_course, layout: :'layouts/dashboard'
+    erb :'delete/delete_course', layout: :'layouts/dashboard'
   end
 end
 
@@ -51,7 +51,7 @@ get '/dashboard/courses/:id/edit' do
     @types = CourseType.all
     @offices = Office.all
     set_page_title('Editar curso')
-    erb :edit_course, layout: :'layouts/dashboard'
+    erb :'edit/edit_course', layout: :'layouts/dashboard'
   end
 end
 

@@ -29,7 +29,7 @@ end
 get '/dashboard/teachers/new_teacher' do
   set_page_title('Crear nuevo profesor')
   @js = ['moment.min.js', 'bootstrap-datetimepicker.min.js']
-  erb :new_teacher, layout: :'layouts/dashboard'
+  erb :'new/new_teacher', layout: :'layouts/dashboard'
 end
 
 post '/dashboard/teachers/new_teacher' do
@@ -39,7 +39,7 @@ end
 get '/dashboard/teachers/:id/delete' do
   @teacher = Teacher.find(params[:id])
   set_page_title('Eliminar profesor')
-  erb :delete_teacher, layout: :'layouts/dashboard'
+  erb :'delete/delete_teacher', layout: :'layouts/dashboard'
 end
 
 delete '/dashboard/teachers/:id/delete' do
@@ -54,7 +54,7 @@ end
 get '/dashboard/teachers/:id/edit' do
   @teacher = Teacher.find(params[:id])
   set_page_title('Editar profesor')
-  erb :edit_teacher, layout: :'layouts/dashboard'
+  erb :'edit/edit_teacher', layout: :'layouts/dashboard'
 end
 
 put '/dashboard/teachers/:id/edit' do
@@ -82,7 +82,7 @@ get '/dashboard/teachers/:id/bank_accounts/add' do
     set_page_title('Asignar cuenta bancaria')
     @teacher_id = params[:id]
     @banks = Bank.all
-    erb :add_bank_account, layout: :'layouts/dashboard'
+    erb :'new/new_bank_account', layout: :'layouts/dashboard'
   end
 end
 
@@ -93,7 +93,7 @@ end
 get '/dashboard/teachers/:teacher/bank_accounts/:account/delete' do
   set_page_title('Eliminar cuenta bancaria')
   @account = BankAccount.find(params[:account])
-  erb :delete_bank_account, layout: :'layouts/dashboard'
+  erb :'delete/delete_bank_account', layout: :'layouts/dashboard'
 end
 
 delete '/dashboard/teachers/:teacher/bank_accounts/:account/delete' do
@@ -110,7 +110,7 @@ get '/dashboard/teachers/:teacher/bank_accounts/:account/edit' do
   set_page_title('Editar cuenta bancaria')
   @account = BankAccount.find(params[:account])
   @banks = Bank.all
-  erb :edit_bank_account, layout: :'layouts/dashboard'
+  erb :'edit/edit_bank_account', layout: :'layouts/dashboard'
 end
 
 put '/dashboard/teachers/:teacher/bank_accounts/:account/edit' do
