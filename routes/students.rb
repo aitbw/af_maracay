@@ -40,7 +40,7 @@ end
 
 get '/dashboard/students/new_student' do
   set_page_title('Crear nuevo estudiante')
-  @courses = Course.select(:course_id, :course_code)
+  @courses = Course.where.not(course_hours: 0).select(:course_id, :course_code)
   erb :new_student, layout: :'layouts/dashboard'
 end
 
