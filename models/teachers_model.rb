@@ -5,6 +5,8 @@ class Teacher < ActiveRecord::Base
   VALID_EMAIL ||= /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   VALID_NUMBER ||= /04(12|14|24|16|26)-\d{7}/
   has_many :bank_accounts, dependent: :destroy
+  has_many :course_teachers
+  has_many :courses, through: :course_teachers
   after_validation :normalize_name
 
   validates :teacher_name, presence: true
