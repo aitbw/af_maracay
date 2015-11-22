@@ -138,8 +138,7 @@ end
 
 put '/dashboard/students/:student/signups/:signup/edit' do
   edit_signup = Signup.find(params[:signup])
-  edit_signup.update(params[:form])
-  if edit_signup.save
+  if edit_signup.update(params[:form])
     flash[:notice] = 'Datos actualizados.'
     redirect "/dashboard/students/#{params[:student]}/signups"
   else
@@ -205,8 +204,7 @@ end
 
 put '/dashboard/students/:student/fees/:fee/edit' do
   edit_fee = Fee.find(params[:fee])
-  edit_fee.update(params[:form])
-  if edit_fee.save
+  if edit_fee.update(params[:form])
     flash[:notice] = 'Datos actualizados.'
     redirect "/dashboard/students/#{params[:student]}/fees"
   else
