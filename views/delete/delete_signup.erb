@@ -22,6 +22,10 @@
         <% unless @signup.payment_type == 'Efectivo' %>
         <li><b>Número de referencia</b>: <%=h @signup.reference_number %></li>
         <% end %>
+        <li><b>Concepto</b>: <%= h(@signup.signup_description) %></li>
+        <% unless @signup.signup_notes.blank? %>
+        <li><b>Notas</b>: <%= h(@signup.signup_notes) %></li>
+        <% end %>
         </ol>
         <form action="/dashboard/students/<%= @signup.student_id %>/signups/<%= @signup.signup_id %>/delete" method="POST">
           <input type="hidden" name="_method" value="DELETE">

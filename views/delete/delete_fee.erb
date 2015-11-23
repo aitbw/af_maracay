@@ -22,6 +22,10 @@
         <% unless @fee.payment_type == 'Efectivo' %>
         <li><b>Número de referencia</b>: <%=h @fee.reference_number %></li>
         <% end %>
+        <li><b>Concepto</b>: <%= h(@fee.fee_description) %></li>
+        <% unless @fee.fee_notes.blank? %>
+        <li><b>Notas</b>: <%= h(@fee.fee_notes) %></li>
+        <% end %>
         </ol>
         <form action="/dashboard/students/<%= @fee.student_id %>/fees/<%= @fee.fee_id %>/delete" method="POST">
           <input type="hidden" name="_method" value="DELETE">

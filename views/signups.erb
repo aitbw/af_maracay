@@ -9,6 +9,8 @@
       <th scope="col">Estado</th>
       <th scope="col">Banco</th>
       <th scope="col">Número de referencia</th>
+      <th scope="col">Concepto</th>
+      <th scope="col">Notas</th>
       <th scope="col">Acciones</th>
     </tr>
   </thead>
@@ -35,6 +37,12 @@
         <td>N/A</td>
         <% else %>
         <td><%=h signup.reference_number %></td>
+        <% end %>
+        <td><%= h(signup.signup_description) %></td>
+        <% if signup.signup_notes.blank? %>
+        <td>N/A</td>
+        <% else %>
+        <td><%= h(signup.signup_notes) %></td>
         <% end %>
         <td>
           <div class="btn-group">

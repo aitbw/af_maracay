@@ -31,6 +31,8 @@ class Signup < ActiveRecord::Base
   validates :expiration_date, presence: true
   validates :bank, presence: true, if: :paid_with?
   validates :reference_number, reference_number: true
+  validates :signup_description, presence: true, length: { maximum: 200 }
+  validates :signup_notes, presence: false, length: { maximum: 500 }
 
   def paid_with?
     payment_type == 'Transferencia'

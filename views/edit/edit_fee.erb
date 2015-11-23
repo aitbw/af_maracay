@@ -25,6 +25,14 @@
       <label>Número de referencia</label>
       <textarea name="form[reference_number]" class="form-control"><%=h @fee.reference_number %></textarea>
     </div>
+    <div class="form-group">
+      <label>Concepto</label>
+      <textarea type="text" class="form-control" name="form[fee_description]"><%= h(@fee.fee_description) %></textarea>
+    </div>
+    <div class="form-group">
+      <label>Notas (Opcional)</label>
+      <textarea type="text" class="form-control" rows="3" name="form[fee_notes]"><%= h(@fee.fee_notes) %></textarea>
+    </div>
     <input type="hidden" name="_method" value="PUT">
     <button type="submit" class="btn btn-success">Actualizar</button>
     <a href="/dashboard/students/<%= @fee.student_id %>/fees" class="btn btn-default">Cancelar</a>

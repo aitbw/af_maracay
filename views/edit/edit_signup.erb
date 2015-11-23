@@ -27,6 +27,14 @@
       <textarea name="form[reference_number]" class="form-control"><%=h @signup.reference_number %></textarea>
     </div>
     <% end %>
+    <div class="form-group">
+      <label>Concepto</label>
+      <textarea type="text" class="form-control" name="form[signup_description]"><%= h(@signup.signup_description) %></textarea>
+    </div>
+    <div class="form-group">
+      <label>Notas (Opcional)</label>
+      <textarea type="text" class="form-control" rows="3" name="form[signup_notes]"><%= h(@signup.signup_notes) %></textarea>
+    </div>
     <input type="hidden" name="_method" value="PUT">
     <button type="submit" class="btn btn-success">Actualizar</button>
     <a href="/dashboard/students/<%= @signup.student_id %>/signups" class="btn btn-default">Cancelar</a>

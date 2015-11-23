@@ -30,9 +30,17 @@
         <% end %>
       </select>
   </div>
-  <div class="form-group" id="referenceNumber">
+  <div class="form-group">
     <label>Número de referencia</label>
     <input type="text" class="form-control" name="fee[reference_number]" placeholder="Referencia">
+  </div>
+  <div class="form-group">
+    <label>Concepto</label>
+    <input type="text" class="form-control" name="fee[fee_description]" placeholder="Concepto">
+  </div>
+  <div class="form-group">
+    <label>Notas (Opcional)</label>
+    <textarea type="text" class="form-control" rows="3" name="fee[fee_notes]" placeholder="Notas"></textarea>
   </div>
   <input type="hidden" name="fee[student_id]" value="<%= @student_id %>">
   <input type="hidden" name="fee[user_id]" value="<%= session[:id] %>">

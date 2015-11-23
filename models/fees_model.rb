@@ -29,6 +29,8 @@ class Fee < ActiveRecord::Base
   validates :expiration_date, presence: true
   validates :bank, presence: true, if: :paid_with?
   validates :reference_number, presence: true, reference_number: true
+  validates :fee_description, presence: true, length: { maximum: 200 }
+  validates :fee_notes, length: { maximum: 500 }
 
   def paid_with?
     payment_type == 'Transferencia'
