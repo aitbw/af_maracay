@@ -1,0 +1,23 @@
+<% if @provider.provider_id %>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">Eliminar proveedor</h3>
+    </div>
+    <div class="panel-body">
+        <p>¿Está usted seguro de <b>eliminar</b> este proveedor? Esta acción no puede ser revertida.</p>
+        <ol style="list-style-type:disc;">
+        <li><b>Nombre</b>: <%= h(@provider.provider_name) %></li>
+        <li><b>RIF</b>: <%= @provider.provider_rif %></li>
+        <li><b>Teléfono</b>: <%= @provider.provider_phone %></li>
+        <li><b>Correo</b>: <%= @provider.provider_email %></li>
+        <li><b>Dirección</b>: <%= h(@provider.provider_address) %></li>
+        <li><b>Encargado</b>: <%= h(@provider.manager) %></li>
+        </ol>
+        <form action="/dashboard/providers/<%= @provider.provider_id %>/delete" method="POST">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+          <a href="/dashboard/providers" class="btn btn-default">Cancelar</a>
+        </form>
+    </div>
+  </div>
+<% end %>

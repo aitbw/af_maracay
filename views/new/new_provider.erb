@@ -1,0 +1,28 @@
+<form action="/dashboard/providers/new_provider" method="POST">
+  <div class="form-group">
+    <label>Nombre</label>
+    <input type="text" class="form-control" name="provider[provider_name]" placeholder="Nombre">
+  </div>
+  <div class="form-group">
+    <label>RIF</label>
+    <input type="text" class="form-control" name="provider[provider_rif]" placeholder="RIF">
+  </div>
+  <div class="form-group">
+    <label>Teléfono</label>
+    <input type="text" class="form-control" name="provider[provider_phone]" placeholder="Teléfono">
+  </div>
+  <div class="form-group">
+    <label>Correo</label>
+    <input type="text" class="form-control" name="provider[provider_email]" placeholder="Correo">
+  </div>
+  <div class="form-group">
+    <label>Dirección física</label>
+    <textarea class="form-control" name="provider[provider_address]" placeholder="Dirección" rows="3"></textarea>
+  </div>
+  <div class="form-group">
+    <label>Encargado</label>
+    <input type="text" class="form-control" name="provider[manager]" placeholder="Encargado">
+  </div>
+  <button type="submit" class="btn btn-success">Crear proveedor</button>
+  <a href="/dashboard/providers" class="btn btn-default">Cancelar</a>
+</form>
