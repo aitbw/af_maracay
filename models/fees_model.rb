@@ -38,9 +38,8 @@ class Fee < ActiveRecord::Base
 
   def expiration_date
     @student = Student.find_by(student_id: student_id)
-    @course = Course.find_by(course_id: @student.course_id)
 
-    case @course.course_type_id
+    case @student.course.course_type_id
     when 1..4
       self.expiration_date = Date.parse(issue_date.to_s).advance(weeks: 4)
     else
