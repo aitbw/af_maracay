@@ -17,8 +17,8 @@ end
 # Model for 'signups' table
 class Signup < ActiveRecord::Base
   include ActiveModel::Validations
-  before_validation :expiration_date, on: :create
-  after_validation :signup_status, on: :create
+  before_validation :set_expiration_date, on: :create
+  after_validation :set_signup_status, on: :create
   after_validation :credit_payment_fee
   after_validation :set_bank, on: :create
   before_save :clean_fields
@@ -32,13 +32,13 @@ class Signup < ActiveRecord::Base
   validates :bank, presence: true, if: :paid_with?
   validates :reference_number, reference_number: true
   validates :signup_description, presence: true, length: { maximum: 200 }
-  validates :signup_notes, presence: false, length: { maximum: 500 }
+  validates :signup_notes, length: { maximum: 500 }
 
   def paid_with?
     payment_type == 'Transferencia'
   end
 
-  def expiration_date
+  def set_expiration_date
     self.expiration_date = Date.parse(issue_date.to_s).next_year
   rescue ArgumentError
     return
@@ -59,7 +59,7 @@ class Signup < ActiveRecord::Base
     return
   end
 
-  def signup_status
+  def set_signup_status
     case payment_type
     when 'Depósito', 'Transferencia'
       self.signup_status = 'Inscripción por aprobar'

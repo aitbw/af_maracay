@@ -15,8 +15,8 @@ end
 # Model for 'fees' table
 class Fee < ActiveRecord::Base
   include ActiveModel::Validations
-  before_validation :expiration_date, on: :create
-  after_validation :fee_status, on: :create
+  before_validation :set_expiration_date, on: :create
+  after_validation :set_fee_status, on: :create
   after_validation :credit_payment_fee
   after_validation :set_bank, on: :create
   before_save :clean_fields
@@ -36,7 +36,7 @@ class Fee < ActiveRecord::Base
     payment_type == 'Transferencia'
   end
 
-  def expiration_date
+  def set_expiration_date
     @student = Student.find_by(student_id: student_id)
 
     case @student.course.course_type_id
@@ -59,7 +59,7 @@ class Fee < ActiveRecord::Base
     return
   end
 
-  def fee_status
+  def set_fee_status
     case payment_type
     when 'Depósito', 'Transferencia'
       self.fee_status = 'Cuota por aprobar'
