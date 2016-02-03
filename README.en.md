@@ -82,7 +82,7 @@ This web application lets you:
 * Storage management
 * Report generation (Admins)
 
-This app can be used in other Alianza Francesa offices where an administrative system is required or on institutions with similar needs.
+This app can be used in other Alliance Française offices where an administrative system is required or on institutions with similar needs.
 
 # Contributing
 * Fork this repo
