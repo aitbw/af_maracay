@@ -30,6 +30,11 @@
                 <li><a href="/dashboard/courses">Cursos</a></li>
                 <li><a href="/dashboard/students">Estudiantes</a></li>
                 <li><a href="/dashboard/teachers">Profesores</a></li>
+                <li><a href="/dashboard/providers">Proveedores</a></li>
+                <% if session[:role] == 'Admin' %>
+                <li><a href="#">Salarios</a></li>
+                <li><a href="/dashboard/users">Usuarios</a></li>
+                <% end %>
               </ul>
             </li>
 
@@ -41,8 +46,6 @@
               </ul>
             </li>
 
-            <li><a href="/dashboard/providers">Proveedores</a></li>
-
           <% if session[:role] == 'Admin' %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes<span class="caret"></span></a>
@@ -51,10 +54,6 @@
                 <li><a href="#">Ver reportes</a>
               </ul>
             </li>
-
-            <li><a href="#">Salarios</a></li>
-
-            <li><a href="/dashboard/users">Usuarios</a></li>
           <% end %>
           </ul>
 
