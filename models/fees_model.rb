@@ -17,7 +17,7 @@ class Fee < ActiveRecord::Base
   include ActiveModel::Validations
   before_validation :set_expiration_date, on: :create
   after_validation :set_fee_status, on: :create
-  after_validation :credit_payment_fee
+  after_validation :extra_fee_for_credit_payments
   after_validation :set_bank, on: :create
   before_save :clean_fields
   belongs_to :user
@@ -31,6 +31,7 @@ class Fee < ActiveRecord::Base
   validates :reference_number, presence: true, reference_number: true
   validates :fee_description, presence: true, length: { maximum: 200 }
   validates :fee_notes, length: { maximum: 500 }
+  delegate :student_name, :student_phone, to: :student
 
   def paid_with?
     payment_type == 'Transferencia'
@@ -53,12 +54,23 @@ class Fee < ActiveRecord::Base
     self.bank = '' if payment_type == 'Débito' || payment_type == 'Crédito'
   end
 
-  def credit_payment_fee
+  def extra_fee_for_credit_payments
     self.fee_amount += fee_amount * 0.1 if payment_type == 'Crédito'
   rescue NoMethodError
     return
   end
 
+  # To deal with the fees' statuses (automatically change them if
+  # the expiration date is the same as the system's or older), I created
+  # an event for my database through the 'events scheduler' funcionality
+  # MariaDB offers (MySQL also offers it) called 'fee_status_changer'
+  # If you're working with MySQL/MariaDB, first, run the following command:
+  # SET GLOBAL event_scheduler = ON;
+  # Now, run the following command:
+  # CREATE EVENT fee_status_changer ON SCHEDULE EVERY 1 DAY DO
+  # UPDATE fees SET fee_status = 'Expired fee' WHERE
+  # CURDATE() >= expiration_date;
+  # If you're working with PostgreSQL, please refer to pgAdmin
   def set_fee_status
     case payment_type
     when 'Depósito', 'Transferencia'
