@@ -29,7 +29,6 @@ class Fee < ActiveRecord::Base
   validates :bank, presence: true, if: :paid_with?
   validates :reference_number, presence: true, reference_number: true
   validates :fee_description, presence: true, length: { maximum: 200 }
-  validates :fee_notes, length: { maximum: 500 }
   delegate :student_name, :student_phone, to: :student
 
   def paid_with?

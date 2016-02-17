@@ -10,7 +10,6 @@
       <th scope="col">Banco</th>
       <th scope="col">Número de referencia</th>
       <th scope="col">Concepto</th>
-      <th scope="col">Notas</th>
       <th scope="col">Acciones</th>
     </tr>
   </thead>
@@ -39,11 +38,6 @@
         <td><%=h fee.reference_number %></td>
         <% end %>
         <td><%= h(fee.fee_description) %></td>
-        <% if fee.fee_notes.blank? %>
-        <td>N/A</td>
-        <% else %>
-        <td><%= h(fee.fee_notes) %></td>
-        <% end %>
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
