@@ -26,12 +26,10 @@
     </thead>
     <tbody class="list">
       <% @courses.each do |course| %>
-      <% CourseType.where(course_type_id: course.course_type_id).select(:course_type).each do |type| %>
-      <% Office.where(office_id: course.office_id).select(:office_name).each do |office| %>
         <tr>
           <td class="code"><%= course.course_code %></td>
-          <td><%= type.course_type %></td>
-          <td><%= office.office_name %></td>
+          <td><%= course.course_name %></td>
+          <td><%= course.office_name %></td>
           <td><%= course.course_level %></td>
           <td><%= course.course_capacity %></td>
           <td><%= course.start_date.strftime('%d/%m/%Y') %></td>
@@ -49,7 +47,9 @@
               <ul class="dropdown-menu">
                 <li><a href="/dashboard/courses/<%= course.course_id %>/delete">Eliminar</a></li>
                 <li><a href="/dashboard/courses/<%= course.course_id %>/edit">Modificar</a></li>
-                <li><a href="/dashboard/courses/<%= course.course_id %>/show_students">Ver estudiantes</a>
+                <!-- The following feature is not working as expected. Working on it. -->
+                <li><a id="showStudents" data-toggle="modal" data-target="#courseStudents">Ver estudiantes</a>
+                <!-- The following feature is not working as expected. Working on it. -->
                 <% if course.course_hours == 0 %>
                 <li><a href="/dashboard/courses/<%= course.course_id %>/assign_grades">Asignar calificaciones</a></li>
                 <li><a href="/dashboard/courses/<%= course.course_id %>/promote">Promover</a></li>
@@ -58,8 +58,6 @@
             </div>
           </td>
         </tr>
-      <% end %>
-      <% end %>
       <% end %>
     </tbody>
   </table>
@@ -82,9 +80,9 @@
             </tr>
           </thead>
           <tbody>
-            <% @types.each do |type| %>
+            <% @course_types.each do |type| %>
               <tr>
-                <td><%= type.course_type %></td>
+                <td><%= type.course_name %></td>
                 <td><%= type.course_days %></td>
                 <td><%= type.course_schedule %></td>
               </tr>

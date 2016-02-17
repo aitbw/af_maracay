@@ -12,7 +12,7 @@ end
 get '/dashboard/courses' do
   set_page_title('Cursos')
   @courses = Course.all
-  @types = CourseType.all
+  @course_types = CourseType.all
   erb :courses, layout: :'layouts/dashboard'
 end
 

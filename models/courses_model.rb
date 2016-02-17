@@ -10,11 +10,12 @@ class Course < ActiveRecord::Base
   has_many :grades, dependent: :destroy
   has_many :course_teachers
   has_many :teachers, through: :course_teachers
-  belongs_to :course_types
+  belongs_to :course_type
   belongs_to :office
 
   # Delegations
   delegate :office_name, to: :office
+  delegate :course_name, to: :course_type
 
   # Validations
   validates :course_type_id, presence: true
