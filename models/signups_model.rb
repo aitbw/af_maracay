@@ -32,7 +32,6 @@ class Signup < ActiveRecord::Base
   validates :bank, presence: true, if: :paid_with?
   validates :reference_number, reference_number: true
   validates :signup_description, presence: true, length: { maximum: 200 }
-  validates :signup_notes, length: { maximum: 500 }
   delegate :student_name, :student_phone, to: :student
 
   def paid_with?

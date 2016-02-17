@@ -10,7 +10,6 @@
       <th scope="col">Banco</th>
       <th scope="col">Número de referencia</th>
       <th scope="col">Concepto</th>
-      <th scope="col">Notas</th>
       <th scope="col">Acciones</th>
     </tr>
   </thead>
@@ -18,7 +17,7 @@
     <% @signups.each do |signup| %>
     <% User.where(user_id: signup.user_id).select(:user_name).each do |user| %>
       <tr>
-        <td><%=h user.user_name %></td>
+        <td><%= h(user.user_name) %></td>
         <td><%= signup.signup_amount %> BsF.</td>
         <td><%= signup.payment_type %></td>
         <td><%= signup.issue_date.strftime('%d/%m/%Y') %></td>
@@ -31,19 +30,14 @@
         <% if signup.bank.empty? %>
         <td>N/A</td>
         <% else %>
-        <td><%=h signup.bank %></td>
+        <td><%= h(signup.bank) %></td>
         <% end %>
         <% if signup.payment_type == 'Efectivo' %>
         <td>N/A</td>
         <% else %>
-        <td><%=h signup.reference_number %></td>
+        <td><%= h(signup.reference_number) %></td>
         <% end %>
         <td><%= h(signup.signup_description) %></td>
-        <% if signup.signup_notes.blank? %>
-        <td>N/A</td>
-        <% else %>
-        <td><%= h(signup.signup_notes) %></td>
-        <% end %>
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>

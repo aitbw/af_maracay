@@ -38,10 +38,6 @@
     <label>Concepto</label>
     <input type="text" class="form-control" name="signup[signup_description]" placeholder="Concepto">
   </div>
-  <div class="form-group">
-    <label>Notas (Opcional)</label>
-    <textarea type="text" class="form-control" rows="3" name="signup[signup_notes]" placeholder="Notas"></textarea>
-  </div>
   <input type="hidden" name="signup[student_id]" value="<%= @student_id %>">
   <input type="hidden" name="signup[user_id]" value="<%= session[:id] %>">
   <button type="submit" class="btn btn-success">Generar inscripción</button>
