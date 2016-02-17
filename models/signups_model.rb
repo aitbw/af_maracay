@@ -19,7 +19,7 @@ class Signup < ActiveRecord::Base
   include ActiveModel::Validations
   before_validation :set_expiration_date, on: :create
   after_validation :set_signup_status, on: :create
-  after_validation :credit_payment_fee
+  after_validation :extra_fee_for_credit_payments
   after_validation :set_bank, on: :create
   before_save :clean_fields
   belongs_to :student
@@ -33,6 +33,7 @@ class Signup < ActiveRecord::Base
   validates :reference_number, reference_number: true
   validates :signup_description, presence: true, length: { maximum: 200 }
   validates :signup_notes, length: { maximum: 500 }
+  delegate :student_name, :student_phone, to: :student
 
   def paid_with?
     payment_type == 'Transferencia'
@@ -53,12 +54,23 @@ class Signup < ActiveRecord::Base
     end
   end
 
-  def credit_payment_fee
+  def extra_fee_for_credit_payments
     self.signup_amount += signup_amount * 0.1 if payment_type == 'Crédito'
   rescue NoMethodError
     return
   end
 
+  # To deal with the signups' statuses (automatically change them if
+  # the expiration date is the same as the system's or older), I created
+  # an event for my database through the 'events scheduler' funcionality
+  # MariaDB offers (MySQL also offers it) called 'signup_status_changer'
+  # If you're working with MySQL/MariaDB, first, run the following command:
+  # SET GLOBAL event_scheduler = ON;
+  # Now, run the following command:
+  # CREATE EVENT signup_status_changer ON SCHEDULE EVERY 1 DAY DO
+  # UPDATE signups SET signup_status = 'Expired signup' WHERE
+  # CURDATE() >= expiration_date;
+  # If you're working with PostgreSQL, please refer to pgAdmin
   def set_signup_status
     case payment_type
     when 'Depósito', 'Transferencia'
