@@ -1,3 +1,5 @@
+require 'active_support/core_ext/module/delegation'
+
 # Custom validator for reference numbers
 class ReferenceNumberValidator < ActiveModel::Validator
   def validate(record)
@@ -17,14 +19,23 @@ end
 # Model for 'signups' table
 class Signup < ActiveRecord::Base
   include ActiveModel::Validations
+
+  # Relations
+  belongs_to :student
+  belongs_to :user
+
+  # Callbacks
   before_validation :set_expiration_date, on: :create
   after_validation :set_signup_status, on: :create
   after_validation :extra_fee_for_credit_payments
   after_validation :set_bank, on: :create
   before_save :clean_fields
-  belongs_to :student
-  belongs_to :user
 
+  # Delegations
+  delegate :student_name, :student_phone, to: :student
+  delegate :user_name, to: :user
+
+  # Validations
   validates :signup_amount, presence: true, numericality: true
   validates :payment_type, presence: true
   validates :issue_date, presence: true
@@ -32,8 +43,8 @@ class Signup < ActiveRecord::Base
   validates :bank, presence: true, if: :paid_with?
   validates :reference_number, reference_number: true
   validates :signup_description, presence: true, length: { maximum: 200 }
-  delegate :student_name, :student_phone, to: :student
 
+  # Methods
   def paid_with?
     payment_type == 'Transferencia'
   end

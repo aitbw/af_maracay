@@ -15,9 +15,8 @@
   </thead>
   <tbody>
     <% @signups.each do |signup| %>
-    <% User.where(user_id: signup.user_id).select(:user_name).each do |user| %>
       <tr>
-        <td><%= h(user.user_name) %></td>
+        <td><%= h(signup.user_name) %></td>
         <td><%= signup.signup_amount %> BsF.</td>
         <td><%= signup.payment_type %></td>
         <td><%= signup.issue_date.strftime('%d/%m/%Y') %></td>
@@ -48,7 +47,6 @@
           </div>
         </td>
       </tr>
-      <% end %>
     <% end %>
   </tbody>
 </table>

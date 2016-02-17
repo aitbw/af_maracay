@@ -15,9 +15,8 @@
   </thead>
   <tbody>
     <% @fees.each do |fee| %>
-    <% User.where(user_id: fee.user_id).select(:user_name).each do |user| %>
       <tr>
-        <td><%=h user.user_name %></td>
+        <td><%= h(fee.user_name) %></td>
         <td><%= fee.fee_amount %> BsF.</td>
         <td><%= fee.payment_type %></td>
         <td><%= fee.issue_date.strftime('%d/%m/%Y') %></td>
@@ -30,12 +29,12 @@
         <% if fee.bank.empty? %>
         <td>N/A</td>
         <% else %>
-        <td><%=h fee.bank %></td>
+        <td><%= h(fee.bank) %></td>
         <% end %>
         <% if fee.payment_type == 'Efectivo' %>
         <td>N/A</td>
         <% else %>
-        <td><%=h fee.reference_number %></td>
+        <td><%= h(fee.reference_number) %></td>
         <% end %>
         <td><%= h(fee.fee_description) %></td>
         <td>
@@ -48,7 +47,6 @@
           </div>
         </td>
       </tr>
-    <% end %>
     <% end %>
   </tbody>
 </table>
