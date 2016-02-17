@@ -10,7 +10,6 @@
         <li><b>RIF</b>: <%= @provider.provider_rif %></li>
         <li><b>Teléfono</b>: <%= @provider.provider_phone %></li>
         <li><b>Correo</b>: <%= @provider.provider_email %></li>
-        <li><b>Dirección</b>: <%= h(@provider.provider_address) %></li>
         <li><b>Encargado</b>: <%= h(@provider.manager) %></li>
         </ol>
         <form action="/dashboard/providers/<%= @provider.provider_id %>/delete" method="POST">

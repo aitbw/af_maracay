@@ -1,36 +1,51 @@
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">Nombre</th>
-      <th scope="col">RIF</th>
-      <th scope="col">Teléfono</th>
-      <th scope="col">Correo</th>
-      <!-- TO-DO: Truncate addresses and show them if the user wants so -->
-      <th scope="col">Encargado</th>
-      <th scope="col">Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @providers.each do |provider| %>
-      <tr>
-        <td><%= h(provider.provider_name) %></td>
-        <td><%= provider.provider_rif %></td>
-        <td><%= provider.provider_phone %></td>
-        <td><%= provider.provider_email %></td>
-        <!-- TO-DO: Truncate addresses and show them if the user wants so -->
-        <td><%= h(provider.manager) %></td>
-        <td>
-          <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li><a href="/dashboard/providers/<%= provider.provider_id %>/delete">Eliminar</a></li>
-              <li><a href="/dashboard/providers/<%= provider.provider_id %>/edit">Modificar</a></li>
-            </ul>
-          </div>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div id="providers">
+  <form class="form-inline">
+    <div class="form-group">
+      <input class="search form-control" placeholder="Buscar por nombre">
+    </div>
+    <a href="/dashboard/providers/new_provider" class="btn btn-success">Nuevo proveedor</a>
+  </form>
 
-<a href="/dashboard/providers/new_provider" class="btn btn-success">Nuevo proveedor</a>
+  <br />
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">RIF</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Encargado</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody class="list">
+      <% @providers.each do |provider| %>
+        <tr>
+          <td class="name"><%= h(provider.provider_name) %></td>
+          <td><%= provider.provider_rif %></td>
+          <td><%= provider.provider_phone %></td>
+          <td><%= provider.provider_email %></td>
+          <td><%= h(provider.manager) %></td>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="/dashboard/providers/<%= provider.provider_id %>/delete">Eliminar</a></li>
+                <li><a href="/dashboard/providers/<%= provider.provider_id %>/edit">Modificar</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script type="text/javascript">
+  var options = {
+    valueNames: ['name']
+  }
+
+  var providersList = new List('providers', options)
+</script>

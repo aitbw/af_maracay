@@ -10,7 +10,6 @@ class Provider < ActiveRecord::Base
   validates :provider_rif, presence: true, uniqueness: true, format: { with: /J-\d{8}-\d{1}/ }
   validates :provider_phone, presence: true, format: { with: /\d{4}-\d{7}/ }
   validates :provider_email, presence: true, uniqueness: true, format: { with: VALID_EMAIL }
-  validates :provider_address, presence: true
   validates :manager, presence: true
 
   def normalize_provider_name
