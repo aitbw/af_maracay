@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151123184041) do
+ActiveRecord::Schema.define(version: 20160217155000) do
 
   create_table "bank_accounts", primary_key: "bank_account_id", force: :cascade do |t|
     t.string  "account_number", limit: 50, null: false
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20151123184041) do
   add_index "course_teachers", ["teacher_id"], name: "fk_courses_has_teachers_teachers1_idx", using: :btree
 
   create_table "course_types", primary_key: "course_type_id", force: :cascade do |t|
-    t.string "course_type",     limit: 50, null: false
+    t.string "course_name",     limit: 50, null: false
     t.string "course_days",     limit: 50, null: false
     t.string "course_schedule", limit: 50, null: false
   end
@@ -73,7 +73,6 @@ ActiveRecord::Schema.define(version: 20151123184041) do
     t.integer "user_id",          limit: 4,   null: false
     t.integer "student_id",       limit: 4,   null: false
     t.string  "fee_description",  limit: 200, null: false
-    t.string  "fee_notes",        limit: 500
   end
 
   add_index "fees", ["fee_id"], name: "fee_id_UNIQUE", unique: true, using: :btree
@@ -139,12 +138,11 @@ ActiveRecord::Schema.define(version: 20151123184041) do
   add_index "offices", ["office_id"], name: "office_id_UNIQUE", unique: true, using: :btree
 
   create_table "providers", primary_key: "provider_id", force: :cascade do |t|
-    t.string "provider_name",    limit: 150, null: false
-    t.string "provider_rif",     limit: 15,  null: false
-    t.string "provider_phone",   limit: 15,  null: false
-    t.string "provider_email",   limit: 150, null: false
-    t.string "provider_address", limit: 255, null: false
-    t.string "manager",          limit: 150, null: false
+    t.string "provider_name",  limit: 150, null: false
+    t.string "provider_rif",   limit: 15,  null: false
+    t.string "provider_phone", limit: 15,  null: false
+    t.string "provider_email", limit: 150, null: false
+    t.string "manager",        limit: 150, null: false
   end
 
   add_index "providers", ["provider_email"], name: "provider_email_UNIQUE", unique: true, using: :btree
@@ -162,7 +160,6 @@ ActiveRecord::Schema.define(version: 20151123184041) do
     t.integer "user_id",            limit: 4,   null: false
     t.integer "student_id",         limit: 4,   null: false
     t.string  "signup_description", limit: 200, null: false
-    t.string  "signup_notes",       limit: 500
   end
 
   add_index "signups", ["signup_id"], name: "signup_id_UNIQUE", unique: true, using: :btree
