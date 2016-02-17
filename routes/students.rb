@@ -212,3 +212,12 @@ put '/dashboard/students/:student/fees/:fee/edit' do
     redirect "#{request.path_info}"
   end
 end
+
+get '/dashboard/students/:id/grades' do
+  if find_student(params[:id])
+    set_page_title('Notas')
+    @student_id = params[:id]
+    @grades = Grade.where(student_id: params[:id])
+    erb :grades, layout: :'layouts/dashboard'
+  end
+end
