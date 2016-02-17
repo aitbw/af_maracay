@@ -14,8 +14,17 @@
   </div>
   <div class="form-group">
     <label>Fecha de emisión</label>
-    <div class="input-group date" id="datePicker">
+    <div class="input-group date" id="leftDatePicker">
       <input type="text" class="form-control" name="fee[issue_date]">
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Fecha de expiración</label>
+    <div class="input-group date" id="rightDatePicker">
+      <input type="text" class="form-control" name="fee[expiration_date]">
       <span class="input-group-addon">
         <span class="glyphicon glyphicon-calendar"></span>
       </span>
@@ -50,8 +59,18 @@
 
 <script type="text/javascript">
   $(function () {
-    $('#datePicker').datetimepicker({
+    $('#leftDatePicker').datetimepicker({
       format: 'DD/MM/YYYY'
+    });
+    $('#rightDatePicker').datetimepicker({
+      format: 'DD/MM/YYYY',
+      useCurrent: false
+    });
+    $('#leftDatePicker').on('dp.change', function (e) {
+      $('#rightDatePicker').data('DateTimePicker').minDate(e.date);
+    });
+    $('#rightDatePicker').on('dp.change', function (e) {
+      $('#leftDatePicker').data('DateTimePicker').maxDate(e.date);
     });
   });
 

@@ -15,7 +15,6 @@ end
 # Model for 'fees' table
 class Fee < ActiveRecord::Base
   include ActiveModel::Validations
-  before_validation :set_expiration_date, on: :create
   after_validation :set_fee_status, on: :create
   after_validation :extra_fee_for_credit_payments
   after_validation :set_bank, on: :create
@@ -35,19 +34,6 @@ class Fee < ActiveRecord::Base
 
   def paid_with?
     payment_type == 'Transferencia'
-  end
-
-  def set_expiration_date
-    @student = Student.find_by(student_id: student_id)
-
-    case @student.course.course_type_id
-    when 1..4
-      self.expiration_date = Date.parse(issue_date.to_s).advance(weeks: 4)
-    else
-      self.expiration_date = Date.parse(issue_date.to_s).advance(weeks: 8)
-    end
-  rescue ArgumentError
-    return
   end
 
   def clean_fields
