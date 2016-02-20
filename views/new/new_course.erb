@@ -4,7 +4,7 @@
   <select name="course[course_type_id]" class="form-control">
     <option value="" selected>Seleccione un tipo de curso</option>
     <% @types.each do |type| %>
-    <option value="<%= type.course_type_id %>"><%= type.course_type %></option>
+    <option value="<%= type.course_type_id %>"><%= type.course_name %></option>
     <% end %>
   </select>
   </div>

@@ -7,7 +7,7 @@
   <label>Tipo</label>
   <select name="course[course_type_id]" class="form-control">
     <% @types.each do |type| %>
-    <option <%= "selected" if type.course_type_id == @course.course_type_id %> value="<%= type.course_type_id %>"><%= type.course_type %></option>
+    <option <%= "selected" if type.course_type_id == @course.course_type_id %> value="<%= type.course_type_id %>"><%= type.course_name %></option>
     <% end %>
   </select>
   </div>
