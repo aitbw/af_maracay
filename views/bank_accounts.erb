@@ -9,9 +9,8 @@
   </thead>
   <tbody>
     <% @accounts.each do |account| %>
-    <% Bank.where(bank_id: account.bank_id).each do |bank| %>
       <tr>
-        <td><%=h bank.bank_name %></td>
+        <td><%= h(account.bank_name) %></td>
         <td><%= account.account_number %></td>
         <td><%= account.account_type %></td>
         <td>
@@ -24,7 +23,6 @@
           </div>
         </td>
       </tr>
-    <% end %>
     <% end %>
   </tbody>
 </table>

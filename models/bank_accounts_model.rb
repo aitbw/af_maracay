@@ -1,8 +1,14 @@
+require 'active_support/core_ext/module/delegation'
+
 # Model for 'bank_accounts' table
 class BankAccount < ActiveRecord::Base
   # Relations
   belongs_to :teacher
   belongs_to :bank
+
+  # Delegations
+  delegate :bank_name, to: :bank
+  delegate :teacher_name, to: :teacher
 
   # Validations
   validates :bank_id, presence: true

@@ -6,12 +6,8 @@
     <div class="panel-body">
         <p>¿Está usted seguro de <b>eliminar</b> esta cuenta bancaria? Esta acción no puede ser revertida.</p>
         <ol style="list-style-type:disc;">
-        <% Teacher.where(teacher_id: @account.teacher_id).select(:teacher_name).each do |teacher| %>
-        <li><b>Titular</b>: <%=h teacher.teacher_name %></li>
-        <% end %>
-        <% Bank.where(bank_id: @account.bank_id).each do |bank| %>
-        <li><b>Banco</b>: <%=h bank.bank_name %></li>
-        <% end %>
+        <li><b>Titular</b>: <%= h(@account.teacher_name) %></li>
+        <li><b>Banco</b>: <%= h(@account.bank_name) %></li>
         <li><b>Número de cuenta</b>: <%= @account.account_number %></li>
         <li><b>Tipo de cuenta</b>: <%= @account.account_type %></li>
         </ol>
