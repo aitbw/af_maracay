@@ -1,5 +1,3 @@
-require 'active_support/core_ext/module/delegation'
-
 # Model for 'bank_accounts' table
 class BankAccount < ActiveRecord::Base
   # Relations

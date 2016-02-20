@@ -1,5 +1,3 @@
-require 'active_support/core_ext/module/delegation'
-
 # Model for 'grades' table
 class Grade < ActiveRecord::Base
   # Relations

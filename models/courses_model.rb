@@ -1,5 +1,3 @@
-require 'active_support/core_ext/module/delegation'
-
 # Model for 'courses' table
 class Course < ActiveRecord::Base
   COURSE_CODE ||= /\d{4}-\w{4}\d{1}-\d{3}/

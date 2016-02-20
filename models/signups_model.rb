@@ -1,5 +1,3 @@
-require 'active_support/core_ext/module/delegation'
-
 # Custom validator for reference numbers
 class ReferenceNumberValidator < ActiveModel::Validator
   def validate(record)
