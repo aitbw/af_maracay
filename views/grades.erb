@@ -10,10 +10,9 @@
   </thead>
   <tbody>
     <% @grades.each do |grade| %>
-    <% Course.where(course_id: grade.course_id).select(:course_code, :course_level).each do |course| %>
       <tr>
-        <td><%= course.course_code %></td>
-        <td><%= course.course_level %></td>
+        <td><%= grade.course_code %></td>
+        <td><%= grade.course_level %></td>
         <td><%= grade.grade %></td>
         <td><%= grade.grade_date.strftime('%d/%m/%Y') %></td>
         <td>
@@ -26,7 +25,6 @@
           </div>
         </td>
       </tr>
-    <% end %>
     <% end %>
   </tbody>
 </table>
