@@ -14,6 +14,9 @@ class Student < ActiveRecord::Base
   # Callbacks
   after_validation :normalize_name
 
+  # Delegations
+  delegate :course_code, to: :course
+
   # Validations
   validates :course_id, presence: true
   validates :student_name, presence: true

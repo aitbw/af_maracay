@@ -6,10 +6,8 @@
     <div class="panel-body">
         <p>¿Está usted seguro de <b>eliminar</b> este estudiante? Esta acción no puede ser revertida.</p>
         <ol style="list-style-type:disc;">
-        <% Course.where(course_id: @student.course_id).select(:course_code).each do |course| %>
-        <li><b>Curso</b>: <%=h course.course_code %></li>
-        <% end %>
-        <li><b>Nombre</b>: <%=h @student.student_name %></li>
+        <li><b>Curso</b>: <%= h(@student.course_code) %></li>
+        <li><b>Nombre</b>: <%= h(@student.student_name) %></li>
         <li><b>Correo</b>: <%= @student.student_email %></li>
         <li><b>Teléfono</b>: <%= @student.student_phone %></li>
         <li><b>Cédula</b>: <%= @student.student_cedula %></li>
