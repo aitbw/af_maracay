@@ -6,21 +6,17 @@
     <div class="panel-body">
         <p>¿Está usted seguro de <b>eliminar</b> esta cuota? Esta acción no puede ser revertida.</p>
         <ol style="list-style-type:disc;">
-        <% Student.where(student_id: @fee.student_id).select(:student_name).each do |student| %>
-        <li><b>Estudiante</b>: <%=h student.student_name %></li>
-        <% end %>
-        <% User.where(user_id: @fee.user_id).select(:user_name).each do |user| %>
-        <li><b>Emisor</b>: <%=h user.user_name %></li>
-        <% end %>
+        <li><b>Estudiante</b>: <%= h(@fee.student_name) %></li>
+        <li><b>Emisor</b>: <%= h(@fee.user_name) %></li>
         <li><b>Monto cancelado</b>: <%= @fee.fee_amount %> BsF.</li>
         <li><b>Método de pago</b>: <%= @fee.payment_type %></li>
         <li><b>Fecha de emision</b>: <%= @fee.issue_date.strftime('%d/%m/%Y') %></li>
         <li><b>Fecha de expiración</b>: <%= @fee.expiration_date.strftime('%d/%m/%Y') %></li>
         <% unless @fee.bank.empty? %>
-        <li><b>Banco</b>: <%=h @fee.bank %></li>
+        <li><b>Banco</b>: <%= h(@fee.bank) %></li>
         <% end %>
         <% unless @fee.payment_type == 'Efectivo' %>
-        <li><b>Número de referencia</b>: <%=h @fee.reference_number %></li>
+        <li><b>Número de referencia</b>: <%= h(@fee.reference_number) %></li>
         <% end %>
         <li><b>Concepto</b>: <%= h(@fee.fee_description) %></li>
         </ol>

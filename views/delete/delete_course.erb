@@ -7,12 +7,8 @@
         <p>¿Está usted seguro de <b>eliminar</b> este curso? Esta acción no puede ser revertida.</p>
         <ol style="list-style-type:disc;">
         <li><b>Código</b>: <%= @course.course_code %></li>
-        <% CourseType.where(course_type_id: @course.course_type_id).select(:course_type).each do |type| %>
-        <li><b>Tipo</b>: <%= type.course_type %></li>
-        <% end %>
-        <% Office.where(office_id: @course.office_id).select(:office_name).each do |office| %>
-        <li><b>Sede</b>: <%= office.office_name %></li>
-        <% end %>
+        <li><b>Tipo</b>: <%= @course.course_name %></li>
+        <li><b>Sede</b>: <%= @course.office_name %></li>
         <li><b>Nivel</b>: <%= @course.course_level %></li>
         <li><b>Capacidad</b>: <%= @course.course_capacity %></li>
         <li><b>Fecha de inicio</b>: <%= @course.start_date.strftime('%d/%m/%Y') %></li>
