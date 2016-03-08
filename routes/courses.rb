@@ -20,7 +20,6 @@ get '/dashboard/courses/new_course' do
   set_page_title('Crear nuevo curso')
   @types = CourseType.select(:course_type_id, :course_name)
   @offices = Office.all
-  @js = ['moment.min.js', 'bootstrap-datetimepicker.min.js']
   erb :'new/new_course', layout: :'layouts/dashboard'
 end
 

@@ -92,7 +92,6 @@ end
 get '/dashboard/students/:id/signups/add' do
   if find_student(params[:id])
     @student_id = params[:id]
-    @js = ['moment.min.js', 'bootstrap-datetimepicker.min.js']
     @banks = Bank.all
     set_page_title('Nueva inscripción')
     erb :'new/new_signup', layout: :'layouts/dashboard'
@@ -160,7 +159,6 @@ get '/dashboard/students/:id/fees/add' do
   if find_student(params[:id])
     set_page_title('Nueva cuota')
     @banks = Bank.all
-    @js = ['moment.min.js', 'bootstrap-datetimepicker.min.js']
     @student_id = params[:id]
     erb :'new/new_fee', layout: :'layouts/dashboard'
   end

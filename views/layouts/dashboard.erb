@@ -6,12 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap.css")%>">
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/fixed-navbar_footer.css")%>">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-    <% if @js %>
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap-datetimepicker.min.css")%>">
-    <% end %>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" async></script>
-    <script type="text/javascript" src="<%=url("/javascript/list.min.js")%>"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <title><%= @page_title %> — Panel de control | AF Maracay</title>
   </head>
 
@@ -79,13 +75,13 @@
       <%= yield %>
     </div>
 
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" defer></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <% if @js %>
-      <% @js.each do |script| %>
-      <script type="text/javascript" src="<%=url("/javascript/#{script}")%>"></script>
-      <% end %>
-    <% end %>
+    <script type="text/javascript" src="<%=url("/javascript/list.min.js")%>"></script>
+    <script type="text/javascript" src="<%=url("/javascript/moment.min.js")%>"></script>
+    <script type="text/javascript" src="<%=url("/javascript/bootstrap-datetimepicker.min.js")%>"></script>
+    <script type="text/javascript" src="<%=url("/javascript/application.js")%>"></script>
 
     <% if flash[:notice] %>
       <script type="text/javascript">

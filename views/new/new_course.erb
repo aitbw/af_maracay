@@ -54,21 +54,3 @@
   <button type="submit" class="btn btn-success">Crear curso</button>
   <a href="/dashboard/courses" class="btn btn-default">Cancelar</a>
 </form>
-
-<script type="text/javascript">
-  $(function () {
-    $('#leftDatePicker').datetimepicker({
-      format: 'DD/MM/YYYY'
-    });
-    $('#rightDatePicker').datetimepicker({
-      format: 'DD/MM/YYYY',
-      useCurrent: false
-    });
-    $('#leftDatePicker').on('dp.change', function (e) {
-      $('#rightDatePicker').data('DateTimePicker').minDate(e.date);
-    });
-    $('#rightDatePicker').on('dp.change', function (e) {
-      $('#leftDatePicker').data('DateTimePicker').maxDate(e.date);
-    });
-  });
-</script>

@@ -43,20 +43,3 @@
   <button type="submit" class="btn btn-success">Generar inscripción</button>
   <a href="/dashboard/students/<%= @student_id %>/signups" class="btn btn-default">Cancelar</a>
 </form>
-
-<script type="text/javascript">
-  $(function () {
-    $('#datePicker').datetimepicker({
-      format: 'DD/MM/YYYY'
-    });
-  });
-
-  var paymentType = document.getElementById("paymentType");
-
-  paymentType.onchange = function(){
-    var bank = document.getElementById("bank");
-    var referenceNumber = document.getElementById("referenceNumber");
-    bank.style.display = (this.value != "Transferencia") ? "none":"block";
-    referenceNumber.style.display = (this.value == "Efectivo") ? "none":"block";
-  };
-</script>
