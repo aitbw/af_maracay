@@ -1,7 +1,8 @@
 config/database.yml
 db/Alianza Francesa Maracay.mwb
 db/Alianza Francesa Maracay.mwb.bak
-db/af_maracay.sql
+db/Alianza Francesa Maracay.mwb.beforefix
+db/structure.sql
 log/
 bower_components/
 .ruby-gemset
