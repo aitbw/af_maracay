@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160217155000) do
+ActiveRecord::Schema.define(version: 0) do
 
-  create_table "bank_accounts", primary_key: "bank_account_id", force: :cascade do |t|
-    t.string  "account_number", limit: 50, null: false
-    t.string  "account_type",   limit: 50, null: false
-    t.integer "teacher_id",     limit: 4,  null: false
-    t.integer "bank_id",        limit: 4,  null: false
+  create_table "bank_accounts", id: false, force: :cascade do |t|
+    t.integer "bank_account_id", limit: 4,  null: false
+    t.string  "account_number",  limit: 50, null: false
+    t.string  "account_type",    limit: 50, null: false
+    t.integer "teacher_id",      limit: 4,  null: false
+    t.integer "bank_id",         limit: 4,  null: false
   end
 
   add_index "bank_accounts", ["bank_account_id"], name: "bank_account_id_UNIQUE", unique: true, using: :btree
@@ -31,12 +32,12 @@ ActiveRecord::Schema.define(version: 20160217155000) do
   add_index "banks", ["bank_id"], name: "bank_id_UNIQUE", unique: true, using: :btree
 
   create_table "course_teachers", id: false, force: :cascade do |t|
-    t.integer "course_id",  limit: 4, null: false
-    t.integer "teacher_id", limit: 4, null: false
+    t.integer "courses_course_id",   limit: 4, null: false
+    t.integer "teachers_teacher_id", limit: 4, null: false
   end
 
-  add_index "course_teachers", ["course_id"], name: "fk_courses_has_teachers_courses1_idx", using: :btree
-  add_index "course_teachers", ["teacher_id"], name: "fk_courses_has_teachers_teachers1_idx", using: :btree
+  add_index "course_teachers", ["courses_course_id"], name: "fk_courses_has_teachers_courses1_idx", using: :btree
+  add_index "course_teachers", ["teachers_teacher_id"], name: "fk_courses_has_teachers_teachers1_idx", using: :btree
 
   create_table "course_types", primary_key: "course_type_id", force: :cascade do |t|
     t.string "course_name",     limit: 50, null: false
@@ -46,7 +47,8 @@ ActiveRecord::Schema.define(version: 20160217155000) do
 
   add_index "course_types", ["course_type_id"], name: "course_type_id_UNIQUE", unique: true, using: :btree
 
-  create_table "courses", primary_key: "course_id", force: :cascade do |t|
+  create_table "courses", id: false, force: :cascade do |t|
+    t.integer "course_id",       limit: 4,              null: false
     t.string  "course_code",     limit: 50,             null: false
     t.string  "course_level",    limit: 50,             null: false
     t.integer "course_capacity", limit: 4,              null: false
@@ -62,7 +64,8 @@ ActiveRecord::Schema.define(version: 20160217155000) do
   add_index "courses", ["course_type_id"], name: "fk_courses_course_types1_idx", using: :btree
   add_index "courses", ["office_id"], name: "fk_courses_offices1_idx", using: :btree
 
-  create_table "fees", primary_key: "fee_id", force: :cascade do |t|
+  create_table "fees", id: false, force: :cascade do |t|
+    t.integer "fee_id",           limit: 4,   null: false
     t.float   "fee_amount",       limit: 24,  null: false
     t.string  "payment_type",     limit: 50,  null: false
     t.date    "issue_date",                   null: false
@@ -70,16 +73,17 @@ ActiveRecord::Schema.define(version: 20160217155000) do
     t.string  "bank",             limit: 50
     t.string  "reference_number", limit: 50
     t.string  "fee_status",       limit: 50,  null: false
+    t.string  "fee_description",  limit: 200, null: false
     t.integer "user_id",          limit: 4,   null: false
     t.integer "student_id",       limit: 4,   null: false
-    t.string  "fee_description",  limit: 200, null: false
   end
 
   add_index "fees", ["fee_id"], name: "fee_id_UNIQUE", unique: true, using: :btree
   add_index "fees", ["student_id"], name: "fk_fees_students1_idx", using: :btree
   add_index "fees", ["user_id"], name: "fk_fees_users1_idx", using: :btree
 
-  create_table "grades", primary_key: "grade_id", force: :cascade do |t|
+  create_table "grades", id: false, force: :cascade do |t|
+    t.integer "grade_id",   limit: 4, null: false
     t.integer "grade",      limit: 4, null: false
     t.date    "grade_date",           null: false
     t.integer "student_id", limit: 4, null: false
@@ -90,14 +94,6 @@ ActiveRecord::Schema.define(version: 20160217155000) do
   add_index "grades", ["grade_id"], name: "grade_id_UNIQUE", unique: true, using: :btree
   add_index "grades", ["student_id"], name: "fk_grades_students1_idx", using: :btree
 
-  create_table "item_movements", id: false, force: :cascade do |t|
-    t.integer "items_item_id",         limit: 4, null: false
-    t.integer "movements_movement_id", limit: 4, null: false
-  end
-
-  add_index "item_movements", ["items_item_id"], name: "fk_items_has_movements_items1_idx", using: :btree
-  add_index "item_movements", ["movements_movement_id"], name: "fk_items_has_movements_movements1_idx", using: :btree
-
   create_table "items", primary_key: "item_id", force: :cascade do |t|
     t.string  "item_name",   limit: 100, null: false
     t.integer "item_amount", limit: 4,   null: false
@@ -107,13 +103,18 @@ ActiveRecord::Schema.define(version: 20160217155000) do
 
   add_index "items", ["item_id"], name: "item_id_UNIQUE", unique: true, using: :btree
 
-  create_table "movements", primary_key: "movement_id", force: :cascade do |t|
+  create_table "movements", id: false, force: :cascade do |t|
+    t.integer "movement_id",     limit: 4,  null: false
     t.string  "movement_type",   limit: 50, null: false
     t.integer "movement_amount", limit: 4,  null: false
     t.date    "movement_date",              null: false
+    t.integer "item_id",         limit: 4,  null: false
+    t.integer "office_id",       limit: 4,  null: false
   end
 
+  add_index "movements", ["item_id"], name: "fk_movements_items1_idx", using: :btree
   add_index "movements", ["movement_id"], name: "movement_id_UNIQUE", unique: true, using: :btree
+  add_index "movements", ["office_id"], name: "fk_movements_offices1_idx", using: :btree
 
   create_table "office_items", id: false, force: :cascade do |t|
     t.integer "offices_office_id", limit: 4, null: false
@@ -122,14 +123,6 @@ ActiveRecord::Schema.define(version: 20160217155000) do
 
   add_index "office_items", ["items_item_id"], name: "fk_offices_has_items_items1_idx", using: :btree
   add_index "office_items", ["offices_office_id"], name: "fk_offices_has_items_offices1_idx", using: :btree
-
-  create_table "office_movements", id: false, force: :cascade do |t|
-    t.integer "offices_office_id",     limit: 4, null: false
-    t.integer "movements_movement_id", limit: 4, null: false
-  end
-
-  add_index "office_movements", ["movements_movement_id"], name: "fk_offices_has_movements_movements1_idx", using: :btree
-  add_index "office_movements", ["offices_office_id"], name: "fk_offices_has_movements_offices1_idx", using: :btree
 
   create_table "offices", primary_key: "office_id", force: :cascade do |t|
     t.string "office_name", limit: 75, null: false
@@ -149,7 +142,8 @@ ActiveRecord::Schema.define(version: 20160217155000) do
   add_index "providers", ["provider_id"], name: "provider_id_UNIQUE", unique: true, using: :btree
   add_index "providers", ["provider_rif"], name: "provider_rif_UNIQUE", unique: true, using: :btree
 
-  create_table "signups", primary_key: "signup_id", force: :cascade do |t|
+  create_table "signups", id: false, force: :cascade do |t|
+    t.integer "signup_id",          limit: 4,   null: false
     t.float   "signup_amount",      limit: 24,  null: false
     t.string  "payment_type",       limit: 50,  null: false
     t.date    "issue_date",                     null: false
@@ -157,9 +151,9 @@ ActiveRecord::Schema.define(version: 20160217155000) do
     t.string  "bank",               limit: 50
     t.string  "reference_number",   limit: 50
     t.string  "signup_status",      limit: 50,  null: false
+    t.string  "signup_description", limit: 200, null: false
     t.integer "user_id",            limit: 4,   null: false
     t.integer "student_id",         limit: 4,   null: false
-    t.string  "signup_description", limit: 200, null: false
   end
 
   add_index "signups", ["signup_id"], name: "signup_id_UNIQUE", unique: true, using: :btree
@@ -179,11 +173,12 @@ ActiveRecord::Schema.define(version: 20160217155000) do
   add_index "students", ["student_email"], name: "student_email_UNIQUE", unique: true, using: :btree
   add_index "students", ["student_id"], name: "ID_UNIQUE", unique: true, using: :btree
 
-  create_table "teacher_hours", primary_key: "teacher_hour_id", force: :cascade do |t|
-    t.integer "hours_covered", limit: 4, null: false
-    t.date    "date_covered",            null: false
-    t.integer "teacher_id",    limit: 4, null: false
-    t.integer "course_id",     limit: 4, null: false
+  create_table "teacher_hours", id: false, force: :cascade do |t|
+    t.integer "teacher_hour_id", limit: 4, null: false
+    t.integer "hours_covered",   limit: 4, null: false
+    t.date    "date_covered",              null: false
+    t.integer "teacher_id",      limit: 4, null: false
+    t.integer "course_id",       limit: 4, null: false
   end
 
   add_index "teacher_hours", ["course_id"], name: "fk_teachers_hours_courses1_idx", using: :btree
@@ -215,20 +210,18 @@ ActiveRecord::Schema.define(version: 20160217155000) do
 
   add_foreign_key "bank_accounts", "banks", primary_key: "bank_id", name: "fk_bank_accounts_banks1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "bank_accounts", "teachers", primary_key: "teacher_id", name: "fk_bank_accounts_teachers1", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "course_teachers", "courses", primary_key: "course_id", name: "fk_courses_has_teachers_courses1", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "course_teachers", "teachers", primary_key: "teacher_id", name: "fk_courses_has_teachers_teachers1", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "course_teachers", "courses", column: "courses_course_id", primary_key: "course_id", name: "fk_courses_has_teachers_courses1", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "course_teachers", "teachers", column: "teachers_teacher_id", primary_key: "teacher_id", name: "fk_courses_has_teachers_teachers1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "courses", "course_types", primary_key: "course_type_id", name: "fk_courses_course_types1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "courses", "offices", primary_key: "office_id", name: "fk_courses_offices1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "fees", "students", primary_key: "student_id", name: "fk_fees_students1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "fees", "users", primary_key: "user_id", name: "fk_fees_users1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "grades", "courses", primary_key: "course_id", name: "fk_grades_courses1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "grades", "students", primary_key: "student_id", name: "fk_grades_students1", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "item_movements", "items", column: "items_item_id", primary_key: "item_id", name: "fk_items_has_movements_items1", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "item_movements", "movements", column: "movements_movement_id", primary_key: "movement_id", name: "fk_items_has_movements_movements1", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "movements", "items", primary_key: "item_id", name: "fk_movements_items1"
+  add_foreign_key "movements", "offices", primary_key: "office_id", name: "fk_movements_offices1"
   add_foreign_key "office_items", "items", column: "items_item_id", primary_key: "item_id", name: "fk_offices_has_items_items1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "office_items", "offices", column: "offices_office_id", primary_key: "office_id", name: "fk_offices_has_items_offices1", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "office_movements", "movements", column: "movements_movement_id", primary_key: "movement_id", name: "fk_offices_has_movements_movements1", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "office_movements", "offices", column: "offices_office_id", primary_key: "office_id", name: "fk_offices_has_movements_offices1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "signups", "students", primary_key: "student_id", name: "fk_signups_students1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "signups", "users", primary_key: "user_id", name: "fk_signups_users1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "students", "courses", primary_key: "course_id", name: "fk_students_courses1", on_update: :cascade, on_delete: :cascade
