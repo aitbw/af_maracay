@@ -13,12 +13,11 @@
 
 ActiveRecord::Schema.define(version: 0) do
 
-  create_table "bank_accounts", id: false, force: :cascade do |t|
-    t.integer "bank_account_id", limit: 4,  null: false
-    t.string  "account_number",  limit: 50, null: false
-    t.string  "account_type",    limit: 50, null: false
-    t.integer "teacher_id",      limit: 4,  null: false
-    t.integer "bank_id",         limit: 4,  null: false
+  create_table "bank_accounts", primary_key: "bank_account_id", force: :cascade do |t|
+    t.string  "account_number", limit: 50, null: false
+    t.string  "account_type",   limit: 50, null: false
+    t.integer "teacher_id",     limit: 4,  null: false
+    t.integer "bank_id",        limit: 4,  null: false
   end
 
   add_index "bank_accounts", ["bank_account_id"], name: "bank_account_id_UNIQUE", unique: true, using: :btree
@@ -47,8 +46,7 @@ ActiveRecord::Schema.define(version: 0) do
 
   add_index "course_types", ["course_type_id"], name: "course_type_id_UNIQUE", unique: true, using: :btree
 
-  create_table "courses", id: false, force: :cascade do |t|
-    t.integer "course_id",       limit: 4,              null: false
+  create_table "courses", primary_key: "course_id", force: :cascade do |t|
     t.string  "course_code",     limit: 50,             null: false
     t.string  "course_level",    limit: 50,             null: false
     t.integer "course_capacity", limit: 4,              null: false
@@ -64,8 +62,7 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "courses", ["course_type_id"], name: "fk_courses_course_types1_idx", using: :btree
   add_index "courses", ["office_id"], name: "fk_courses_offices1_idx", using: :btree
 
-  create_table "fees", id: false, force: :cascade do |t|
-    t.integer "fee_id",           limit: 4,   null: false
+  create_table "fees", primary_key: "fee_id", force: :cascade do |t|
     t.float   "fee_amount",       limit: 24,  null: false
     t.string  "payment_type",     limit: 50,  null: false
     t.date    "issue_date",                   null: false
@@ -82,8 +79,7 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "fees", ["student_id"], name: "fk_fees_students1_idx", using: :btree
   add_index "fees", ["user_id"], name: "fk_fees_users1_idx", using: :btree
 
-  create_table "grades", id: false, force: :cascade do |t|
-    t.integer "grade_id",   limit: 4, null: false
+  create_table "grades", primary_key: "grade_id", force: :cascade do |t|
     t.integer "grade",      limit: 4, null: false
     t.date    "grade_date",           null: false
     t.integer "student_id", limit: 4, null: false
@@ -103,8 +99,7 @@ ActiveRecord::Schema.define(version: 0) do
 
   add_index "items", ["item_id"], name: "item_id_UNIQUE", unique: true, using: :btree
 
-  create_table "movements", id: false, force: :cascade do |t|
-    t.integer "movement_id",     limit: 4,  null: false
+  create_table "movements", primary_key: "movement_id", force: :cascade do |t|
     t.string  "movement_type",   limit: 50, null: false
     t.integer "movement_amount", limit: 4,  null: false
     t.date    "movement_date",              null: false
@@ -142,8 +137,7 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "providers", ["provider_id"], name: "provider_id_UNIQUE", unique: true, using: :btree
   add_index "providers", ["provider_rif"], name: "provider_rif_UNIQUE", unique: true, using: :btree
 
-  create_table "signups", id: false, force: :cascade do |t|
-    t.integer "signup_id",          limit: 4,   null: false
+  create_table "signups", primary_key: "signup_id", force: :cascade do |t|
     t.float   "signup_amount",      limit: 24,  null: false
     t.string  "payment_type",       limit: 50,  null: false
     t.date    "issue_date",                     null: false
@@ -173,12 +167,11 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "students", ["student_email"], name: "student_email_UNIQUE", unique: true, using: :btree
   add_index "students", ["student_id"], name: "ID_UNIQUE", unique: true, using: :btree
 
-  create_table "teacher_hours", id: false, force: :cascade do |t|
-    t.integer "teacher_hour_id", limit: 4, null: false
-    t.integer "hours_covered",   limit: 4, null: false
-    t.date    "date_covered",              null: false
-    t.integer "teacher_id",      limit: 4, null: false
-    t.integer "course_id",       limit: 4, null: false
+  create_table "teacher_hours", primary_key: "teacher_hour_id", force: :cascade do |t|
+    t.integer "hours_covered", limit: 4, null: false
+    t.date    "date_covered",            null: false
+    t.integer "teacher_id",    limit: 4, null: false
+    t.integer "course_id",     limit: 4, null: false
   end
 
   add_index "teacher_hours", ["course_id"], name: "fk_teachers_hours_courses1_idx", using: :btree
