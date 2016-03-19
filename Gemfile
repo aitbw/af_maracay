@@ -22,6 +22,7 @@ gem 'chartkick', '>= 1.4.1'
 gem 'puma', '>= 2.14.0'
 gem 'encrypted_cookie'
 gem 'sinatra-cache-assets', require: 'sinatra/cache_assets'
+gem 'erubis', '>= 2.7.0', require: 'tilt/erubis'
 
 group :development do
   gem 'better_errors'
