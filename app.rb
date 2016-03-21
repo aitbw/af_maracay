@@ -2,7 +2,6 @@
 
 require 'bundler/setup'
 Bundler.require(:default)
-require 'tilt/erubis'
 require './environments'
 Dir['./controllers/*.rb', './models/*.rb', './routes/*.rb'].each { |file| require file }
 
