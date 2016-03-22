@@ -21,10 +21,9 @@
     </thead>
     <tbody class="list">
       <% @students.each do |student| %>
-      <% Course.where(course_id: student.course_id).select(:course_code).each do |course| %>
         <tr>
-          <td><%= course.course_code %></td>
-          <td><%=h student.student_name %></td>
+          <td><%= student.course_code %></td>
+          <td><%= h(student.student_name) %></td>
           <td><%= student.student_email %></td>
           <td><%= student.student_phone %></td>
           <td class="cedula"><%= student.student_cedula %></td>
@@ -44,7 +43,6 @@
             </div>
           </td>
         </tr>
-        <% end %>
       <% end %>
     </tbody>
   </table>
