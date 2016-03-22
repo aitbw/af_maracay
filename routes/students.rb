@@ -83,7 +83,7 @@ end
 get '/dashboard/students/:id/signups' do
   if find_student(params[:id])
     @student_id = params[:id]
-    @signups = Signup.where(student_id: params[:id]).order(issue_date: :desc)
+    @signups = Signup.where(student_id: params[:id]).order(issue_date: :desc).includes(:user)
     set_page_title('Inscripciones')
     erb :signups, layout: :'layouts/dashboard'
   end
@@ -150,7 +150,7 @@ get '/dashboard/students/:id/fees' do
   if find_student(params[:id])
     set_page_title('Cuotas')
     @student_id = params[:id]
-    @fees = Fee.where(student_id: params[:id]).order(issue_date: :desc)
+    @fees = Fee.where(student_id: params[:id]).order(issue_date: :desc).includes(:user)
     erb :fees, layout: :'layouts/dashboard'
   end
 end
