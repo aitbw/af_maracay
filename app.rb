@@ -8,7 +8,6 @@ Dir['./controllers/*.rb', './models/*.rb', './routes/*.rb'].each { |file| requir
 configure do
   enable :sessions
   set :session_secret, SecureRandom.hex(64)
-  use Sinatra::CacheAssets, max_age: 86_400
   Rack::Builder.new do
     cookie_settings = {
       path: '/',
@@ -19,10 +18,6 @@ configure do
     use Rack::Session::EncryptedCookie, cookie_settings
     use Rack::Csrf, raise: true
   end
-end
-
-before do
-  cache_control :public, :must_revalidate
 end
 
 helpers do
