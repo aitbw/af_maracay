@@ -34,7 +34,7 @@ end
 
 get '/dashboard/students' do
   set_page_title('Estudiantes')
-  @students = Student.all
+  @students = Student.all.includes(:course)
   erb :students, layout: :'layouts/dashboard'
 end
 
