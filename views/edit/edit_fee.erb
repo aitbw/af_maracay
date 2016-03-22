@@ -16,19 +16,29 @@
       <label>Banco</label>
       <select name="form[bank]" class="form-control">
         <% @banks.each do |bank| %>
-        <option <%= "selected" if bank.bank_name == @fee.bank %> value="<%= bank.bank_name %>" disabled><%=h bank.bank_name %></option>
+        <option <%= "selected" if bank.bank_name == @fee.bank %> value="<%= bank.bank_name %>" disabled><%= h(bank.bank_name) %></option>
         <% end %>
       </select>
     </div>
     <% end %>
     <div class="form-group">
       <label>Número de referencia</label>
-      <textarea name="form[reference_number]" class="form-control"><%=h @fee.reference_number %></textarea>
+      <textarea name="form[reference_number]" class="form-control"><%= h(@fee.reference_number) %></textarea>
     </div>
     <div class="form-group">
       <label>Concepto</label>
       <textarea type="text" class="form-control" name="form[fee_description]"><%= h(@fee.fee_description) %></textarea>
     </div>
+    <% if session[:role] == 'Admin' && @fee.fee_status == 'Cuota por aprobar' %>
+      <div class="form-group">
+        <label>Estado de la cuota</label>
+        <select name="form[fee_status]" class="form-control">
+          <% ['Cuota vigente', 'Cuota no aprobada'].each do |status| %>
+          <option value="<%= status %>"><%= status %></option>
+          <% end %>
+        </select>
+      </div>
+    <% end %>
     <input type="hidden" name="_method" value="PUT">
     <button type="submit" class="btn btn-success">Actualizar</button>
     <a href="/dashboard/students/<%= @fee.student_id %>/fees" class="btn btn-default">Cancelar</a>
