@@ -42,7 +42,7 @@ post '/signin' do
   if (params[:cedula] || params[:password]).blank?
     redirect '/signin', error: 'Debe completar todos los campos.'
   else
-    authenticate(params[:cedula], params[:password])
+    user_exists?(params[:cedula])
   end
 end
 
