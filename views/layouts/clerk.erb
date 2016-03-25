@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap.css")%>">
+    <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/application.css")%>">
+    <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap-datetimepicker.min.css")%>">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <title><%= @page_title %> — Panel de control | AF Maracay</title>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/dashboard">AF Maracay</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Controles<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/dashboard/courses">Cursos</a></li>
+                <li><a href="/dashboard/students">Estudiantes</a></li>
+                <li><a href="/dashboard/teachers">Profesores</a></li>
+                <li><a href="/dashboard/providers">Proveedores</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Inventario<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Movimientos</a></li>
+                <li><a href="#">Ver inventario</a></li>
+              </ul>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a href="/dashboard/change_password"><%= session[:name] %></a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lenguaje<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Español</a></li>
+                <li><a href="#">Français</a></li>
+              </ul>
+            </li>
+            <li><a href="/logout">Cerrar sesión</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="wrap" class="container">
+      <%= yield %>
+    </div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script type="text/javascript" src="<%=url("/javascript/moment.min.js")%>"></script>
+    <script type="text/javascript" src="<%=url("/javascript/bootstrap-datetimepicker.min.js")%>"></script>
+    <script type="text/javascript" src="<%=url("/javascript/application.js")%>"></script>
+
+    <% if flash[:notice] %>
+      <script type="text/javascript">
+        toastr.success('<%= flash[:notice] %>');
+      </script>
+    <% end %>
+
+    <% if flash[:error] %>
+      <script type="text/javascript">
+        toastr.error('<%= flash[:error] %>');
+      </script>
+    <% end %>
+
+    <% if flash[:errors] %>
+      <script type="text/javascript">
+        <% flash[:errors].reverse_each do |error| %>
+        toastr.error('<%= h(error) %>');
+        <% end %>
+      </script>
+    <% end %>
+
+    <!-- TO-DO: Footer -->
+
+  </body>
+</html>

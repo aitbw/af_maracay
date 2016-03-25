@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap.css")%>">
-    <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/fixed-navbar_footer.css")%>">
+    <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/application.css")%>">
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap-datetimepicker.min.css")%>">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <title><%= @page_title %> — Panel de control | AF Maracay</title>
@@ -27,10 +27,8 @@
                 <li><a href="/dashboard/students">Estudiantes</a></li>
                 <li><a href="/dashboard/teachers">Profesores</a></li>
                 <li><a href="/dashboard/providers">Proveedores</a></li>
-                <% if session[:role] == 'Admin' %>
                 <li><a href="#">Salarios</a></li>
                 <li><a href="/dashboard/users">Usuarios</a></li>
-                <% end %>
               </ul>
             </li>
 
@@ -42,7 +40,6 @@
               </ul>
             </li>
 
-          <% if session[:role] == 'Admin' %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes<span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -50,12 +47,10 @@
                 <li><a href="#">Ver reportes</a>
               </ul>
             </li>
-          <% end %>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
             <li class="active"><a href="/dashboard/change_password"><%= session[:name] %></a></li>
-
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lenguaje<span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -63,10 +58,8 @@
                 <li><a href="#">Français</a></li>
               </ul>
             </li>
-
             <li><a href="/logout">Cerrar sesión</a></li>
           </ul>
-
         </div>
       </div>
     </nav>

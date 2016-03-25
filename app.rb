@@ -25,6 +25,15 @@ helpers do
     @page_title = title
   end
 
+  def user_layout
+    case session[:role]
+    when 'Admin'
+      { layout: :'layouts/admin' }
+    when 'Recepcionista'
+      { layout: :'layouts/clerk' }
+    end
+  end
+
   include Rack::Utils
   alias_method :h, :escape_html
 end
@@ -43,7 +52,7 @@ end
 
 get '/dashboard' do
   set_page_title('Inicio')
-  erb :index, layout: :'layouts/dashboard'
+  erb :index, user_layout
 end
 
 get '/logout' do
