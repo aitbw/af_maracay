@@ -1,7 +1,7 @@
-<div id="students">
+<div>
   <form class="form-inline">
     <div class="form-group">
-      <input class="search form-control" placeholder="Buscar por cédula">
+      <input class="form-control" placeholder="Buscar por cédula">
       <a href="/dashboard/students/new_student" class="btn btn-success">Nuevo estudiante</a>
     </div>
   </form>
@@ -19,14 +19,14 @@
         <th scope="col">Acciones</th>
       </tr>
     </thead>
-    <tbody class="list">
+    <tbody>
       <% @students.each do |student| %>
         <tr>
           <td><%= student.course_code %></td>
           <td><%= h(student.student_name) %></td>
           <td><%= student.student_email %></td>
           <td><%= student.student_phone %></td>
-          <td class="cedula"><%= student.student_cedula %></td>
+          <td><%= student.student_cedula %></td>
           <td>
             <div class="btn-group">
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>

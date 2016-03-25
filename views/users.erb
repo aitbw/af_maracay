@@ -1,7 +1,7 @@
-<div id="users">
-  <form class="form-inline">
+<div>
+  <form class="form-inline" action="/dashboard/users" method="GET">
     <div class="form-group">
-      <input class="search form-control" placeholder="Buscar por cédula">
+      <input class="form-control" name="cedula" placeholder="Buscar por cédula" value="<%= params[:cedula] %>">
     </div>
     <a href="/dashboard/users/new_user" class="btn btn-success">Nuevo usuario</a>
   </form>
@@ -17,11 +17,11 @@
         <th scope="col">Acciones</th>
       </tr>
     </thead>
-    <tbody class="list">
+    <tbody>
       <% @users.each do |user| %>
         <tr>
-          <td><%=h user.user_name %></td>
-          <td class="cedula"><%= user.user_cedula %></td>
+          <td><%= h(user.user_name) %></td>
+          <td><%= user.user_cedula %></td>
           <td><%= user.access_level %></td>
           <td>
             <div class="btn-group">
@@ -31,7 +31,7 @@
                 <li><a href="/dashboard/users/<%= user.user_id %>/edit">Modificar</a></li>
                 <li><a href="/dashboard/users/<%= user.user_id %>/delete">Eliminar</a></li>
                 <% end %>
-                <li><a href="/dashboard/users/<%= user.user_id %>/reset_password">Reestablecer contraseña</a></li>
+                <li><a href="/dashboard/users/<%= user.user_id %>/reset_password">Restablecer contraseña</a></li>
               </ul>
             </div>
           </td>
@@ -39,4 +39,8 @@
       <% end %>
     </tbody>
   </table>
+  <div class="pagination">
+    <%= will_paginate @users, container: false, previous_label: "&laquo", next_label: "&raquo" %>
+    <%= "<a href=\"/dashboard/users\">Volver</a>" if params[:cedula] %>
+  </div>
 </div>

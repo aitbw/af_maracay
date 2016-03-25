@@ -2,6 +2,9 @@ require 'active_support/core_ext/string/inflections'
 
 # Model for 'users' table
 class User < ActiveRecord::Base
+  # Records shown per page on 'users' view
+  self.per_page = 10
+
   # Relations
   has_many :signups, dependent: :destroy
   has_many :fees, dependent: :destroy
@@ -19,6 +22,14 @@ class User < ActiveRecord::Base
   # Methods
   def normalize_name
     self.user_name = user_name.titleize
+  end
+
+  def self.search_user(cedula)
+    if cedula
+      User.where('user_cedula LIKE ?', "%#{cedula}%")
+    else
+      User.all
+    end
   end
 
   private

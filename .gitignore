@@ -6,4 +6,3 @@ db/structure.sql
 log/
 bower_components/
 .ruby-gemset
-.ruby-version

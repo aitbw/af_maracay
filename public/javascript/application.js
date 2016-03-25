@@ -1,38 +1,3 @@
-/* Search function for 'users' module with List.js */
-var userOptions = {
-  valueNames: ['cedula']
-}
-
-var userList = new List('users', userOptions);
-
-/* Search function for 'teachers' module with List.js */
-var teacherOptions = {
-  valueNames: ['cedula']
-}
-
-var teacherList = new List('teachers', teacherOptions);
-
-/* Search function for 'students' module with List.js */
-var studentOptions = {
-  valueNames: ['cedula']
-}
-
-var studentList = new List('students', studentOptions);
-
-/* Search function for 'providers' module with List.js */
-var providerOptions = {
-  valueNames: ['name']
-}
-
-var providersList = new List('providers', providerOptions);
-
-/* Search function for 'courses' module with List.js */
-var courseOptions = {
-  valueNames: ['code']
-}
-
-var courseList = new List('courses', courseOptions);
-
 /* One-option date picker */
 $(function () {
   $('#datePicker').datetimepicker({

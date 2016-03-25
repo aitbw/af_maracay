@@ -1,7 +1,7 @@
-<div id="courses">
+<div>
   <form class="form-inline">
     <div class="form-group">
-      <input class="search form-control" placeholder="Buscar por código">
+      <input class="form-control" placeholder="Buscar por código">
     </div>
     <a href="/dashboard/courses/new_course" class="btn btn-success">Crear nuevo curso</a>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#courseTypes">Tipos de curso</button>
@@ -24,10 +24,10 @@
         <th scope="col">Acciones</th>
       </tr>
     </thead>
-    <tbody class="list">
+    <tbody>
       <% @courses.each do |course| %>
         <tr>
-          <td class="code"><%= course.course_code %></td>
+          <td><%= course.course_code %></td>
           <td><%= course.course_name %></td>
           <td><%= course.office_name %></td>
           <td><%= course.course_level %></td>

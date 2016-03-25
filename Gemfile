@@ -23,6 +23,7 @@ gem 'puma', '>= 2.14.0'
 gem 'encrypted_cookie'
 gem 'sinatra-cache-assets', require: 'sinatra/cache_assets'
 gem 'erubis', '>= 2.7.0', require: 'tilt/erubis'
+gem 'will_paginate', '>= 3.1', require: ['will_paginate', 'will_paginate/active_record']
 
 group :development do
   gem 'better_errors'

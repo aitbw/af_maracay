@@ -1,7 +1,7 @@
-<div id="teachers">
+<div>
   <form class="form-inline">
     <div class="form-group">
-      <input class="search form-control" placeholder="Buscar por cédula">
+      <input class="form-control" placeholder="Buscar por cédula">
     </div>
     <% if session[:role] == 'Admin' %>
       <a href="/dashboard/teachers/new_teacher" class="btn btn-success">Nuevo profesor</a>
@@ -21,13 +21,13 @@
         <th scope="col">Acciones</th>
       </tr>
     </thead>
-    <tbody class="list">
+    <tbody>
       <% @teachers.each do |teacher| %>
         <tr>
-          <td><%=h teacher.teacher_name %></td>
+          <td><%= h(teacher.teacher_name) %></td>
           <td><%= teacher.teacher_email %></td>
           <td><%= teacher.teacher_phone %></td>
-          <td class="cedula"><%= teacher.teacher_cedula %></td>
+          <td><%= teacher.teacher_cedula %></td>
           <td><%= teacher.entry_date.strftime('%d/%m/%Y') %></td>
           <td>
             <div class="btn-group">

@@ -24,7 +24,7 @@ end
 
 get '/dashboard/users' do
   set_page_title('Usuarios')
-  @users = User.all
+  @users = User.search_user(params[:cedula]).paginate(page: params[:page])
   erb :users, layout: :'layouts/dashboard'
 end
 

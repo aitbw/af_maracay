@@ -1,0 +1,41 @@
+html, body {
+  position: relative;
+  height: 100%;
+}
+
+#wrap {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto -60px;
+  padding-top: 70px;
+}
+
+.pagination {
+  text-align: center;
+  padding: 0.3em;
+  cursor: default; }
+  .pagination a, .pagination span, .pagination em {
+    padding: 0.2em 0.5em; }
+  .pagination .disabled {
+    display: none }
+  .pagination .current {
+    font-style: normal;
+    font-weight: bold;
+    color: #ff0084; }
+  .pagination a {
+    border: 1px solid #dddddd;
+    color: #0063dc;
+    text-decoration: none; }
+    .pagination a:hover, .pagination a:focus {
+      border-color: #0063dc;
+      background: #0063dc;
+      color: white; }
+  .pagination .page_info {
+    color: #aaaaaa;
+    padding-top: 0.8em; }
+  .pagination .previous_page, .pagination .next_page {
+    border-width: 2px; }
+  .pagination .previous_page {
+    margin-right: 1em; }
+  .pagination .next_page {
+    margin-left: 1em; }
