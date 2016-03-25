@@ -35,13 +35,13 @@ end
 get '/dashboard/students' do
   set_page_title('Estudiantes')
   @students = Student.all.includes(:course)
-  erb :students, layout: :'layouts/dashboard'
+  erb :students, user_layout
 end
 
 get '/dashboard/students/new_student' do
   set_page_title('Crear nuevo estudiante')
   @courses = Course.where.not(course_hours: 0).select(:course_id, :course_code)
-  erb :'new/new_student', layout: :'layouts/dashboard'
+  erb :'new/new_student', user_layout
 end
 
 post '/dashboard/students/new_student' do
@@ -51,7 +51,7 @@ end
 get '/dashboard/students/:id/delete' do
   @student = Student.find(params[:id])
   set_page_title('Eliminar estudiante')
-  erb :'delete/delete_student', layout: :'layouts/dashboard'
+  erb :'delete/delete_student', user_layout
 end
 
 delete '/dashboard/students/:id/delete' do
@@ -66,7 +66,7 @@ end
 get '/dashboard/students/:id/edit' do
   @student = Student.find(params[:id])
   set_page_title('Editar estudiante')
-  erb :'edit/edit_student', layout: :'layouts/dashboard'
+  erb :'edit/edit_student', user_layout
 end
 
 put '/dashboard/students/:id/edit' do
@@ -85,7 +85,7 @@ get '/dashboard/students/:id/signups' do
     @student_id = params[:id]
     @signups = Signup.where(student_id: params[:id]).order(issue_date: :desc).includes(:user)
     set_page_title('Inscripciones')
-    erb :signups, layout: :'layouts/dashboard'
+    erb :signups, user_layout
   end
 end
 
@@ -94,7 +94,7 @@ get '/dashboard/students/:id/signups/add' do
     @student_id = params[:id]
     @banks = Bank.all
     set_page_title('Nueva inscripción')
-    erb :'new/new_signup', layout: :'layouts/dashboard'
+    erb :'new/new_signup', user_layout
   end
 end
 
@@ -115,7 +115,7 @@ end
 get '/dashboard/students/:student/signups/:signup/delete' do
   set_page_title('Eliminar inscripción')
   @signup = Signup.find(params[:signup])
-  erb :'delete/delete_signup', layout: :'layouts/dashboard'
+  erb :'delete/delete_signup', user_layout
 end
 
 delete '/dashboard/students/:student/signups/:signup/delete' do
@@ -132,7 +132,7 @@ get '/dashboard/students/:student/signups/:signup/edit' do
   set_page_title('Editar inscripción')
   @signup = Signup.find(params[:signup])
   @banks = Bank.all
-  erb :'edit/edit_signup', layout: :'layouts/dashboard'
+  erb :'edit/edit_signup', user_layout
 end
 
 put '/dashboard/students/:student/signups/:signup/edit' do
@@ -151,7 +151,7 @@ get '/dashboard/students/:id/fees' do
     set_page_title('Cuotas')
     @student_id = params[:id]
     @fees = Fee.where(student_id: params[:id]).order(issue_date: :desc).includes(:user)
-    erb :fees, layout: :'layouts/dashboard'
+    erb :fees, user_layout
   end
 end
 
@@ -160,7 +160,7 @@ get '/dashboard/students/:id/fees/add' do
     set_page_title('Nueva cuota')
     @banks = Bank.all
     @student_id = params[:id]
-    erb :'new/new_fee', layout: :'layouts/dashboard'
+    erb :'new/new_fee', user_layout
   end
 end
 
@@ -181,7 +181,7 @@ end
 get '/dashboard/students/:student/fees/:fee/delete' do
   set_page_title('Eliminar cuota')
   @fee = Fee.find(params[:fee])
-  erb :'delete/delete_fee', layout: :'layouts/dashboard'
+  erb :'delete/delete_fee', user_layout
 end
 
 delete '/dashboard/students/:student/fees/:fee/delete' do
@@ -197,7 +197,7 @@ end
 get '/dashboard/students/:student/fees/:fee/edit' do
   set_page_title('Editar cuota')
   @fee = Fee.find(params[:fee])
-  erb :'edit/edit_fee', layout: :'layouts/dashboard'
+  erb :'edit/edit_fee', user_layout
 end
 
 put '/dashboard/students/:student/fees/:fee/edit' do
@@ -216,6 +216,6 @@ get '/dashboard/students/:id/grades' do
     set_page_title('Notas')
     @student_id = params[:id]
     @grades = Grade.where(student_id: params[:id])
-    erb :grades, layout: :'layouts/dashboard'
+    erb :grades, user_layout
   end
 end
