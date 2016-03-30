@@ -44,12 +44,10 @@ end
 get '/dashboard' do
   set_page_title('Inicio')
   @expired_signups = Signup.where(
-  signup_status: 'Inscripción expirada').group(:student_id).having(
-  "MAX(expiration_date) >= #{Date.today}").order(student_id: :desc)
+  'signup_status = ? AND is_latest_signup = ?', 'Inscripción expirada', true)
 
   @expired_fees = Fee.where(
-  fee_status: 'Cuota expirada').group(:student_id).having(
-  "MAX(expiration_date) >= #{Date.today}").order(student_id: :desc)
+  'fee_status = ? AND is_latest_fee = ?', 'Cuota expirada', true)
   erb :index, layout: :'layouts/dashboard'
 end
 

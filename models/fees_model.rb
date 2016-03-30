@@ -19,6 +19,7 @@ class Fee < ActiveRecord::Base
   belongs_to :student
 
   # Callbacks
+  after_validation :set_latest_fee_status, on: :create
   after_validation :set_fee_status, on: :create
   after_validation :extra_fee_for_credit_payments
   after_validation :set_bank, on: :create
@@ -54,7 +55,7 @@ class Fee < ActiveRecord::Base
 
   # To deal with the fees' statuses (automatically change them if
   # the expiration date is the same as the system's or older), I created
-  # an event for my database through the 'events scheduler' funcionality
+  # an event for the database through the 'events scheduler' funcionality
   # MariaDB offers (MySQL also offers it) called 'fee_status_changer'
   # If you're working with MySQL/MariaDB, first, run the following command:
   # SET GLOBAL event_scheduler = ON;
@@ -74,5 +75,12 @@ class Fee < ActiveRecord::Base
 
   def set_bank
     self.bank = 'BOD' if payment_type == 'Depósito'
+  end
+
+  def set_latest_fee_status
+    unless Fee.where(student_id: student_id).empty?
+      @latest_fee = Fee.where(student_id: student_id).last
+      @latest_fee.update(is_latest_fee: false)
+    end
   end
 end

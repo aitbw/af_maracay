@@ -23,7 +23,8 @@ class Signup < ActiveRecord::Base
   belongs_to :user
 
   # Callbacks
-  before_validation :set_expiration_date, on: :create
+  after_validation :set_expiration_date, on: :create
+  after_validation :set_latest_signup_status, on: :create
   after_validation :set_signup_status, on: :create
   after_validation :extra_fee_for_credit_payments
   after_validation :set_bank, on: :create
@@ -37,7 +38,6 @@ class Signup < ActiveRecord::Base
   validates :signup_amount, presence: true, numericality: true
   validates :payment_type, presence: true
   validates :issue_date, presence: true
-  validates :expiration_date, presence: true
   validates :bank, presence: true, if: :paid_with?
   validates :reference_number, reference_number: true
   validates :signup_description, presence: true, length: { maximum: 200 }
@@ -70,7 +70,7 @@ class Signup < ActiveRecord::Base
 
   # To deal with the signups' statuses (automatically change them if
   # the expiration date is the same as the system's or older), I created
-  # an event for my database through the 'events scheduler' funcionality
+  # an event for the database through the 'events scheduler' funcionality
   # MariaDB offers (MySQL also offers it) called 'signup_status_changer'
   # If you're working with MySQL/MariaDB, first, run the following command:
   # SET GLOBAL event_scheduler = ON;
@@ -90,5 +90,12 @@ class Signup < ActiveRecord::Base
 
   def set_bank
     self.bank = 'BOD' if payment_type == 'Depósito'
+  end
+
+  def set_latest_signup_status
+    unless Signup.where(student_id: student_id).empty?
+      @latest_signup = Signup.where(student_id: student_id).last
+      @latest_signup.update(is_latest_signup: false)
+    end
   end
 end
