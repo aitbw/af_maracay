@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20160330120906) do
 
   create_table "bank_accounts", primary_key: "bank_account_id", force: :cascade do |t|
     t.string  "account_number", limit: 50, null: false
@@ -63,16 +63,17 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "courses", ["office_id"], name: "fk_courses_offices1_idx", using: :btree
 
   create_table "fees", primary_key: "fee_id", force: :cascade do |t|
-    t.float   "fee_amount",       limit: 24,  null: false
-    t.string  "payment_type",     limit: 50,  null: false
-    t.date    "issue_date",                   null: false
-    t.date    "expiration_date",              null: false
+    t.float   "fee_amount",       limit: 24,                 null: false
+    t.string  "payment_type",     limit: 50,                 null: false
+    t.date    "issue_date",                                  null: false
+    t.date    "expiration_date",                             null: false
     t.string  "bank",             limit: 50
     t.string  "reference_number", limit: 50
-    t.string  "fee_status",       limit: 50,  null: false
-    t.string  "fee_description",  limit: 200, null: false
-    t.integer "user_id",          limit: 4,   null: false
-    t.integer "student_id",       limit: 4,   null: false
+    t.string  "fee_status",       limit: 50,                 null: false
+    t.string  "fee_description",  limit: 200,                null: false
+    t.integer "user_id",          limit: 4,                  null: false
+    t.integer "student_id",       limit: 4,                  null: false
+    t.boolean "is_latest_fee",                default: true, null: false
   end
 
   add_index "fees", ["fee_id"], name: "fee_id_UNIQUE", unique: true, using: :btree
@@ -138,16 +139,17 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "providers", ["provider_rif"], name: "provider_rif_UNIQUE", unique: true, using: :btree
 
   create_table "signups", primary_key: "signup_id", force: :cascade do |t|
-    t.float   "signup_amount",      limit: 24,  null: false
-    t.string  "payment_type",       limit: 50,  null: false
-    t.date    "issue_date",                     null: false
-    t.date    "expiration_date",                null: false
+    t.float   "signup_amount",      limit: 24,                 null: false
+    t.string  "payment_type",       limit: 50,                 null: false
+    t.date    "issue_date",                                    null: false
+    t.date    "expiration_date",                               null: false
     t.string  "bank",               limit: 50
     t.string  "reference_number",   limit: 50
-    t.string  "signup_status",      limit: 50,  null: false
-    t.string  "signup_description", limit: 200, null: false
-    t.integer "user_id",            limit: 4,   null: false
-    t.integer "student_id",         limit: 4,   null: false
+    t.string  "signup_status",      limit: 50,                 null: false
+    t.string  "signup_description", limit: 200,                null: false
+    t.integer "user_id",            limit: 4,                  null: false
+    t.integer "student_id",         limit: 4,                  null: false
+    t.boolean "is_latest_signup",               default: true, null: false
   end
 
   add_index "signups", ["signup_id"], name: "signup_id_UNIQUE", unique: true, using: :btree
@@ -192,10 +194,11 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "teachers", ["teacher_id"], name: "teacher_id_UNIQUE", unique: true, using: :btree
 
   create_table "users", primary_key: "user_id", force: :cascade do |t|
-    t.string "user_name",     limit: 150, null: false
-    t.string "user_cedula",   limit: 10,  null: false
-    t.string "user_password", limit: 255, null: false
-    t.string "access_level",  limit: 50,  null: false
+    t.string  "user_name",     limit: 150,                null: false
+    t.string  "user_cedula",   limit: 10,                 null: false
+    t.string  "user_password", limit: 255,                null: false
+    t.string  "access_level",  limit: 50,                 null: false
+    t.boolean "has_access",                default: true, null: false
   end
 
   add_index "users", ["user_cedula"], name: "user_cedula_UNIQUE", unique: true, using: :btree
