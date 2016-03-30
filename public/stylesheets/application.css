@@ -39,3 +39,18 @@ html, body {
     margin-right: 1em; }
   .pagination .next_page {
     margin-left: 1em; }
+
+.notifications {
+  width: 40%;
+  display: block;
+}
+
+#signupsPanel {
+  margin-right: auto;
+  float: left;
+}
+
+#feesPanel {
+  margin-left: auto;
+  float: right;
+}
