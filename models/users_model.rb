@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
 
   def self.search_user(cedula)
     if cedula
-      User.where('user_cedula LIKE ?', "%#{cedula}%")
+      User.where(user_cedula: cedula)
     else
       User.all
     end
