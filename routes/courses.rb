@@ -11,7 +11,8 @@ end
 
 get '/dashboard/courses' do
   set_page_title('Cursos')
-  @courses = Course.all.includes(:course_type, :office)
+  @courses = Course.search_course(
+  params[:code]).paginate(page: params[:page]).includes(:course_type, :office)
   @course_types = CourseType.all
   erb :courses, user_layout
 end

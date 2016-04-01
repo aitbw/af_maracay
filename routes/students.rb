@@ -34,7 +34,8 @@ end
 
 get '/dashboard/students' do
   set_page_title('Estudiantes')
-  @students = Student.all.includes(:course)
+  @students = Student.search_student(
+  params[:cedula]).paginate(page: params[:page]).includes(:course)
   erb :students, user_layout
 end
 

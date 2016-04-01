@@ -1,7 +1,7 @@
 <div>
-  <form class="form-inline">
+  <form class="form-inline" action="/dashboard/providers" method="GET">
     <div class="form-group">
-      <input class="form-control" placeholder="Buscar por nombre">
+      <input class="form-control" name="provider_name" placeholder="Buscar por nombre" value="<%= params[:provider_name] %>">
     </div>
     <a href="/dashboard/providers/new_provider" class="btn btn-success">Nuevo proveedor</a>
   </form>
@@ -40,4 +40,8 @@
       <% end %>
     </tbody>
   </table>
+  <div class="pagination">
+    <%= will_paginate @providers, container: false, previous_label: "&laquo", next_label: "&raquo" %>
+    <%= "<a href=\"/dashboard/providers\">Volver</a>" if params[:provider_name] %>
+  </div>
 </div>

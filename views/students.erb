@@ -1,7 +1,7 @@
 <div>
-  <form class="form-inline">
+  <form class="form-inline" action="/dashboard/students" method="GET">
     <div class="form-group">
-      <input class="form-control" placeholder="Buscar por cédula">
+      <input class="form-control" name="cedula" placeholder="Buscar por cédula" value="<%= params[:cedula] %>">
       <a href="/dashboard/students/new_student" class="btn btn-success">Nuevo estudiante</a>
     </div>
   </form>
@@ -46,4 +46,8 @@
       <% end %>
     </tbody>
   </table>
+  <div class="pagination">
+    <%= will_paginate @students, container: false, previous_label: "&laquo", next_label: "&raquo" %>
+    <%= "<a href=\"/dashboard/students\">Volver</a>" if params[:cedula] %>
+  </div>
 </div>
