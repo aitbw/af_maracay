@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330120906) do
+ActiveRecord::Schema.define(version: 20160416230059) do
 
   create_table "bank_accounts", primary_key: "bank_account_id", force: :cascade do |t|
     t.string  "account_number", limit: 50, null: false
@@ -31,12 +31,12 @@ ActiveRecord::Schema.define(version: 20160330120906) do
   add_index "banks", ["bank_id"], name: "bank_id_UNIQUE", unique: true, using: :btree
 
   create_table "course_teachers", id: false, force: :cascade do |t|
-    t.integer "courses_course_id",   limit: 4, null: false
-    t.integer "teachers_teacher_id", limit: 4, null: false
+    t.integer "course_id",  limit: 4, null: false
+    t.integer "teacher_id", limit: 4, null: false
   end
 
-  add_index "course_teachers", ["courses_course_id"], name: "fk_courses_has_teachers_courses1_idx", using: :btree
-  add_index "course_teachers", ["teachers_teacher_id"], name: "fk_courses_has_teachers_teachers1_idx", using: :btree
+  add_index "course_teachers", ["course_id"], name: "fk_courses_has_teachers_courses1_idx", using: :btree
+  add_index "course_teachers", ["teacher_id"], name: "fk_courses_has_teachers_teachers1_idx", using: :btree
 
   create_table "course_types", primary_key: "course_type_id", force: :cascade do |t|
     t.string "course_name",     limit: 50, null: false
@@ -206,8 +206,8 @@ ActiveRecord::Schema.define(version: 20160330120906) do
 
   add_foreign_key "bank_accounts", "banks", primary_key: "bank_id", name: "fk_bank_accounts_banks1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "bank_accounts", "teachers", primary_key: "teacher_id", name: "fk_bank_accounts_teachers1", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "course_teachers", "courses", column: "courses_course_id", primary_key: "course_id", name: "fk_courses_has_teachers_courses1", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "course_teachers", "teachers", column: "teachers_teacher_id", primary_key: "teacher_id", name: "fk_courses_has_teachers_teachers1", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "course_teachers", "courses", primary_key: "course_id", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "course_teachers", "teachers", primary_key: "teacher_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "courses", "course_types", primary_key: "course_type_id", name: "fk_courses_course_types1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "courses", "offices", primary_key: "office_id", name: "fk_courses_offices1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "fees", "students", primary_key: "student_id", name: "fk_fees_students1", on_update: :cascade, on_delete: :cascade
