@@ -3,14 +3,10 @@ html, body {
 }
 
 body {
-  background: #970202;
+  background: #FFFFFF;
   margin: 0;
   padding: 0;
   min-height: 100%;
-  background-image: -webkit-radial-gradient(top, circle cover, #666565, #4d3396 100%);
-  background-image: -moz-radial-gradient(top, circle cover, #666565, #4d3396 100%);
-  background-image: -o-radial-gradient(top, circle cover, #666565, #4d3396 100%);
-  background-image: radial-gradient(top, circle cover, #666565, #4d3396 100%);
 }
 
 .form-signin {
