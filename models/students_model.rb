@@ -5,6 +5,9 @@ class Student < ActiveRecord::Base
   VALID_EMAIL ||= /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   VALID_NUMBER ||= /04(12|14|24|16|26)-\d{7}/
 
+  # Records shown per page on 'students' view
+  self.per_page = 10
+
   # Relations
   belongs_to :course
   has_many :signups, dependent: :destroy
@@ -27,5 +30,13 @@ class Student < ActiveRecord::Base
   # Methods
   def normalize_name
     self.student_name = student_name.titleize
+  end
+
+  def self.search_student(cedula)
+    if cedula
+      Student.where(student_cedula: cedula)
+    else
+      Student.all
+    end
   end
 end

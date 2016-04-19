@@ -1,7 +1,7 @@
 <div>
-  <form class="form-inline">
+  <form class="form-inline" action="/dashboard/courses" method="GET">
     <div class="form-group">
-      <input class="form-control" placeholder="Buscar por código">
+      <input class="form-control" name="code" placeholder="Buscar por código" value="<%= params[:code] %>">
     </div>
     <a href="/dashboard/courses/new_course" class="btn btn-success">Crear nuevo curso</a>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#courseTypes">Tipos de curso</button>
@@ -61,6 +61,10 @@
       <% end %>
     </tbody>
   </table>
+  <div class="pagination">
+    <%= will_paginate @courses, container: false, previous_label: "&laquo", next_label: "&raquo" %>
+    <%= "<a href=\"/dashboard/courses\">Volver</a>" if params[:code] %>
+  </div>
 </div>
 
 <div class="modal fade" id="courseTypes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

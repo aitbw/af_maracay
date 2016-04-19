@@ -22,7 +22,7 @@ end
 
 get '/dashboard/teachers' do
   set_page_title('Profesores')
-  @teachers = Teacher.all
+  @teachers = Teacher.search_teacher(params[:cedula]).paginate(page: params[:page])
   erb :teachers, user_layout
 end
 

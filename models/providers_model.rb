@@ -4,6 +4,9 @@ require 'active_support/core_ext/string/inflections'
 class Provider < ActiveRecord::Base
   VALID_EMAIL ||= /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 
+  # Records show per page on 'providers' view
+  self.per_page = 10
+
   # Callbacks
   after_validation :normalize_provider_name
   after_validation :normalize_manager_name
@@ -22,5 +25,13 @@ class Provider < ActiveRecord::Base
 
   def normalize_manager_name
     self.manager = manager.titleize
+  end
+
+  def self.search_provider(name)
+    if name
+      Provider.where('provider_name LIKE ?', "%#{name}%")
+    else
+      Provider.all
+    end
   end
 end
