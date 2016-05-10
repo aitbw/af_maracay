@@ -1,0 +1,48 @@
+<div id="coursesPanel" class="panel panel-default teacher-courses">
+  <div class="panel-heading">Cursos asignados al profesor <%= h(@teacher.teacher_name) %></div>
+  <% if @teacher.courses.empty? %>
+    <div class="panel-body">
+      <p>El profesor <%= h(@teacher.teacher_name) %> no tiene cursos asignados.</p>
+    </div>
+  <% else %>
+    <div class="panel-body">
+      <p>El profesor <%= h(@teacher.teacher_name) %> tiene los siguientes cursos asignados.</p>
+    </div>
+
+    <table class="table table-responsive">
+      <thead>
+        <tr>
+          <th scope="col">Código del curso</th>
+          <th scope="col">Tipo de curso</th>
+          <th scope="col">Nivel del curso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @courses.each do |course| %>
+          <tr>
+            <td><%= course.course_code %></td>
+            <td><%= course.course_name %></td>
+            <td><%= course.course_level %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>
+
+<div id="formPanel" class="panel panel-default teacher-courses">
+  <div class="panel-body">
+    <form action="/dashboard/teachers/<%= @teacher.teacher_id %>/courses/assign" method="POST">
+      <div class="form-group">
+        <label>Curso a asignar</label>
+        <select name="course" class="form-control">
+          <% @available_courses.each do |course| %>
+          <option value="<%= course.course_id %>"><%= "#{course.course_code} - #{course.course_level}" %></option>
+          <% end %>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-success">Asignar curso</button>
+      <a href="/dashboard/teachers/<%= @teacher.teacher_id %>/courses" class="btn btn-default">Cancelar</a>
+    </form>
+  </div>
+</div>

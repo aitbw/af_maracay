@@ -54,3 +54,18 @@ html, body {
   margin-left: auto;
   float: right;
 }
+
+.teacher-courses {
+  width: 40%;
+  display: block;
+}
+
+#coursesPanel {
+  margin-right: auto;
+  float: left;
+}
+
+#formPanel {
+  margin-left: auto;
+  float: right;
+}

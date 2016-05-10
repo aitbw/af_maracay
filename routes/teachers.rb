@@ -123,3 +123,53 @@ put '/dashboard/teachers/:teacher/bank_accounts/:account/edit' do
     redirect "#{request.path_info}"
   end
 end
+
+get '/dashboard/teachers/:id/courses' do
+  if find_teacher(params[:id])
+    set_page_title('Cursos asignados')
+    @teacher = Teacher.find(params[:id])
+    @courses = @teacher.courses.includes(:course_type)
+    erb :teacher_courses, user_layout
+  end
+end
+
+get '/dashboard/teachers/:id/courses/assign' do
+  if find_teacher(params[:id])
+    set_page_title('Asignar curso')
+    @teacher = Teacher.find(params[:id])
+    @courses = @teacher.courses.includes(:course_type)
+    @available_courses = Course.where.not(course_hours: 0).select(:course_id, :course_code, :course_level)
+    erb :'assign/assign_course', user_layout
+  end
+end
+
+post '/dashboard/teachers/:teacher/courses/assign' do
+  course_teacher = CourseTeacher.new(course_id: params[:course], teacher_id: params[:teacher])
+
+  if course_teacher.save
+    flash[:notice] = 'Curso asignado.'
+    redirect "/dashboard/teachers/#{params[:teacher]}/courses"
+  else
+    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
+    redirect(request.path_info.to_s)
+  end
+end
+
+# This route's function is to destroy a teacher's association with a
+# course, so he/she won't have that course assigned anymore.
+# Since my JS skills are zero to null, I've found a workaround to destroy
+# the association almost inmediately without applying AJAX.
+# A XHR will be added to the 'application.js' file to execute this route
+# in future versions of the platform in order to improve UX.
+get '/dashboard/teachers/:teacher/courses/:course/remove_teacher' do
+  teacher = Teacher.find(params[:teacher])
+  course = teacher.courses.find(params[:course])
+
+  if course
+    teacher.courses.delete(course)
+    flash[:notice] = 'Profesor desvinculado del curso.'
+  else
+    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
+  end
+  redirect("/dashboard/teachers/#{params[:teacher]}/courses")
+end
