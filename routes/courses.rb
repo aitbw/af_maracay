@@ -65,3 +65,11 @@ put '/dashboard/courses/:id/edit' do
     redirect "#{request.path_info}"
   end
 end
+
+get '/dashboard/courses/:id/students/show' do
+  if find_course(params[:id])
+    set_page_title('Estudiantes del curso')
+    @course = Course.find(params[:id])
+    erb :course_students, user_layout
+  end
+end

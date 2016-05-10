@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title" align="center">Estudiantes del curso <%= @course.course_code %></h3>
+  </div>
+  <div class="panel-body">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Teléfono</th>
+          <th scope="col">Cédula</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @course.students.each do |student| %>
+          <tr>
+            <td><%= h(student.student_name) %></td>
+            <td><%= student.student_email %></td>
+            <td><%= student.student_phone %></td>
+            <td><%= student.student_cedula %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<a href="/dashboard/courses" class="btn btn-default">Atrás</a>

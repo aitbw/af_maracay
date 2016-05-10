@@ -47,9 +47,7 @@
               <ul class="dropdown-menu">
                 <li><a href="/dashboard/courses/<%= course.course_id %>/delete">Eliminar</a></li>
                 <li><a href="/dashboard/courses/<%= course.course_id %>/edit">Modificar</a></li>
-                <!-- The following feature is not working as expected. Working on it. -->
-                <li><a id="showStudents" data-toggle="modal" data-target="#courseStudents">Ver estudiantes</a>
-                <!-- The following feature is not working as expected. Working on it. -->
+                <li><a href="/dashboard/courses/<%= course.course_id %>/students/show">Estudiantes del curso</a>
                 <% if course.course_hours == 0 %>
                 <li><a href="/dashboard/courses/<%= course.course_id %>/assign_grades">Asignar calificaciones</a></li>
                 <li><a href="/dashboard/courses/<%= course.course_id %>/promote">Promover</a></li>
