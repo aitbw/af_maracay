@@ -72,8 +72,7 @@ end
 
 put '/dashboard/students/:id/edit' do
   edit_student = Student.find(params[:id])
-  edit_student.update(params[:student])
-  if edit_student.save
+  if edit_student.update(params[:student])
     redirect '/dashboard/students', notice: 'Datos actualizados.'
   else
     flash[:errors] = edit_student.errors.full_messages

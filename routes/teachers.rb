@@ -58,8 +58,7 @@ end
 
 put '/dashboard/teachers/:id/edit' do
   edit_teacher = Teacher.find(params[:id])
-  edit_teacher.update(params[:teacher])
-  if edit_teacher.save
+  if edit_teacher.update(params[:teacher])
     redirect '/dashboard/teachers', notice: 'Datos actualizados.'
   else
     flash[:errors] = edit_teacher.errors.full_messages
@@ -114,8 +113,7 @@ end
 
 put '/dashboard/teachers/:teacher/bank_accounts/:account/edit' do
   edit_account = BankAccount.find(params[:account])
-  edit_account.update(params[:form])
-  if edit_account.save
+  if edit_account.update(params[:form])
     flash[:notice] = 'Datos actualizados.'
     redirect "/dashboard/teachers/#{params[:teacher]}/bank_accounts"
   else

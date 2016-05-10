@@ -71,8 +71,7 @@ end
 
 put '/dashboard/users/:id/edit' do
   edit_user = User.find(params[:id])
-  edit_user.update(params[:user])
-  if edit_user.save
+  if edit_user.update(params[:user])
     redirect '/dashboard/users', notice: 'Datos actualizados.'
   else
     flash[:errors] = edit_user.errors.full_messages

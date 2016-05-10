@@ -57,8 +57,7 @@ end
 
 put '/dashboard/courses/:id/edit' do
   edit_course = Course.find(params[:id])
-  edit_course.update(params[:course])
-  if edit_course.save
+  if edit_course.update(params[:course])
     redirect '/dashboard/courses', notice: 'Datos actualizados.'
   else
     flash[:errors] = edit_course.errors.full_messages
