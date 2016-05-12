@@ -1,0 +1,33 @@
+<div>
+  <table class="table table-bordered table-responsive">
+    <thead>
+      <tr>
+        <th scope="col">Curso</th>
+        <th scope="col">Horas cubiertas</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @hours.each do |hour| %>
+        <tr>
+          <td><%= hour.course_code %></td>
+          <td><%= hour.hours_covered %></td>
+          <td><%= hour.date_covered.strftime('%d/%m/%Y') %></td>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="#">Modificar</a></li>
+                <li><a href="#">Eliminar</a></li>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<a href="/dashboard/teachers/<%= params[:id] %>/hours/assign" class="btn btn-success">Asignar horas</a>
+<a href="/dashboard/teachers" class="btn btn-default">Atrás</a>

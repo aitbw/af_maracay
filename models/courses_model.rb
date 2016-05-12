@@ -11,6 +11,7 @@ class Course < ActiveRecord::Base
   has_many :grades, dependent: :destroy
   has_many :course_teachers
   has_many :teachers, through: :course_teachers
+  has_many :teacher_hours, dependent: :destroy
   belongs_to :course_type
   belongs_to :office
 

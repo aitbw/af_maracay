@@ -1,0 +1,34 @@
+<form action="/dashboard/teachers/<%= params[:id] %>/hours/assign" method="POST">
+  <div class="form-group">
+    <label>Curso cubierto</label>
+    <select name="hours[course_id]" class="form-control">
+      <option value="" selected>Seleccione curso</option>
+      <% @courses.each do |course| %>
+      <option value="<%= course.course_id %>"><%= "#{course.course_code} - #{course.course_level}" %></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Horas a descontar</label>
+    <input type="text" class="form-control" name="hours[hours_covered]" placeholder="¿Cuantas horas fueron cubiertas?"></input>
+  </div>
+  <div class="form-group">
+    <label>Fecha en la que se cubrió el curso</label>
+    <div class="input-group date" id="datePicker">
+      <input type="text" class="form-control" name="hours[date_covered]">
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+  </div>
+  <!--
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" name="hours[is_sub?]">¿Suplencia?
+    </label>
+  </div>
+  -->
+  <input type="hidden" name="hours[teacher_id]" value="<%= params[:id] %>"></input>
+  <button type="submit" class="btn btn-success">Asignar horas</button>
+  <a href="/dashboard/teachers/<%= params[:id] %>/hours" class="btn btn-default">Cancelar</a>
+</form>

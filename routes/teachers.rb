@@ -171,3 +171,32 @@ get '/dashboard/teachers/:teacher/courses/:course/remove_teacher' do
   end
   redirect("/dashboard/teachers/#{params[:teacher]}/courses")
 end
+
+get '/dashboard/teachers/:id/hours' do
+  if find_teacher(params[:id])
+    set_page_title('Horas cubiertas')
+    @hours = TeacherHour.where(teacher_id: params[:id]).includes(:course).order(date_covered: :desc)
+    erb :teacher_hours, user_layout
+  end
+end
+
+get '/dashboard/teachers/:id/hours/assign' do
+  if find_teacher(params[:id])
+    set_page_title('Asignar horas a profesor')
+    @teacher = Teacher.find(params[:id])
+    @courses = @teacher.courses
+    erb :'assign/assign_hours', user_layout
+  end
+end
+
+post '/dashboard/teachers/:id/hours/assign' do
+  teacher_hours = TeacherHour.new(params[:hours])
+
+  if teacher_hours.save
+    flash[:notice] = 'Horas asignadas al profesor con éxito.'
+    redirect("/dashboard/teachers/#{params[:id]}/hours")
+  else
+    flash[:errors] = teacher_hours.errors.full_messages
+    redirect(request.path_info.to_s)
+  end
+end

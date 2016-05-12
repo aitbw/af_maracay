@@ -12,9 +12,11 @@ class Teacher < ActiveRecord::Base
   has_many :bank_accounts, dependent: :destroy
   has_many :course_teachers
   has_many :courses, through: :course_teachers
+  has_many :teacher_hours, dependent: :destroy
 
   # Callbacks
   after_validation :normalize_name
+  before_destroy :restore_hours_to_course
 
   # Validations
   validates :teacher_name, presence: true
