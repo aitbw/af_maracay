@@ -200,3 +200,19 @@ post '/dashboard/teachers/:id/hours/assign' do
     redirect(request.path_info.to_s)
   end
 end
+
+get '/dashboard/teachers/:teacher/hours/:hour/delete' do
+  set_page_title('Eliminar hora')
+  @hour = TeacherHour.find(params[:hour])
+  erb :'delete/delete_hour', user_layout
+end
+
+delete '/dashboard/teachers/:teacher/hours/:hour/delete' do
+  if TeacherHour.destroy(params[:hour])
+    flash[:notice] = 'Registro de horas eliminado.'
+    redirect "/dashboard/teachers/#{params[:teacher]}/hours"
+  else
+    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
+    redirect(request.path_info.to_s)
+  end
+end

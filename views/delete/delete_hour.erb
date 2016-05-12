@@ -1,0 +1,22 @@
+<% if @hour.teacher_hour_id %>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">Eliminar hora</h3>
+    </div>
+    <div class="panel-body">
+        <p>¿Está usted seguro de <b>eliminar</b> esta hora? Esta acción no puede ser revertida.</p>
+        <ol style="list-style-type:disc;">
+            <li><b>Horas cubiertas</b>: <%= @hour.hours_covered %> horas</li>
+            <li><b>Fecha</b>: <%= @hour.date_covered.strftime('%d/%m/%Y') %></li>
+            <li><b>Profesor</b>: <%= h(@hour.teacher_name) %></li>
+            <li><b>Curso</b>: <%= @hour.course_code %></li>
+        </ol>
+        <form action="/dashboard/teachers/<%= @hour.teacher_id %>/hours/<%= @hour.teacher_hour_id %>/delete" method="POST">
+          <input type="hidden" name="_method" value="DELETE"></input>
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+          <a href="/dashboard/teachers/<%= @hour.teacher_id %>/hours" class="btn btn-default">Cancelar</a>
+        </form>
+    </div>
+    </div>
+  </div>
+<% end %>
