@@ -141,12 +141,12 @@ get '/dashboard/teachers/:id/courses/assign' do
   end
 end
 
-post '/dashboard/teachers/:teacher/courses/assign' do
-  course_teacher = CourseTeacher.new(course_id: params[:course], teacher_id: params[:teacher])
+post '/dashboard/teachers/:id/courses/assign' do
+  course_teacher = CourseTeacher.new(params[:course_teacher])
 
   if course_teacher.save
     flash[:notice] = 'Curso asignado.'
-    redirect "/dashboard/teachers/#{params[:teacher]}/courses"
+    redirect "/dashboard/teachers/#{params[:id]}/courses"
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
     redirect(request.path_info.to_s)

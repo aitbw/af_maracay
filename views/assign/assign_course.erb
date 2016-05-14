@@ -35,12 +35,13 @@
     <form action="/dashboard/teachers/<%= @teacher.teacher_id %>/courses/assign" method="POST">
       <div class="form-group">
         <label>Curso a asignar</label>
-        <select name="course" class="form-control">
+        <select name="course_teacher[course_id]" class="form-control">
           <% @available_courses.each do |course| %>
           <option value="<%= course.course_id %>"><%= "#{course.course_code} - #{course.course_level}" %></option>
           <% end %>
         </select>
       </div>
+      <input type="hidden" name="course_teacher[teacher_id]" value="<%= params[:id] %>"></input>
       <button type="submit" class="btn btn-success">Asignar curso</button>
       <a href="/dashboard/teachers/<%= @teacher.teacher_id %>/courses" class="btn btn-default">Cancelar</a>
     </form>
