@@ -12,11 +12,3 @@ configure :development do
   Bullet.console = true
   use Bullet::Rack
 end
-
-configure :production do
-  use Sinatra::CacheAssets, max_age: 86_400
-
-  before do
-    cache_control :public, :must_revalidate
-  end
-end
