@@ -16,7 +16,6 @@ class Teacher < ActiveRecord::Base
 
   # Callbacks
   after_validation :normalize_name
-  before_destroy :restore_hours_to_course
 
   # Validations
   validates :teacher_name, presence: true
