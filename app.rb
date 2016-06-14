@@ -34,6 +34,8 @@ helpers do
     case session[:role]
     when 'Admin'
       { layout: :'layouts/admin' }
+    when 'Pedagogo'
+      { layout: :'layouts/educator' }
     when 'Recepcionista'
       { layout: :'layouts/clerk' }
     end
