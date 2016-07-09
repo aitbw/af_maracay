@@ -10,7 +10,7 @@ Hecho con ♥ por Angel Perez, desde Venezuela.
 
 Esta aplicación está constituida de las siguientes tecnologías:
 * [Sinatra](http://www.sinatrarb.com/)
-* [MariaDB](https://mariadb.org/)
+* [PostgreSQL](https://www.postgresql.org/)
 * [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html) + [Sinatra ActiveRecord](https://github.com/janko-m/sinatra-activerecord)
 * [Bootstrap](http://getbootstrap.com/)
 
@@ -20,7 +20,7 @@ Esta aplicación está constituida de las siguientes tecnologías:
 * En tu *environment* también añade lo siguiente:
 
 ``` shell
-mysql2://{username}:{password}@{host}/{database}
+postgres://{username}:{password}@{host}/{database}
 ```
 
 * Accede a la carpeta del proyecto
@@ -28,21 +28,21 @@ mysql2://{username}:{password}@{host}/{database}
 
 ``` yaml
 development:
-  adapter: mysql2
+  adapter: postgresql
   encoding: utf8
   reconnect: false
   database: <%= ENV['tu_variable'] %>
   pool: 5
   username: <%= ENV['tu_variable'] %>
   password: <%= ENV['tu_variable'] %>
-  socket: /var/run/mysqld/mysqld.sock
   host: localhost
+  port: 5432
 ```
 
 * Asegúrate de tener los siguientes paquetes instalados:
 
 ``` shell
-mariadb-server libmariadbclient-dev
+postgresql postgresql-contrib postgresql-server-dev-9.5
 ```
 
 De lo contrario, instálalos antes de proceder.

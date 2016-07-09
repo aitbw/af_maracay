@@ -11,7 +11,7 @@ Made with ♥ by Angel Perez, from Venezuela.
 
 This app was built under the following stack:
 * [Sinatra](http://www.sinatrarb.com/)
-* [MariaDB](https://mariadb.org/)
+* [PostgreSQL](https://www.postgresql.org/)
 * [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html) + [Sinatra ActiveRecord](https://github.com/janko-m/sinatra-activerecord)
 * [Bootstrap](http://getbootstrap.com/)
 
@@ -21,7 +21,7 @@ This app was built under the following stack:
 * Also, add this to your environment as well:
 
 ``` shell
-mysql2://{username}:{password}@{host}/{database}
+postgres://{username}:{password}@{host}/{database}
 ```
 
 * Go to the project's folder
@@ -29,21 +29,21 @@ mysql2://{username}:{password}@{host}/{database}
 
 ``` yaml
 development:
-  adapter: mysql2
+  adapter: postgresql
   encoding: utf8
   reconnect: false
   database: <%= ENV['your_variable'] %>
   pool: 5
   username: <%= ENV['your_variable'] %>
   password: <%= ENV['your_variable'] %>
-  socket: /var/run/mysqld/mysqld.sock
   host: localhost
+  port: 5432
 ```
 
 * Make sure you have the following packages installed:
 
 ``` shell
-mariadb-server libmariadbclient-dev
+postgresql postgresql-contrib postgresql-server-dev-9.5
 ```
 
 Otherwise, install them before procedding.

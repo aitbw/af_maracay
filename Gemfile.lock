@@ -32,8 +32,8 @@ GEM
     json (1.8.3)
     method_source (0.8.2)
     minitest (5.8.4)
-    mysql2 (0.4.4)
     pdf-core (0.6.1)
+    pg (0.18.4)
     prawn (2.1.0)
       pdf-core (~> 0.6.1)
       ttfunk (~> 1.4.0)
@@ -90,7 +90,7 @@ DEPENDENCIES
   chartkick (>= 1.4.1)
   encrypted_cookie
   erubis (>= 2.7.0)
-  mysql2 (>= 0.3.20)
+  pg (>= 0.18.4)
   prawn (>= 2.0.2)
   pry
   puma (>= 2.14.0)
@@ -107,5 +107,8 @@ DEPENDENCIES
   statistics (>= 1.0.0)
   will_paginate (>= 3.1)
 
+RUBY VERSION
+   ruby 2.2.1p85
+
 BUNDLED WITH
-   1.11.2
+   1.12.3
