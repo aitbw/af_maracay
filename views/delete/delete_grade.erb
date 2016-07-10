@@ -1,0 +1,21 @@
+<% if @grade.grade_id %>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">Eliminar calificación</h3>
+    </div>
+    <div class="panel-body">
+        <p>¿Está usted seguro de <b>eliminar</b> esta calificación? Esta acción no puede ser revertida.</p>
+        <ol style="list-style-type:disc;">
+        <li><b>Calificación final</b>: <%= @grade.grade %></li>
+        <li><b>Fecha de emisión</b>: <%= @grade.grade_date.strftime('%d/%m/%Y') %></li>
+        <li><b>Estudiante</b>: <%= h(@grade.student_name) %></li>
+        <li><b>Curso</b>: <%= @grade.course_code %></li>
+        </ol>
+        <form action="/dashboard/students/<%= @grade.student_id %>/grades/<%= @grade.grade_id %>/delete" method="POST">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn btn-danger">Eliminar</button>
+          <a href="/dashboard/students/<%= @grade.grade_id %>/grades" class="btn btn-default">Cancelar</a>
+        </form>
+    </div>
+  </div>
+<% end %>

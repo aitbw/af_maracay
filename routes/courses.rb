@@ -72,3 +72,15 @@ get '/dashboard/courses/:id/students/show' do
     erb :course_students, user_layout
   end
 end
+
+get '/dashboard/courses/:id/grades/assign' do
+  if find_course(params[:id])
+    set_page_title('Asignar calificaciones')
+    @course = Course.find(params[:id])
+    erb :'assign/assign_grades', user_layout
+  end
+end
+
+post '/dashboard/courses/:id/grades/assign' do
+  batch_grade_assignment
+end

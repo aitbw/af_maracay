@@ -48,9 +48,11 @@
                 <li><a href="/dashboard/courses/<%= course.course_id %>/delete">Eliminar</a></li>
                 <li><a href="/dashboard/courses/<%= course.course_id %>/edit">Modificar</a></li>
                 <li><a href="/dashboard/courses/<%= course.course_id %>/students/show">Estudiantes del curso</a>
-                <% if course.course_hours == 0 %>
-                <li><a href="/dashboard/courses/<%= course.course_id %>/assign_grades">Asignar calificaciones</a></li>
-                <li><a href="/dashboard/courses/<%= course.course_id %>/promote">Promover</a></li>
+                <% if course.hours_covered == 240 && course.grades_assigned == false %>
+                  <li><a href="/dashboard/courses/<%= course.course_id %>/grades/assign">Asignar calificaciones</a></li>
+                <% end %>
+                <% if course.grades_assigned == true && course.is_finished == false %>
+                  <li><a href="/dashboard/courses/<%= course.course_id %>/promote">Promover</a></li>
                 <% end %>
               </ul>
             </div>

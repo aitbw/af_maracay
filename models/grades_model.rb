@@ -6,6 +6,7 @@ class Grade < ActiveRecord::Base
 
   # Delegations
   delegate :course_code, :course_level, to: :course
+  delegate :student_name, to: :student
 
   # Validations
   validates :grade, presence: true, numericality: { only_integer: true }, length: { is: 2 }

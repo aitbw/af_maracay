@@ -1,0 +1,16 @@
+<form action="/dashboard/courses/<%= params[:id] %>/grades/assign" method="POST">
+  <% @course.students.each do |student| %>
+    <div class="form-group">
+      <b>Nombre</b>: <%= h(student.student_name) %>
+    </div>
+    <div class="form-group">
+      <label>Calificación</label>
+      <input type="text" class="form-control" name="grade[][grade]" placeholder="Calificación">
+    </div>
+    <input type="hidden" name="grade[][grade_date]" value="<%= Date.today %>">
+    <input type="hidden" name="grade[][student_id]" value="<%= student.student_id %>">
+    <input type="hidden" name="grade[][course_id]" value="<%= params[:id] %>">
+  <% end %>
+  <button type="submit" class="btn btn-success">Asignar calificaciones</button>
+  <a href="/dashboard/courses" class="btn btn-default">Cancelar</a>
+</form>
