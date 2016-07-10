@@ -3,7 +3,7 @@ require 'active_support/core_ext/string/inflections'
 # Model for 'teachers' table
 class Teacher < ActiveRecord::Base
   VALID_EMAIL ||= /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-  VALID_NUMBER ||= /04(12|14|24|16|26)-\d{7}/
+  VALID_NUMBER ||= /\A04(12|14|24|16|26)-\d{7}\z/
 
   # Records shown per page on 'teachers' view
   self.per_page = 10
