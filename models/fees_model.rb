@@ -14,6 +14,9 @@ end
 class Fee < ActiveRecord::Base
   include ActiveModel::Validations
 
+  # Records shown on 'fees' view
+  self.per_page = 10
+
   # Relations
   belongs_to :user
   belongs_to :student

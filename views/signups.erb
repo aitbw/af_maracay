@@ -49,6 +49,11 @@
       </tr>
     <% end %>
   </tbody>
+  <% if @signups.size > 10 %>
+    <div class="pagination">
+      <%= will_paginate @signups, container: false, previous_label: "&laquo", next_label: "&raquo" %>
+    </div>
+  <% end %>
 </table>
 
 <% if @signups.empty? || Date.today >= @signups.take.expiration_date %>

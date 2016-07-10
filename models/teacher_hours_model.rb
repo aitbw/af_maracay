@@ -1,7 +1,7 @@
 # Model for the 'teacher_hours' model
 class TeacherHour < ActiveRecord::Base
   # Records shown on 'teacher_hours' view
-  # self.per_page = 10
+  self.per_page = 10
 
   # Relations
   belongs_to :teacher

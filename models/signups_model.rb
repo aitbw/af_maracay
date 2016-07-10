@@ -18,6 +18,9 @@ end
 class Signup < ActiveRecord::Base
   include ActiveModel::Validations
 
+  # Records shown on 'signups' view
+  self.per_page = 10
+
   # Relations
   belongs_to :student
   belongs_to :user

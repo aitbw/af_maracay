@@ -27,6 +27,11 @@
       <% end %>
     </tbody>
   </table>
+  <% if @hours.size > 10 %>
+    <div class="pagination">
+      <%= will_paginate @hours, container: false, previous_label: "&laquo", next_label: "&raquo" %>
+    </div>
+  <% end %>
 </div>
 
 <a href="/dashboard/teachers/<%= params[:id] %>/hours/assign" class="btn btn-success">Asignar horas</a>
