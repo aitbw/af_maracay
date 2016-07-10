@@ -17,7 +17,7 @@ class TeacherHour < ActiveRecord::Base
   delegate :teacher_name, to: :teacher
 
   # Validations
-  validates :hours_covered, presence: true, numericality: { only_integer: true }, length: { in: 1..4 }
+  validates :hours_covered, presence: true, numericality: { only_integer: true }, length: { is: 1 }
   validates :date_covered, presence: true
   validates :course_id, presence: true
 
