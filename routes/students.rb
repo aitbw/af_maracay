@@ -1,37 +1,3 @@
-# Helpers to keep exception handling DRY
-def find_student(id)
-  Student.find(id).present?
-rescue ActiveRecord::RecordNotFound
-  redirect '/dashboard/students', error: 'El estudiante no existe.'
-end
-
-def find_signup(student, signup)
-  Signup.find(signup).present?
-rescue ActiveRecord::RecordNotFound
-  flash[:error] = 'La inscripción asociada no existe.'
-  redirect "/dashboard/students/#{student}/signups"
-end
-
-def find_fee(student, fee)
-  Fee.find(fee).present?
-rescue ActiveRecord::RecordNotFound
-  flash[:error] = 'La cuota asociada no existe.'
-  redirect "/dashboard/students/#{student}/fees"
-end
-
-before %r{\/dashboard\/students\/(\d)\/(delete|edit)} do |id, _|
-  find_student(id)
-end
-
-before %r{\/dashboard\/students\/(\d)\/(signups|fees)\/(\d)\/(delete|edit)} do |student, action, id, _|
-  case action
-  when 'signups'
-    find_student(student) && find_signup(student, id)
-  when 'fees'
-    find_student(student) && find_fee(student, id)
-  end
-end
-
 get '/dashboard/students' do
   set_page_title('Estudiantes')
   @students = Student.search_student(
@@ -72,6 +38,7 @@ end
 
 put '/dashboard/students/:id/edit' do
   edit_student = Student.find(params[:id])
+
   if edit_student.update(params[:student])
     redirect '/dashboard/students', notice: 'Datos actualizados.'
   else
@@ -81,34 +48,28 @@ put '/dashboard/students/:id/edit' do
 end
 
 get '/dashboard/students/:id/signups' do
-  if find_student(params[:id])
-    @student_id = params[:id]
-    @signups = Signup.where(student_id: params[:id]).order(issue_date: :desc).includes(:user)
-    set_page_title('Inscripciones')
-    erb :signups, user_layout
-  end
+  @student_id = params[:id]
+  @signups = Signup.where(student_id: params[:id]).order(issue_date: :desc).includes(:user)
+  set_page_title('Inscripciones')
+  erb :signups, user_layout
 end
 
 get '/dashboard/students/:id/signups/add' do
-  if find_student(params[:id])
-    @student_id = params[:id]
-    @banks = Bank.all
-    set_page_title('Nueva inscripción')
-    erb :'new/new_signup', user_layout
-  end
+  @student_id = params[:id]
+  @banks = Bank.all
+  set_page_title('Nueva inscripción')
+  erb :'new/new_signup', user_layout
 end
 
 post '/dashboard/students/:id/signups/add' do
-  if find_student(params[:id])
-    new_signup = Signup.new(params[:signup])
+  new_signup = Signup.new(params[:signup])
 
-    if new_signup.save
-      flash[:notice] = 'Inscripción generada exitosamente.'
-      redirect "/dashboard/students/#{params[:id]}/signups"
-    else
-      flash[:errors] = new_signup.errors.full_messages
-      redirect "#{request.path_info}"
-    end
+  if new_signup.save
+    flash[:notice] = 'Inscripción generada exitosamente.'
+    redirect "/dashboard/students/#{params[:id]}/signups"
+  else
+    flash[:errors] = new_signup.errors.full_messages
+    redirect "#{request.path_info}"
   end
 end
 
@@ -137,6 +98,7 @@ end
 
 put '/dashboard/students/:student/signups/:signup/edit' do
   edit_signup = Signup.find(params[:signup])
+
   if edit_signup.update(params[:form])
     flash[:notice] = 'Datos actualizados.'
     redirect "/dashboard/students/#{params[:student]}/signups"
@@ -147,34 +109,28 @@ put '/dashboard/students/:student/signups/:signup/edit' do
 end
 
 get '/dashboard/students/:id/fees' do
-  if find_student(params[:id])
-    set_page_title('Cuotas')
-    @student_id = params[:id]
-    @fees = Fee.where(student_id: params[:id]).order(issue_date: :desc).includes(:user)
-    erb :fees, user_layout
-  end
+  set_page_title('Cuotas')
+  @student_id = params[:id]
+  @fees = Fee.where(student_id: params[:id]).order(issue_date: :desc).includes(:user)
+  erb :fees, user_layout
 end
 
 get '/dashboard/students/:id/fees/add' do
-  if find_student(params[:id])
-    set_page_title('Nueva cuota')
-    @banks = Bank.all
-    @student_id = params[:id]
-    erb :'new/new_fee', user_layout
-  end
+  set_page_title('Nueva cuota')
+  @banks = Bank.all
+  @student_id = params[:id]
+  erb :'new/new_fee', user_layout
 end
 
 post '/dashboard/students/:id/fees/add' do
-  if find_student(params[:id])
-    new_fee = Fee.new(params[:fee])
+  new_fee = Fee.new(params[:fee])
 
-    if new_fee.save
-      flash[:notice] = 'Cuota generada exitosamente.'
-      redirect "/dashboard/students/#{params[:id]}/fees"
-    else
-      flash[:errors] = new_fee.errors.full_messages
-      redirect "#{request.path_info}"
-    end
+  if new_fee.save
+    flash[:notice] = 'Cuota generada exitosamente.'
+    redirect "/dashboard/students/#{params[:id]}/fees"
+  else
+    flash[:errors] = new_fee.errors.full_messages
+    redirect "#{request.path_info}"
   end
 end
 
@@ -202,6 +158,7 @@ end
 
 put '/dashboard/students/:student/fees/:fee/edit' do
   edit_fee = Fee.find(params[:fee])
+
   if edit_fee.update(params[:form])
     flash[:notice] = 'Datos actualizados.'
     redirect "/dashboard/students/#{params[:student]}/fees"
@@ -212,12 +169,10 @@ put '/dashboard/students/:student/fees/:fee/edit' do
 end
 
 get '/dashboard/students/:id/grades' do
-  if find_student(params[:id])
-    set_page_title('Calificaciones')
-    @student_id = params[:id]
-    @grades = Grade.where(student_id: params[:id]).order(grade_date: :desc).includes(:course)
-    erb :grades, user_layout
-  end
+  set_page_title('Calificaciones')
+  @student_id = params[:id]
+  @grades = Grade.where(student_id: params[:id]).order(grade_date: :desc).includes(:course)
+  erb :grades, user_layout
 end
 
 get '/dashboard/students/:student/grades/:grade/delete' do

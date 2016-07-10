@@ -1,25 +1,3 @@
-# Helpers to keep exception handling DRY
-def find_teacher(id)
-  Teacher.find(id).present?
-rescue ActiveRecord::RecordNotFound
-  redirect '/dashboard/teachers', error: 'El profesor no existe.'
-end
-
-def find_account(teacher, account)
-  BankAccount.find(account).present?
-rescue ActiveRecord::RecordNotFound
-  flash[:error] = 'La cuenta asociada no existe.'
-  redirect "/dashboard/teachers/#{teacher}/bank_accounts"
-end
-
-before %r{\/dashboard\/teachers\/(\d)\/(delete|edit)} do |id, _|
-  find_teacher(id)
-end
-
-before %r{\/dashboard\/teachers\/(\d)\/bank_accounts\/(\d)\/(delete|edit)} do |teacher, account, _|
-  find_teacher(teacher) && find_account(teacher, account)
-end
-
 get '/dashboard/teachers' do
   set_page_title('Profesores')
   @teachers = Teacher.search_teacher(params[:cedula]).paginate(page: params[:page])
@@ -58,6 +36,7 @@ end
 
 put '/dashboard/teachers/:id/edit' do
   edit_teacher = Teacher.find(params[:id])
+
   if edit_teacher.update(params[:teacher])
     redirect '/dashboard/teachers', notice: 'Datos actualizados.'
   else
@@ -67,25 +46,21 @@ put '/dashboard/teachers/:id/edit' do
 end
 
 get '/dashboard/teachers/:id/bank_accounts' do
-  if find_teacher(params[:id])
-    set_page_title('Cuentas bancarias')
-    @teacher_id = params[:id]
-    @accounts = BankAccount.where(teacher_id: params[:id])
-    erb :bank_accounts, user_layout
-  end
+  set_page_title('Cuentas bancarias')
+  @teacher_id = params[:id]
+  @accounts = BankAccount.where(teacher_id: params[:id])
+  erb :bank_accounts, user_layout
 end
 
 get '/dashboard/teachers/:id/bank_accounts/add' do
-  if find_teacher(params[:id])
-    set_page_title('Asignar cuenta bancaria')
-    @teacher_id = params[:id]
-    @banks = Bank.all
-    erb :'new/new_bank_account', user_layout
-  end
+  set_page_title('Asignar cuenta bancaria')
+  @teacher_id = params[:id]
+  @banks = Bank.all
+  erb :'new/new_bank_account', user_layout
 end
 
 post '/dashboard/teachers/:id/bank_accounts/add' do
-  assign_account if find_teacher(params[:id])
+  assign_account
 end
 
 get '/dashboard/teachers/:teacher/bank_accounts/:account/delete' do
@@ -113,6 +88,7 @@ end
 
 put '/dashboard/teachers/:teacher/bank_accounts/:account/edit' do
   edit_account = BankAccount.find(params[:account])
+
   if edit_account.update(params[:form])
     flash[:notice] = 'Datos actualizados.'
     redirect "/dashboard/teachers/#{params[:teacher]}/bank_accounts"
@@ -123,22 +99,18 @@ put '/dashboard/teachers/:teacher/bank_accounts/:account/edit' do
 end
 
 get '/dashboard/teachers/:id/courses' do
-  if find_teacher(params[:id])
-    set_page_title('Cursos asignados')
-    @teacher = Teacher.find(params[:id])
-    @courses = @teacher.courses.includes(:course_type)
-    erb :teacher_courses, user_layout
-  end
+  set_page_title('Cursos asignados')
+  @teacher = Teacher.find(params[:id])
+  @courses = @teacher.courses.includes(:course_type)
+  erb :teacher_courses, user_layout
 end
 
 get '/dashboard/teachers/:id/courses/assign' do
-  if find_teacher(params[:id])
-    set_page_title('Asignar curso')
-    @teacher = Teacher.find(params[:id])
-    @courses = @teacher.courses.includes(:course_type)
-    @available_courses = Course.where.not(course_hours: 0).select(:course_id, :course_code, :course_level)
-    erb :'assign/assign_course', user_layout
-  end
+  set_page_title('Asignar curso')
+  @teacher = Teacher.find(params[:id])
+  @courses = @teacher.courses.includes(:course_type)
+  @available_courses = Course.where.not(course_hours: 0).select(:course_id, :course_code, :course_level)
+  erb :'assign/assign_course', user_layout
 end
 
 post '/dashboard/teachers/:id/courses/assign' do
@@ -173,20 +145,16 @@ get '/dashboard/teachers/:teacher/courses/:course/remove_teacher' do
 end
 
 get '/dashboard/teachers/:id/hours' do
-  if find_teacher(params[:id])
-    set_page_title('Horas cubiertas')
-    @hours = TeacherHour.where(teacher_id: params[:id]).includes(:course).order(date_covered: :desc)
-    erb :teacher_hours, user_layout
-  end
+  set_page_title('Horas cubiertas')
+  @hours = TeacherHour.where(teacher_id: params[:id]).includes(:course).order(date_covered: :desc)
+  erb :teacher_hours, user_layout
 end
 
 get '/dashboard/teachers/:id/hours/assign' do
-  if find_teacher(params[:id])
-    set_page_title('Asignar horas a profesor')
-    @teacher = Teacher.find(params[:id])
-    @courses = @teacher.courses
-    erb :'assign/assign_hours', user_layout
-  end
+  set_page_title('Asignar horas a profesor')
+  @teacher = Teacher.find(params[:id])
+  @courses = @teacher.courses
+  erb :'assign/assign_hours', user_layout
 end
 
 post '/dashboard/teachers/:id/hours/assign' do

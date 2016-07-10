@@ -1,14 +1,3 @@
-# Helper to keep exception handling DRY
-def find_course(id)
-  Course.find(id).present?
-rescue ActiveRecord::RecordNotFound
-  redirect '/dashboard/courses', error: 'El curso no existe.'
-end
-
-before %r{\/dashboard\/courses\/(\d)\/(delete|edit)} do |id, _|
-  find_course(id)
-end
-
 get '/dashboard/courses' do
   set_page_title('Cursos')
   @courses = Course.search_course(
@@ -29,11 +18,9 @@ post '/dashboard/courses/new_course' do
 end
 
 get '/dashboard/courses/:id/delete' do
-  if find_course(params[:id])
-    @course = Course.find(params[:id])
-    set_page_title('Eliminar curso')
-    erb :'delete/delete_course', user_layout
-  end
+  @course = Course.find(params[:id])
+  set_page_title('Eliminar curso')
+  erb :'delete/delete_course', user_layout
 end
 
 delete '/dashboard/courses/:id/delete' do
@@ -46,17 +33,16 @@ delete '/dashboard/courses/:id/delete' do
 end
 
 get '/dashboard/courses/:id/edit' do
-  if find_course(params[:id])
-    @course = Course.find(params[:id])
-    @types = CourseType.all
-    @offices = Office.all
-    set_page_title('Editar curso')
-    erb :'edit/edit_course', user_layout
-  end
+  @course = Course.find(params[:id])
+  @types = CourseType.all
+  @offices = Office.all
+  set_page_title('Editar curso')
+  erb :'edit/edit_course', user_layout
 end
 
 put '/dashboard/courses/:id/edit' do
   edit_course = Course.find(params[:id])
+
   if edit_course.update(params[:course])
     redirect '/dashboard/courses', notice: 'Datos actualizados.'
   else
@@ -66,19 +52,15 @@ put '/dashboard/courses/:id/edit' do
 end
 
 get '/dashboard/courses/:id/students/show' do
-  if find_course(params[:id])
-    set_page_title('Estudiantes del curso')
-    @course = Course.find(params[:id])
-    erb :course_students, user_layout
-  end
+  set_page_title('Estudiantes del curso')
+  @course = Course.find(params[:id])
+  erb :course_students, user_layout
 end
 
 get '/dashboard/courses/:id/grades/assign' do
-  if find_course(params[:id])
-    set_page_title('Asignar calificaciones')
-    @course = Course.find(params[:id])
-    erb :'assign/assign_grades', user_layout
-  end
+  set_page_title('Asignar calificaciones')
+  @course = Course.find(params[:id])
+  erb :'assign/assign_grades', user_layout
 end
 
 post '/dashboard/courses/:id/grades/assign' do

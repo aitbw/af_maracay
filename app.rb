@@ -76,8 +76,13 @@ get '/logout' do
 end
 
 not_found do
-  # TO-DO: 404 erb(:not_found)
   status 404
+  # erb :'errors/404', user_layout
+end
+
+error ActiveRecord::RecordNotFound do
+  # TO-DO
+  # erb :'errors/404', user_layout
 end
 
 after do

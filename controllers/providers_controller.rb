@@ -1,14 +1,3 @@
-# Helper to keep exception handling DRY
-def find_provider(id)
-  Provider.find(id).present?
-rescue ActiveRecord::RecordNotFound
-  redirect '/dashboard/providers', error: 'El proveedor no existe.'
-end
-
-before %r{\/dashboard\/providers\/(\d)\/(delete|edit)} do |id, _|
-  find_provider(id)
-end
-
 def new_provider
   new_provider = Provider.new(params[:provider])
 

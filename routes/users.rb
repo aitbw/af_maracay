@@ -1,27 +1,3 @@
-# Helper to keep exception handling DRY
-def find_user(id)
-  User.find(id).present?
-rescue ActiveRecord::RecordNotFound
-  redirect '/dashboard/users', error: 'El usuario no existe.'
-end
-
-before %r{\/dashboard\/users\/(\d)\/(delete|edit)} do |id, _|
-  find_user(id)
-end
-
-before '/dashboard/users/:id/reset_password' do
-  find_user(params[:id])
-end
-
-before '/dashboard/change_password' do
-  begin
-    User.find(session[:id]).present?
-  rescue ActiveRecord::RecordNotFound
-    session.clear
-    redirect '/signin', error: 'El usuario no existe.'
-  end
-end
-
 get '/dashboard/users' do
   set_page_title('Usuarios')
   @users = User.search_user(params[:cedula]).paginate(page: params[:page])
@@ -45,11 +21,9 @@ post '/dashboard/users/new_user' do
 end
 
 get '/dashboard/users/:id/delete' do
-  if find_user(params[:id])
-    @user = User.find(params[:id])
-    set_page_title('Eliminar usuario')
-    erb :'delete/delete_user', user_layout
-  end
+  @user = User.find(params[:id])
+  set_page_title('Eliminar usuario')
+  erb :'delete/delete_user', user_layout
 end
 
 delete '/dashboard/users/:id/delete' do
@@ -62,11 +36,9 @@ delete '/dashboard/users/:id/delete' do
 end
 
 get '/dashboard/users/:id/edit' do
-  if find_user(params[:id])
-    @user = User.find(params[:id])
-    set_page_title('Editar usuario')
-    erb :'edit/edit_user', user_layout
-  end
+  @user = User.find(params[:id])
+  set_page_title('Editar usuario')
+  erb :'edit/edit_user', user_layout
 end
 
 put '/dashboard/users/:id/edit' do
@@ -96,11 +68,9 @@ put '/dashboard/change_password' do
 end
 
 get '/dashboard/users/:id/reset_password' do
-  if find_user(params[:id])
-    set_page_title('Reestablecer contraseña')
-    @user_id = params[:id]
-    erb :reset_password, user_layout
-  end
+  set_page_title('Reestablecer contraseña')
+  @user_id = params[:id]
+  erb :reset_password, user_layout
 end
 
 put '/dashboard/users/:id/reset_password' do
