@@ -53,17 +53,9 @@ class Fee < ActiveRecord::Base
     return
   end
 
-  # To deal with the fees' statuses (automatically change them if
-  # the expiration date is the same as the system's or older), I created
-  # an event for the database through the 'events scheduler' funcionality
-  # MariaDB offers (MySQL also offers it) called 'fee_status_changer'
-  # If you're working with MySQL/MariaDB, first, run the following command:
-  # SET GLOBAL event_scheduler = ON;
-  # Now, run the following command:
-  # CREATE EVENT fee_status_changer ON SCHEDULE EVERY 1 DAY DO
-  # UPDATE fees SET fee_status = 'Expired fee' WHERE
-  # CURDATE() >= expiration_date;
-  # If you're working with PostgreSQL, please refer to pgAdmin
+  # Since 'Deposit' and 'Transfer' payments need to be confirmed
+  # beforehand by an Alliance Francaise admin, the Fee model
+  # sets a status to that kind of payments thanks to this callback.
   def set_fee_status
     case payment_type
     when 'Depósito', 'Transferencia'

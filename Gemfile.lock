@@ -25,6 +25,7 @@ GEM
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.9.0)
     chartkick (1.5.2)
+    chronic (0.10.2)
     coderay (1.1.1)
     encrypted_cookie (0.0.4)
     erubis (2.7.0)
@@ -76,6 +77,8 @@ GEM
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uniform_notifier (1.9.0)
+    whenever (0.9.7)
+      chronic (>= 0.6.3)
     will_paginate (3.1.0)
 
 PLATFORMS
@@ -105,6 +108,7 @@ DEPENDENCIES
   sinatra-redirect-with-flash (>= 0.2.1)
   spreadsheet (>= 1.0.7)
   statistics (>= 1.0.0)
+  whenever (~> 0.9.7)
   will_paginate (>= 3.1)
 
 RUBY VERSION

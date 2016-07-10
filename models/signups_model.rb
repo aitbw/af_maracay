@@ -68,17 +68,9 @@ class Signup < ActiveRecord::Base
     return
   end
 
-  # To deal with the signups' statuses (automatically change them if
-  # the expiration date is the same as the system's or older), I created
-  # an event for the database through the 'events scheduler' funcionality
-  # MariaDB offers (MySQL also offers it) called 'signup_status_changer'
-  # If you're working with MySQL/MariaDB, first, run the following command:
-  # SET GLOBAL event_scheduler = ON;
-  # Now, run the following command:
-  # CREATE EVENT signup_status_changer ON SCHEDULE EVERY 1 DAY DO
-  # UPDATE signups SET signup_status = 'Expired signup' WHERE
-  # CURDATE() >= expiration_date;
-  # If you're working with PostgreSQL, please refer to pgAdmin
+  # Since 'Deposit' and 'Transfer' payments need to be confirmed
+  # beforehand by an Alliance Francaise admin, the Signup model
+  # sets a status to that kind of payments thanks to this callback.
   def set_signup_status
     case payment_type
     when 'Depósito', 'Transferencia'
