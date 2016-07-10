@@ -28,17 +28,25 @@ class TeacherHour < ActiveRecord::Base
   # hours the course was set to have when it was created and moves them to the
   # 'hours_covered' column.
   def discount_hours_from_course
-    course = Course.find(course_id)
-
-    course.course_hours -= hours_covered
-    course.hours_covered += hours_covered
+    begin
+      course = Course.find(course_id)
+      course.course_hours -= hours_covered
+      course.hours_covered += hours_covered
+    rescue ActiveRecord::RecordNotFound, TypeError
+      return
+    end
     course.save!
   end
 
   # This callback ensures the date entered on the form is between the course's
   # start and completion date range.
   def valid_date?
-    course = Course.find(course_id)
+    begin
+      course = Course.find(course_id)
+    rescue ActiveRecord::RecordNotFound
+      return
+    end
+
     date_range = (course.start_date.to_s)..(course.completion_date.to_s)
 
     unless date_range.cover?(date_covered.to_s)
