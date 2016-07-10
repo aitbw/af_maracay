@@ -1,7 +1,7 @@
 # Model for 'courses' table
 class Course < ActiveRecord::Base
-  COURSE_CODE ||= /\d{4}-\w{4}\d{1}-\d{3}/
-  COURSE_LEVEL ||= /[ABC](?:1|2)-(?:0[1-9]|1[0-5])/
+  COURSE_CODE ||= /\A\d{4}-\w{4}\d{1}-\d{3}\z/
+  COURSE_LEVEL ||= /\A[ABC](?:1|2)-(?:0[1-9]|1[0-5])\z/
 
   # Records shown per page on 'courses' view
   self.per_page = 10
