@@ -174,13 +174,3 @@ get '/dashboard/students/:id/grades' do
   @grades = Grade.where(student_id: params[:id]).order(grade_date: :desc).includes(:course)
   erb :grades, user_layout
 end
-
-get '/dashboard/students/:student/grades/:grade/delete' do
-  set_page_title('Eliminar calificación')
-  @grade = Grade.find(params[:grade])
-  erb :'delete/delete_grade', user_layout
-end
-
-delete '/dashboard/students/:student/grades/:grade/delete' do
-  delete_grade
-end

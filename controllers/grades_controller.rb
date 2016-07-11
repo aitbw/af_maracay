@@ -12,13 +12,3 @@ def batch_grade_assignment
 end
 
 def edit_grade; end
-
-def delete_grade
-  if Grade.destroy(params[:grade])
-    flash[:notice] = 'Calificación eliminada.'
-    redirect "/dashboard/students/#{params[:student]}/grades"
-  else
-    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
-    redirect(request.path_info.to_s)
-  end
-end
