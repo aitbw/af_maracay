@@ -1,18 +1,8 @@
-# Custom validator for reference numbers
-class ReferenceNumberValidator < ActiveModel::Validator
-  def validate(record)
-    case record.payment_type
-    when 'Débito', 'Crédito'
-      unless /\d{4}/.match(record.reference_number)
-        record.errors[:reference_number].push('is invalid')
-      end
-    end
-  end
-end
-
 # Model for 'fees' table
 class Fee < ActiveRecord::Base
   include ActiveModel::Validations
+  include SharedValidators
+  include SharedMethods
 
   # Records shown on 'fees' view
   self.per_page = 10
@@ -38,18 +28,10 @@ class Fee < ActiveRecord::Base
   validates :issue_date, presence: true
   validates :expiration_date, presence: true
   validates :bank, presence: true, if: :paid_with?
-  validates :reference_number, presence: true, reference_number: true
+  validates :reference_number, reference_number: true
   validates :fee_description, presence: true, length: { maximum: 200 }
 
   # Methods
-  def paid_with?
-    payment_type == 'Transferencia'
-  end
-
-  def clean_fields
-    self.bank = '' if payment_type == 'Débito' || payment_type == 'Crédito'
-  end
-
   def extra_fee_for_credit_payments
     self.fee_amount += fee_amount * 0.1 if payment_type == 'Crédito'
   rescue NoMethodError
@@ -66,10 +48,6 @@ class Fee < ActiveRecord::Base
     else
       self.fee_status = 'Cuota vigente'
     end
-  end
-
-  def set_bank
-    self.bank = 'BOD' if payment_type == 'Depósito'
   end
 
   def set_latest_fee_status

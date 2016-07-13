@@ -1,22 +1,8 @@
-# Custom validator for reference numbers
-class ReferenceNumberValidator < ActiveModel::Validator
-  def validate(record)
-    case record.payment_type
-    when 'Débito', 'Crédito'
-      unless /\d{4}/.match(record.reference_number)
-        record.errors[:reference_number].push('is invalid')
-      end
-    when 'Depósito', 'Transferencia'
-      if record.reference_number.empty?
-        record.errors[:reference_number].push("can\'t be blank")
-      end
-    end
-  end
-end
-
 # Model for 'signups' table
 class Signup < ActiveRecord::Base
   include ActiveModel::Validations
+  include SharedValidators
+  include SharedMethods
 
   # Records shown on 'signups' view
   self.per_page = 10
@@ -46,23 +32,10 @@ class Signup < ActiveRecord::Base
   validates :signup_description, presence: true, length: { maximum: 200 }
 
   # Methods
-  def paid_with?
-    payment_type == 'Transferencia'
-  end
-
   def set_expiration_date
     self.expiration_date = Date.parse(issue_date.to_s).next_year
   rescue ArgumentError
     return
-  end
-
-  def clean_fields
-    case payment_type
-    when 'Débito', 'Crédito'
-      self.bank = ''
-    when 'Efectivo'
-      self.bank = '' && self.reference_number = ''
-    end
   end
 
   def extra_fee_for_credit_payments
@@ -81,10 +54,6 @@ class Signup < ActiveRecord::Base
     else
       self.signup_status = 'Inscripción vigente'
     end
-  end
-
-  def set_bank
-    self.bank = 'BOD' if payment_type == 'Depósito'
   end
 
   def set_latest_signup_status
