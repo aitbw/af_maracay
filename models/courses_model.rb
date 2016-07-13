@@ -1,5 +1,7 @@
 # Model for 'courses' table
 class Course < ActiveRecord::Base
+  include ActiveModel::Validations
+
   COURSE_CODE ||= /\A\d{4}-\w{4}\d{1}-\d{3}\z/
   COURSE_LEVEL ||= /\A[ABC](?:1|2)-(?:0[1-9]|1[0-5])\z/
 
@@ -29,12 +31,21 @@ class Course < ActiveRecord::Base
   validates :completion_date, presence: true
   validates :course_hours, presence: true, numericality: { only_integer: true }
 
+  # Custom validations
+  validate :start_date_cant_be_in_the_past
+
   # Methods
   def self.search_course(code)
     if code
       Course.where(course_code: code)
     else
       Course.all
+    end
+  end
+
+  def start_date_cant_be_in_the_past
+    if start_date.present? && start_date < Date.today
+      errors.add(:start_date, "can't be in the past")
     end
   end
 end
