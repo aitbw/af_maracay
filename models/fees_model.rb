@@ -31,6 +31,9 @@ class Fee < ActiveRecord::Base
   validates :reference_number, reference_number: true
   validates :fee_description, presence: true, length: { maximum: 200 }
 
+  # Custom validations
+  validate :issue_date_cant_be_in_the_past
+
   # Methods
   def extra_fee_for_credit_payments
     self.fee_amount += fee_amount * 0.1 if payment_type == 'Crédito'

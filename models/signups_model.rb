@@ -31,6 +31,9 @@ class Signup < ActiveRecord::Base
   validates :reference_number, reference_number: true
   validates :signup_description, presence: true, length: { maximum: 200 }
 
+  # Custom validations
+  validate :issue_date_cant_be_in_the_past
+
   # Methods
   def set_expiration_date
     self.expiration_date = Date.parse(issue_date.to_s).next_year
