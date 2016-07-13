@@ -1,5 +1,7 @@
 # Model for the 'teacher_hours' model
 class TeacherHour < ActiveRecord::Base
+  include ActiveModel::Validations
+
   # Records shown on 'teacher_hours' view
   self.per_page = 10
 
@@ -8,7 +10,6 @@ class TeacherHour < ActiveRecord::Base
   belongs_to :course
 
   # Callbacks
-  before_validation :valid_date?
   after_validation :discount_hours_from_course, on: :create
   before_destroy :restore_hours_to_course
 
@@ -20,6 +21,9 @@ class TeacherHour < ActiveRecord::Base
   validates :hours_covered, presence: true, numericality: { only_integer: true }, length: { is: 1 }
   validates :date_covered, presence: true
   validates :course_id, presence: true
+
+  # Custom validations
+  validate :valid_date?
 
   # Methods
 
@@ -38,7 +42,7 @@ class TeacherHour < ActiveRecord::Base
     course.save!
   end
 
-  # This callback ensures the date entered on the form is between the course's
+  # This validation ensures the date entered on the form is between the course's
   # start and completion date range.
   def valid_date?
     begin
