@@ -17,7 +17,7 @@ This app was built under the following stack:
 
 # Setup
 * Fork this repo
-* On your environment, add 3 variables for MariaDB's username, password and database.
+* On your environment, add 3 variables for PostgreSQL's username, password and database.
 * Also, add this to your environment as well:
 
 ``` shell

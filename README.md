@@ -16,7 +16,7 @@ Esta aplicación está constituida de las siguientes tecnologías:
 
 # Instalación
 * Clona este repositorio
-* Añade a tu *environment* tres (3) variables para la base de datos, usuario y *password* de MariaDB
+* Añade a tu *environment* tres (3) variables para la base de datos, usuario y *password* de PostgreSQL
 * En tu *environment* también añade lo siguiente:
 
 ``` shell

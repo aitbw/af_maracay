@@ -17,7 +17,7 @@ Cette application a été développée avec les technologies suivantes:
 
 # Installation
 * *Fork* ce repo
-* Sur votre *environment*, ajoutez 3 variables pour le nom d'utilisateur, mot de passe et base de données de MariaDB
+* Sur votre *environment*, ajoutez 3 variables pour le nom d'utilisateur, mot de passe et base de données de PostgreSQL
 * Ajoutez cette adresse URL aussi sur votre *environment*:
 
 ``` shell
