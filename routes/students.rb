@@ -48,7 +48,7 @@ put '/dashboard/students/:id/edit' do
 end
 
 get '/dashboard/students/:id/signups' do
-  @student_id = params[:id]
+  @student = Student.find(params[:id])
   @signups = Signup.where(student_id: params[:id]).order(issue_date: :desc).includes(:user).paginate(page: params[:page])
   set_page_title('Inscripciones')
   erb :signups, user_layout
@@ -110,7 +110,7 @@ end
 
 get '/dashboard/students/:id/fees' do
   set_page_title('Cuotas')
-  @student_id = params[:id]
+  @student = Student.find(params[:id])
   @fees = Fee.where(student_id: params[:id]).order(issue_date: :desc).includes(:user).paginate(page: params[:page])
   erb :fees, user_layout
 end
@@ -170,7 +170,7 @@ end
 
 get '/dashboard/students/:id/grades' do
   set_page_title('Calificaciones')
-  @student_id = params[:id]
+  @student = Student.find(params[:id])
   @grades = Grade.where(student_id: params[:id]).order(grade_date: :desc).includes(:course)
   erb :grades, user_layout
 end

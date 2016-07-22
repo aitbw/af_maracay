@@ -1,37 +1,38 @@
-<div>
-  <table class="table table-bordered table-responsive">
-    <thead>
-      <tr>
-        <th scope="col">Curso</th>
-        <th scope="col">Horas cubiertas</th>
-        <th scope="col">Fecha</th>
-        <th scope="col">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @hours.each do |hour| %>
-        <tr>
-          <td><%= hour.course_code %></td>
-          <td><%= hour.hours_covered %></td>
-          <td><%= hour.date_covered.strftime('%d/%m/%Y') %></td>
-          <td>
-            <div class="btn-group">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                <li><a href="/dashboard/teachers/<%= hour.teacher_id %>/hours/<%= hour.teacher_hour_id %>/delete">Eliminar</a></li>
-              </ul>
-            </div>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  <% if @hours.size > 10 %>
-    <div class="pagination">
-      <%= will_paginate @hours, container: false, previous_label: "&laquo", next_label: "&raquo" %>
-    </div>
-  <% end %>
-</div>
+<h3 align="center" style="padding-bottom:1%;">Horas cubiertas — <%= h(@teacher.teacher_name) %></h3>
 
-<a href="/dashboard/teachers/<%= params[:id] %>/hours/assign" class="btn btn-success">Asignar horas</a>
+<table class="table table-bordered table-responsive">
+  <thead>
+    <tr>
+      <th scope="col">Curso</th>
+      <th scope="col">Horas cubiertas</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @hours.each do |hour| %>
+      <tr>
+        <td><%= hour.course_code %></td>
+        <td><%= hour.hours_covered %></td>
+        <td><%= hour.date_covered.strftime('%d/%m/%Y') %></td>
+        <td>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="/dashboard/teachers/<%= hour.teacher_id %>/hours/<%= hour.teacher_hour_id %>/delete">Eliminar</a></li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% if @hours.size > 10 %>
+  <div class="pagination">
+    <%= will_paginate @hours, container: false, previous_label: "&laquo", next_label: "&raquo" %>
+  </div>
+<% end %>
+
+<a href="/dashboard/teachers/<%= @teacher.teacher_id %>/hours/assign" class="btn btn-success">Asignar horas</a>
 <a href="/dashboard/teachers" class="btn btn-default">Atrás</a>

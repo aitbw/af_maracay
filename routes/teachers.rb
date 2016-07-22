@@ -47,7 +47,7 @@ end
 
 get '/dashboard/teachers/:id/bank_accounts' do
   set_page_title('Cuentas bancarias')
-  @teacher_id = params[:id]
+  @teacher = Teacher.find(params[:id])
   @accounts = BankAccount.where(teacher_id: params[:id])
   erb :bank_accounts, user_layout
 end
@@ -146,6 +146,7 @@ end
 
 get '/dashboard/teachers/:id/hours' do
   set_page_title('Horas cubiertas')
+  @teacher = Teacher.find(params[:id])
   @hours = TeacherHour.where(teacher_id: params[:id]).includes(:course).order(date_covered: :desc).paginate(page: params[:page])
   erb :teacher_hours, user_layout
 end
