@@ -11,7 +11,7 @@
   <label>Rol</label>
   <select name="user[access_level]" class="form-control">
   <option value="">Seleccione nivel de acceso</option>
-  <% ['Admin', 'Recepcionista'].each do |role| %>
+  <% ['Admin', 'Pedagogo', 'Recepcionista'].each do |role| %>
   <option <%= "selected" if role == @user.access_level %> value="<%= role %>"><%= role %></option>
   <% end %>
   </select>
