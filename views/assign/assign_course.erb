@@ -1,12 +1,12 @@
 <div id="coursesPanel" class="panel panel-default teacher-courses">
-  <div class="panel-heading">Cursos asignados al profesor <%= h(@teacher.teacher_name) %></div>
+  <div class="panel-heading">Cursos asignados — <%= h(@teacher.teacher_name) %></div>
   <% if @teacher.courses.empty? %>
     <div class="panel-body">
-      <p>El profesor <%= h(@teacher.teacher_name) %> no tiene cursos asignados.</p>
+      <p>El/la profesor/a <%= h(@teacher.teacher_name) %> no tiene cursos asignados.</p>
     </div>
   <% else %>
     <div class="panel-body">
-      <p>El profesor <%= h(@teacher.teacher_name) %> tiene los siguientes cursos asignados.</p>
+      <p>El/la profesor/a <%= h(@teacher.teacher_name) %> tiene los siguientes cursos asignados</p>
     </div>
 
     <table class="table table-responsive">
