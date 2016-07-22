@@ -1,11 +1,11 @@
 <form action="/dashboard/users/<%= @user.user_id %>/edit" method="POST">
   <div class="form-group">
     <label>Nombre</label>
-    <textarea name="user[user_name]" class="form-control"><%=h @user.user_name %></textarea>
+    <input name="user[user_name]" class="form-control" value="<%= h(@user.user_name) %>"></input>
   </div>
   <div class="form-group">
     <label>Cédula</label>
-    <textarea name="user[user_cedula]" class="form-control"><%= @user.user_cedula %></textarea>
+    <input name="user[user_cedula]" class="form-control" value="<%= @user.user_cedula %>"></input>
   </div>
   <div class="form-group">
   <label>Rol</label>

@@ -1,19 +1,19 @@
 <form action="/dashboard/teachers/<%= @teacher.teacher_id %>/edit" method="POST">
   <div class="form-group">
     <label>Nombre</label>
-    <textarea name="teacher[teacher_name]" class="form-control"><%=h @teacher.teacher_name %></textarea>
+    <input name="teacher[teacher_name]" class="form-control" value="<%= h(@teacher.teacher_name) %>"></input>
   </div>
   <div class="form-group">
     <label>Correo</label>
-    <textarea name="teacher[teacher_email]" class="form-control"><%= @teacher.teacher_email %></textarea>
+    <input name="teacher[teacher_email]" class="form-control" value="<%= @teacher.teacher_email %>"></input>
   </div>
   <div class="form-group">
     <label>Teléfono</label>
-    <textarea name="teacher[teacher_phone]" class="form-control"><%= @teacher.teacher_phone %></textarea>
+    <input name="teacher[teacher_phone]" class="form-control" value="<%= @teacher.teacher_phone %>"></input>
   </div>
   <div class="form-group">
     <label>Cédula</label>
-    <textarea name="teacher[teacher_cedula]" class="form-control"><%= @teacher.teacher_cedula %></textarea>
+    <input name="teacher[teacher_cedula]" class="form-control" value="<%= @teacher.teacher_cedula %>"></input>
   </div>
   <input type="hidden" name="_method" value="PUT">
   <button type="submit" class="btn btn-success">Actualizar</button>

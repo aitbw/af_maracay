@@ -1,23 +1,23 @@
 <form action="/dashboard/providers/<%= @provider.provider_id %>/edit" method="POST">
   <div class="form-group">
     <label>Nombre</label>
-    <textarea name="provider[provider_name]" class="form-control"><%= h(@provider.provider_name) %></textarea>
+    <input name="provider[provider_name]" class="form-control" value="<%= h(@provider.provider_name) %>"></input>
   </div>
   <div class="form-group">
     <label>RIF</label>
-    <textarea name="provider[provider_rif]" class="form-control"><%= @provider.provider_rif %></textarea>
+    <input name="provider[provider_rif]" class="form-control" value="<%= @provider.provider_rif %>"></input>
   </div>
   <div class="form-group">
     <label>Teléfono</label>
-    <textarea name="provider[provider_phone]" class="form-control"><%= @provider.provider_phone %></textarea>
+    <input name="provider[provider_phone]" class="form-control" value="<%= @provider.provider_phone %>"></input>
   </div>
   <div class="form-group">
     <label>Correo</label>
-    <textarea name="provider[provider_email]" class="form-control"><%= @provider.provider_email %></textarea>
+    <input name="provider[provider_email]" class="form-control" value="<%= @provider.provider_email %>"></input>
   </div>
   <div class="form-group">
     <label>Encargado</label>
-    <textarea name="provider[manager]" class="form-control"><%= h(@provider.manager) %></textarea>
+    <input name="provider[manager]" class="form-control" value="<%= h(@provider.manager) %>"></input>
   </div>
   <input type="hidden" name="_method" value="PUT">
   <button type="submit" class="btn btn-success">Actualizar</button>

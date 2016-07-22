@@ -1,7 +1,7 @@
 <form action="/dashboard/courses/<%= @course.course_id %>/edit" method="POST">
   <div class="form-group">
     <label>Código</label>
-    <textarea name="course[course_code]" class="form-control"><%= @course.course_code %></textarea>
+    <input name="course[course_code]" class="form-control" value="<%= @course.course_code %>"></input>
   </div>
   <div class="form-group">
   <label>Tipo</label>
@@ -21,11 +21,11 @@
   </div>
   <div class="form-group">
     <label>Nivel</label>
-    <textarea name="course[course_level]" class="form-control"><%= @course.course_level %></textarea>
+    <input name="course[course_level]" class="form-control" value="<%= @course.course_level %>"></input>
   </div>
   <div class="form-group">
     <label>Capacidad</label>
-    <textarea name="course[course_capacity]" class="form-control"><%= @course.course_capacity %></textarea>
+    <input name="course[course_capacity]" class="form-control" value="<%= @course.course_capacity %>"></input>
   </div>
   <input type="hidden" name="_method" value="PUT">
   <button type="submit" class="btn btn-success">Actualizar</button>

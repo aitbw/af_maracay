@@ -1,7 +1,7 @@
 <form action="/dashboard/students/<%= @fee.student_id %>/fees/<%= @fee.fee_id %>/edit" method="POST">
     <div class="form-group">
       <label>Monto de cuota (BsF.)</label>
-      <textarea name="form[fee_amount]" class="form-control"><%= @fee.fee_amount %></textarea>
+      <input name="form[fee_amount]" class="form-control" value="<%= @fee.fee_amount %>"></input>
     </div>
     <div class="form-group">
       <label>Método de pago</label>
@@ -23,11 +23,11 @@
     <% end %>
     <div class="form-group">
       <label>Número de referencia</label>
-      <textarea name="form[reference_number]" class="form-control"><%= h(@fee.reference_number) %></textarea>
+      <input name="form[reference_number]" class="form-control" value="<%= h(@fee.reference_number) %>"></input>
     </div>
     <div class="form-group">
       <label>Concepto</label>
-      <textarea type="text" class="form-control" name="form[fee_description]"><%= h(@fee.fee_description) %></textarea>
+      <input type="text" class="form-control" name="form[fee_description]" value="<%= h(@fee.fee_description) %>"></input>
     </div>
     <% if session[:role] == 'Admin' && @fee.fee_status == 'Cuota por aprobar' %>
       <div class="form-group">
