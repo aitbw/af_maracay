@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160709223534) do
+ActiveRecord::Schema.define(version: 20160722152125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,6 +167,7 @@ ActiveRecord::Schema.define(version: 20160709223534) do
     t.string  "student_phone",  limit: 15,  null: false
     t.string  "student_cedula", limit: 10,  null: false
     t.integer "course_id",                  null: false
+    t.string  "alt_phone",      limit: 15,  null: false
   end
 
   add_index "students", ["course_id"], name: "fk_students_courses1_idx", using: :btree
