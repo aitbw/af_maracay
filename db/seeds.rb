@@ -48,6 +48,10 @@ class Bank < ActiveRecord::Base
   Bank.create(bank_name: 'Banco Activo')
   Bank.create(bank_name: 'Del Sur')
   Bank.create(bank_name: '100% Banco')
+  Bank.create(bank_name: 'Bancrecer')
+  Bank.create(bank_name: 'Banplus')
+  Bank.create(bank_name: 'Mi Banco')
+  Bank.create(bank_name: 'Banco Soberano del Pueblo')
 end
 
 # Data for 'users' table
