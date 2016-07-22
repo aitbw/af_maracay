@@ -48,8 +48,9 @@
       <% end %>
     </tbody>
   </table>
-  <div class="pagination">
-    <%= will_paginate @users, container: false, previous_label: "&laquo", next_label: "&raquo" %>
-    <%= "<a href=\"/dashboard/users\">Volver</a>" if params[:cedula] %>
-  </div>
+</div>
+
+<div class="pagination">
+  <%= will_paginate @users, container: false, previous_label: "&laquo", next_label: "&raquo" %>
+  <%= "<a href=\"/dashboard/users\">Volver</a>" if params[:cedula] %>
 </div>
