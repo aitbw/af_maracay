@@ -1,5 +1,7 @@
 # Model for 'grades' table
 class Grade < ActiveRecord::Base
+  # Records shown on 'grades' view
+  self.per_page = 10
   default_scope { order('grade_date DESC') }
 
   # Relations

@@ -171,6 +171,6 @@ end
 get '/dashboard/students/:id/grades' do
   set_page_title('Calificaciones')
   @student = Student.find(params[:id])
-  @grades = Grade.where(student_id: params[:id]).includes(:course)
+  @grades = Grade.where(student_id: params[:id]).includes(:course).paginate(page: params[:page])
   erb :grades, user_layout
 end
