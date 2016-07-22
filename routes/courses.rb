@@ -8,7 +8,7 @@ end
 
 get '/dashboard/courses/new_course' do
   set_page_title('Crear nuevo curso')
-  @types = CourseType.select(:course_type_id, :course_name)
+  @types = CourseType.select(:course_type_id, :course_modality)
   @offices = Office.all
   erb :'new/new_course', user_layout
 end

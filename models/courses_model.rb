@@ -19,7 +19,7 @@ class Course < ActiveRecord::Base
 
   # Delegations
   delegate :office_name, to: :office
-  delegate :course_name, to: :course_type
+  delegate :course_modality, to: :course_type
 
   # Validations
   validates :course_type_id, presence: true

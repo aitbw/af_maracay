@@ -13,7 +13,7 @@
       <thead>
         <tr>
           <th scope="col">Código del curso</th>
-          <th scope="col">Tipo de curso</th>
+          <th scope="col">Modalidad del curso</th>
           <th scope="col">Nivel del curso</th>
         </tr>
       </thead>
@@ -21,7 +21,7 @@
         <% @courses.each do |course| %>
           <tr>
             <td><%= course.course_code %></td>
-            <td><%= course.course_name %></td>
+            <td><%= course.course_modality %></td>
             <td><%= course.course_level %></td>
           </tr>
         <% end %>

@@ -4,7 +4,7 @@
       <input class="form-control" name="code" placeholder="Buscar por código" value="<%= params[:code] %>">
     </div>
     <a href="/dashboard/courses/new_course" class="btn btn-success">Crear nuevo curso</a>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#courseTypes">Tipos de curso</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#courseTypes">Modalidades</button>
   </form>
 
   <br />
@@ -13,7 +13,7 @@
     <thead>
       <tr>
         <th scope="col">Código</th>
-        <th scope="col">Tipo</th>
+        <th scope="col">Modalidad</th>
         <th scope="col">Sede</th>
         <th scope="col">Nivel</th>
         <th scope="col">Capacidad</th>
@@ -28,7 +28,7 @@
       <% @courses.each do |course| %>
         <tr>
           <td><%= course.course_code %></td>
-          <td><%= course.course_name %></td>
+          <td><%= course.course_modality %></td>
           <td><%= course.office_name %></td>
           <td><%= course.course_level %></td>
           <td><%= course.course_capacity %></td>
@@ -73,13 +73,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Tipos de curso</h4>
+        <h4 class="modal-title" id="myModalLabel">Modalidades</h4>
       </div>
       <div class="modal-body">
         <table class="table table-striped">
           <thead>
             <tr>
-              <th scope="col">Tipo</th>
+              <th scope="col">Modalidad</th>
               <th scope="col">Días</th>
               <th scope="col">Horario</th>
             </tr>
@@ -87,7 +87,7 @@
           <tbody>
             <% @course_types.each do |type| %>
               <tr>
-                <td><%= type.course_name %></td>
+                <td><%= type.course_modality %></td>
                 <td><%= type.course_days %></td>
                 <td><%= type.course_schedule %></td>
               </tr>

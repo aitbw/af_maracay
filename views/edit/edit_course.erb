@@ -4,10 +4,10 @@
     <input name="course[course_code]" class="form-control" value="<%= @course.course_code %>"></input>
   </div>
   <div class="form-group">
-  <label>Tipo</label>
+  <label>Modalidad</label>
   <select name="course[course_type_id]" class="form-control">
     <% @types.each do |type| %>
-    <option <%= "selected" if type.course_type_id == @course.course_type_id %> value="<%= type.course_type_id %>"><%= type.course_name %></option>
+    <option <%= "selected" if type.course_type_id == @course.course_type_id %> value="<%= type.course_type_id %>"><%= type.course_modality %></option>
     <% end %>
   </select>
   </div>

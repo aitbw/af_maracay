@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th scope="col">Código</th>
-      <th scope="col">Tipo</th>
+      <th scope="col">Modalidad</th>
       <th scope="col">Nivel</th>
       <th scope="col">Inicio de curso</th>
       <th scope="col">Fin de curso</th>
@@ -17,7 +17,7 @@
     <% @courses.each do |course| %>
       <tr>
         <td><%= course.course_code %></td>
-        <td><%= course.course_name %></td>
+        <td><%= course.course_modality %></td>
         <td><%= course.course_level %></td>
         <td><%= course.start_date.strftime('%d/%m/%Y') %></td>
         <td><%= course.completion_date.strftime('%d/%m/%Y') %></td>
