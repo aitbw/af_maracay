@@ -23,4 +23,10 @@
   </tbody>
 </table>
 
+<% if @course.students.size > 10 %>
+  <div class="pagination">
+    <%= will_paginate @course.students, container: false, previous_label: "&laquo", next_label: "&raquo" %>
+  </div>
+<% end %>
+
 <a href="/dashboard/courses" class="btn btn-default">Atrás</a>
