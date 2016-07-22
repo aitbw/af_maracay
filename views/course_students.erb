@@ -6,6 +6,7 @@
       <th scope="col">Nombre</th>
       <th scope="col">Correo</th>
       <th scope="col">Teléfono</th>
+      <th scope="col">Teléfono alterno</th>
       <th scope="col">Cédula</th>
     </tr>
   </thead>
@@ -15,6 +16,7 @@
         <td><%= h(student.student_name) %></td>
         <td><%= student.student_email %></td>
         <td><%= student.student_phone %></td>
+        <td><%= student.alt_phone %></td>
         <td><%= student.student_cedula %></td>
       </tr>
     <% end %>
