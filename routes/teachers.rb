@@ -147,7 +147,7 @@ end
 get '/dashboard/teachers/:id/hours' do
   set_page_title('Horas cubiertas')
   @teacher = Teacher.find(params[:id])
-  @hours = TeacherHour.where(teacher_id: params[:id]).includes(:course).order(date_covered: :desc).paginate(page: params[:page])
+  @hours = TeacherHour.where(teacher_id: params[:id]).includes(:course).paginate(page: params[:page])
   erb :teacher_hours, user_layout
 end
 

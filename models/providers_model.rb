@@ -8,6 +8,7 @@ class Provider < ActiveRecord::Base
 
   # Records show per page on 'providers' view
   self.per_page = 10
+  default_scope { order('provider_name ASC') }
 
   # Callbacks
   after_validation :normalize_provider_name

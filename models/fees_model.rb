@@ -6,6 +6,7 @@ class Fee < ActiveRecord::Base
 
   # Records shown on 'fees' view
   self.per_page = 10
+  default_scope { order('issue_date DESC') }
 
   # Relations
   belongs_to :user

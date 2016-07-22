@@ -1,5 +1,7 @@
 # Model for 'grades' table
 class Grade < ActiveRecord::Base
+  default_scope { order('grade_date DESC') }
+
   # Relations
   belongs_to :student
   belongs_to :course

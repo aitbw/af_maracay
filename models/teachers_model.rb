@@ -7,6 +7,7 @@ class Teacher < ActiveRecord::Base
 
   # Records shown per page on 'teachers' view
   self.per_page = 10
+  default_scope { order('teacher_name ASC') }
 
   # Relations
   has_many :bank_accounts, dependent: :destroy

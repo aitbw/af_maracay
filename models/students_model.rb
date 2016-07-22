@@ -7,6 +7,7 @@ class Student < ActiveRecord::Base
 
   # Records shown per page on 'students' view
   self.per_page = 10
+  default_scope { order('student_name ASC') }
 
   # Relations
   belongs_to :course

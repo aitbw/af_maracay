@@ -4,6 +4,7 @@ class TeacherHour < ActiveRecord::Base
 
   # Records shown on 'teacher_hours' view
   self.per_page = 10
+  default_scope { order('date_covered DESC') }
 
   # Relations
   belongs_to :teacher

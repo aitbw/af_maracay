@@ -4,6 +4,7 @@ require 'active_support/core_ext/string/inflections'
 class User < ActiveRecord::Base
   # Records shown per page on 'users' view
   self.per_page = 10
+  default_scope { order('user_name ASC') }
 
   # Relations
   has_many :signups, dependent: :destroy
