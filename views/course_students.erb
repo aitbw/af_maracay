@@ -1,6 +1,6 @@
-<h3 align="center" style="padding-bottom:1%;">Estudiantes del curso <%= @course.course_code %></h3>
+<h3 align="center" style="padding-bottom:1%;">Estudiantes del curso <%= @course_code %></h3>
 
-<table class="table table-bordered">
+<table class="table table-bordered table-responsive">
   <thead>
     <tr>
       <th scope="col">Nombre</th>
@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @course.students.each do |student| %>
+    <% @course_students.each do |student| %>
       <tr>
         <td><%= h(student.student_name) %></td>
         <td><%= student.student_email %></td>
@@ -23,9 +23,9 @@
   </tbody>
 </table>
 
-<% if @course.students.size > 10 %>
+<% if @course_students.size > 10 %>
   <div class="pagination">
-    <%= will_paginate @course.students, container: false, previous_label: "&laquo", next_label: "&raquo" %>
+    <%= will_paginate @course_students, container: false, previous_label: "&laquo", next_label: "&raquo" %>
   </div>
 <% end %>
 

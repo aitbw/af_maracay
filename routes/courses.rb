@@ -53,7 +53,8 @@ end
 
 get '/dashboard/courses/:id/students/show' do
   set_page_title('Estudiantes del curso')
-  @course = Course.find(params[:id])
+  @course_code = Course.where(course_id: params[:id]).pluck(:course_code).first
+  @course_students = Student.where(course_id: params[:id]).paginate(page: params[:page])
   erb :course_students, user_layout
 end
 
