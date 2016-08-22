@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160822175101) do
+ActiveRecord::Schema.define(version: 20160822191821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,6 +183,7 @@ ActiveRecord::Schema.define(version: 20160822175101) do
   add_index "teachers", ["teacher_cedula"], name: "index_teachers_on_teacher_cedula", unique: true, using: :btree
   add_index "teachers", ["teacher_email"], name: "index_teachers_on_teacher_email", unique: true, using: :btree
   add_index "teachers", ["teacher_id"], name: "index_teachers_on_teacher_id", unique: true, using: :btree
+  add_index "teachers", ["teacher_wages"], name: "index_teachers_on_teacher_wages", using: :gist
 
   create_table "users", primary_key: "user_id", force: :cascade do |t|
     t.string  "user_name",     limit: 150,                null: false
