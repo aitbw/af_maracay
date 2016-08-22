@@ -162,11 +162,11 @@ ActiveRecord::Schema.define(version: 20160822175101) do
   add_index "students", ["student_id"], name: "index_students_on_student_id", unique: true, using: :btree
 
   create_table "teacher_hours", primary_key: "teacher_hour_id", force: :cascade do |t|
-    t.integer "hours_covered",                         null: false
-    t.date    "date_covered",                          null: false
-    t.binary  "teacher_substituted", default: "false", null: false
-    t.integer "teacher_id",                            null: false
-    t.integer "section_id",                            null: false
+    t.integer "hours_covered",                       null: false
+    t.date    "date_covered",                        null: false
+    t.boolean "teacher_substituted", default: false, null: false
+    t.integer "teacher_id",                          null: false
+    t.integer "section_id",                          null: false
   end
 
   add_index "teacher_hours", ["teacher_hour_id"], name: "index_teacher_hours_on_teacher_hour_id", unique: true, using: :btree
