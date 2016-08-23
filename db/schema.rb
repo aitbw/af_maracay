@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160822191821) do
+ActiveRecord::Schema.define(version: 20160823181921) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,6 +167,7 @@ ActiveRecord::Schema.define(version: 20160822191821) do
     t.boolean "teacher_substituted", default: false, null: false
     t.integer "teacher_id",                          null: false
     t.integer "section_id",                          null: false
+    t.float   "fare_per_hour",                       null: false
   end
 
   add_index "teacher_hours", ["teacher_hour_id"], name: "index_teacher_hours_on_teacher_hour_id", unique: true, using: :btree
