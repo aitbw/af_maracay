@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823181921) do
+ActiveRecord::Schema.define(version: 20160823221804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,8 +110,8 @@ ActiveRecord::Schema.define(version: 20160823181921) do
     t.string  "payment_description", limit: 50, null: false
     t.string  "payment_method",      limit: 50, null: false
     t.string  "payment_status",      limit: 50, null: false
-    t.date    "issue_date",                     null: false
-    t.date    "expiration_date",                null: false
+    t.date    "issue_date"
+    t.date    "expiration_date"
     t.string  "bank",                limit: 50
     t.string  "reference_number",    limit: 50
     t.integer "user_id",                        null: false
