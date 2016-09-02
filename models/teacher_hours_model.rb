@@ -1,72 +1,69 @@
 # Model for the 'teacher_hours' model
 class TeacherHour < ActiveRecord::Base
-  include ActiveModel::Validations
-
   # Records shown on 'teacher_hours' view
   self.per_page = 10
   default_scope { order('date_covered DESC') }
 
   # Relations
+  belongs_to :section
   belongs_to :teacher
-  belongs_to :course
 
   # Callbacks
-  after_validation :discount_hours_from_course, on: :create
-  before_destroy :restore_hours_to_course
+  after_validation :discount_hours_from_section, on: :create
+  before_destroy :restore_hours_to_section
 
   # Delegations
-  delegate :course_code, to: :course
   delegate :teacher_name, to: :teacher
 
   # Validations
-  validates :hours_covered, presence: true, numericality: { only_integer: true }, length: { is: 1 }
+  validates :hours_covered, presence: true, numericality: { only_integer: true }
   validates :date_covered, presence: true
-  validates :course_id, presence: true
+  validates :fare_per_hour, presence: true
 
   # Custom validations
   validate :valid_date?
 
   # Methods
 
-  # Since the hours assigned to a teacher must be discounted from the course
+  # Since the hours assigned to a teacher must be discounted from the section
   # he/she's in charge with, this callback discounts those hours from the total
-  # hours the course was set to have when it was created and moves them to the
+  # hours the section was set to have when it was created and moves them to the
   # 'hours_covered' column.
-  def discount_hours_from_course
+  def discount_hours_from_section
     begin
-      course = Course.find(course_id)
-      course.course_hours -= hours_covered
-      course.hours_covered += hours_covered
+      section = Section.find(section_id)
+      section.section_hours -= hours_covered
+      section.hours_covered += hours_covered
     rescue ActiveRecord::RecordNotFound, TypeError
       return
     end
-    course.save!
+    section.save!
   end
 
-  # This validation ensures the date entered on the form is between the course's
-  # start and completion date range.
+  # This validation ensures the date entered on the form is between the
+  # section's start and end date range.
   def valid_date?
     begin
-      course = Course.find(course_id)
+      section = Section.find(section_id)
     rescue ActiveRecord::RecordNotFound
       return
     end
 
-    date_range = (course.start_date.to_s)..(course.completion_date.to_s)
+    date_range = (section.start_date.to_s)..(section.completion_date.to_s)
 
     unless date_range.cover?(date_covered.to_s)
-      errors.add(:date_covered, "must be between the range of the course's start and end date")
+      errors.add(:date_covered, "must be between the range of the section's start and end date")
     end
   end
 
   # If an user happens to assign hours to a teacher by mistake, the record
-  # can be easily destroyed and restore the discounted hours to the course
+  # can be easily destroyed and restore the discounted hours to the section
   # thanks to this callback
-  def restore_hours_to_course
-    course = Course.find(course_id)
+  def restore_hours_to_section
+    section = Section.find(section_id)
 
-    course.course_hours += hours_covered
-    course.hours_covered -= hours_covered
-    course.save!
+    section.section_hours += hours_covered
+    section.hours_covered -= hours_covered
+    section.save!
   end
 end

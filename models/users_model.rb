@@ -7,8 +7,7 @@ class User < ActiveRecord::Base
   default_scope { order('user_name ASC') }
 
   # Relations
-  has_many :signups, dependent: :destroy
-  has_many :fees, dependent: :destroy
+  has_many :payments, dependent: :destroy
 
   # Callbacks
   after_validation :encrypt_password, on: :create
