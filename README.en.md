@@ -1,7 +1,6 @@
 # Maracay's Alliance Française
 
-This is a web application designed for Maracay's Alliance Française as part of my thesis to opt for
-the Information Engineering degree at Universidad Tecnológica del Centro (UNITEC) with the aim to manage the institute's administrative tasks in an efficient, quick way.
+This is a web application designed for Maracay's Alliance Française as part of my thesis to opt for the Information Engineering degree at Universidad Tecnológica del Centro (UNITEC) with the aim to manage the institute's administrative tasks in an efficient, quick way.
 
 Made with ♥ by Angel Perez, from Venezuela.
 
@@ -17,36 +16,33 @@ This app was built under the following stack:
 
 # Setup
 * Fork this repo
-* On your environment, add 3 variables for PostgreSQL's username, password and database.
-* Also, add this to your environment as well:
-
-``` shell
-postgres://{username}:{password}@{host}/{database}
-```
-
+* Set 3 environment variables for PostgreSQL's username, password and database
 * Go to the project's folder
-* On /config, create a 'database.yml' file, and add the following:
+* On /config, create a file named 'database.yml' and add the following:
 
 ``` yaml
 development:
   adapter: postgresql
   encoding: utf8
   reconnect: false
-  database: <%= ENV['your_variable'] %>
+  database: <%= ENV['your_database'] %>
   pool: 5
-  username: <%= ENV['your_variable'] %>
-  password: <%= ENV['your_variable'] %>
+  username: <%= ENV['your_username'] %>
+  password: <%= ENV['your_password'] %>
   host: localhost
   port: 5432
+  url: postgres://localhost/<%= ENV['your_database'] %>?pool=5
 ```
 
-* Make sure you have the following packages installed:
+* If you use Ubuntu (or one of its flavours), make sure you have the following packages installed:
 
 ``` shell
 postgresql postgresql-contrib postgresql-server-dev-9.5
 ```
 
-Otherwise, install them before procedding.
+* If you use Arch (or one of its derivatives), follow this [guide](https://wiki.archlinux.org/index.php/PostgreSQL)
+
+Otherwise, follow the instructions for your OS before procedding.
 
 * Make sure Bundler is installed. Then, run the following command:
 

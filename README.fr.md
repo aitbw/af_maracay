@@ -1,7 +1,6 @@
 # Alliance Française de Maracay
 
-C'est une application web développée pour l'Alliance Française de Maracay comme travail de
-thèse pour obtenir le diplôme d'Ingénerie en Information à l'Universidad Tecnológica del Centro (Université Technlógique du Centro) afin de réaliser des tâches administratives de l'institution d'une manière rapide et efficace.
+C'est une application web développée pour l'Alliance Française de Maracay comme travail de thèse pour obtenir le diplôme d'Ingénerie en Information à l'Universidad Tecnológica del Centro (Université Technlógique du Centro) afin de réaliser des tâches administratives de l'institution d'une manière rapide et efficace.
 
 Fait avec ♥ par Angel Perez, de Venezuela.
 
@@ -17,13 +16,7 @@ Cette application a été développée avec les technologies suivantes:
 
 # Installation
 * *Fork* ce repo
-* Sur votre *environment*, ajoutez 3 variables pour le nom d'utilisateur, mot de passe et base de données de PostgreSQL
-* Ajoutez cette adresse URL aussi sur votre *environment*:
-
-``` shell
-postgres://{username}:{password}@{host}/{database}
-```
-
+* Sur votre environnement, ajoutez 3 variables pour le nom d'utilisateur, mot de passe et base de données de PostgreSQL
 * Allez au dossier du projet
 * Sur /config, créez un fichier nommé 'database.yml', et ajoutez l'information suivante:
 
@@ -38,15 +31,18 @@ development:
   password: <%= ENV['votre_variable'] %>
   host: localhost
   port: 5432
+  url: postgres://localhost/<%= ENV['votre_variable'] %>?pool=5
 ```
 
-* Assurez que vous ayez les *packages* suivants installés:
+* Si vous utilisez Ubuntu (ou une des ses variantes), assurez que vous ayez les *packages* suivants installés:
 
 ``` shell
 postgresql postgresql-contrib postgresql-server-dev-9.5
 ```
 
-Sinon, installez-les avant de continuer.
+* Si vous utilisez Arch (ou une des ses variantes), suivez ce [guide](https://wiki.archlinux.org/index.php/PostgreSQL)
+
+Ou contraire, exécutez l'action correspondante à votre SO avant de continuer.
 
 * Assurez que Bundler soit installé. Après, exécutez la commande suivante:
 

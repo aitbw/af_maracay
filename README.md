@@ -16,36 +16,33 @@ Esta aplicación está constituida de las siguientes tecnologías:
 
 # Instalación
 * Clona este repositorio
-* Añade a tu *environment* tres (3) variables para la base de datos, usuario y *password* de PostgreSQL
-* En tu *environment* también añade lo siguiente:
-
-``` shell
-postgres://{username}:{password}@{host}/{database}
-```
-
+* Establece tres (3) variables de entorno para la base de datos, usuario y contraseña de PostgreSQL
 * Accede a la carpeta del proyecto
-* En /config, crea un 'database.yml' y agrega lo siguiente:
+* En /config, crea un archivo nombrado 'database.yml' y agrega lo siguiente:
 
 ``` yaml
 development:
   adapter: postgresql
   encoding: utf8
   reconnect: false
-  database: <%= ENV['tu_variable'] %>
+  database: <%= ENV['tu_base_de_datos'] %>
   pool: 5
-  username: <%= ENV['tu_variable'] %>
-  password: <%= ENV['tu_variable'] %>
+  username: <%= ENV['tu_nombre_de_usuario'] %>
+  password: <%= ENV['tu_contraseña'] %>
   host: localhost
   port: 5432
+  url: postgres://localhost/<%= ENV['tu_base_de_datos'] %>?pool=5
 ```
 
-* Asegúrate de tener los siguientes paquetes instalados:
+* Si usas Ubuntu (o alguno de sus sabores), asegúrate de tener los siguientes paquetes instalados:
 
 ``` shell
 postgresql postgresql-contrib postgresql-server-dev-9.5
 ```
 
-De lo contrario, instálalos antes de proceder.
+* Si usas Arch (o alguna de sus variantes), sigue esta [guia](https://wiki.archlinux.org/index.php/PostgreSQL)
+
+De lo contrario, ejecuta la acción pertinente a tu SO antes de continuar.
 
 * Asegúrate de que Bundler está instalado. Luego, corre en la consola:
 
