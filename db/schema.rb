@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823221804) do
+ActiveRecord::Schema.define(version: 20160903003705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -177,7 +177,7 @@ ActiveRecord::Schema.define(version: 20160823221804) do
     t.string "teacher_email",  limit: 150, null: false
     t.string "teacher_phone",  limit: 15,  null: false
     t.string "teacher_cedula", limit: 10,  null: false
-    t.hstore "teacher_wages",              null: false
+    t.hstore "teacher_wages"
     t.date   "entry_date",                 null: false
   end
 
