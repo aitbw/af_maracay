@@ -7,7 +7,6 @@ def change_password
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
   end
-  redirect "#{request.path_info}"
 end
 
 def reset_password
@@ -19,6 +18,5 @@ def reset_password
     redirect '/dashboard/users'
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
-    redirect "#{request.path_info}"
   end
 end

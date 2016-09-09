@@ -1,6 +1,6 @@
 get '/dashboard/users' do
   set_page_title('Usuarios')
-  @users = User.search_user(params[:cedula]).paginate(page: params[:page])
+  @users = User.search_user(params[:cedula]).page(params[:page])
   erb :users, user_layout
 end
 
@@ -16,7 +16,7 @@ post '/dashboard/users/new_user' do
     redirect '/dashboard/users', notice: 'Usuario creado exitosamente.'
   else
     flash[:errors] = new_user.errors.full_messages
-    redirect "#{request.path_info}"
+    redirect(request.path_info.to_s)
   end
 end
 
@@ -31,7 +31,7 @@ delete '/dashboard/users/:id/delete' do
     redirect '/dashboard/users', notice: 'Usuario eliminado.'
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
-    redirect "#{request.path_info}"
+    redirect(request.path_info.to_s)
   end
 end
 
@@ -47,7 +47,7 @@ put '/dashboard/users/:id/edit' do
     redirect '/dashboard/users', notice: 'Datos actualizados.'
   else
     flash[:errors] = edit_user.errors.full_messages
-    redirect "#{request.path_info}"
+    redirect(request.path_info.to_s)
   end
 end
 
@@ -64,7 +64,7 @@ put '/dashboard/change_password' do
   else
     change_password
   end
-  redirect "#{request.path_info}"
+  redirect(request.path_info.to_s)
 end
 
 get '/dashboard/users/:id/reset_password' do
@@ -81,13 +81,13 @@ put '/dashboard/users/:id/reset_password' do
   else
     reset_password
   end
-  redirect "#{request.path_info}"
+  redirect(request.path_info.to_s)
 end
 
 get '/dashboard/users/:id/lock_account' do
-  @user = User.find(params[:id])
+  user = User.find(params[:id])
 
-  if @user.update(has_access: false)
+  if user.update(has_access: false)
     flash[:notice] = 'Cuenta bloqueada.'
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
@@ -96,9 +96,9 @@ get '/dashboard/users/:id/lock_account' do
 end
 
 get '/dashboard/users/:id/unlock_account' do
-  @user = User.find(params[:id])
+  user = User.find(params[:id])
 
-  if @user.update(has_access: true)
+  if user.update(has_access: true)
     flash[:notice] = 'Cuenta desbloqueada.'
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
