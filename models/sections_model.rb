@@ -23,7 +23,7 @@ class Section < ActiveRecord::Base
   validates :level_id, presence: true, uniqueness: { scope: :course_id }
 
   # Custom validations
-  validate :start_date_cant_be_in_the_past
+  validate :start_date_cant_be_in_the_past, on: :create
 
   # Methods
   def start_date_cant_be_in_the_past
