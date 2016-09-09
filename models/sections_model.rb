@@ -16,7 +16,7 @@ class Section < ActiveRecord::Base
   delegate :course_code, to: :course
 
   # Validations
-  validates :section_capacity, presence: true, numericality: { only_integer: true }, length: { is: 2 }
+  validates :section_capacity, presence: true, numericality: { only_integer: true }
   validates :start_date, presence: true
   validates :end_date, presence: true
   validates :section_hours, presence: true, numericality: { only_integer: true }
