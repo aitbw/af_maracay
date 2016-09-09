@@ -81,7 +81,7 @@ Esta aplicación web permite:
 Esta app puede ser empleada en otras sedes de la Alianza Francesa donde se requiera de un sistema administrativo o en instituciones educativas con necesidades similares.
 
 # ¿Cómo colaborar?
-* Copia este repositorio
+* Clona este repositorio
 * Añade el *feature* o *bugfix* que realizaste
 * Añade *tests*, así me aseguro de que todo funciona como es debido
 * Commit!
