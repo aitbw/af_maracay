@@ -1,5 +1,3 @@
-require 'active_support/core_ext/string/inflections'
-
 # Model for 'teachers' table
 class Teacher < ActiveRecord::Base
   VALID_EMAIL ||= /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i

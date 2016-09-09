@@ -1,5 +1,3 @@
-require 'active_support/core_ext/string/inflections'
-
 # Model for 'users' table
 class User < ActiveRecord::Base
   # Records shown per page on 'users' view
