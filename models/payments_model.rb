@@ -1,7 +1,7 @@
 # Custom AR validator for payments' reference numbers
 class ReferenceNumberValidator < ActiveModel::Validator
   def validate(record)
-    case record.payment_type
+    case record.payment_method
     when 'Débito', 'Crédito'
       unless record.reference_number =~ /\A\d{4}\z/
         record.errors[:reference_number].push('is invalid')
@@ -78,7 +78,6 @@ class Payment < ActiveRecord::Base
     payment_method == 'Transferencia'
   end
 
-  # Test this callback sans 'present?'
   def expiration_date_for_signups
     if issue_date.present? && payment_description == 'Inscripción'
       self.expiration_date = Date.parse(issue_date.to_s).next_year
