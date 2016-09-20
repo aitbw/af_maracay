@@ -15,14 +15,16 @@
           <th scope="col">#</th>
           <th scope="col">Nombre del estudiante</th>
           <th scope="col">Fecha de expiración</th>
+          <th scope="col">Opciones</th>
         </tr>
       </thead>
       <tbody>
         <% @expired_signups.each do |signup| %>
           <tr>
-            <td><%= signup.signup_id %></td>
+            <td><%= signup.payment_id %></td>
             <td><%= h(signup.student_name) %></td>
             <td><%= signup.expiration_date.strftime('%d/%m/%Y') %></td>
+            <td><a href="/dashboard/students/<%= signup.student_id %>/signups/new">Renovar</a></td>
           </tr>
         <% end %>
       </tbody>
@@ -47,14 +49,16 @@
           <th scope="col">#</th>
           <th scope="col">Nombre del estudiante</th>
           <th scope="col">Fecha de expiración</th>
+          <th scope="col">Opciones</th>
         </tr>
       </thead>
       <tbody>
         <% @expired_fees.each do |fee| %>
           <tr>
-            <td><%= fee.fee_id %></td>
+            <td><%= fee.payment_id %></td>
             <td><%= h(fee.student_name) %></td>
             <td><%= fee.expiration_date.strftime('%d/%m/%Y') %></td>
+            <td><a href="/dashboard/students/<%= fee.student_id %>/fees/new">Renovar</a></td>
           </tr>
         <% end %>
       </tbody>

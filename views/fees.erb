@@ -5,13 +5,12 @@
     <tr>
       <th scope="col">Emisor</th>
       <th scope="col">Monto cancelado</th>
-      <th scope="col">Tipo de pago</th>
+      <th scope="col">Método de pago</th>
+      <th scope="col">Estado</th>
       <th scope="col">Fecha de emisión</th>
       <th scope="col">Fecha de expiración</th>
-      <th scope="col">Estado</th>
       <th scope="col">Banco</th>
       <th scope="col">Número de referencia</th>
-      <th scope="col">Concepto</th>
       <th scope="col">Acciones</th>
     </tr>
   </thead>
@@ -19,32 +18,27 @@
     <% @fees.each do |fee| %>
       <tr>
         <td><%= h(fee.user_name) %></td>
-        <td><%= fee.fee_amount %> BsF.</td>
-        <td><%= fee.payment_type %></td>
+        <td><%= fee.payment_amount %> BsF.</td>
+        <td><%= fee.payment_method %></td>
+        <td><%= fee.payment_status %></td>
         <td><%= fee.issue_date.strftime('%d/%m/%Y') %></td>
         <td><%= fee.expiration_date.strftime('%d/%m/%Y') %></td>
-        <% if fee.fee_status.include?('expirada') %>
-        <td><b><p class="text-danger"><%= fee.fee_status %></p></b></td>
-        <% else %>
-        <td><b><p class="text-success"><%= fee.fee_status %></p></b></td>
-        <% end %>
         <% if fee.bank.empty? %>
-        <td>N/A</td>
+          <td>N/A</td>
         <% else %>
-        <td><%= fee.bank %></td>
+          <td><%= fee.bank %></td>
         <% end %>
-        <% if fee.payment_type == 'Efectivo' %>
-        <td>N/A</td>
+        <% if fee.payment_method == 'Efectivo' %>
+          <td>N/A</td>
         <% else %>
-        <td><%= h(fee.reference_number) %></td>
+          <td><%= h(fee.reference_number) %></td>
         <% end %>
-        <td><%= h(fee.fee_description) %></td>
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/dashboard/students/<%= fee.student_id %>/fees/<%= fee.fee_id %>/delete">Eliminar</a></li>
-              <li><a href="/dashboard/students/<%= fee.student_id %>/fees/<%= fee.fee_id %>/edit">Modificar</a></li>
+              <li><a href="/dashboard/students/<%= fee.student_id %>/fees/<%= fee.payment_id %>/delete">Eliminar</a></li>
+              <li><a href="/dashboard/students/<%= fee.student_id %>/fees/<%= fee.payment_id %>/edit">Modificar</a></li>
             </ul>
           </div>
         </td>
@@ -59,7 +53,7 @@
   </div>
 <% end %>
 
-<% if @fees.empty? || Date.today >= @fees.take.expiration_date %>
-  <a href="/dashboard/students/<%= @student.student_id %>/fees/add" class="btn btn-success">Nueva cuota</a>
+<% if @fees.empty? || Date.today >= @fees.first.expiration_date %>
+  <a href="/dashboard/students/<%= @student.student_id %>/fees/new" class="btn btn-success">Nueva cuota</a>
 <% end %>
 <a href="/dashboard/students" class="btn btn-default">Atrás</a>

@@ -1,30 +1,32 @@
-<% if @fee.fee_id %>
+<% if @fee.payment_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
       <h3 class="panel-title">Eliminar cuota</h3>
     </div>
+
     <div class="panel-body">
-        <p>¿Está usted seguro de <b>eliminar</b> esta cuota? Esta acción no puede ser revertida.</p>
-        <ol style="list-style-type:disc;">
+      <p>¿Está usted seguro de <b>eliminar</b> esta cuota? Esta acción no puede ser revertida.</p>
+      <ol style="list-style-type:disc;">
         <li><b>Estudiante</b>: <%= h(@fee.student_name) %></li>
         <li><b>Emisor</b>: <%= h(@fee.user_name) %></li>
-        <li><b>Monto cancelado</b>: <%= @fee.fee_amount %> BsF.</li>
-        <li><b>Método de pago</b>: <%= @fee.payment_type %></li>
+        <li><b>Monto cancelado</b>: <%= @fee.payment_amount %> BsF.</li>
+        <li><b>Método de pago</b>: <%= @fee.payment_method %></li>
+        <li><b>Estado del pago</b>: <%= @fee.payment_status %></li>
         <li><b>Fecha de emision</b>: <%= @fee.issue_date.strftime('%d/%m/%Y') %></li>
         <li><b>Fecha de expiración</b>: <%= @fee.expiration_date.strftime('%d/%m/%Y') %></li>
         <% unless @fee.bank.empty? %>
-        <li><b>Banco</b>: <%= h(@fee.bank) %></li>
+          <li><b>Banco</b>: <%= h(@fee.bank) %></li>
         <% end %>
-        <% unless @fee.payment_type == 'Efectivo' %>
-        <li><b>Número de referencia</b>: <%= h(@fee.reference_number) %></li>
+        <% unless @fee.payment_method == 'Efectivo' %>
+          <li><b>Número de referencia</b>: <%= h(@fee.reference_number) %></li>
         <% end %>
-        <li><b>Concepto</b>: <%= h(@fee.fee_description) %></li>
-        </ol>
-        <form action="/dashboard/students/<%= @fee.student_id %>/fees/<%= @fee.fee_id %>/delete" method="POST">
-          <input type="hidden" name="_method" value="DELETE">
-          <button type="submit" class="btn btn-danger">Eliminar</button>
-          <a href="/dashboard/students/<%= @fee.student_id %>/fees" class="btn btn-default">Cancelar</a>
-        </form>
+      </ol>
+
+      <form action="/dashboard/students/<%= @fee.student_id %>/fees/<%= @fee.payment_id %>/delete" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="/dashboard/students/<%= @fee.student_id %>/fees" class="btn btn-default">Cancelar</a>
+      </form>
     </div>
   </div>
 <% end %>

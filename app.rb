@@ -64,11 +64,8 @@ end
 
 get '/dashboard' do
   set_page_title('Inicio')
-  @expired_signups = Signup.where(
-  'signup_status = ? AND is_latest_signup = ?', 'Inscripción expirada', true)
-
-  @expired_fees = Fee.where(
-  'fee_status = ? AND is_latest_fee = ?', 'Cuota expirada', true)
+  @expired_signups = Payment.where('payment_status = ? AND expiration_date <= ?', 'Inscripción vigente', Date.today)
+  @expired_fees = Payment.where('payment_status = ? AND expiration_date <= ?', 'Cuota vigente', Date.today)
   erb :index, user_layout
 end
 

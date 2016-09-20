@@ -17,6 +17,7 @@ end
 # Model for 'payments' table
 class Payment < ActiveRecord::Base
   include ActiveModel::Validations
+  include PaymentStatuses
 
   self.per_page = 10
   default_scope { order('issue_date DESC') }
@@ -27,10 +28,12 @@ class Payment < ActiveRecord::Base
   belongs_to :student
 
   # Callbacks
-  after_validation :expiration_date_for_signups, on: :create
+  after_validation :update_expired_payment_status, on: :create
+  after_validation :expiration_date_for_signups
   after_validation :set_payment_status, on: :create
   after_validation :extra_fee_for_credit_payments
-  after_validation :bank_for_deposit_payments, on: :create
+  after_validation :bank_for_deposit_payments
+  after_validation :clean_fields
 
   # Delegations
   delegate :student_name, :student_phone, to: :student
@@ -49,6 +52,15 @@ class Payment < ActiveRecord::Base
   validate :issue_date_cant_be_in_the_past
 
   # Methods
+  def clean_fields
+    case payment_method
+    when 'Débito', 'Crédito'
+      self.bank = ''
+    when 'Efectivo'
+      self.bank = '' && self.reference_number = ''
+    end
+  end
+
   def expiration_date_cant_be_null_for_fees
     if payment_description == 'Cuota' && expiration_date.blank?
       errors.add(:expiration_date, "can't be blank")
@@ -88,7 +100,22 @@ class Payment < ActiveRecord::Base
     self.payment_status = 'Pago por aprobar'
   end
 
+  # Since a student can make deposits on AF Maracay's behalf
+  # on only one bank, this callback sets the payment's bank
+  # automatically in order to improve the UX UI-wise.
   def bank_for_deposit_payments
     self.bank = 'BOD' if payment_method == 'Depósito'
+  end
+
+  # This callback determines which of the methods defined
+  # on the PaymentStatuses module should be called when
+  # creating a new Payment instance.
+  def update_expired_payment_status
+    case payment_description
+    when 'Inscripción'
+      update_expired_signup_status
+    when 'Cuota'
+      update_expired_fee_status
+    end
   end
 end

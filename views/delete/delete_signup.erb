@@ -1,30 +1,32 @@
-<% if @signup.signup_id %>
+<% if @signup.payment_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
-        <h3 class="panel-title">Eliminar inscripción</h3>
+      <h3 class="panel-title">Eliminar inscripción</h3>
     </div>
+
     <div class="panel-body">
-        <p>¿Está usted seguro de <b>eliminar</b> esta inscripción? Esta acción no puede ser revertida.</p>
-        <ol style="list-style-type:disc;">
+      <p>¿Está usted seguro de <b>eliminar</b> este inscripción? Esta acción no puede ser revertida.</p>
+      <ol style="list-style-type:disc;">
         <li><b>Estudiante</b>: <%= h(@signup.student_name) %></li>
         <li><b>Emisor</b>: <%= h(@signup.user_name) %></li>
-        <li><b>Monto cancelado</b>: <%= @signup.signup_amount %> BsF.</li>
-        <li><b>Método de pago</b>: <%= @signup.payment_type %></li>
+        <li><b>Monto cancelado</b>: <%= @signup.payment_amount %> BsF.</li>
+        <li><b>Método de pago</b>: <%= @signup.payment_method %></li>
+        <li><b>Estado del pago</b>: <%= @signup.payment_status %></li>
         <li><b>Fecha de emision</b>: <%= @signup.issue_date.strftime('%d/%m/%Y') %></li>
         <li><b>Fecha de expiración</b>: <%= @signup.expiration_date.strftime('%d/%m/%Y') %></li>
         <% unless @signup.bank.empty? %>
-        <li><b>Banco</b>: <%= h(@signup.bank) %></li>
+          <li><b>Banco</b>: <%= @signup.bank %></li>
         <% end %>
-        <% unless @signup.payment_type == 'Efectivo' %>
-        <li><b>Número de referencia</b>: <%= h(@signup.reference_number) %></li>
+        <% unless @signup.payment_method == 'Efectivo' %>
+          <li><b>Número de referencia</b>: <%= h(@signup.reference_number) %></li>
         <% end %>
-        <li><b>Concepto</b>: <%= h(@signup.signup_description) %></li>
-        </ol>
-        <form action="/dashboard/students/<%= @signup.student_id %>/signups/<%= @signup.signup_id %>/delete" method="POST">
-          <input type="hidden" name="_method" value="DELETE">
-          <button type="submit" class="btn btn-danger">Eliminar</button>
-          <a href="/dashboard/students/<%= @signup.student_id %>/signups" class="btn btn-default">Cancelar</a>
-        </form>
+      </ol>
+
+      <form action="/dashboard/students/<%= @signup.student_id %>/signups/<%= @signup.payment_id %>/delete" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="/dashboard/students/<%= @signup.student_id %>/signups" class="btn btn-default">Cancelar</a>
+      </form>
     </div>
   </div>
 <% end %>

@@ -1,45 +1,58 @@
-<form action="/dashboard/students/<%= @student_id %>/signups/add" method="POST">
+<form action="/dashboard/students/<%= params[:id] %>/signups/new" method="POST">
   <div class="form-group">
     <label>Monto de inscripción (BsF.)</label>
-    <input type="text" class="form-control" name="signup[signup_amount]" placeholder="Monto">
+    <input type="text" class="form-control" name="payment[payment_amount]" placeholder="Monto">
   </div>
+
   <div class="form-group">
-  <label>Método de pago</label>
-      <select name="signup[payment_type]" class="form-control" id="paymentType">
-          <option value="" selected>Seleccione un método de pago</option>
-          <% ["Débito", "Depósito", "Transferencia", "Crédito", "Efectivo"].each do |method| %>
-          <option value="<%= method %>"><%= method %></option>
-          <% end %>
-      </select>
+    <label>Concepto</label>
+    <select name="payment[payment_description]" class="form-control">
+      <option value="" selected>Seleccione el concepto del pago</option>
+      <% ["Inscripción", "Cuota"].each do |description| %>
+        <option value="<%= description %>"><%= description %></option>
+      <% end %>
+    </select>
   </div>
+
+  <div class="form-group">
+    <label>Método de pago</label>
+    <select name="payment[payment_method]" class="form-control" id="paymentMethod">
+      <option value="" selected>Seleccione un método de pago</option>
+      <% ["Débito", "Depósito", "Transferencia", "Crédito", "Efectivo"].each do |method| %>
+        <option value="<%= method %>"><%= method %></option>
+      <% end %>
+    </select>
+  </div>
+
   <div class="form-group">
     <label>Fecha de emisión</label>
     <div class="input-group date" id="datePicker">
-      <input type="text" class="form-control" name="signup[issue_date]">
+      <input type="text" class="form-control" name="payment[issue_date]">
       <span class="input-group-addon">
         <span class="glyphicon glyphicon-calendar"></span>
       </span>
     </div>
   </div>
+
   <div class="form-group" id="bank" style="display:none;">
     <label>Banco</label>
-      <select name="signup[bank]" class="form-control">
-        <option value="" selected>Seleccione un banco</option>
-        <% @banks.each do |bank| %>
+    <select name="payment[bank]" class="form-control">
+      <option value="" selected>Seleccione un banco</option>
+      <% @banks.each do |bank| %>
         <option value="<%= bank.bank_name %>"><%= bank.bank_name %></option>
-        <% end %>
-      </select>
+      <% end %>
+    </select>
   </div>
+
   <div class="form-group" id="referenceNumber" style="display:none;">
     <label>Número de referencia</label>
-    <input type="text" class="form-control" name="signup[reference_number]" placeholder="Referencia">
+    <input type="text" class="form-control" name="payment[reference_number]" placeholder="Referencia">
   </div>
-  <div class="form-group">
-    <label>Concepto</label>
-    <input type="text" class="form-control" name="signup[signup_description]" placeholder="Concepto">
-  </div>
-  <input type="hidden" name="signup[student_id]" value="<%= @student_id %>">
-  <input type="hidden" name="signup[user_id]" value="<%= session[:id] %>">
+
+  <input type="hidden" name="payment[user_id]" value="<%= session[:id] %>">
+  <input type="hidden" name="payment[student_id]" value="<%= params[:id] %>">
+  <input type="hidden" name="payment[section_id]" value="<%= @student.section_id %>">
+
   <button type="submit" class="btn btn-success">Generar inscripción</button>
-  <a href="/dashboard/students/<%= @student_id %>/signups" class="btn btn-default">Cancelar</a>
+  <a href="/dashboard/students/<%= params[:id] %>/signups" class="btn btn-default">Cancelar</a>
 </form>

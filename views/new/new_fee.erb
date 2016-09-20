@@ -1,54 +1,68 @@
-<form action="/dashboard/students/<%= @student_id %>/fees/add" method="POST">
+<form action="/dashboard/students/<%= params[:id] %>/fees/new" method="POST">
   <div class="form-group">
-      <label>Monto de cuota (BsF.)</label>
-      <input type="text" class="form-control" name="fee[fee_amount]" placeholder="Monto">
+    <label>Monto de la cuota (BsF.)</label>
+    <input type="text" class="form-control" name="payment[payment_amount]" placeholder="Monto">
   </div>
+
   <div class="form-group">
-  <label>Método de pago</label>
-      <select name="fee[payment_type]" class="form-control" id="paymentType">
-          <option value="" selected>Seleccione un método de pago</option>
-          <% ["Débito", "Depósito", "Transferencia", "Crédito"].each do |method| %>
-          <option value="<%= method %>"><%= method %></option>
-          <% end %>
-      </select>
+    <label>Concepto</label>
+    <select name="payment[payment_description]" class="form-control">
+      <option value="" selected>Seleccione el concepto del pago</option>
+      <% ["Inscripción", "Cuota"].each do |description| %>
+        <option value="<%= description %>"><%= description %></option>
+      <% end %>
+    </select>
   </div>
+
+  <div class="form-group">
+    <label>Método de pago</label>
+    <select name="payment[payment_method]" class="form-control" id="paymentMethod">
+      <option value="" selected>Seleccione un método de pago</option>
+      <% ["Débito", "Depósito", "Transferencia", "Crédito"].each do |method| %>
+        <option value="<%= method %>"><%= method %></option>
+      <% end %>
+    </select>
+  </div>
+
   <div class="form-group">
     <label>Fecha de emisión</label>
     <div class="input-group date" id="leftDatePicker">
-      <input type="text" class="form-control" name="fee[issue_date]">
+      <input type="text" class="form-control" name="payment[issue_date]">
       <span class="input-group-addon">
         <span class="glyphicon glyphicon-calendar"></span>
       </span>
     </div>
   </div>
+
   <div class="form-group">
     <label>Fecha de expiración</label>
     <div class="input-group date" id="rightDatePicker">
-      <input type="text" class="form-control" name="fee[expiration_date]">
+      <input type="text" class="form-control" name="payment[expiration_date]">
       <span class="input-group-addon">
         <span class="glyphicon glyphicon-calendar"></span>
       </span>
     </div>
   </div>
+
   <div class="form-group" id="bank" style="display:none;">
     <label>Banco</label>
-      <select name="fee[bank]" class="form-control">
-        <option value="" selected>Seleccione un banco</option>
-        <% @banks.each do |bank| %>
+    <select name="payment[bank]" class="form-control">
+      <option value="" selected>Seleccione un banco</option>
+      <% @banks.each do |bank| %>
         <option value="<%= bank.bank_name %>"><%= bank.bank_name %></option>
-        <% end %>
-      </select>
+      <% end %>
+    </select>
   </div>
+
   <div class="form-group">
     <label>Número de referencia</label>
-    <input type="text" class="form-control" name="fee[reference_number]" placeholder="Referencia">
+    <input type="text" class="form-control" name="payment[reference_number]" placeholder="Referencia">
   </div>
-  <div class="form-group">
-    <label>Concepto</label>
-    <input type="text" class="form-control" name="fee[fee_description]" placeholder="Concepto">
-  </div>
-  <input type="hidden" name="fee[student_id]" value="<%= @student_id %>">
-  <input type="hidden" name="fee[user_id]" value="<%= session[:id] %>">
+
+  <input type="hidden" name="payment[student_id]" value="<%= params[:id] %>">
+  <input type="hidden" name="payment[user_id]" value="<%= session[:id] %>">
+  <input type="hidden" name="payment[section_id]" value="<%= @student.section_id %>">
+
   <button type="submit" class="btn btn-success">Generar cuota</button>
-  <a href="/dashboard/students/<%= @student_id %>/fees" class="btn btn-default">Cancelar</a>
+  <a href="/dashboard/students/<%= params[:id] %>/fees" class="btn btn-default">Cancelar</a>
 </form>

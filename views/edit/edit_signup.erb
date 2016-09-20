@@ -1,47 +1,55 @@
-<form action="/dashboard/students/<%= @signup.student_id %>/signups/<%= @signup.signup_id %>/edit" method="POST">
-    <div class="form-group">
-      <label>Monto de inscripción (BsF.)</label>
-      <input name="form[signup_amount]" class="form-control" value="<%= @signup.signup_amount %>"></input>
+<form action="/dashboard/students/<%= @signup.student_id %>/signups/<%= @signup.payment_id %>/edit" method="POST">
+  <div class="form-group">
+    <label>Monto de inscripción (BsF.)</label>
+    <input name="form[payment_amount]" class="form-control" value="<%= @signup.payment_amount %>"></input>
+  </div>
+
+  <div class="form-group">
+    <label>Método de pago</label>
+    <select name="form[payment_method]" id="paymentMethod" class="form-control">
+      <% ["Débito", "Depósito", "Transferencia", "Crédito", "Efectivo"].each do |method| %>
+        <option <%= "selected" if method == @signup.payment_method %> value="<%= method %>"><%= method %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Fecha de emisión</label>
+    <div class="input-group date" id="datePicker">
+      <input type="text" class="form-control" name="form[issue_date]" value="<%= @signup.issue_date.strftime('%d/%m/%Y') %>">
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+      </span>
     </div>
+  </div>
+
+  <% if session[:role] == 'Admin' %>
     <div class="form-group">
-      <label>Método de pago</label>
-      <select name="form[payment_type]" id="paymentType" class="form-control">
-        <% ["Débito", "Depósito", "Transferencia", "Crédito", "Efectivo"].each do |method| %>
-        <option <%= "selected" if method == @signup.payment_type %> value="<%= method %>" disabled><%= method %></option>
-        <% end %>
-      </select>
-    </div>
-    <% if @signup.payment_type == 'Transferencia' %>
-    <div class="form-group">
-      <label>Banco</label>
-      <select name="form[bank]" class="form-control">
-        <% @banks.each do |bank| %>
-        <option <%= "selected" if bank.bank_name == @signup.bank %> value="<%= bank.bank_name %>" disabled><%= h(bank.bank_name) %></option>
-        <% end %>
-      </select>
-    </div>
-    <% end %>
-    <% unless @signup.payment_type == 'Efectivo' %>
-    <div class="form-group">
-      <label>Número de referencia</label>
-      <input name="form[reference_number]" class="form-control" value="<%= h(@signup.reference_number) %>"></input>
-    </div>
-    <% end %>
-    <div class="form-group">
-      <label>Concepto</label>
-      <input type="text" class="form-control" name="form[signup_description]" value="<%= h(@signup.signup_description) %>"></input>
-    </div>
-    <% if session[:role] == 'Admin' && @signup.signup_status == 'Inscripción por aprobar' %>
-      <div class="form-group">
-        <label>Estado de la inscripción</label>
-        <select name="form[signup_status]" class="form-control">
-          <% ['Inscripción vigente', 'Inscripción no aprobada'].each do |status| %>
+      <label>Estado de la inscripción</label>
+      <select name="form[payment_status]" class="form-control">
+        <option value="" selected>Seleccione el estado del pago</option>
+        <% ['Inscripción vigente', 'Inscripción no aprobada'].each do |status| %>
           <option value="<%= status %>"><%= status %></option>
-          <% end %>
-        </select>
-      </div>
-    <% end %>
-    <input type="hidden" name="_method" value="PUT">
-    <button type="submit" class="btn btn-success">Actualizar</button>
-    <a href="/dashboard/students/<%= @signup.student_id %>/signups" class="btn btn-default">Cancelar</a>
+        <% end %>
+      </select>
+    </div>
+  <% end %>
+
+  <div class="form-group" id="bank" style="display:none;">
+    <label>Banco</label>
+    <select name="form[bank]" class="form-control">
+      <% @banks.each do |bank| %>
+        <option <%= "selected" if bank.bank_name == @signup.bank %> value="<%= bank.bank_name %>"><%= h(bank.bank_name) %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="form-group" id="referenceNumber">
+    <label>Número de referencia</label>
+    <input name="form[reference_number]" class="form-control" value="<%= h(@signup.reference_number) %>"></input>
+  </div>
+
+  <input type="hidden" name="_method" value="PUT">
+  <button type="submit" class="btn btn-success">Actualizar</button>
+  <a href="/dashboard/students/<%= @signup.student_id %>/signups" class="btn btn-default">Cancelar</a>
 </form>
