@@ -1,27 +1,31 @@
-<form action="/dashboard/teachers/<%= @teacher_id %>/bank_accounts/add" method="POST">
+<form action="/dashboard/teachers/<%= params[:id] %>/bank_accounts/new" method="POST">
   <div class="form-group">
   <label>Banco</label>
-  <select name="account[bank_id]" class="form-control">
-    <option value="" selected>Seleccione un banco</option>
-    <% @banks.each do |bank| %>
-      <option value="<%= bank.bank_id %>"><%= bank.bank_name %></option>
-    <% end %>
-  </select>
+    <select name="account[bank_id]" class="form-control">
+      <option value="" selected>Seleccione un banco</option>
+      <% @banks.each do |bank| %>
+        <option value="<%= bank.bank_id %>"><%= bank.bank_name %></option>
+      <% end %>
+    </select>
   </div>
+
   <div class="form-group">
     <label>Número de cuenta</label>
     <input type="text" class="form-control" name="account[account_number]" placeholder="Número de cuenta">
   </div>
+
   <div class="form-group">
-  <label>Tipo de cuenta</label>
+    <label>Tipo de cuenta</label>
     <select name="account[account_type]" class="form-control">
       <option value="" selected>Seleccione el tipo de cuenta</option>
       <% ['Ahorro', 'Corriente'].each do |type| %>
-      <option value="<%= type %>"><%= type %></option>
+        <option value="<%= type %>"><%= type %></option>
       <% end %>
     </select>
   </div>
-  <input type="hidden" name="account[teacher_id]" value="<%= @teacher_id %>">
-  <button type="submit" class="btn btn-success">Asignar cuenta</button>
-  <a href="/dashboard/teachers/<%= @teacher_id %>/bank_accounts" class="btn btn-default">Cancelar</a>
+
+  <input type="hidden" name="account[teacher_id]" value="<%= params[:id] %>">
+
+  <button type="submit" class="btn btn-success">Crear cuenta</button>
+  <a href="/dashboard/teachers/<%= params[:id] %>/bank_accounts" class="btn btn-default">Cancelar</a>
 </form>

@@ -1,21 +1,23 @@
 <% if @account.bank_account_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
-        <h3 class="panel-title">Eliminar cuenta bancaria</h3>
+      <h3 class="panel-title">Eliminar cuenta bancaria</h3>
     </div>
+
     <div class="panel-body">
-        <p>¿Está usted seguro de <b>eliminar</b> esta cuenta bancaria? Esta acción no puede ser revertida.</p>
-        <ol style="list-style-type:disc;">
+      <p>¿Está usted seguro de <b>eliminar</b> esta cuenta bancaria? Esta acción no puede ser revertida.</p>
+      <ol style="list-style-type:disc;">
         <li><b>Titular</b>: <%= h(@account.teacher_name) %></li>
-        <li><b>Banco</b>: <%= h(@account.bank_name) %></li>
+        <li><b>Banco</b>: <%= @account.bank_name %></li>
         <li><b>Número de cuenta</b>: <%= @account.account_number %></li>
         <li><b>Tipo de cuenta</b>: <%= @account.account_type %></li>
-        </ol>
-        <form action="/dashboard/teachers/<%= @account.teacher_id %>/bank_accounts/<%= @account.bank_account_id %>/delete" method="POST">
-          <input type="hidden" name="_method" value="DELETE">
-          <button type="submit" class="btn btn-danger">Eliminar</button>
-          <a href="/dashboard/teachers/<%= @account.teacher_id %>/bank_accounts" class="btn btn-default">Cancelar</a>
-        </form>
+      </ol>
+
+      <form action="/dashboard/teachers/<%= @account.teacher_id %>/bank_accounts/<%= @account.bank_account_id %>/delete" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="/dashboard/teachers/<%= @account.teacher_id %>/bank_accounts" class="btn btn-default">Cancelar</a>
+      </form>
     </div>
   </div>
 <% end %>
