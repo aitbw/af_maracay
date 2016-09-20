@@ -2,8 +2,7 @@
 
 require 'bundler/setup'
 Bundler.require(:default)
-require './environments'
-Dir['./controllers/*.rb', './models/**/*.rb', './routes/*.rb'].each do |file|
+Dir['./config/environments/*.rb', './controllers/*.rb', './models/**/*.rb', './routes/*.rb'].each do |file|
   require file
 end
 
