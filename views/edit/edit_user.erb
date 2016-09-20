@@ -1,21 +1,23 @@
 <form action="/dashboard/users/<%= @user.user_id %>/edit" method="POST">
   <div class="form-group">
-    <label>Nombre</label>
-    <input name="user[user_name]" class="form-control" value="<%= h(@user.user_name) %>"></input>
-  </div>
-  <div class="form-group">
     <label>Cédula</label>
-    <input name="user[user_cedula]" class="form-control" value="<%= @user.user_cedula %>"></input>
+    <input type="text" name="user[user_cedula]" class="form-control" value="<%= @user.user_cedula %>"></input>
   </div>
+
   <div class="form-group">
-  <label>Rol</label>
-  <select name="user[access_level]" class="form-control">
-  <option value="">Seleccione nivel de acceso</option>
-  <% ['Admin', 'Pedagogo', 'Recepcionista'].each do |role| %>
-  <option <%= "selected" if role == @user.access_level %> value="<%= role %>"><%= role %></option>
-  <% end %>
-  </select>
+    <label>Nombre</label>
+    <input type="text" name="user[user_name]" class="form-control" value="<%= h(@user.user_name) %>"></input>
   </div>
+
+  <div class="form-group">
+    <label>Rol</label>
+    <select name="user[access_level]" class="form-control">
+      <% ['Admin', 'Pedagogo', 'Recepcionista'].each do |role| %>
+        <option <%= "selected" if role == @user.access_level %> value="<%= role %>"><%= role %></option>
+      <% end %>
+    </select>
+  </div>
+
   <input type="hidden" name="_method" value="PUT">
   <button type="submit" class="btn btn-success">Actualizar</button>
   <a href="/dashboard/users" class="btn btn-default">Cancelar</a>

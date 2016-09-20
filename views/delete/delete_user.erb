@@ -1,21 +1,28 @@
 <% if @user.user_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
-        <h3 class="panel-title">Eliminar usuario</h3>
+      <h3 class="panel-title">Eliminar usuario</h3>
     </div>
+
     <div class="panel-body">
-        <p>¿Está usted seguro de <b>eliminar</b> este usuario? Esta acción no puede ser revertida.</p>
-        <ol style="list-style-type:disc;">
-        <li><b>Nombre</b>: <%=h @user.user_name %></li>
+      <p>¿Está usted seguro de <b>eliminar</b> este usuario? Esta acción no puede ser revertida.</p>
+      <ol style="list-style-type:disc;">
         <li><b>Cédula</b>: <%= @user.user_cedula %></li>
+        <li><b>Nombre</b>: <%= h(@user.user_name) %></li>
         <li><b>Nivel de acceso</b>: <%= @user.access_level %></li>
-        </ol>
-        <b><p class="text-danger">Todos los registros relacionados a este usuario también serán eliminados.</p></b>
-        <form action="/dashboard/users/<%= @user.user_id %>/delete" method="POST">
-          <input type="hidden" name="_method" value="DELETE">
-          <button type="submit" class="btn btn-danger">Eliminar</button>
-          <a href="/dashboard/users" class="btn btn-default">Cancelar</a>
-        </form>
+        <% if @user.has_access == true %>
+          <li><b>Estado de la cuenta</b>: Desbloqueada</li>
+        <% else %>
+          <li><b>Estado de la cuenta</b>: Bloqueada</li>
+        <% end %>
+      </ol>
+      <b><p class="text-danger">Todos los registros relacionados a este usuario también serán eliminados.</p></b>
+
+      <form action="/dashboard/users/<%= @user.user_id %>/delete" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="/dashboard/users" class="btn btn-default">Cancelar</a>
+      </form>
     </div>
   </div>
 <% end %>

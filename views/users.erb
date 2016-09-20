@@ -11,8 +11,8 @@
   <table class="table table-bordered table-responsive">
     <thead>
       <tr>
-        <th scope="col">Nombre</th>
         <th scope="col">Cédula</th>
+        <th scope="col">Nombre</th>
         <th scope="col">Nivel de acceso</th>
         <th scope="col">Estado de la cuenta</th>
         <th scope="col">Acciones</th>
@@ -21,22 +21,22 @@
     <tbody>
       <% @users.each do |user| %>
         <tr>
-          <td><%= h(user.user_name) %></td>
           <td><%= user.user_cedula %></td>
+          <td><%= h(user.user_name) %></td>
           <td><%= user.access_level %></td>
           <% if user.has_access == true %>
-          <td>Desbloqueada</td>
+            <td>Desbloqueada</td>
           <% else %>
-          <td>Bloqueada</td>
+            <td>Bloqueada</td>
           <% end %>
           <td>
             <div class="btn-group">
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
               <ul class="dropdown-menu">
                 <% if user.has_access == true %>
-                <li><a href="/dashboard/users/<%= user.user_id %>/lock_account">Bloquear cuenta</a></li>
+                  <li><a href="/dashboard/users/<%= user.user_id %>/lock_account">Bloquear cuenta</a></li>
                 <% else %>
-                <li><a href="/dashboard/users/<%= user.user_id %>/unlock_account">Desbloquear cuenta</a></li>
+                  <li><a href="/dashboard/users/<%= user.user_id %>/unlock_account">Desbloquear cuenta</a></li>
                 <% end %>
                 <li><a href="/dashboard/users/<%= user.user_id %>/edit">Modificar</a></li>
                 <li><a href="/dashboard/users/<%= user.user_id %>/delete">Eliminar</a></li>
