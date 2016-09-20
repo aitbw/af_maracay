@@ -11,22 +11,22 @@
   <table class="table table-bordered table-responsive">
     <thead>
       <tr>
-        <th scope="col">Nombre</th>
         <th scope="col">RIF</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Encargado</th>
         <th scope="col">Teléfono</th>
         <th scope="col">Correo</th>
-        <th scope="col">Encargado</th>
         <th scope="col">Acciones</th>
       </tr>
     </thead>
     <tbody>
       <% @providers.each do |provider| %>
         <tr>
-          <td><%= h(provider.provider_name) %></td>
           <td><%= provider.provider_rif %></td>
+          <td><%= h(provider.provider_name) %></td>
+          <td><%= h(provider.manager_name) %></td>
           <td><%= provider.provider_phone %></td>
           <td><%= provider.provider_email %></td>
-          <td><%= h(provider.manager) %></td>
           <td>
             <div class="btn-group">
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>

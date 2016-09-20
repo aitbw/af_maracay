@@ -1,7 +1,6 @@
 get '/dashboard/providers' do
   set_page_title('Proveedores')
-  @providers = Provider.search_provider(
-  params[:provider_name]).paginate(page: params[:page])
+  @providers = Provider.search_provider(params[:provider_name]).page(params[:page])
   erb :providers, user_layout
 end
 
