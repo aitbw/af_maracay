@@ -1,0 +1,44 @@
+<form action="/dashboard/courses/<%= params[:id] %>/sections/new" method="POST">
+  <div class="form-group">
+    <label>Nivel</label>
+    <select name="section[level_id]" class="form-control">
+      <option value="" selected>Seleccione un nivel</option>
+      <% @levels.each do |level| %>
+        <option value="<%= level.level_id %>"><%= level.level_description %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Capacidad</label>
+    <input type="text" class="form-control" name="section[section_capacity]" placeholder="XXXX">
+  </div>
+
+  <div class="form-group">
+    <label>Fecha de apertura</label>
+      <div class="input-group date" id="leftDatePicker">
+      <input type="text" class="form-control" name="section[start_date]">
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Fecha de clausura</label>
+      <div class="input-group date" id="rightDatePicker">
+      <input type="text" class="form-control" name="section[end_date]">
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Duración de la sección (en horas)</label>
+    <input type="text" class="form-control" name="section[section_hours]" placeholder="XXXX">
+  </div>
+
+  <button type="submit" class="btn btn-success">Crear sección</button>
+  <a href="/dashboard/courses/<%= params[:id] %>/sections" class="btn btn-default">Cancelar</a>
+</form>

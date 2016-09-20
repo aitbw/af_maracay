@@ -1,0 +1,70 @@
+<h3 align="center" style="padding-bottom:1%;">Secciones del curso <%= @course_code %></h3>
+<div>
+  <table class="table table-bordered table-responsive">
+    <thead>
+      <tr>
+        <th scope="col">Nivel</th>
+        <th scope="col">Capacidad</th>
+        <th scope="col">Fecha de apertura</th>
+        <th scope="col">Fecha de clausura</th>
+        <th scope="col">Horas académicas</th>
+        <th scope="col">Horas cubiertas</th>
+        <th scope="col">¿Calificaciones asignadas?</th>
+        <th scope="col">¿Sección clausurada?</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @sections.each do |section| %>
+        <tr>
+          <td><%= section.level_description %></td>
+          <td><%= section.section_capacity %></td>
+          <td><%= section.start_date.strftime('%d/%m/%Y') %></td>
+          <td><%= section.end_date.strftime('%d/%m/%Y') %></td>
+          <% if section.section_hours == 0 %>
+            <td>Finalizado</td>
+            <td>Finalizado</td>
+          <% else %>
+            <td><%= section.section_hours %></td>
+            <td><%= section.hours_covered %></td>
+          <% end %>
+          <% if section.grades_assigned == true %>
+            <td>Sí</td>
+          <% else %>
+            <td>No</td>
+          <% end %>
+          <% if section.is_finished == true %>
+            <td>Sí</td>
+          <% else %>
+            <td>No</td>
+          <% end %>
+          <td>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="/dashboard/courses/<%= section.course_id %>/sections/<%= section.section_id %>/delete">Eliminar</a></li>
+                <li><a href="/dashboard/courses/<%= section.course_id %>/sections/<%= section.section_id %>/edit">Modificar</a></li>
+                <li><a href="/dashboard/courses/<%= section.course_id %>/sections/<%= section.section_id %>/students/show">Estudiantes de la sección</a>
+                <% if section.hours_covered == 240 && section.grades_assigned == false %>
+                  <li><a href="/dashboard/courses/<%= section.course_id %>/sections/<%= section.section_id %>/grades/assign">Asignar calificaciones</a></li>
+                <% end %>
+                <% if section.grades_assigned == true && section.is_finished == false %>
+                  <li><a href="/dashboard/courses/<%= section.course_id %>/sections/<%= section.section_id %>/promote">Promover</a></li>
+                <% end %>
+              </ul>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<% if @sections.size > 10 %>
+  <div class="pagination">
+    <%= will_paginate @sections, container: false, previous_label: "&laquo", next_label: "&raquo" %>
+  </div>
+<% end %>
+
+<a href="/dashboard/courses/<%= params[:id] %>/sections/new" class="btn btn-success">Crear nueva sección</a>
+<a href="/dashboard/courses" class="btn btn-default">Atrás</a>

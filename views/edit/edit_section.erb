@@ -1,0 +1,23 @@
+<form action="/dashboard/courses/<%= @section.course_id %>/sections/<%= @section.section_id %>/edit" method="POST">
+  <div class="form-group">
+    <label>Curso</label>
+    <select name="form[course_id]" class="form-control">
+      <% @courses.each do |course| %>
+        <option <%= "selected" if course.course_id == @section.course_id %> value="<%= course.course_id %>"><%= "#{@section.course_code} - #{@section.level_description}" %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Nivel</label>
+    <select name="form[level_id]" class="form-control">
+      <% @levels.each do |level| %>
+        <option <%= "selected" if level.level_id == @section.level_id %> value="<%= level.level_id %>"><%= level.level_description %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <input type="hidden" name="_method" value="PUT">
+  <button type="submit" class="btn btn-success">Actualizar</button>
+  <a href="/dashboard/courses/<%= @section.course_id %>/sections" class="btn btn-default">Cancelar</a>
+</form>

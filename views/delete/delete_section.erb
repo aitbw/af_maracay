@@ -1,0 +1,37 @@
+<% if @section.section_id %>
+  <div class="panel panel-danger">
+    <div class="panel-heading">
+      <h3 class="panel-title">Eliminar sección</h3>
+    </div>
+
+    <div class="panel-body">
+      <p>¿Está usted seguro de <b>eliminar</b> esta sección? Esta acción no puede ser revertida.</p>
+      <ol style="list-style-type:disc;">
+        <li><b>Curso</b>: <%= @section.course_code %></li>
+        <li><b>Nivel</b>: <%= @section.level_description %></li>
+        <li><b>Capacidad</b>: <%= @section.section_capacity %></li>
+        <li><b>Fecha de apertura</b>: <%= @section.start_date.strftime('%d/%m/%Y') %></li>
+        <li><b>Fecha de clausura</b>: <%= @section.end_date.strftime('%d/%m/%Y') %></li>
+        <li><b>Horas académicas</b>: <%= @section.section_hours %></li>
+        <li><b>Horas cubiertas</b>: <%= @section.hours_covered %></li>
+        <% if @section.grades_assigned == true %>
+          <li><b>¿Calificaciones asignadas?</b>: Sí</li>
+        <% else %>
+          <li><b>¿Calificaciones asignadas?</b>: No</li>
+        <% end %>
+        <% if @section.is_finished == true %>
+          <li><b>¿Sección clausurada?</b>: Sí</li>
+        <% else %>
+          <li><b>¿Sección clausurada?</b>: No</li>
+        <% end %>
+      </ol>
+      <b><p class="text-danger">Todos los registros relacionados a este usuario también serán eliminados.</p></b>
+
+      <form action="/dashboard/courses/<%= @section.course_id %>/sections/<%= @section.section_id %>/delete" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="/dashboard/courses/<%= @section.course_id %>/sections" class="btn btn-default">Cancelar</a>
+      </form>
+    </div>
+  </div>
+<% end %>
