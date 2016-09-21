@@ -18,8 +18,7 @@ class Course < ActiveRecord::Base
 
   # Validations
   validates :course_code, presence: true, uniqueness: true, format: { with: COURSE_CODE }
-  validates :course_type_id, presence: true
-  validates :office_id, presence: true
+  validates :course_type_id, :office_id, presence: true
 
   # Methods
   def self.search_course(code)

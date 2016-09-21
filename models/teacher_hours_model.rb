@@ -17,8 +17,7 @@ class TeacherHour < ActiveRecord::Base
 
   # Validations
   validates :hours_covered, presence: true, numericality: { only_integer: true }
-  validates :date_covered, presence: true
-  validates :fare_per_hour, presence: true
+  validates :date_covered, :fare_per_hour, presence: true
 
   # Custom validations
   validate :valid_date?

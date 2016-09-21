@@ -41,8 +41,7 @@ class Payment < ActiveRecord::Base
 
   # Validations
   validates :payment_amount, presence: true, numericality: true
-  validates :payment_description, presence: true
-  validates :payment_method, presence: true
+  validates :payment_description, :payment_method, presence: true
   validates :bank, presence: true, if: :paid_with?
   validates :reference_number, reference_number: true
 

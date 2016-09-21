@@ -12,10 +12,8 @@ class User < ActiveRecord::Base
   after_validation :normalize_name
 
   # Validations
-  validates :user_name, presence: true
+  validates :user_name, :user_password, :access_level, presence: true
   validates :user_cedula, presence: true, uniqueness: true, numericality: { only_integer: true }, length: { in: 6..8 }
-  validates :user_password, presence: true
-  validates :access_level, presence: true
 
   # Methods
   def normalize_name

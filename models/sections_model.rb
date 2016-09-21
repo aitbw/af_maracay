@@ -16,10 +16,8 @@ class Section < ActiveRecord::Base
   delegate :course_code, to: :course
 
   # Validations
-  validates :section_capacity, presence: true, numericality: { only_integer: true }
-  validates :start_date, presence: true
-  validates :end_date, presence: true
-  validates :section_hours, presence: true, numericality: { only_integer: true }
+  validates :section_capacity, :section_hours, presence: true, numericality: { only_integer: true }
+  validates :start_date, :end_date, presence: true
   validates :level_id, presence: true, uniqueness: { scope: :course_id }
 
   # Custom validations

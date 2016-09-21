@@ -9,7 +9,6 @@ class BankAccount < ActiveRecord::Base
   delegate :teacher_name, to: :teacher
 
   # Validations
-  validates :bank_id, presence: true
+  validates :bank_id, :account_type, presence: true
   validates :account_number, presence: true, numericality: { only_integer: true }, length: { is: 20 }, uniqueness: { scope: :bank_id }
-  validates :account_type, presence: true
 end

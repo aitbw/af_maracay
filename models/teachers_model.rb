@@ -17,11 +17,10 @@ class Teacher < ActiveRecord::Base
   after_validation :normalize_name
 
   # Validations
-  validates :teacher_name, presence: true
+  validates :teacher_name, :entry_date, presence: true
   validates :teacher_phone, presence: true, format: { with: VALID_NUMBER }
   validates :teacher_email, presence: true, uniqueness: true, format: { with: VALID_EMAIL }
   validates :teacher_cedula, presence: true, uniqueness: true, numericality: { only_integer: true }, length: { in: 6..8 }
-  validates :entry_date, presence: true
 
   # Methods
   def normalize_name

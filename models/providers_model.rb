@@ -13,11 +13,10 @@ class Provider < ActiveRecord::Base
   after_validation :normalize_manager_name
 
   # Validations
-  validates :provider_name, presence: true
+  validates :provider_name, :manager_name, presence: true
   validates :provider_rif, presence: true, uniqueness: true, format: { with: VALID_RIF }
   validates :provider_phone, presence: true, format: { with: VALID_NUMBER }
   validates :provider_email, presence: true, uniqueness: true, format: { with: VALID_EMAIL }
-  validates :manager_name, presence: true
 
   # Methods
   def normalize_provider_name
