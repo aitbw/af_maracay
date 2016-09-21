@@ -11,35 +11,38 @@
   <table class="table table-bordered table-responsive">
     <thead>
       <tr>
-        <th scope="col">Curso</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Correo</th>
-        <th scope="col">Teléfono</th>
-        <th scope="col">Teléfono alterno</th>
         <th scope="col">Cédula</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Teléfono alternativo</th>
+        <th scope="col">Correo</th>
+        <th scope="col">¿Becado?</th>
         <th scope="col">Acciones</th>
       </tr>
     </thead>
     <tbody>
       <% @students.each do |student| %>
         <tr>
-          <td><%= student.course_code %></td>
-          <td><%= h(student.student_name) %></td>
-          <td><%= student.student_email %></td>
-          <td><%= student.student_phone %></td>
-          <td><%= student.alt_phone %></td>
           <td><%= student.student_cedula %></td>
+          <td><%= h(student.student_name) %></td>
+          <td><%= student.student_phone %></td>
+          <td><%= student.alternative_phone %></td>
+          <td><%= student.student_email %></td>
+          <% if student.has_scholarship == true %>
+            <td>Sí</td>
+          <% else %>
+            <td>No</td>
+          <% end %>
           <td>
             <div class="btn-group">
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
               <ul class="dropdown-menu">
                 <li><a href="/dashboard/students/<%= student.student_id %>/grades">Calificaciones</a></li>
-                <% if student.signups.count >= 1 %>
-                <li><a href="/dashboard/students/<%= student.student_id %>/fees">Cuotas</a></li>
-                <% end %>
                 <li><a href="/dashboard/students/<%= student.student_id %>/delete">Eliminar</a></li>
-                <li><a href="/dashboard/students/<%= student.student_id %>/signups">Inscripciones</a></li>
                 <li><a href="/dashboard/students/<%= student.student_id %>/edit">Modificar</a></li>
+                <li><a href="/dashboard/students/<%= student.student_id %>/fees">Pagos (Cuotas)</a></li>
+                <li><a href="/dashboard/students/<%= student.student_id %>/signups">Pagos (Inscripciones)</a></li>
+                <li><a href="/dashboard/students/<%= student.student_id %>/">Pagos (Misceláneos)</a></li>
                 <li><a href="/dashboard/students/<%= student.student_id %>/reassign">Reasignar</a></li>
               </ul>
             </div>

@@ -21,8 +21,7 @@ class Student < ActiveRecord::Base
   validates :student_name, presence: true
   validates :student_cedula, presence: true, uniqueness: true, numericality: { only_integer: true }, length: { in: 6..8 }
   validates :student_email, presence: true, uniqueness: true, format: { with: VALID_EMAIL }
-  validates :student_phone, presence: true, format: { with: VALID_NUMBER }
-  validates :alternative_phone, presence: true, format: { with: VALID_NUMBER }
+  validates :student_phone, :alternative_phone, presence: true, format: { with: VALID_NUMBER }
   validates :section_id, presence: true
 
   # Methods

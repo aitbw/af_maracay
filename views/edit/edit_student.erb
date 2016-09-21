@@ -1,24 +1,29 @@
 <form action="/dashboard/students/<%= @student.student_id %>/edit" method="POST">
   <div class="form-group">
-    <label>Nombre</label>
-    <input name="student[student_name]" class="form-control" value="<%= h(@student.student_name) %>"></input>
+    <label>Cédula</label>
+    <input type="text" name="student[student_cedula]" class="form-control" value="<%= @student.student_cedula %>"></input>
   </div>
+
   <div class="form-group">
-    <label>Correo</label>
-    <input name="student[student_email]" class="form-control" value="<%= @student.student_email %>"></input>
+    <label>Nombre</label>
+    <input type="text" name="student[student_name]" class="form-control" value="<%= h(@student.student_name) %>"></input>
   </div>
+
   <div class="form-group">
     <label>Teléfono</label>
-    <input name="student[student_phone]" class="form-control" value="<%= @student.student_phone %>"></input>
+    <input type="text" name="student[student_phone]" class="form-control" value="<%= @student.student_phone %>"></input>
   </div>
+
   <div class="form-group">
     <label>Teléfono alterno</label>
-    <input name="student[alt_phone]" class="form-control" value="<%= @student.alt_phone %>"></input>
+    <input type="text" name="student[alternative_phone]" class="form-control" value="<%= @student.alternative_phone %>"></input>
   </div>
+
   <div class="form-group">
-    <label>Cédula</label>
-    <input name="student[student_cedula]" class="form-control" value="<%= @student.student_cedula %>"></input>
+    <label>Correo</label>
+    <input type="email" name="student[student_email]" class="form-control" value="<%= @student.student_email %>"></input>
   </div>
+
   <input type="hidden" name="_method" value="PUT">
   <button type="submit" class="btn btn-success">Actualizar</button>
   <a href="/dashboard/students" class="btn btn-default">Cancelar</a>
