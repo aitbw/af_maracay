@@ -20,12 +20,7 @@ get '/dashboard/teachers/:id/delete' do
 end
 
 delete '/dashboard/teachers/:id/delete' do
-  if Teacher.destroy(params[:id])
-    redirect '/dashboard/teachers', notice: 'Profesor eliminado.'
-  else
-    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
-    redirect(request.path_info.to_s)
-  end
+  delete_teacher(params[:id])
 end
 
 get '/dashboard/teachers/:id/edit' do
@@ -35,14 +30,7 @@ get '/dashboard/teachers/:id/edit' do
 end
 
 put '/dashboard/teachers/:id/edit' do
-  edit_teacher = Teacher.find(params[:id])
-
-  if edit_teacher.update(params[:teacher])
-    redirect '/dashboard/teachers', notice: 'Datos actualizados.'
-  else
-    flash[:errors] = edit_teacher.errors.full_messages
-    redirect(request.path_info.to_s)
-  end
+  edit_teacher(params[:id])
 end
 
 get '/dashboard/teachers/:id/courses' do
