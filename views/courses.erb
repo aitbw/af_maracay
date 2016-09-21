@@ -15,12 +15,6 @@
         <th scope="col">Código</th>
         <th scope="col">Modalidad</th>
         <th scope="col">Sede</th>
-        <th scope="col">Nivel</th>
-        <th scope="col">Capacidad</th>
-        <th scope="col">Inicio del curso</th>
-        <th scope="col">Fin del curso</th>
-        <th scope="col">Horas académicas</th>
-        <th scope="col">Horas cubiertas</th>
         <th scope="col">Acciones</th>
       </tr>
     </thead>
@@ -30,30 +24,13 @@
           <td><%= course.course_code %></td>
           <td><%= course.course_modality %></td>
           <td><%= course.office_name %></td>
-          <td><%= course.course_level %></td>
-          <td><%= course.course_capacity %></td>
-          <td><%= course.start_date.strftime('%d/%m/%Y') %></td>
-          <td><%= course.completion_date.strftime('%d/%m/%Y') %></td>
-          <% if course.course_hours == 0 %>
-          <td>Finalizado</td>
-          <td>Finalizado</td>
-          <% else %>
-          <td><%= course.course_hours %></td>
-          <td><%= course.hours_covered %></td>
-          <% end %>
           <td>
             <div class="btn-group">
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
               <ul class="dropdown-menu">
                 <li><a href="/dashboard/courses/<%= course.course_id %>/delete">Eliminar</a></li>
                 <li><a href="/dashboard/courses/<%= course.course_id %>/edit">Modificar</a></li>
-                <li><a href="/dashboard/courses/<%= course.course_id %>/students/show">Estudiantes del curso</a>
-                <% if course.hours_covered == 240 && course.grades_assigned == false %>
-                  <li><a href="/dashboard/courses/<%= course.course_id %>/grades/assign">Asignar calificaciones</a></li>
-                <% end %>
-                <% if course.grades_assigned == true && course.is_finished == false %>
-                  <li><a href="/dashboard/courses/<%= course.course_id %>/promote">Promover</a></li>
-                <% end %>
+                <li><a href="/dashboard/courses/<%= course.course_id %>/sections">Secciones</a>
               </ul>
             </div>
           </td>

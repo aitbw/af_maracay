@@ -3,30 +3,25 @@
     <label>Código</label>
     <input name="course[course_code]" class="form-control" value="<%= @course.course_code %>"></input>
   </div>
+
   <div class="form-group">
-  <label>Modalidad</label>
-  <select name="course[course_type_id]" class="form-control">
-    <% @types.each do |type| %>
-    <option <%= "selected" if type.course_type_id == @course.course_type_id %> value="<%= type.course_type_id %>"><%= type.course_modality %></option>
-    <% end %>
-  </select>
+    <label>Modalidad</label>
+    <select name="course[course_type_id]" class="form-control">
+      <% @types.each do |type| %>
+        <option <%= "selected" if type.course_type_id == @course.course_type_id %> value="<%= type.course_type_id %>"><%= type.course_modality %></option>
+      <% end %>
+    </select>
   </div>
+
   <div class="form-group">
-  <label>Sede</label>
-  <select name="course[office_id]" class="form-control">
-    <% @offices.each do |office| %>
-    <option <%= "selected" if office.office_id == @course.office_id %> value="<%= office.office_id %>"><%= office.office_name %></option>
-    <% end %>
-  </select>
+    <label>Sede</label>
+    <select name="course[office_id]" class="form-control">
+      <% @offices.each do |office| %>
+        <option <%= "selected" if office.office_id == @course.office_id %> value="<%= office.office_id %>"><%= office.office_name %></option>
+      <% end %>
+    </select>
   </div>
-  <div class="form-group">
-    <label>Nivel</label>
-    <input name="course[course_level]" class="form-control" value="<%= @course.course_level %>"></input>
-  </div>
-  <div class="form-group">
-    <label>Capacidad</label>
-    <input name="course[course_capacity]" class="form-control" value="<%= @course.course_capacity %>"></input>
-  </div>
+
   <input type="hidden" name="_method" value="PUT">
   <button type="submit" class="btn btn-success">Actualizar</button>
   <a href="/dashboard/courses" class="btn btn-default">Cancelar</a>

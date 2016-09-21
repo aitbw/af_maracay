@@ -1,27 +1,23 @@
 <% if @course.course_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
-        <h3 class="panel-title">Eliminar curso</h3>
+      <h3 class="panel-title">Eliminar curso</h3>
     </div>
+
     <div class="panel-body">
-        <p>¿Está usted seguro de <b>eliminar</b> este curso? Esta acción no puede ser revertida.</p>
-        <ol style="list-style-type:disc;">
+      <p>¿Está usted seguro de <b>eliminar</b> este curso? Esta acción no puede ser revertida.</p>
+      <ol style="list-style-type:disc;">
         <li><b>Código</b>: <%= @course.course_code %></li>
         <li><b>Modalidad</b>: <%= @course.course_modality %></li>
         <li><b>Sede</b>: <%= @course.office_name %></li>
-        <li><b>Nivel</b>: <%= @course.course_level %></li>
-        <li><b>Capacidad</b>: <%= @course.course_capacity %></li>
-        <li><b>Fecha de inicio</b>: <%= @course.start_date.strftime('%d/%m/%Y') %></li>
-        <li><b>Fecha de culminación</b>: <%= @course.completion_date.strftime('%d/%m/%Y') %></li>
-        <li><b>Horas cubiertas</b>: <%= @course.hours_covered %></li>
-        <li><b>Horas académicas</b>: <%= @course.course_hours %></li>
-        </ol>
-        <b><p class="text-danger">Todos los registros relacionados a este curso también serán eliminados.</p></b>
-        <form action="/dashboard/courses/<%= @course.course_id %>/delete" method="POST">
-          <input type="hidden" name="_method" value="DELETE">
-          <button type="submit" class="btn btn-danger">Eliminar</button>
-          <a href="/dashboard/courses" class="btn btn-default">Cancelar</a>
-        </form>
+      </ol>
+      <b><p class="text-danger">Todos los registros relacionados a este curso también serán eliminados.</p></b>
+
+      <form action="/dashboard/courses/<%= @course.course_id %>/delete" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="/dashboard/courses" class="btn btn-default">Cancelar</a>
+      </form>
     </div>
   </div>
 <% end %>
