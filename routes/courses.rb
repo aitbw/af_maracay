@@ -23,12 +23,7 @@ get '/dashboard/courses/:id/delete' do
 end
 
 delete '/dashboard/courses/:id/delete' do
-  if Course.destroy(params[:id])
-    redirect '/dashboard/courses', notice: 'Curso eliminado.'
-  else
-    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
-    redirect(request.path_info.to_s)
-  end
+  delete_course(params[:id])
 end
 
 get '/dashboard/courses/:id/edit' do
@@ -40,14 +35,7 @@ get '/dashboard/courses/:id/edit' do
 end
 
 put '/dashboard/courses/:id/edit' do
-  edit_course = Course.find(params[:id])
-
-  if edit_course.update(params[:course])
-    redirect '/dashboard/courses', notice: 'Datos actualizados.'
-  else
-    flash[:errors] = edit_course.errors.full_messages
-    redirect(request.path_info.to_s)
-  end
+  edit_course(params[:id])
 end
 
 get '/dashboard/courses/:id/grades/assign' do
