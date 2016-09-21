@@ -5,6 +5,6 @@ def new_teacher
     redirect '/dashboard/teachers', notice: 'Profesor creado exitosamente.'
   else
     flash[:errors] = new_teacher.errors.full_messages
-    redirect "#{request.path_info}"
+    redirect(request.path_info.to_s)
   end
 end

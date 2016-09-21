@@ -1,26 +1,25 @@
 <% if @teacher.teacher_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
-        <h3 class="panel-title">Eliminar profesor</h3>
+      <h3 class="panel-title">Eliminar profesor</h3>
     </div>
+
     <div class="panel-body">
-        <p>¿Está usted seguro de <b>eliminar</b> este profesor? Esta acción no puede ser revertida.</p>
-        <ol style="list-style-type:disc;">
-        <li><b>Nombre</b>: <%=h @teacher.teacher_name %></li>
-        <li><b>Correo</b>: <%= @teacher.teacher_email %></li>
-        <li><b>Teléfono</b>: <%= @teacher.teacher_phone %></li>
+      <p>¿Está usted seguro de <b>eliminar</b> este profesor? Esta acción no puede ser revertida.</p>
+      <ol style="list-style-type:disc;">
         <li><b>Cédula</b>: <%= @teacher.teacher_cedula %></li>
+        <li><b>Nombre</b>: <%= h(@teacher.teacher_name) %></li>
+        <li><b>Teléfono</b>: <%= @teacher.teacher_phone %></li>
+        <li><b>Correo</b>: <%= @teacher.teacher_email %></li>
         <li><b>Fecha de ingreso</b>: <%= @teacher.entry_date.strftime('%d/%m/%Y') %></li>
-        <% if session[:role] == 'Admin' %>
-        <li><b>Salario (Pago por horas)</b>: <%= @teacher.teacher_wage %> BsF./hr</li>
-        <% end %>
-        </ol>
-        <b><p class="text-danger">Todos los registros relacionados a este profesor también serán eliminados.</p></b>
-        <form action="/dashboard/teachers/<%= @teacher.teacher_id %>/delete" method="POST">
-          <input type="hidden" name="_method" value="DELETE">
-          <button type="submit" class="btn btn-danger">Eliminar</button>
-          <a href="/dashboard/teachers" class="btn btn-default">Cancelar</a>
-        </form>
+      </ol>
+      <b><p class="text-danger">Todos los registros relacionados a este profesor también serán eliminados.</p></b>
+
+      <form action="/dashboard/teachers/<%= @teacher.teacher_id %>/delete" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="/dashboard/teachers" class="btn btn-default">Cancelar</a>
+      </form>
     </div>
   </div>
 <% end %>

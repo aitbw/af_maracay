@@ -1,6 +1,6 @@
 get '/dashboard/teachers' do
   set_page_title('Profesores')
-  @teachers = Teacher.search_teacher(params[:cedula]).paginate(page: params[:page])
+  @teachers = Teacher.search_teacher(params[:cedula]).page(params[:page])
   erb :teachers, user_layout
 end
 
@@ -14,8 +14,8 @@ post '/dashboard/teachers/new_teacher' do
 end
 
 get '/dashboard/teachers/:id/delete' do
-  @teacher = Teacher.find(params[:id])
   set_page_title('Eliminar profesor')
+  @teacher = Teacher.find(params[:id])
   erb :'delete/delete_teacher', user_layout
 end
 
@@ -24,13 +24,13 @@ delete '/dashboard/teachers/:id/delete' do
     redirect '/dashboard/teachers', notice: 'Profesor eliminado.'
   else
     flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
-    redirect "#{request.path_info}"
+    redirect(request.path_info.to_s)
   end
 end
 
 get '/dashboard/teachers/:id/edit' do
-  @teacher = Teacher.find(params[:id])
   set_page_title('Editar profesor')
+  @teacher = Teacher.find(params[:id])
   erb :'edit/edit_teacher', user_layout
 end
 
@@ -41,60 +41,7 @@ put '/dashboard/teachers/:id/edit' do
     redirect '/dashboard/teachers', notice: 'Datos actualizados.'
   else
     flash[:errors] = edit_teacher.errors.full_messages
-    redirect "#{request.path_info}"
-  end
-end
-
-get '/dashboard/teachers/:id/bank_accounts' do
-  set_page_title('Cuentas bancarias')
-  @teacher = Teacher.find(params[:id])
-  @accounts = BankAccount.where(teacher_id: params[:id])
-  erb :bank_accounts, user_layout
-end
-
-get '/dashboard/teachers/:id/bank_accounts/add' do
-  set_page_title('Asignar cuenta bancaria')
-  @teacher_id = params[:id]
-  @banks = Bank.all
-  erb :'new/new_bank_account', user_layout
-end
-
-post '/dashboard/teachers/:id/bank_accounts/add' do
-  assign_account
-end
-
-get '/dashboard/teachers/:teacher/bank_accounts/:account/delete' do
-  set_page_title('Eliminar cuenta bancaria')
-  @account = BankAccount.find(params[:account])
-  erb :'delete/delete_bank_account', user_layout
-end
-
-delete '/dashboard/teachers/:teacher/bank_accounts/:account/delete' do
-  if BankAccount.destroy(params[:account])
-    flash[:notice] = 'Cuenta bancaria eliminada.'
-    redirect "/dashboard/teachers/#{params[:teacher]}/bank_accounts"
-  else
-    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
-    redirect "#{request.path_info}"
-  end
-end
-
-get '/dashboard/teachers/:teacher/bank_accounts/:account/edit' do
-  set_page_title('Editar cuenta bancaria')
-  @account = BankAccount.find(params[:account])
-  @banks = Bank.all
-  erb :'edit/edit_bank_account', user_layout
-end
-
-put '/dashboard/teachers/:teacher/bank_accounts/:account/edit' do
-  edit_account = BankAccount.find(params[:account])
-
-  if edit_account.update(params[:form])
-    flash[:notice] = 'Datos actualizados.'
-    redirect "/dashboard/teachers/#{params[:teacher]}/bank_accounts"
-  else
-    flash[:errors] = edit_account.errors.full_messages
-    redirect "#{request.path_info}"
+    redirect(request.path_info.to_s)
   end
 end
 
@@ -147,7 +94,7 @@ end
 get '/dashboard/teachers/:id/hours' do
   set_page_title('Horas cubiertas')
   @teacher = Teacher.find(params[:id])
-  @hours = TeacherHour.where(teacher_id: params[:id]).includes(:course).paginate(page: params[:page])
+  @hours = TeacherHour.where(teacher_id: params[:id]).includes(:course).page(params[:page])
   erb :teacher_hours, user_layout
 end
 

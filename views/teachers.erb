@@ -13,10 +13,10 @@
   <table class="table table-bordered table-responsive">
     <thead>
       <tr>
-        <th scope="col">Nombre</th>
-        <th scope="col">Correo</th>
-        <th scope="col">Teléfono</th>
         <th scope="col">Cédula</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Correo</th>
         <th scope="col">Fecha de ingreso</th>
         <th scope="col">Acciones</th>
       </tr>
@@ -24,10 +24,10 @@
     <tbody>
       <% @teachers.each do |teacher| %>
         <tr>
-          <td><%= h(teacher.teacher_name) %></td>
-          <td><%= teacher.teacher_email %></td>
-          <td><%= teacher.teacher_phone %></td>
           <td><%= teacher.teacher_cedula %></td>
+          <td><%= h(teacher.teacher_name) %></td>
+          <td><%= teacher.teacher_phone %></td>
+          <td><%= teacher.teacher_email %></td>
           <td><%= teacher.entry_date.strftime('%d/%m/%Y') %></td>
           <td>
             <div class="btn-group">
