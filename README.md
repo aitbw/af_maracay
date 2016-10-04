@@ -87,8 +87,5 @@ Esta app puede ser empleada en otras sedes de la Alianza Francesa donde se requi
 * Commit!
 * Enviame un *pull request*
 
-# Licencia
-[AGPL](./LICENSE) ♥
-
 # Social
 Puedes seguirme en Twitter como [@AITBW](https://twitter.com/AITBW)

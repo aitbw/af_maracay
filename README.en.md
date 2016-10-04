@@ -87,8 +87,5 @@ This app can be used in other Alliance Française offices where an administrativ
 * Commit!
 * Send me a pull request
 
-# License
-[AGPL](./LICENSE) ♥
-
 # Social
 You can follow me on Twitter as [@AITBW](https://twitter.com/AITBW)
