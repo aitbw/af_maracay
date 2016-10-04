@@ -62,7 +62,7 @@ rake db:setup
 ruby app.rb
 ```
 
-You can start using the app at http://localhost:4567/sigin with the following credentials:
+You can start using the app at http://localhost:4567/signin with the following credentials:
 * ID: 123456
 * Password: 123
 
