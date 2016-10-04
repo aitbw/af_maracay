@@ -4,7 +4,7 @@ C'est une application web développée pour l'Alliance Française de Maracay com
 
 Fait avec ♥ par Angel Perez, de Venezuela.
 
-[Español](./README.md) | [English](./README.en.md)
+[Español](./README.es.md) | [English](./README.md)
 
 # Stack
 
