@@ -88,20 +88,18 @@ get '/dashboard/users/:id/lock_account' do
   user = User.find(params[:id])
 
   if user.update(has_access: false)
-    flash[:notice] = 'Cuenta bloqueada.'
+    {message: 'Cuenta bloqueada'}.to_json
   else
-    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
+    halt 400, 'Ha ocurrido un error, intente nuevamente.'
   end
-  redirect '/dashboard/users'
 end
 
 get '/dashboard/users/:id/unlock_account' do
   user = User.find(params[:id])
 
   if user.update(has_access: true)
-    flash[:notice] = 'Cuenta desbloqueada.'
+    {message: 'Cuenta desbloqueada.'}.to_json
   else
-    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
+    halt 400, 'Ha ocurrido un error, intente nuevamente.'
   end
-  redirect '/dashboard/users'
 end
