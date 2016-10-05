@@ -18,23 +18,19 @@
         <th scope="col">Acciones</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="usersTable">
       <% @users.each do |user| %>
         <tr>
           <td><%= user.user_cedula %></td>
           <td><%= h(user.user_name) %></td>
           <td><%= user.access_level %></td>
-          <% if user.has_access == true %>
-            <td>Desbloqueada</td>
-          <% else %>
-            <td>Bloqueada</td>
-          <% end %>
+          <td id="status_<%= user.user_id %>"><%= user.has_access ? 'Desbloqueada' : 'Bloqueada'%></td>
           <td>
             <div class="btn-group">
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
-              <ul class="dropdown-menu" id="rowMenu">
-                <li class="<%= user.has_access ? 'show': 'hidden' %>"><a href="#" id="lock_account_<%=user.user_id%>" data-user-id="<%= user.user_id %>">Bloquear cuenta</a></li>
-                <li class="<%= user.has_access ? 'hidden': 'show' %>"><a href="#" id="unlock_account_<%=user.user_id%>" data-user-id="<%= user.user_id %>">Desbloquear cuenta</a></li>
+              <ul class="dropdown-menu">
+                <li class="<%= user.has_access ? 'show': 'hidden' %>"><a href="#" id="lock_account_<%= user.user_id %>" data-user-id="<%= user.user_id %>">Bloquear cuenta</a></li>
+                <li class="<%= user.has_access ? 'hidden': 'show' %>"><a href="#" id="unlock_account_<%= user.user_id %>" data-user-id="<%= user.user_id %>">Desbloquear cuenta</a></li>
                 <li><a href="/dashboard/users/<%= user.user_id %>/edit">Modificar</a></li>
                 <li><a href="/dashboard/users/<%= user.user_id %>/delete">Eliminar</a></li>
                 <li><a href="/dashboard/users/<%= user.user_id %>/reset_password">Restablecer contraseña</a></li>

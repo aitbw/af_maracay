@@ -85,6 +85,7 @@ put '/dashboard/users/:id/reset_password' do
 end
 
 get '/dashboard/users/:id/lock_account' do
+  content_type :json
   user = User.find(params[:id])
 
   if user.update(has_access: false)
@@ -95,6 +96,7 @@ get '/dashboard/users/:id/lock_account' do
 end
 
 get '/dashboard/users/:id/unlock_account' do
+  content_type :json
   user = User.find(params[:id])
 
   if user.update(has_access: true)

@@ -23,33 +23,41 @@ $(function () {
 })
 
 $(function () {
-  $('#rowMenu').on('click', function(element) {
-    toggleLock(element);
+  document.getElementById('usersTable').addEventListener('click', toggleLock, true);
 
-    function toggleLock(element) {
-      var userId = element.target.dataset.userId
-      var lockUrl = '/dashboard/users/' + userId + '/lock_account'
-      var unlockUrl = '/dashboard/users/' + userId + '/unlock_account'
-      var lockid = 'lock_account_' + userId
-      var unlockId = 'unlock_account_' + userId
-      
-      if (element.target.id === lockid) {
-        ajaxToggleLock(lockUrl, element, unlockId)
-      } else if (element.target.id === unlockId) {
-        ajaxToggleLock(unlockUrl, element, lockid)
-      }
+  function toggleLock(element) {
+    var userId = element.target.dataset.userId
+    var lockOptions = {
+      url: '/dashboard/users/' + userId + '/lock_account',
+      idToShow: 'unlock_account_' + userId,
+      label: 'Bloqueada'
     }
+    var unlockOptions = {
+      url: '/dashboard/users/' + userId + '/unlock_account',
+      idToShow: 'lock_account_' + userId,
+      label: 'Desbloqueada'
+    }
+    
+    if (element.target.id === unlockOptions.idToShow) {
+      ajaxToggleLock(lockOptions, userId, element)
+    } else if (element.target.id === lockOptions.idToShow) {
+      ajaxToggleLock(unlockOptions, userId, element)
+    }
+  }
 
-    function ajaxToggleLock(url, element, idToggle) {
-      $.get(url, function(data) {
-        element.target.parentElement.className = 'hidden'
-        document.getElementById(idToggle).parentElement.className = 'show'
-        // here you get the data, and display the message accordingly with data.message
-      }).fail(function(error) {
-        // here you get the data, and display the message accordingly with error.responseText
-      })
-    }
-  })
+  function ajaxToggleLock(options, userId, element) {
+    $.ajax({
+      method: 'GET',
+      url: options.url
+    }).done(function(data) {
+      element.target.parentElement.className = 'hidden'
+      document.getElementById(options.idToShow).parentElement.className = 'show'
+      document.getElementById('status_' + userId).innerHTML = options.label
+      toastr.success(data.message)
+    }).fail(function(error) {
+      toastr.error(error.responseText)
+    })
+  }
 })
 
 /* Since not all payment methods require a bank to indicate where
