@@ -84,7 +84,7 @@ put '/dashboard/users/:id/reset_password' do
   redirect(request.path_info.to_s)
 end
 
-get '/dashboard/users/:id/lock_account' do
+put '/dashboard/users/:id/lock_account' do
   content_type :json
   user = User.find(params[:id])
 
@@ -95,7 +95,7 @@ get '/dashboard/users/:id/lock_account' do
   end
 end
 
-get '/dashboard/users/:id/unlock_account' do
+put '/dashboard/users/:id/unlock_account' do
   content_type :json
   user = User.find(params[:id])
 

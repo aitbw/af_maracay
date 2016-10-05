@@ -47,7 +47,7 @@ $(function () {
 
   function ajaxToggleLock(options, userId, element) {
     $.ajax({
-      method: 'GET',
+      method: 'PUT',
       url: options.url
     }).done(function(data) {
       element.target.parentElement.className = 'hidden'
