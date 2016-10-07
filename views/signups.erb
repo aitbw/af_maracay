@@ -24,7 +24,7 @@
         <td><%= signup.issue_date.strftime('%d/%m/%Y') %></td>
         <td><%= signup.expiration_date.strftime('%d/%m/%Y') %></td>
         <td><%= signup.bank.empty? ? "N/A" : "<%= signup.bank %>" %></td>
-        <td><%= signup.payment_method == 'Efectivo' ? "N/A" : "<%= h(signup.reference_number) %>" %></td>
+        <td><%= signup.payment_method == "Efectivo" ? "N/A" : "<%= h(signup.reference_number) %>" %></td>
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>

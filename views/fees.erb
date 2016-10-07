@@ -24,7 +24,7 @@
         <td><%= fee.issue_date.strftime('%d/%m/%Y') %></td>
         <td><%= fee.expiration_date.strftime('%d/%m/%Y') %></td>
         <td><%= fee.bank.empty? ? "N/A" : "<%= fee.bank %>" %></td>
-        <td><%= fee.payment_method == 'Efectivo' ? "N/A" : "<%= h(fee.reference_number) %>" %></td>
+        <td><%= fee.payment_method == "Efectivo" ? "N/A" : "<%= h(fee.reference_number) %>" %></td>
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
