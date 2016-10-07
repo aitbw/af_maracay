@@ -19,11 +19,7 @@
         <td><%= student.student_phone %></td>
         <td><%= student.alternative_phone %></td>
         <td><%= student.student_email %></td>
-        <% if student.has_scholarship == true %>
-          <td>Sí</td>
-        <% else %>
-          <td>No</td>
-        <% end %>
+        <td><%= student.has_scholarship ? : "Sí" : "No" %></td>
       </tr>
     <% end %>
   </tbody>

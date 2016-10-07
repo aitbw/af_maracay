@@ -21,23 +21,10 @@
           <td><%= section.section_capacity %></td>
           <td><%= section.start_date.strftime('%d/%m/%Y') %></td>
           <td><%= section.end_date.strftime('%d/%m/%Y') %></td>
-          <% if section.section_hours == 0 %>
-            <td>Finalizado</td>
-            <td>Finalizado</td>
-          <% else %>
-            <td><%= section.section_hours %></td>
-            <td><%= section.hours_covered %></td>
-          <% end %>
-          <% if section.grades_assigned == true %>
-            <td>Sí</td>
-          <% else %>
-            <td>No</td>
-          <% end %>
-          <% if section.is_finished == true %>
-            <td>Sí</td>
-          <% else %>
-            <td>No</td>
-          <% end %>
+          <td><%= section.section_hours == 0 ? : "Finalizado" : "<%= section.section_hours %>" %></td>
+          <td><%= section.section_hours == 0 ? : "Finalizado" : "<%= section.hours_covered %>" %></td>
+          <td><%= section.grades_assigned ? : "Sí" : "No" %></td>
+          <td><%= section.is_finished ? : "Sí" : "No" %></td>
           <td>
             <div class="btn-group">
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
