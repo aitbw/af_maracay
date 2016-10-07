@@ -4,17 +4,22 @@ C'est une application web développée pour l'Alliance Française de Maracay com
 
 Fait avec ♥ par Angel Perez, de Venezuela.
 
-[Español](./README.es.md) | [English](./README.md)
+## Table des matières
+* [Stack](#stack)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Traductions](#traductions)
+* [Comment pouvez-vous aider?](#comment-pouvez-vous-aider)
+* [Social](#social)
 
-# Stack
-
+## Stack
 Cette application a été développée avec les technologies suivantes:
 * [Sinatra](http://www.sinatrarb.com/)
 * [PostgreSQL](https://www.postgresql.org/)
 * [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html) + [Sinatra ActiveRecord](https://github.com/janko-m/sinatra-activerecord)
 * [Bootstrap](http://getbootstrap.com/)
 
-# Installation
+## Installation
 * *Fork* ce repo
 * Sur votre environnement, ajoutez 3 variables pour le nom d'utilisateur, mot de passe et base de données de PostgreSQL
 * Allez au dossier du projet
@@ -66,7 +71,7 @@ Vouz pouvez commencer à utiliser l'application sur http://localhost:4567/signin
 * ID: 123456
 * Mot de passe: 123
 
-# Usage
+## Usage
 Cette application vous permet de:
 * Créer, modifier et éliminer utilisateurs (Admins)
 * Changer de mot de passe
@@ -80,12 +85,17 @@ Cette application vous permet de:
 
 Cette application peut être utilisée sur autres sièges de l'Alliance Française où un système administratif est nécessaire ou dans des institutions avec des besoins similaires.
 
-# Comment pouvez-vous aider?
+## Traductions
+Ce document est également disponible dans les langues suivantes:
+* [Español](./README.es.md)
+* [English](./README.md)
+
+## Comment pouvez-vous aider?
 * *Fork* ce repo
 * Ajoutez la caractéristique ou *bugfix* que vous avez realisé
 * N'oubliez pas de ajouter des *tests* pour que je puisse m'assurer que tout fonctionne correctement
 * *Commit!*
 * Envoyez-moi une *pull request*
 
-# Social
+## Social
 Vous pouvez me suivre sur Twitter comme [@AITBW](https://twitter.com/AITBW)
