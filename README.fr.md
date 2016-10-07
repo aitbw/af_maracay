@@ -1,4 +1,4 @@
-# Alliance Française de Maracay
+# Alliance Française Maracay
 
 C'est une application web développée pour l'Alliance Française de Maracay comme travail de thèse pour obtenir le diplôme d'Ingénerie en Information à l'Universidad Tecnológica del Centro (Université Technlógique du Centro) afin de réaliser des tâches administratives de l'institution d'une manière rapide et efficace.
 

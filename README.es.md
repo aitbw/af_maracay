@@ -1,4 +1,4 @@
-# Alianza Francesa de Maracay
+# Alianza Francesa Maracay
 
 Esta es una aplicación web diseñada para la Alianza Francesa de Maracay como parte del Trabajo Especial de Grado II (TEG II) para optar al titulo de Ingeniería en Información de la Universidad Tecnológica del Centro (UNITEC) con el objetivo de gestionar los procesos administrativos de la organización de una manera rápida y eficiente.
 

@@ -1,4 +1,4 @@
-# Maracay's Alliance Française
+# Alliance Française Maracay
 
 This is a web application designed for Maracay's Alliance Française as part of my thesis to opt for the Information Engineering degree at Universidad Tecnológica del Centro (UNITEC) with the aim to manage the institute's administrative tasks in an efficient, quick way.
 
