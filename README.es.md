@@ -4,17 +4,22 @@ Esta es una aplicación web diseñada para la Alianza Francesa de Maracay como p
 
 Hecho con ♥ por Angel Perez, desde Venezuela.
 
-[English](./README.md) | [Français](./README.fr.md)
+## Tabla de contenidos
+* [Stack](#stack)
+* [Instalación](#instalación)
+* [Uso](#uso)
+* [Traducciones](#traducciones)
+* [¿Cómo colaborar?](#cómo-colaborar)
+* [Social](#social)
 
-# Stack
-
+## Stack
 Esta aplicación está constituida de las siguientes tecnologías:
 * [Sinatra](http://www.sinatrarb.com/)
 * [PostgreSQL](https://www.postgresql.org/)
 * [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html) + [Sinatra ActiveRecord](https://github.com/janko-m/sinatra-activerecord)
 * [Bootstrap](http://getbootstrap.com/)
 
-# Instalación
+## Instalación
 * Clona este repositorio
 * Establece tres (3) variables de entorno para la base de datos, usuario y contraseña de PostgreSQL
 * Accede a la carpeta del proyecto
@@ -66,7 +71,7 @@ Puedes ver el app en http://localhost:4567/signin iniciando sesión con los sigu
 * Cédula: 123456
 * Password: 123
 
-# Uso
+## Uso
 Esta aplicación web permite:
 * Crear, modificar y eliminar usuarios (Administradores)
 * Cambio de contraseña
@@ -80,12 +85,17 @@ Esta aplicación web permite:
 
 Esta app puede ser empleada en otras sedes de la Alianza Francesa donde se requiera de un sistema administrativo o en instituciones educativas con necesidades similares.
 
-# ¿Cómo colaborar?
+## Traducciones
+Esta guía también está disponible en los siguientes idiomas:
+* [English](./README.md)
+* [Français](./README.fr.md)
+
+## ¿Cómo colaborar?
 * Clona este repositorio
 * Añade el *feature* o *bugfix* que realizaste
 * Añade *tests*, así me aseguro de que todo funciona como es debido
 * Commit!
 * Enviame un *pull request*
 
-# Social
+## Social
 Puedes seguirme en Twitter como [@AITBW](https://twitter.com/AITBW)

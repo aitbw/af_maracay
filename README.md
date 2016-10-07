@@ -4,17 +4,22 @@ This is a web application designed for Maracay's Alliance Française as part of 
 
 Made with ♥ by Angel Perez, from Venezuela.
 
-[Español](./README.es.md) | [Français](./README.fr.md)
+## Table of contents
+* [Stack](#stack)
+* [Setup](#setup)
+* [Usage](#usage)
+* [Translations](#translations)
+* [Contributing](#contributing)
+* [Social](#social)
 
-# Stack
-
+## Stack
 This app was built under the following stack:
 * [Sinatra](http://www.sinatrarb.com/)
 * [PostgreSQL](https://www.postgresql.org/)
 * [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html) + [Sinatra ActiveRecord](https://github.com/janko-m/sinatra-activerecord)
 * [Bootstrap](http://getbootstrap.com/)
 
-# Setup
+## Setup
 * Fork this repo
 * Set 3 environment variables for PostgreSQL's username, password and database
 * Go to the project's folder
@@ -66,7 +71,7 @@ You can start using the app at http://localhost:4567/signin with the following c
 * ID: 123456
 * Password: 123
 
-# Usage
+## Usage
 This web application lets you:
 * Create, modify and delete users (Admins)
 * Password change
@@ -80,12 +85,17 @@ This web application lets you:
 
 This app can be used in other Alliance Française offices where an administrative system is required or on institutions with similar needs.
 
-# Contributing
+## Translations
+This README is also available in the following languages:
+* [Español](./README.es.md)
+* [Français](./README.fr.md)
+
+## Contributing
 * Fork this repo
 * Add the feature or bugfix you worked on
 * Don't forget to add tests, so I can make sure everything works as expected
 * Commit!
 * Send me a pull request
 
-# Social
+## Social
 You can follow me on Twitter as [@AITBW](https://twitter.com/AITBW)
