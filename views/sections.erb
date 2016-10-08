@@ -21,8 +21,8 @@
           <td><%= section.section_capacity %></td>
           <td><%= section.start_date.strftime('%d/%m/%Y') %></td>
           <td><%= section.end_date.strftime('%d/%m/%Y') %></td>
-          <td><%= section.section_hours == 0 ? : "Finalizado" : "<%= section.section_hours %>" %></td>
-          <td><%= section.section_hours == 0 ? : "Finalizado" : "<%= section.hours_covered %>" %></td>
+          <td><%= section.section_hours == 0 ? : "Finalizado" : section.section_hours %></td>
+          <td><%= section.section_hours == 0 ? : "Finalizado" : section.hours_covered %></td>
           <td><%= section.grades_assigned ? : "Sí" : "No" %></td>
           <td><%= section.is_finished ? : "Sí" : "No" %></td>
           <td>
