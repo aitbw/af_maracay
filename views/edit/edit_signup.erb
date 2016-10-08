@@ -23,7 +23,7 @@
     </div>
   </div>
 
-  <% if session[:role] == 'Admin' %>
+  <% if current_user_is_admin? %>
     <div class="form-group">
       <label>Estado de la inscripción</label>
       <select name="form[payment_status]" class="form-control">

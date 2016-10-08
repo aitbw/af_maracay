@@ -45,6 +45,10 @@ helpers do
     end
   end
 
+  def current_user_is_admin?
+    return true if session[:role] == 'Admin'
+  end
+
   include Rack::Utils
   alias_method :h, :escape_html
 end
