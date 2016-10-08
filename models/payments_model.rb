@@ -46,7 +46,7 @@ class Payment < ActiveRecord::Base
   validates :reference_number, reference_number: true
 
   # Custom validations
-  validate :expiration_date_cant_be_null_for_fees
+  validate :expiration_date_cant_be_blank_for_fees
   validate :issue_date_cant_be_null_for_signups_and_fees
   validate :issue_date_cant_be_in_the_past
 
@@ -60,10 +60,9 @@ class Payment < ActiveRecord::Base
     end
   end
 
-  def expiration_date_cant_be_null_for_fees
-    if payment_description == 'Cuota' && expiration_date.blank?
-      errors.add(:expiration_date, "can't be blank")
-    end
+  def expiration_date_cant_be_blank_for_fees
+    return unless payment_description == 'Cuota' && expiration_date.blank?
+    errors.add(:expiration_date, "can't be blank")
   end
 
   def extra_fee_for_credit_payments
@@ -73,9 +72,8 @@ class Payment < ActiveRecord::Base
   end
 
   def issue_date_cant_be_in_the_past
-    if issue_date.present? && issue_date < Date.today
-      errors.add(:issue_date, "can't be in the past")
-    end
+    return unless issue_date.present? && issue_date < Date.today
+    errors.add(:issue_date, "can't be in the past")
   end
 
   def issue_date_cant_be_null_for_signups_and_fees
@@ -90,9 +88,8 @@ class Payment < ActiveRecord::Base
   end
 
   def expiration_date_for_signups
-    if issue_date.present? && payment_description == 'Inscripción'
-      self.expiration_date = Date.parse(issue_date.to_s).next_year
-    end
+    return unless issue_date.present? && payment_description == 'Inscripción'
+    self.expiration_date = Date.parse(issue_date.to_s).next_year
   end
 
   def set_payment_status

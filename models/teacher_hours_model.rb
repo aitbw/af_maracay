@@ -51,9 +51,8 @@ class TeacherHour < ActiveRecord::Base
 
     date_range = (section.start_date.to_s)..(section.completion_date.to_s)
 
-    unless date_range.cover?(date_covered.to_s)
-      errors.add(:date_covered, "must be between the range of the section's start and end date")
-    end
+    return if date_range.cover?(date_covered.to_s)
+    errors.add(:date_covered, "must be between the range of the section's start and end date")
   end
 
   # If an user happens to assign hours to a teacher by mistake, the record

@@ -28,9 +28,8 @@ class Section < ActiveRecord::Base
 
   # Methods
   def start_date_cant_be_in_the_past
-    if start_date.present? && start_date < Date.today
-      errors.add(:start_date, "can't be in the past")
-    end
+    return unless start_date.present? && start_date < Date.today
+    errors.add(:start_date, "can't be in the past")
   end
 
   def generate_section_code
