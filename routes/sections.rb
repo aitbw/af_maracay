@@ -2,20 +2,20 @@ get '/dashboard/courses/:id/sections' do
   @course_code = Course.where(course_id: params[:id]).pluck(:course_code).first
   set_page_title("Secciones del curso #{@course_code}")
   @sections = Section.where(course_id: params[:id]).page(params[:page]).includes(:level)
-  erb :sections, user_layout
+  erb :'sections/sections', user_layout
 end
 
 get '/dashboard/courses/:course/sections/:section/students/show' do
   @section = Section.find(params[:section])
   set_page_title("Estudiantes del nivel #{@section.level_description}")
   @section_students = Student.where(section_id: params[:section])
-  erb :section_students, user_layout
+  erb :'sections/section_students', user_layout
 end
 
 get '/dashboard/courses/:id/sections/new' do
   set_page_title('Crear nueva sección')
   @levels = Level.all
-  erb :'new/new_section', user_layout
+  erb :'sections/new_section', user_layout
 end
 
 post '/dashboard/courses/:id/sections/new' do
@@ -34,7 +34,7 @@ end
 get '/dashboard/courses/:course/sections/:section/delete' do
   set_page_title('Eliminar sección')
   @section = Section.find(params[:section])
-  erb :'delete/delete_section', user_layout
+  erb :'sections/delete_section', user_layout
 end
 
 delete '/dashboard/courses/:course/sections/:section/delete' do
@@ -52,7 +52,7 @@ get '/dashboard/courses/:course/sections/:section/edit' do
   @section = Section.find(params[:section])
   @courses = Course.all
   @levels = Level.all
-  erb :'edit/edit_section', user_layout
+  erb :'sections/edit_section', user_layout
 end
 
 put '/dashboard/courses/:course/sections/:section/edit' do

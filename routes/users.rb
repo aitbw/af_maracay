@@ -1,12 +1,12 @@
 get '/dashboard/users' do
   set_page_title('Usuarios')
   @users = User.search_user(params[:cedula]).page(params[:page])
-  erb :users, user_layout
+  erb :'users/users', user_layout
 end
 
 get '/dashboard/users/new_user' do
   set_page_title('Crear nuevo usuario')
-  erb :'new/new_user', user_layout
+  erb :'users/new_user', user_layout
 end
 
 post '/dashboard/users/new_user' do
@@ -23,7 +23,7 @@ end
 get '/dashboard/users/:id/delete' do
   @user = User.find(params[:id])
   set_page_title('Eliminar usuario')
-  erb :'delete/delete_user', user_layout
+  erb :'users/delete_user', user_layout
 end
 
 delete '/dashboard/users/:id/delete' do
@@ -38,7 +38,7 @@ end
 get '/dashboard/users/:id/edit' do
   @user = User.find(params[:id])
   set_page_title('Editar usuario')
-  erb :'edit/edit_user', user_layout
+  erb :'users/edit_user', user_layout
 end
 
 put '/dashboard/users/:id/edit' do
@@ -53,7 +53,7 @@ end
 
 get '/dashboard/change_password' do
   set_page_title('Cambiar contraseña')
-  erb :change_password, user_layout
+  erb :'users/change_password', user_layout
 end
 
 put '/dashboard/change_password' do
@@ -70,7 +70,7 @@ end
 get '/dashboard/users/:id/reset_password' do
   set_page_title('Reestablecer contraseña')
   @user_id = params[:id]
-  erb :reset_password, user_layout
+  erb :'users/reset_password', user_layout
 end
 
 put '/dashboard/users/:id/reset_password' do
@@ -89,7 +89,7 @@ put '/dashboard/users/:id/lock_account' do
   user = User.find(params[:id])
 
   if user.update(has_access: false)
-    {message: 'Cuenta bloqueada'}.to_json
+    { message: 'Cuenta bloqueada' }.to_json
   else
     halt 400, 'Ha ocurrido un error, intente nuevamente.'
   end
@@ -100,7 +100,7 @@ put '/dashboard/users/:id/unlock_account' do
   user = User.find(params[:id])
 
   if user.update(has_access: true)
-    {message: 'Cuenta desbloqueada.'}.to_json
+    { message: 'Cuenta desbloqueada.' }.to_json
   else
     halt 400, 'Ha ocurrido un error, intente nuevamente.'
   end

@@ -2,14 +2,14 @@ get '/dashboard/students/:id/signups' do
   set_page_title('Inscripciones')
   @student = Student.find(params[:id])
   @signups = Payment.where('payment_description = ? AND student_id = ?', 'Inscripción', params[:id]).includes(:user).page(params[:page])
-  erb :signups, user_layout
+  erb :'signups/signups', user_layout
 end
 
 get '/dashboard/students/:id/signups/new' do
   set_page_title('Nueva inscripción')
   @student = Student.find(params[:id])
   @banks = Bank.all
-  erb :'new/new_signup', user_layout
+  erb :'signups/new_signup', user_layout
 end
 
 post '/dashboard/students/:id/signups/new' do
@@ -27,7 +27,7 @@ end
 get '/dashboard/students/:student/signups/:signup/delete' do
   set_page_title('Eliminar inscripción')
   @signup = Payment.find(params[:signup])
-  erb :'delete/delete_signup', user_layout
+  erb :'signups/delete_signup', user_layout
 end
 
 delete '/dashboard/students/:student/signups/:signup/delete' do
@@ -44,7 +44,7 @@ get '/dashboard/students/:student/signups/:signup/edit' do
   set_page_title('Editar inscripción')
   @signup = Payment.find(params[:signup])
   @banks = Bank.all
-  erb :'edit/edit_signup', user_layout
+  erb :'signups/edit_signup', user_layout
 end
 
 put '/dashboard/students/:student/signups/:signup/edit' do
@@ -63,14 +63,14 @@ get '/dashboard/students/:id/fees' do
   set_page_title('Cuotas')
   @student = Student.find(params[:id])
   @fees = Payment.where('payment_description = ? AND student_id = ?', 'Cuota', params[:id]).includes(:user).page(params[:page])
-  erb :fees, user_layout
+  erb :'fees/fees', user_layout
 end
 
 get '/dashboard/students/:id/fees/new' do
   set_page_title('Nueva cuota')
   @student = Student.find(params[:id])
   @banks = Bank.all
-  erb :'new/new_fee', user_layout
+  erb :'fees/new_fee', user_layout
 end
 
 post '/dashboard/students/:id/fees/new' do
@@ -88,7 +88,7 @@ end
 get '/dashboard/students/:student/fees/:fee/delete' do
   set_page_title('Eliminar cuota')
   @fee = Payment.find(params[:fee])
-  erb :'delete/delete_fee', user_layout
+  erb :'fees/delete_fee', user_layout
 end
 
 delete '/dashboard/students/:student/fees/:fee/delete' do
@@ -105,7 +105,7 @@ get '/dashboard/students/:student/fees/:fee/edit' do
   set_page_title('Editar cuota')
   @banks = Bank.all
   @fee = Payment.find(params[:fee])
-  erb :'edit/edit_fee', user_layout
+  erb :'fees/edit_fee', user_layout
 end
 
 put '/dashboard/students/:student/fees/:fee/edit' do

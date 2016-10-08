@@ -2,13 +2,13 @@ get '/dashboard/teachers/:id/bank_accounts' do
   set_page_title('Cuentas bancarias')
   @teacher = Teacher.find(params[:id])
   @accounts = BankAccount.where(teacher_id: params[:id])
-  erb :bank_accounts, user_layout
+  erb :'bank_accounts/bank_accounts', user_layout
 end
 
 get '/dashboard/teachers/:id/bank_accounts/new' do
   set_page_title('Crear cuenta bancaria')
   @banks = Bank.all
-  erb :'new/new_bank_account', user_layout
+  erb :'bank_accounts/new_bank_account', user_layout
 end
 
 post '/dashboard/teachers/:id/bank_accounts/new' do
@@ -18,7 +18,7 @@ end
 get '/dashboard/teachers/:teacher/bank_accounts/:account/delete' do
   set_page_title('Eliminar cuenta bancaria')
   @account = BankAccount.find(params[:account])
-  erb :'delete/delete_bank_account', user_layout
+  erb :'bank_accounts/delete_bank_account', user_layout
 end
 
 delete '/dashboard/teachers/:teacher/bank_accounts/:account/delete' do
@@ -29,7 +29,7 @@ get '/dashboard/teachers/:teacher/bank_accounts/:account/edit' do
   set_page_title('Editar cuenta bancaria')
   @account = BankAccount.find(params[:account])
   @banks = Bank.all
-  erb :'edit/edit_bank_account', user_layout
+  erb :'bank_accounts/edit_bank_account', user_layout
 end
 
 put '/dashboard/teachers/:teacher/bank_accounts/:account/edit' do
