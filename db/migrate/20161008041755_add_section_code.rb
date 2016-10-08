@@ -11,7 +11,7 @@
 # and section the students belong to, or which section
 # a teacher covered on a certain date
 
-# If you know a better way to handle this issue, I encorage
+# If you know a better way to handle this issue, I encourage
 # you to fork this project and submit a PR with your changes
 # at https://github.com/aitbw/af_maracay
 class AddSectionCode < ActiveRecord::Migration
