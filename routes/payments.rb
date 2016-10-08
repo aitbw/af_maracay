@@ -7,6 +7,7 @@ end
 
 get '/dashboard/students/:id/signups/new' do
   set_page_title('Nueva inscripción')
+  @student = Student.find(params[:id])
   @banks = Bank.all
   erb :'new/new_signup', user_layout
 end
