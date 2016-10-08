@@ -4,7 +4,7 @@
     <select name="student[section_id]" class="form-control">
       <option value="" selected>Seleccione una sección</option>
       <% @sections.each do |section| %>
-        <option value="<%= section.section_id %>"><%= "#{section.course_code} - #{section.level_description}" %></option>
+        <option value="<%= section.section_id %>"><%= section.section_code %></option>
       <% end %>
     </select>
   </div>

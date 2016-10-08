@@ -6,7 +6,7 @@ end
 
 get '/dashboard/students/new_student' do
   set_page_title('Crear nuevo estudiante')
-  @sections = Section.where('section_hours != ? AND is_finished = ?', 0, false).includes(:course, :level)
+  @sections = Section.where('section_hours != ? AND is_finished = ?', 0, false)
   erb :'new/new_student', user_layout
 end
 
