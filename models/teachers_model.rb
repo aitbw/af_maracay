@@ -15,6 +15,7 @@ class Teacher < ActiveRecord::Base
 
   # Callbacks
   after_validation :normalize_name
+  after_validation :normalize_email
 
   # Validations
   validates :teacher_name, :entry_date, presence: true
@@ -25,6 +26,10 @@ class Teacher < ActiveRecord::Base
   # Methods
   def normalize_name
     self.teacher_name = teacher_name.titleize
+  end
+
+  def normalize_email
+    self.teacher_email = teacher_email.downcase
   end
 
   def self.search_teacher(cedula)

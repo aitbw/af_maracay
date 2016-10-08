@@ -15,6 +15,7 @@ class Student < ActiveRecord::Base
   # Callbacks
   after_validation :normalize_name
   after_validation :add_student_to_section
+  after_validation :normalize_email
   before_destroy :remove_student_from_section
 
   # Validations
@@ -26,6 +27,10 @@ class Student < ActiveRecord::Base
   # Methods
   def normalize_name
     self.student_name = student_name.titleize
+  end
+
+  def normalize_email
+    self.student_email = student_email.downcase
   end
 
   def self.search_student(cedula)

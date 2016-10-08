@@ -11,6 +11,7 @@ class Provider < ActiveRecord::Base
   # Callbacks
   after_validation :normalize_provider_name
   after_validation :normalize_manager_name
+  after_validation :normalize_email
 
   # Validations
   validates :provider_name, :manager_name, presence: true
@@ -25,6 +26,10 @@ class Provider < ActiveRecord::Base
 
   def normalize_manager_name
     self.manager_name = manager_name.titleize
+  end
+
+  def normalize_email
+    self.provider_email = provider_email.downcase
   end
 
   def self.search_provider(name)
