@@ -11,6 +11,9 @@ class Section < ActiveRecord::Base
   belongs_to :course
   belongs_to :level
 
+  # Callbacks
+  after_validation :generate_section_code
+
   # Delegations
   delegate :level_description, to: :level
   delegate :course_code, to: :course
@@ -28,5 +31,9 @@ class Section < ActiveRecord::Base
     if start_date.present? && start_date < Date.today
       errors.add(:start_date, "can't be in the past")
     end
+  end
+
+  def generate_section_code
+    self.section_code = "#{course_code} - #{level_description}"
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160903003705) do
+ActiveRecord::Schema.define(version: 20161008041755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,15 +134,16 @@ ActiveRecord::Schema.define(version: 20160903003705) do
   add_index "providers", ["provider_rif"], name: "index_providers_on_provider_rif", unique: true, using: :btree
 
   create_table "sections", primary_key: "section_id", force: :cascade do |t|
-    t.integer "section_capacity",                 null: false
-    t.date    "start_date",                       null: false
-    t.date    "end_date",                         null: false
-    t.integer "section_hours",                    null: false
-    t.integer "hours_covered",    default: 0,     null: false
-    t.integer "level_id",                         null: false
-    t.integer "course_id",                        null: false
-    t.boolean "is_finished",      default: false, null: false
-    t.boolean "grades_assigned",  default: false, null: false
+    t.integer "section_capacity",                            null: false
+    t.date    "start_date",                                  null: false
+    t.date    "end_date",                                    null: false
+    t.integer "section_hours",                               null: false
+    t.integer "hours_covered",               default: 0,     null: false
+    t.integer "level_id",                                    null: false
+    t.integer "course_id",                                   null: false
+    t.boolean "is_finished",                 default: false, null: false
+    t.boolean "grades_assigned",             default: false, null: false
+    t.string  "section_code",     limit: 50,                 null: false
   end
 
   add_index "sections", ["section_id"], name: "index_sections_on_section_id", unique: true, using: :btree
