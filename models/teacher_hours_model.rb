@@ -14,6 +14,7 @@ class TeacherHour < ActiveRecord::Base
 
   # Delegations
   delegate :teacher_name, to: :teacher
+  delegate :section_code, to: :section
 
   # Validations
   validates :hours_covered, presence: true, numericality: { only_integer: true }

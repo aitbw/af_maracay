@@ -3,18 +3,22 @@
 <table class="table table-bordered table-responsive">
   <thead>
     <tr>
-      <th scope="col">Curso</th>
+      <th scope="col">Sección</th>
       <th scope="col">Horas cubiertas</th>
       <th scope="col">Fecha</th>
+      <th scope="col">Tarifa por hora</th>
+      <th scope="col">¿Suplencia?</th>
       <th scope="col">Acciones</th>
     </tr>
   </thead>
   <tbody>
     <% @hours.each do |hour| %>
       <tr>
-        <td><%= hour.course_code %></td>
+        <td><%= hour.section_code %></td>
         <td><%= hour.hours_covered %></td>
         <td><%= hour.date_covered.strftime('%d/%m/%Y') %></td>
+        <td><%= hour.fare_per_hour %></td>
+        <td><%= hour.teacher_substituted ? "Sí" : "No" %></td>
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
