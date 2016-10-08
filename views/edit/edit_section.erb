@@ -3,7 +3,7 @@
     <label>Curso</label>
     <select name="form[course_id]" class="form-control">
       <% @courses.each do |course| %>
-        <option <%= "selected" if course.course_id == @section.course_id %> value="<%= course.course_id %>"><%= "#{@section.course_code} - #{@section.level_description}" %></option>
+        <option <%= "selected" if course.course_id == @section.course_id %> value="<%= course.course_id %>"><%= course.course_code %></option>
       <% end %>
     </select>
   </div>
