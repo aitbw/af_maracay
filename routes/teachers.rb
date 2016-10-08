@@ -43,8 +43,8 @@ end
 get '/dashboard/teachers/:id/courses/assign' do
   set_page_title('Asignar curso')
   @teacher = Teacher.find(params[:id])
-  @courses = @teacher.courses.includes(:course_type)
-  @available_courses = Course.where.not(course_hours: 0).select(:course_id, :course_code, :course_level)
+  @courses = @teacher.courses.includes(:course_type, :office)
+  @available_courses = Course.where.not(course_id: @courses.pluck(:course_id))
   erb :'assign/assign_course', user_layout
 end
 

@@ -5,11 +5,7 @@
     <tr>
       <th scope="col">Código</th>
       <th scope="col">Modalidad</th>
-      <th scope="col">Nivel</th>
-      <th scope="col">Inicio de curso</th>
-      <th scope="col">Fin de curso</th>
-      <th scope="col">Horas académicas</th>
-      <th scope="col">Horas cubiertas</th>
+      <th scope="col">Sede</th>
       <th scope="col">Acciones</th>
     </tr>
   </thead>
@@ -18,11 +14,7 @@
       <tr>
         <td><%= course.course_code %></td>
         <td><%= course.course_modality %></td>
-        <td><%= course.course_level %></td>
-        <td><%= course.start_date.strftime('%d/%m/%Y') %></td>
-        <td><%= course.completion_date.strftime('%d/%m/%Y') %></td>
-        <td><%= course.course_hours %></td>
-        <td><%= course.hours_covered %></td>
+        <td><%= course.office_name %></td>
         <td>
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>

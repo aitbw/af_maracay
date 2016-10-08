@@ -14,7 +14,7 @@
         <tr>
           <th scope="col">Código del curso</th>
           <th scope="col">Modalidad del curso</th>
-          <th scope="col">Nivel del curso</th>
+          <th scope="col">Sede del curso</th>
         </tr>
       </thead>
       <tbody>
@@ -22,7 +22,7 @@
           <tr>
             <td><%= course.course_code %></td>
             <td><%= course.course_modality %></td>
-            <td><%= course.course_level %></td>
+            <td><%= course.office_name %></td>
           </tr>
         <% end %>
       </tbody>
@@ -36,8 +36,9 @@
       <div class="form-group">
         <label>Curso a asignar</label>
         <select name="course_teacher[course_id]" class="form-control">
+          <option value="">Seleccione el curso que desea asignar</option>
           <% @available_courses.each do |course| %>
-          <option value="<%= course.course_id %>"><%= "#{course.course_code} - #{course.course_level}" %></option>
+          <option value="<%= course.course_id %>"><%= "#{course.course_code} - #{course.course_modality}" %></option>
           <% end %>
         </select>
       </div>
