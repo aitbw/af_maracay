@@ -10,11 +10,7 @@
         <li><b>Cédula</b>: <%= @user.user_cedula %></li>
         <li><b>Nombre</b>: <%= h(@user.user_name) %></li>
         <li><b>Nivel de acceso</b>: <%= @user.access_level %></li>
-        <% if @user.has_access == true %>
-          <li><b>Estado de la cuenta</b>: Desbloqueada</li>
-        <% else %>
-          <li><b>Estado de la cuenta</b>: Bloqueada</li>
-        <% end %>
+        <li><b>Estado de la cuenta</b>: <%= @user.has_access ? "Desbloqueada" : "Bloqueada" %></li>
       </ol>
       <b><p class="text-danger">Todos los registros relacionados a este usuario también serán eliminados.</p></b>
 

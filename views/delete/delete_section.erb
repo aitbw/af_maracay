@@ -14,16 +14,8 @@
         <li><b>Fecha de clausura</b>: <%= @section.end_date.strftime('%d/%m/%Y') %></li>
         <li><b>Horas académicas</b>: <%= @section.section_hours %></li>
         <li><b>Horas cubiertas</b>: <%= @section.hours_covered %></li>
-        <% if @section.grades_assigned == true %>
-          <li><b>¿Calificaciones asignadas?</b>: Sí</li>
-        <% else %>
-          <li><b>¿Calificaciones asignadas?</b>: No</li>
-        <% end %>
-        <% if @section.is_finished == true %>
-          <li><b>¿Sección clausurada?</b>: Sí</li>
-        <% else %>
-          <li><b>¿Sección clausurada?</b>: No</li>
-        <% end %>
+        <li><b>¿Calificaciones asignadas?</b>: <%= @section.grades_assigned ? "Sí" : "No" %></li>
+        <li><b>¿Sección clausurada?</b>: <%= @section.is_finished ? "Sí" : "No" %></li>
       </ol>
       <b><p class="text-danger">Todos los registros relacionados a este usuario también serán eliminados.</p></b>
 
