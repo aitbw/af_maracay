@@ -37,7 +37,7 @@ get '/dashboard/courses/:course/sections/:section/delete' do
   erb :'delete/delete_section', user_layout
 end
 
-put '/dashboard/courses/:course/sections/:section/delete' do
+delete '/dashboard/courses/:course/sections/:section/delete' do
   if Section.destroy(params[:section])
     flash[:notice] = 'Sección eliminada.'
     redirect "/dashboard/courses/#{params[:course]}/sections"
