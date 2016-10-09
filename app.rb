@@ -8,7 +8,7 @@ end
 
 configure do
   enable :sessions
-  set :session_secret, SecureRandom.hex(64)
+  set :session_secret, ENV['SECRET']
   # use Sinatra::CacheAssets, max_age: 86_400
   Rack::Builder.new do
     cookie_settings = {
