@@ -12,6 +12,13 @@ get '/dashboard/courses/:course/sections/:section/students/show' do
   erb :'sections/section_students', user_layout
 end
 
+get '/dashboard/courses/:course/sections/:section/grades' do
+  set_page_title('Calificaciones')
+  @section = Section.find(params[:section])
+  @grades = Grade.where(section_id: params[:section]).includes(:student).page(params[:page])
+  erb :'sections/section_grades', user_layout
+end
+
 get '/dashboard/courses/:id/sections/new' do
   set_page_title('Crear nueva sección')
   @levels = Level.all
