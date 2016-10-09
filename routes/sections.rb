@@ -8,7 +8,7 @@ end
 get '/dashboard/courses/:course/sections/:section/students/show' do
   @section = Section.find(params[:section])
   set_page_title("Estudiantes del nivel #{@section.level_description}")
-  @section_students = Student.where(section_id: params[:section])
+  @section_students = Student.where(section_id: params[:section]).page(params[:page])
   erb :'sections/section_students', user_layout
 end
 
