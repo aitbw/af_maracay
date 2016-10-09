@@ -3,7 +3,7 @@
 <table class="table table-bordered table-responsive">
   <thead>
     <tr>
-      <th scope="col">Nivel</th>
+      <th scope="col">Curso/nivel</th>
       <th scope="col">Calificación final</th>
       <th scope="col">Fecha de emisión</th>
       <th scope="col">Acciones</th>
@@ -12,7 +12,7 @@
   <tbody>
     <% @grades.each do |grade| %>
       <tr>
-        <td><%= grade.level_description %></td>
+        <td><%= grade.section_code %></td>
         <td><%= grade.final_grade %></td>
         <td><%= grade.date_assigned.strftime('%d/%m/%Y') %></td>
         <td>
