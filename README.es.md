@@ -49,6 +49,14 @@ postgresql postgresql-contrib postgresql-server-dev-9.5
 
 De lo contrario, ejecuta la acción pertinente a tu SO antes de continuar.
 
+* Asegúrate de que la versión de Ruby instalada sea la 2.3.0; si usas RVM, puedes instalarla ejecutando el siguiente comando:
+
+``` shell
+rvm install 2.3.0
+```
+
+Si no quieres instalarla, elimina `ruby '2.3.0'` del Gemfile
+
 * Asegúrate de que Bundler está instalado. Luego, corre en la consola:
 
 ``` shell
