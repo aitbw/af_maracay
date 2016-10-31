@@ -27,6 +27,5 @@ gem 'will_paginate', '>= 3.1', require: ['will_paginate', 'will_paginate/active_
 
 group :development do
   gem 'better_errors'
-  gem 'pry'
   gem 'bullet'
 end
