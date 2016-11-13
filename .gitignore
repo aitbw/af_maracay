@@ -7,3 +7,4 @@ log/
 bower_components/
 .ruby-gemset
 node_modules/
+.rubocop.yml
