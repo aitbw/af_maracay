@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161008041755) do
+ActiveRecord::Schema.define(version: 20161124025753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+  enable_extension "adminpack"
 
   create_table "bank_accounts", primary_key: "bank_account_id", force: :cascade do |t|
     t.string  "account_number", limit: 50, null: false
@@ -116,7 +117,6 @@ ActiveRecord::Schema.define(version: 20161008041755) do
     t.string  "reference_number",    limit: 50
     t.integer "user_id",                        null: false
     t.integer "student_id",                     null: false
-    t.integer "section_id",                     null: false
   end
 
   add_index "payments", ["payment_id"], name: "index_payments_on_payment_id", unique: true, using: :btree
@@ -210,7 +210,6 @@ ActiveRecord::Schema.define(version: 20161008041755) do
   add_foreign_key "movements", "offices", primary_key: "office_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "office_items", "items", primary_key: "item_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "office_items", "offices", primary_key: "office_id", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "payments", "sections", primary_key: "section_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "payments", "students", primary_key: "student_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "payments", "users", primary_key: "user_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "sections", "courses", primary_key: "course_id", on_update: :cascade, on_delete: :cascade

@@ -51,7 +51,6 @@
 
   <input type="hidden" name="payment[user_id]" value="<%= session[:id] %>">
   <input type="hidden" name="payment[student_id]" value="<%= params[:id] %>">
-  <input type="hidden" name="payment[section_id]" value="<%= @student.section_id %>">
 
   <button type="submit" class="btn btn-success">Generar inscripción</button>
   <a href="/dashboard/students/<%= params[:id] %>/signups" class="btn btn-default">Cancelar</a>
