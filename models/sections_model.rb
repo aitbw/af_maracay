@@ -7,7 +7,6 @@ class Section < ActiveRecord::Base
   has_many :students, dependent: :destroy
   has_many :grades, dependent: :destroy
   has_many :teacher_hours, dependent: :destroy
-  has_many :payments, dependent: :destroy
   belongs_to :course
   belongs_to :level
 
