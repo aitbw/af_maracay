@@ -53,6 +53,10 @@ helpers do
   alias_method :h, :escape_html
 end
 
+get '/?' do
+  redirect to('/signin')
+end
+
 get '/signin' do
   erb :signin
 end
