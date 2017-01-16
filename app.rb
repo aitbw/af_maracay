@@ -2,9 +2,7 @@
 
 require 'bundler/setup'
 Bundler.require(:default)
-Dir['./config/environments/*.rb', './controllers/*.rb', './models/**/*.rb', './routes/*.rb'].each do |file|
-  require file
-end
+require './init'
 
 configure do
   enable :sessions

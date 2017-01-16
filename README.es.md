@@ -39,17 +39,11 @@ development:
   url: postgres://localhost/<%= ENV['tu_base_de_datos'] %>?pool=5
 ```
 
-* Si usas Ubuntu (o alguno de sus sabores), asegúrate de tener los siguientes paquetes instalados:
-
-``` shell
-postgresql postgresql-contrib postgresql-server-dev-9.5
-```
-
-* Si usas Arch (o alguna de sus variantes), sigue esta [guia](https://wiki.archlinux.org/index.php/PostgreSQL)
+* Asegúrate de tener PostgreSQL instalado (versión 8.3 o mayor, ya que esta aplicación utiliza 'hstore' para llevar control de los salarios de los profesores)
 
 De lo contrario, ejecuta la acción pertinente a tu SO antes de continuar.
 
-* Asegúrate de que la versión de Ruby instalada sea la 2.3.0; si usas RVM, puedes instalarla ejecutando el siguiente comando:
+* Asegúrate de que la versión de Ruby instalada sea la 2.3.0; si usas [RVM](https://rvm.io/), puedes instalarla ejecutando el siguiente comando:
 
 ``` shell
 rvm install 2.3.0
@@ -57,7 +51,7 @@ rvm install 2.3.0
 
 Si no quieres instalarla, elimina `ruby '2.3.0'` del Gemfile
 
-* Asegúrate de que Bundler está instalado. Luego, corre en la consola:
+* Asegúrate de que [Bundler](bundler.io) está instalado. Luego, corre en la consola:
 
 ``` shell
 bundle install
