@@ -51,7 +51,7 @@ rvm install 2.3.0
 
 If you don't want to install it, remove `ruby '2.3.0'` from the Gemfile
 
-* Make sure [Bundler](bundler.io) is installed. Then, run the following command:
+* Make sure [Bundler](https://bundler.io) is installed. Then, run the following command:
 
 ``` shell
 bundle install
