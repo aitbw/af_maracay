@@ -1,8 +1,9 @@
-def new_bank_account
-  new_account = BankAccount.new(params[:account])
-
+def new_bank_account(new_account)
   if new_account.save
-    redirect "/dashboard/teachers/#{params[:id]}/bank_accounts", notice: 'Cuenta creada exitosamente.'
+    flash[:notice] = I18n.t(
+      'bank_accounts.messages.success.created_bank_account'
+    )
+    redirect "/dashboard/teachers/#{params[:id]}/bank_accounts"
   else
     flash[:errors] = new_account.errors.full_messages
     redirect(request.path_info.to_s)
@@ -11,17 +12,22 @@ end
 
 def delete_bank_account
   if BankAccount.destroy(params[:account])
-    flash[:notice] = 'Cuenta bancaria eliminada.'
+    flash[:notice] = I18n.t(
+      'bank_accounts.messages.success.deleted_bank_account'
+    )
     redirect "/dashboard/teachers/#{params[:teacher]}/bank_accounts"
   else
-    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
+    flash[:error] = I18n.t('bank_accounts.messages.errors.failed_transaction')
     redirect(request.path_info.to_s)
   end
 end
 
-def edit_bank_account(edit_account)
+def edit_bank_account(edit_account, account_id)
   if edit_account.update(params[:form])
-    redirect "/dashboard/teachers/#{params[:teacher]}/bank_accounts", notice: 'Datos actualizados.'
+    flash[:notice] = I18n.t(
+      'bank_accounts.messages.success.updated_bank_account'
+    )
+    redirect "/dashboard/teachers/#{account_id}/bank_accounts"
   else
     flash[:errors] = edit_account.errors.full_messages
     redirect(request.path_info.to_s)

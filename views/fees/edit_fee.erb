@@ -1,11 +1,11 @@
 <form action="/dashboard/students/<%= @fee.student_id %>/fees/<%= @fee.payment_id %>/edit" method="POST">
   <div class="form-group">
-    <label>Monto de la cuota (BsF.)</label>
+    <label><%= I18n.t('payments.labels.fee_amount') %></label>
     <input name="form[payment_amount]" class="form-control" value="<%= @fee.payment_amount %>"></input>
   </div>
 
   <div class="form-group">
-    <label>Método de pago</label>
+    <label><%= I18n.t('payments.labels.payment_method') %></label>
     <select name="form[payment_method]" id="paymentMethod" class="form-control">
       <% ["Débito", "Depósito", "Transferencia", "Crédito"].each do |method| %>
         <option <%= "selected" if method == @fee.payment_method %> value="<%= method %>"><%= method %></option>
@@ -15,9 +15,9 @@
 
   <% if current_user_is_admin? %>
     <div class="form-group">
-      <label>Estado de la cuota</label>
+      <label><%= I18n.t('payments.labels.fee_status') %></label>
       <select name="form[payment_status]" class="form-control">
-        <option value="" selected>Seleccione el estado del pago</option>
+        <option value="" selected>Seleccione el estado de la cuota</option>
         <% ['Cuota vigente', 'Cuota no aprobada'].each do |status| %>
           <option value="<%= status %>"><%= status %></option>
         <% end %>
@@ -26,9 +26,9 @@
   <% end %>
 
   <div class="form-group">
-    <label>Fecha de emisión</label>
+    <label><%= I18n.t('payments.labels.issue_date') %></label>
       <div class="input-group date" id="leftDatePicker">
-      <input type="text" class="form-control" name="form[issue_date]" value="<%= @fee.issue_date.strftime('%d/%m/%Y') %>">
+      <input type="text" class="form-control" name="form[issue_date]" value="<%= I18n.l(@fee.issue_date) %>">
       <span class="input-group-addon">
         <span class="glyphicon glyphicon-calendar"></span>
       </span>
@@ -36,9 +36,9 @@
   </div>
 
   <div class="form-group">
-    <label>Fecha de expiración</label>
+    <label><%= I18n.t('payments.labels.expiration_date') %></label>
       <div class="input-group date" id="rightDatePicker">
-      <input type="text" class="form-control" name="form[expiration_date]" value="<%= @fee.expiration_date.strftime('%d/%m/%Y') %>">
+      <input type="text" class="form-control" name="form[expiration_date]" value="<%= I18n.l(@fee.expiration_date) %>">
       <span class="input-group-addon">
         <span class="glyphicon glyphicon-calendar"></span>
       </span>
@@ -46,7 +46,7 @@
   </div>
 
   <div class="form-group" id="bank" style="display:none;">
-    <label>Banco</label>
+    <label><%= I18n.t('payments.labels.bank') %></label>
     <select name="form[bank]" class="form-control">
       <% @banks.each do |bank| %>
         <option <%= "selected" if bank.bank_name == @fee.bank %> value="<%= bank.bank_name %>"><%= h(bank.bank_name) %></option>
@@ -55,11 +55,11 @@
   </div>
 
   <div class="form-group">
-    <label>Número de referencia</label>
+    <label><%= I18n.t('payments.labels.reference_number') %></label>
     <input name="form[reference_number]" class="form-control" value="<%= h(@fee.reference_number) %>"></input>
   </div>
 
   <input type="hidden" name="_method" value="PUT">
-  <button type="submit" class="btn btn-success">Actualizar</button>
-  <a href="/dashboard/students/<%= @fee.student_id %>/fees" class="btn btn-default">Cancelar</a>
+  <button type="submit" class="btn btn-success"><%= I18n.t('payments.buttons.update_record') %></button>
+  <a href="/dashboard/students/<%= @fee.student_id %>/fees" class="btn btn-default"><%= I18n.t('payments.buttons.cancel') %></a>
 </form>

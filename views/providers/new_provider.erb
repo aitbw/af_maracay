@@ -1,24 +1,29 @@
 <form action="/dashboard/providers/new_provider" method="POST">
   <div class="form-group">
-    <label>Nombre</label>
-    <input type="text" class="form-control" name="provider[provider_name]" placeholder="Nombre">
-  </div>
-  <div class="form-group">
-    <label>RIF</label>
+    <label><%= I18n.t('providers.labels.rif') %></label>
     <input type="text" class="form-control" name="provider[provider_rif]" placeholder="J-XXXXXXXX-X">
   </div>
+
   <div class="form-group">
-    <label>Teléfono</label>
+    <label><%= I18n.t('providers.labels.name') %></label>
+    <input type="text" class="form-control" name="provider[provider_name]" placeholder="<%= I18n.t('providers.labels.name') %>">
+  </div>
+
+  <div class="form-group">
+    <label><%= I18n.t('providers.labels.manager') %></label>
+    <input type="text" class="form-control" name="provider[manager_name]" placeholder="<%= I18n.t('providers.labels.manager') %>">
+  </div>
+
+  <div class="form-group">
+    <label><%= I18n.t('providers.labels.phone') %></label>
     <input type="text" class="form-control" name="provider[provider_phone]" placeholder="XXXX-XXXXXXX">
   </div>
+
   <div class="form-group">
-    <label>Correo</label>
-    <input type="text" class="form-control" name="provider[provider_email]" placeholder="Correo">
+    <label><%= I18n.t('providers.labels.email') %></label>
+    <input type="text" class="form-control" name="provider[provider_email]" placeholder="<%= I18n.t('providers.labels.email') %>">
   </div>
-  <div class="form-group">
-    <label>Encargado</label>
-    <input type="text" class="form-control" name="provider[manager_name]" placeholder="Encargado">
-  </div>
-  <button type="submit" class="btn btn-success">Crear proveedor</button>
-  <a href="/dashboard/providers" class="btn btn-default">Cancelar</a>
+
+  <button type="submit" class="btn btn-success"><%= I18n.t('providers.buttons.new_provider') %></button>
+  <a href="/dashboard/providers" class="btn btn-default"><%= I18n.t('providers.buttons.cancel') %></a>
 </form>

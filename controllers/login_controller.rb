@@ -9,7 +9,7 @@ def account_locked?(user)
   if user.has_access == true
     start_session(user)
   else
-    redirect '/signin', error: 'La cuenta está bloqueada.'
+    redirect '/signin', error: I18n.t('signin.messages.errors.locked_account')
   end
 end
 
@@ -20,7 +20,8 @@ def authenticate(cedula, password)
   if @user_hash == password
     account_locked?(@user)
   else
-    redirect '/signin', error: 'Datos erróneos, intente nuevamente.'
+    flash[:error] = I18n.t('signin.messages.errors.mismatched_params')
+    redirect '/signin'
   end
 end
 
@@ -28,6 +29,6 @@ def user_exists?(cedula)
   if User.where(user_cedula: cedula).present?
     authenticate(cedula, params[:password])
   else
-    redirect '/signin', error: 'El usuario no existe.'
+    redirect '/signin', error: I18n.t('signin.messages.errors.not_found')
   end
 end

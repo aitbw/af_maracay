@@ -1,9 +1,9 @@
 <div>
   <form class="form-inline" action="/dashboard/providers" method="GET">
     <div class="form-group">
-      <input class="form-control" name="provider_name" placeholder="Buscar por nombre" value="<%= params[:provider_name] %>">
+      <input class="form-control" name="provider_name" placeholder="<%= I18n.t('providers.search_placeholder') %>" value="<%= params[:provider_name] %>">
     </div>
-    <a href="/dashboard/providers/new_provider" class="btn btn-success">Nuevo proveedor</a>
+    <a href="/dashboard/providers/new_provider" class="btn btn-success"><%= I18n.t('providers.buttons.new_provider') %></a>
   </form>
 
   <br />
@@ -11,12 +11,12 @@
   <table class="table table-bordered table-responsive">
     <thead>
       <tr>
-        <th scope="col">RIF</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Encargado</th>
-        <th scope="col">Teléfono</th>
-        <th scope="col">Correo</th>
-        <th scope="col">Acciones</th>
+        <th scope="col"><%= I18n.t('providers.labels.rif') %></th>
+        <th scope="col"><%= I18n.t('providers.labels.name') %></th>
+        <th scope="col"><%= I18n.t('providers.labels.manager') %></th>
+        <th scope="col"><%= I18n.t('providers.labels.phone') %></th>
+        <th scope="col"><%= I18n.t('providers.labels.email') %></th>
+        <th scope="col"><%= I18n.t('providers.labels.options') %></th>
       </tr>
     </thead>
     <tbody>
@@ -29,10 +29,10 @@
           <td><%= provider.provider_email %></td>
           <td>
             <div class="btn-group">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= I18n.t('providers.labels.options') %><span class="caret"></span></button>
               <ul class="dropdown-menu">
-                <li><a href="/dashboard/providers/<%= provider.provider_id %>/delete">Eliminar</a></li>
-                <li><a href="/dashboard/providers/<%= provider.provider_id %>/edit">Modificar</a></li>
+                <li><a href="/dashboard/providers/<%= provider.provider_id %>/delete"><%= I18n.t('providers.options.delete') %></a></li>
+                <li><a href="/dashboard/providers/<%= provider.provider_id %>/edit"><%= I18n.t('providers.options.edit') %></a></li>
               </ul>
             </div>
           </td>
@@ -44,5 +44,5 @@
 
 <div class="pagination">
   <%= will_paginate @providers, container: false, previous_label: "&laquo", next_label: "&raquo" %>
-  <%= "<a href=\"/dashboard/providers\">Volver</a>" if params[:provider_name] %>
+  <%= "<a href=\"/dashboard/providers\">#{I18n.t('providers.buttons.back')}</a>" if params[:provider_name] %>
 </div>

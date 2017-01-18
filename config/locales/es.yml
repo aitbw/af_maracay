@@ -1,0 +1,781 @@
+es:
+  signin:
+    page_title: Iniciar sesión
+    buttons:
+      submit: Iniciar sesión
+    placeholders:
+      id: Cédula
+      password: Contraseña
+    messages:
+      success:
+        signout: Usted ha cerrado sesión.
+      errors:
+        empty_fields: Debe completar todos los campos.
+        not_found: La cuenta no existe.
+        mismatched_params: Datos erróneos, intente nuevamente.
+        locked_account: La cuenta está bloqueada.
+        nil_session: Debe iniciar sesión para acceder al panel de control.
+
+  date:
+    formats:
+      default: "%d/%m/%Y"
+
+  dashboard:
+    page_title: Inicio — Panel de control
+    menu:
+      labels:
+        modules: Controles
+        courses: Cursos
+        students: Estudiantes
+        teachers: Profesores
+        providers: Proveedores
+        wages: Salarios
+        users: Usuarios
+        inventory: Inventario
+        inventory_movements: Movimientos
+        inventory_check: Ver inventario
+        reports: Reportes
+        generate_report: Generar reporte
+        check_reports: Ver reportes
+        language: Lenguaje
+        signout: Cerrar sesión
+    panels:
+      signups:
+        labels:
+          main_label: Inscripciones expiradas
+          empty_panel: No hay inscripciones expiradas el día de hoy.
+          non_empty: Inscripciones vencidas a la fecha
+        columns:
+          student_name: Nombre del estudiante
+          expiration_date: Fecha de expiración
+          options:
+            label: Opciones
+            renew: Renovar
+      fees:
+        labels:
+          main_label: Cuotas expiradas
+          empty_panel: No hay cuotas expiradas el día de hoy.
+          non_empty: Cuotas vencidas a la fecha
+        columns:
+          student_name: Nombre del estudiante
+          expiration_date: Fecha de expiración
+          options:
+            label: Opciones
+            renew: Renovar
+
+  activerecord:
+    models:
+      bank_account: Cuenta bancaria
+      course: Curso
+      grade: Calificación
+      payment: Pago
+      provider: Proveedor
+      section: Sección
+      student: Estudiante
+      user: Usuario
+      teacher_hour: Hora laboral
+      teacher: Profesor
+    attributes:
+      bank_account:
+        bank_id: Banco
+        account_type: Tipo de cuenta
+        account_number: Número de cuenta
+      course:
+        course_code: Código del curso
+        course_type_id: Modalidad
+        office_id: Sede
+      grade:
+        final_grade: Calificación final
+        date_assigned: Fecha de emisión
+        student_id: Nombre del estudiante
+        section_id: Sección
+      payment:
+        payment_amount: Monto
+        payment_description: Concepto
+        payment_method: Método de pago
+        payment_status: Estado del pago
+        issue_date: Fecha de emisión
+        expiration_date: Fecha de expiración
+        bank: Banco
+        reference_number: Número de referencia
+        user_id: Emisor
+        student_id: Nombre del estudiante
+      provider:
+        provider_name: Nombre del proveedor
+        provider_rif: RIF
+        provider_phone: Número de teléfono
+        provider_email: Correo electrónico
+        manager_name: Nombre del encargado
+      section:
+        section_capacity: Capacidad
+        start_date: Fecha de apertura
+        end_date: Fecha de clausura
+        section_hours: Horas académicas
+        hours_covered: Horas cubiertas
+        level_id: Nivel
+        course_id: Curso
+      student:
+        student_name: Nombre del estudiante
+        student_cedula: Cédula
+        student_name: Correo electrónico
+        student_phone: Número de telefono
+        alternative_phone: Número alternativo
+        section_id: Sección
+      teacher_hour:
+        hours_covered: Horas cubiertas
+        date_covered: Fecha cubierta
+        section_id: Sección
+        fare_per_hour: Pago por hora
+      teacher:
+        teacher_name: Nombre del profesor
+        teacher_email: Correo electrónico
+        teacher_phone: Número de telefono
+        teacher_cedula: Cédula
+        teacher_wages: Tarifas del profesor
+        entry_date: Fecha de ingreso
+      user:
+        user_name: nombre
+        user_cedula: cédula
+        user_password: contraseña
+        access_level: rol
+    errors:
+      models:
+        bank_account:
+          attributes:
+            bank_id:
+              bank: debe seleccionar uno
+            account_type:
+              blank: no puede estar vacío
+              not_a_number: no es un número
+              not_an_integer: no es un número entero
+              wrong_length:
+                other: no es válido (deben ser %{count} caracteres)
+              taken: ya se encuentra en uso
+        course:
+          attributes:
+            course_code:
+              blank: no puede estar vacío
+              taken: ya es encuentra en uso
+              invalid: no cumple con el formato establecido
+            course_type_id:
+              blank: debe seleccionar una
+            office_id:
+              blank: debe seleccionar una
+        grade:
+          attributes:
+            final_grade:
+              blank: no puede estar vacía
+              not_a_number: no es un número
+              not_an_integer: no es un número entero
+              wrong_length:
+                other: no es válida (deben ser %{count} caracteres)
+        payment:
+          attributes:
+            payment_amount:
+              blank: no puede estar vacío
+              not_a_number: no es un número
+            payment_description:
+              blank: no puede estar vacío
+            payment_method:
+              blank: no puede estar vacío
+            bank:
+              blank: no puede estar vacío
+            reference_number:
+              invalid: es inválido (debe contener 4 números)
+              blank: no puede estar vacío
+            issue_date:
+              blank: no puede estar vacía
+              in_the_past: no puede estar en el pasado
+            expiration_date:
+              blank: no puede estar vacía
+        provider:
+          attributes:
+            provider_name:
+              blank: no puede estar vacío
+            provider_rif:
+              blank: no puede estar vacío
+              taken: ya se encuentra en uso
+              invalid: no cumple con el formato establecido
+            provider_phone:
+              blank: no puede estar vacío
+              invalid: no cumple con el formato establecido
+            provider_email:
+              blank: no puede estar vacío
+              taken: ya se encuentra en uso
+              invalid: no es válido
+            manager_name:
+              blank: no puede estar vacío
+        section:
+          attributes:
+            section_capacity:
+              blank: no puede estar vacío
+              not_a_number: no es un número
+              not_an_integer: no es un número entero
+            section_hours:
+              blank: no puede estar vacío
+              not_a_number: no es un número
+              not_an_integer: no es un número entero
+            start_date:
+              blank: no puede estar vacía
+              in_the_past: no puede estar en el pasado
+            end_date:
+              blank: no puede estar vacía
+            level_id:
+              blank: debe seleccionar uno
+              taken: ya se encuentra en uso
+        student:
+          attributes:
+            student_name:
+              blank: no puede estar vacío
+            student_cedula:
+              blank: no puede estar vacía
+              taken: ya se encuentra en uso
+              not_a_number: no es un número
+              not_an_integer: no es un número entero
+              too_short:
+                other: es muy corta (mínimo de %{count} caracteres)
+              too_long:
+                other: es muy larga (máximo de %{count} caracteres)
+            student_email:
+              blank: no puede estar vacío
+              taken: ya se encuentra en uso
+              invalid: no es válido
+            student_phone:
+              blank: no puede estar vacío
+              invalid: no cumple con el formato establecido
+            alternative_phone:
+              blank: no puede estar vacío
+              invalid: no cumple con el formato establecido
+            section_id:
+              blank: debe seleccionar una
+        teacher_hour:
+          attributes:
+            hours_covered:
+              blank: no puede estar vacío
+              not_a_number: no es un número
+              not_an_integer: no es un número entero
+            date_covered:
+              blank: no puede estar vacía
+              not_in_range: debe estar entre la fecha de inicio y fin de la sección
+            section_id:
+              blank: debe seleccionar una
+            fare_per_hour:
+              blank: no puede estar vacío
+        teacher:
+          attributes:
+            teacher_name:
+              blank: no puede estar vacío
+            teacher_email:
+              blank: no puede estar vacío
+              taken: ya se encuentra en uso
+              invalid: no es válido
+            teacher_phone:
+              blank: no puede estar vacío
+              invalid: no cumple con el formato establecido
+            teacher_cedula:
+              blank: no puede estar vacía
+              taken: ya se encuentra en uso
+              not_a_number: no es un número
+              not_an_integer: no es un número entero
+              too_short:
+                other: es muy corta (mínimo de %{count} caracteres)
+              too_long:
+                other: es muy larga (máximo de %{count} caracteres)
+            teacher_wages:
+              blank: no puede estar vacía
+              not_a_number: no es un número
+            entry_date:
+              blank: no puede estar vacía
+        user:
+          attributes:
+            user_name:
+              blank: "Debe ingresar un %{attribute}"
+            user_cedula:
+              blank: "Debe ingresar una %{attribute}"
+              taken: "La %{attribute} ingresada ya se encuentra en uso"
+              not_a_number: "La %{attribute} ingresada no es un número"
+              not_an_integer: "La %{attribute} ingresada no es un número entero"
+              too_short:
+                other: "La %{attribute} ingresada es muy corta (mínimo de %{count} caracteres)"
+              too_long:
+                other: "La %{attribute} ingresada es muy larga (máximo de %{count} caracteres)"
+            user_password:
+              blank: "Debe ingresar una %{attribute}"
+            access_level:
+              blank: "Debe seleccionar un %{attribute}"
+
+  bank_accounts:
+    page_titles:
+      bank_accounts: Cuentas bancarias — %{teacher_name}
+      new_bank_account: Nueva cuenta bancaria
+      edit_bank_account: Editar cuenta bancaria
+      delete_bank_account: Eliminar cuenta bancaria
+    labels:
+      bank: Banco
+      account_holder: Titular de la cuenta
+      account_number: Número de cuenta
+      account_type: Tipo de cuenta
+      options: Opciones
+    options:
+      delete: Eliminar
+      edit: Editar
+    buttons:
+      new_bank_account: Nueva cuenta bancaria
+      back: Atrás
+      cancel: Cancelar
+      update: Actualizar
+      delete: Eliminar
+    data:
+      banks:
+        default: Seleccione un banco
+      account_types:
+        default: Seleccione el tipo de cuenta
+    messages:
+      success:
+        created_bank_account: Cuenta bancaria creada exitosamente.
+        updated_bank_account: Datos actualizados.
+        deleted_bank_account: Cuenta bancaria eliminada.
+      errors:
+        failed_transaction: Ha ocurrido un error, intente nuevamente.
+      warnings:
+        are_you_sure: ¿Está usted seguro de <b>eliminar</b> esta cuenta bancaria? Esta acción no puede ser revertida.
+
+  courses:
+    page_titles:
+      courses: Cursos
+      new_course: Nuevo curso
+      delete_course: Eliminar curso
+      edit_course: Editar curso
+      modalities: Modalidades
+    search_placeholder: Buscar por código
+    buttons:
+      new_course: Crear nuevo curso
+      modalities: Modalidades
+      back: Atrás
+      close: Cerrar
+      cancel: Cancelar
+      update: Actualizar
+      delete: Eliminar
+    labels:
+      code: Código
+      modality: Modalidad
+      office: Sede
+      options: Opciones
+      days: Días
+      schedule: Horario
+    options:
+      delete: Eliminar
+      edit: Editar
+      sections: Secciones
+    data:
+      modalities:
+        default: Seleccione una modalidad
+      offices:
+        default: Selecione una sede
+    messages:
+      success:
+        created_course: Curso creado exitosamente.
+        updated_course: Datos actualizados.
+        deleted_course: Curso eliminado.
+      errors:
+        failed_transaction: Ha ocurrido un error, intente nuevamente.
+      warnings:
+        are_you_sure: ¿Está usted seguro de <b>eliminar</b> este curso? Esta acción no puede ser revertida.
+        related_records: Todos los registros relacionados a este curso también serán eliminados.
+
+  grades:
+    page_titles:
+      grades: Calificaciones
+      student_grades: Calificaciones — %{student_name}
+      section_grades: Calificaciones — %{level}
+      assign_grades: Asignar calificaciones
+    labels:
+      course_level: Curso / Nivel
+      student: Estudiante
+      final_grade: Calificación final
+      date_assigned: Fecha de emisión
+      options: Opciones
+    options:
+      edit: Editar
+    buttons:
+      back: Atrás
+    messages:
+      success:
+        assigned_grades: Calificaciones asignadas con éxito.
+      errors:
+        failed_transaction: Ha ocurrido un error, intente nuevamente.
+
+  payments:
+    page_titles:
+      signups: Inscripciones
+      fees: Cuotas
+      new_signup: Nueva inscripción
+      new_fee: Nueva cuota
+      delete_signup: Eliminar inscripción
+      delete_fee: Eliminar cuota
+      edit_signup: Editar inscripción
+      edit_fee: Editar cuota
+    headers:
+      signups: Inscripciones — %{student_name}
+      fees: Cuotas — %{student_name}
+    labels:
+      issuer: Emisor
+      student: Estudiante
+      signup_amount: Monto de inscripción
+      fee_amount: Monto de la cuota
+      payment_method: Método de pago
+      payment_description: Concepto
+      signup_status: Estado de la inscripción
+      fee_status: Estado de la cuota
+      issue_date: Fecha de emisión
+      expiration_date: Fecha de expiración
+      bank: Banco
+      reference_number: Número de referencia
+      options: Opciones
+    options:
+      delete: Eliminar
+      edit: Editar
+    buttons:
+      new_signup: Nueva inscripción
+      new_fee: Nueva cuota
+      update_record: Actualizar
+      delete_record: Eliminar
+      back: Atrás
+      cancel: Cancelar
+    data:
+      payment_amount: "%{amount} BsF."
+      payment_descriptions:
+        default: Seleccione el concepto de pago
+        signup: Inscripción
+        fee: Cuota
+        # Include miscellaneous payments
+      payment_methods:
+        default: Seleccione el método de pago
+        credit_card: Crédito
+        debit_card: Débito
+        cash: Efectivo
+        electronic_transfer: Transferencia
+        deposit: Depósito
+      banks:
+        default: Seleccione un banco
+      payment_statuses:
+        current_signup: Inscripción vigente
+        current_fee: Cuota vigente
+        non_approved_signup: Inscripción no aprobada
+        non_approved_fee: Cuota no aprobada
+        signup_to_approve: Inscripción por aprobar
+        fee_to_approve: Cuota por aprobar
+    messages:
+      success:
+        created_signup: Inscripción generada exitosamente.
+        created_fee: Cuota generada exitosamente.
+        deleted_signup: Inscripción eliminada.
+        deleted_fee: Cuota eliminada.
+        updated_record: Datos actualizados.
+      errors:
+        failed_transaction: Ha ocurrido un error, intente nuevamente.
+      warnings:
+        are_you_sure: ¿Está usted seguro de <b>eliminar</b> este registro de pago? Esta acción no puede ser revertida.
+
+  providers:
+    page_titles:
+      providers: Proveedores
+      new_provider: Nuevo proveedor
+      edit_provider: Editar proveedor
+      delete_provider: Eliminar proveedor
+    search_placeholder: Buscar por nombre
+    buttons:
+      new_provider: Crear nuevo proveedor
+      update: Actualizar
+      delete: Eliminar
+      back: Atrás
+      cancel: Cancelar
+    labels:
+      rif: RIF
+      name: Nombre
+      manager: Encargado
+      phone: Teléfono
+      email: Correo
+      options: Opciones
+    options:
+      delete: Eliminar
+      edit: Editar
+    messages:
+      success:
+        created_provider: Proveedor creado exitosamente.
+        updated_provider: Datos actualizados.
+        deleted_provider: Proveedor eliminado.
+      errors:
+        failed_transaction: Ha ocurrido un error, intente nuevamente.
+      warnings:
+        are_you_sure: ¿Está usted seguro de <b>eliminar</b> este proveedor? Esta acción no puede ser revertida.
+
+  sections:
+    page_titles:
+      main: Secciones
+      new_section: Nueva sección
+      edit_section: Editar sección
+      delete_section: Eliminar sección
+      course_sections: Secciones del curso %{course_code}
+      section_students: Estudiantes del nivel %{level}
+    labels:
+      level: Nivel
+      course: Curso
+      capacity: Capacidad
+      start_date: Fecha de apertura
+      end_date: Fecha de clausura
+      section_hours: Horas académicas
+      hours_covered: Horas cubiertas
+      assigned_grades: ¿Calificaciones asignadas?
+      closed_section: ¿Sección clausurada?
+      options: Opciones
+    data:
+      capacity:
+        zero: Sección completa
+        one: 1 estudiante
+        other: "%{count} estudiantes"
+      hours:
+        one: 1 hora
+        other: "%{count} horas"
+      grades_assigned:
+        assigned: Sí
+        non_assigned: 'No'
+      closed_section:
+        closed: Sí
+        not_closed: 'No'
+      levels:
+        default: Seleccione un nivel
+    options:
+      delete: Eliminar
+      edit: Editar
+      section_students: Estudiantes de la sección
+      assign_grades: Asignar calificaciones
+      promote: Promover
+    buttons:
+      new_section: Crear nueva sección
+      back: Atrás
+      cancel: Cancelar
+      update: Actualizar
+      delete: Eliminar
+    messages:
+      success:
+        created_section: Sección creada exitosamente.
+        deleted_section: Sección eliminada.
+        updated_section: Datos actualizados
+      errors:
+        failed_transaction: Ha ocurrido un error, intente nuevamente.
+      warnings:
+        are_you_sure: ¿Está usted seguro de <b>eliminar</b> esta sección? Esta acción no puede ser revertida.
+        related_records: Todos los registros relacionados a esta sección también serán eliminados.
+
+  students:
+    page_titles:
+      students: Estudiantes
+      new_student: Crear nuevo estudiante
+      delete_student: Eliminar estudiante
+      edit_student: Editar estudiante
+    search_placeholder: Buscar por cédula
+    buttons:
+      new_student: Nuevo estudiante
+      delete_student: Eliminar estudiante
+      back: Atrás
+      cancel: Cancelar
+      update_student: Actualizar
+    labels:
+      section: Sección
+      id: Cédula
+      name: Nombre
+      phone_number: Teléfono
+      alt_phone_number: Teléfono alternativo
+      email: Correo
+      has_scholarship: ¿Becado?
+      assign_scholarship: ¿Asignar beca?
+      options: Opciones
+    data:
+      has_scholarship:
+        assigned: Sí
+        non_assigned: 'No'
+      options:
+        default: Seleccione una sección
+    options:
+      grades: Calificaciones
+      delete: Eliminar
+      edit: Editar
+      fee_payments: Pagos (Cuotas)
+      signup_payments: Pagos (Inscripciones)
+      misc_payments: Pagos (Miscélaneos)
+      reassign: Reasignar
+    messages:
+      success:
+        created_student: Estudiante creado exitosamente.
+        deleted_student: Estudiante eliminado.
+        updated_student: Datos actualizados.
+      errors:
+        failed_transaction: Ha ocurrido un error, intente nuevamente.
+      warnings:
+        are_you_sure: ¿Está usted seguro de <b>eliminar</b> este estudiante? Esta acción no puede ser revertida.
+        related_records: Todos los registros relacionados a este estudiante también serán eliminados.
+
+  teachers:
+    page_titles:
+      main: Profesores
+      new_teacher: Crear nuevo profesor
+      delete_teacher: Eliminar profesor
+      edit_teacher: Editar profesor
+    search_placeholder: Buscar por cédula
+    buttons:
+      new_teacher: Nuevo profesor
+      update_teacher: Actualizar
+      delete_teacher: Eliminar
+      back: Atrás
+      cancel: Cancelar
+    labels:
+      id: Cédula
+      name: Nombre
+      phone_number: Teléfono
+      email: Correo
+      entry_date: Fecha de ingreso
+      options: Opciones
+    options:
+      bank_accounts: Cuentas bancarias
+      assigned_courses: Cursos asignados
+      delete: Eliminar
+      hours_covered: Horas cubiertas
+      edit: Editar
+    messages:
+      success:
+        created_teacher: Profesor creado exitosamente.
+        deleted_teacher: Profesor eliminado.
+        updated_teacher: Datos actualizados.
+      errors:
+        failed_transaction: Ha ocurrido un error, intente nuevamente.
+      warnings:
+        are_you_sure: ¿Está usted seguro de <b>eliminar</b> este profesor? Esta acción no puede ser revertida.
+        related_records: Todos los registros relacionados a este profesor también serán eliminados.
+
+  teacher_courses:
+    page_titles:
+      assigned_courses: Cursos asignados
+      assign_course: Asignar curso
+    headers:
+      assigned_courses: Cursos asignados — %{teacher_name}
+    labels:
+      code: Código
+      modality: Modalidad
+      office: Sede
+      options: Opciones
+    options:
+      unlink_teacher: Remover profesor del curso
+    buttons:
+      assign_course: Asignar curso
+      back: Atrás
+      cancel: Cancelar
+    panels:
+      assigned_courses:
+        no_courses: El docente no tiene cursos asignados.
+        has_courses: El docente tiene los siguientes cursos asignados.
+      available_courses:
+        course_to_assign: Curso a asignar
+        options:
+          default: Seleccione el curso que desea asignar
+    messages:
+      success:
+        assigned_course: Curso asignado con éxito.
+        unlinked_teacher: Profesor desvinculado del curso.
+      errors:
+        failed_transaction: Ha ocurrido un error, intente nuevamente.
+
+  teacher_hours:
+    page_titles:
+      hours_covered: Horas cubiertas
+      assign_hours: Asignar horas a profesor
+      delete_assigned_hour: Eliminar hora
+    headers:
+      hours_covered: Horas cubiertas — %{teacher_name}
+    labels:
+      section: Sección
+      hours_covered: Horas cubiertas
+      date: Fecha
+      fee_per_hour: Tarifa por hora
+      is_substitution: ¿Suplencia?
+      teacher: Profesor
+      options: Opciones
+    data:
+      hours: "%{hours} horas"
+      teacher_substituted:
+        yes: Sí
+        no: 'No'
+      fare_per_hour: "%{fare} BsF."
+    options:
+      delete: Eliminar registro
+    buttons:
+      assign_hours: Asignar horas
+      back: Atrás
+      delete: Eliminar
+      cancel: Cancelar
+    messages:
+      success:
+        assigned_hours: Horas asignadas al profesor con éxito.
+        deleted_hour: Registro de horas eliminado.
+      errors:
+        failed_transaction: Ha ocurrido un error, intente nuevamente.
+      warnings:
+        are_you_sure: ¿Está usted seguro de <b>eliminar</b> este registro? Esta acción no puede ser revertida.
+
+  users:
+    page_titles:
+      main: Usuarios
+      new_user: Crear nuevo usuario
+      delete_user: Eliminar usuario
+      edit_user: Editar usuario
+      change_password: Cambiar contraseña
+      reset_password: Reestablecer contraseña
+    search_placeholder: Buscar por cédula
+    buttons:
+      new_user: Crear nuevo usuario
+      update_user: Actualizar
+      delete_user: Eliminar
+      back: Atrás
+      cancel: Cancelar
+      reset_password: Reestablecer contraseña
+      change_password: Cambiar contraseña
+    labels:
+      id: Cédula
+      name: Nombre
+      role: Rol
+      password: Contraseña
+      account_status: Estado de la cuenta
+      new_password: Nueva contraseña
+      confirm_password: Confirmar contraseña
+      options: Opciones
+    account_status:
+      locked: Bloqueada
+      unlocked: Desbloqueada
+    options:
+      lock_account: Bloquear cuenta
+      unlock_account: Desbloquear cuenta
+      edit: Editar
+      delete: Eliminar
+      reset_password: Reestablecer contraseña
+    data:
+      roles:
+        default: Seleccione nivel de acceso
+        admin: Administrador
+        educator: Pedagogo
+        clerk: Recepcionista
+    messages:
+      success:
+        created_user: Usuario creado exitosamente.
+        deleted_user: Usuario eliminado.
+        updated_user: Datos actualizados.
+        password_change: Cambio de contraseña exitoso.
+        password_reset: Contraseña reestablecida exitosamente.
+        locked_account: Cuenta bloqueada.
+        unlocked_account: Cuenta desbloqueada.
+      errors:
+        failed_transaction: Ha ocurrido un error, intente nuevamente.
+        empty_fields: Debe completar todos los campos.
+        mismatched_params: Los campos no coinciden.
+      warnings:
+        are_you_sure: ¿Está usted seguro de <b>eliminar</b> este usuario? Esta acción no puede ser revertida.
+        related_records: Todos los registros relacionados a este usuario también serán eliminados.

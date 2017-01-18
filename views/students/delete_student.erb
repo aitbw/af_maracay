@@ -1,24 +1,25 @@
 <% if @student.student_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
-      <h3 class="panel-title">Eliminar estudiante</h3>
+      <h3 class="panel-title"><%= I18n.t('students.page_titles.delete_student') %></h3>
     </div>
 
     <div class="panel-body">
-      <p>¿Está usted seguro de <b>eliminar</b> este estudiante? Esta acción no puede ser revertida.</p>
+      <p><%= I18n.t('students.messages.warnings.are_you_sure') %></p>
       <ol style="list-style-type:disc;">
-        <li><b>Cédula</b>: <%= @student.student_cedula %></li>
-        <li><b>Nombre</b>: <%= h(@student.student_name) %></li>
-        <li><b>Teléfono</b>: <%= @student.student_phone %></li>
-        <li><b>Teléfono alterno</b>: <%= @student.alternative_phone %></li>
-        <li><b>Correo</b>: <%= @student.student_email %></li>
+        <li><b><%= I18n.t('students.labels.id') %></b>: <%= @student.student_cedula %></li>
+        <li><b><%= I18n.t('students.labels.name') %></b>: <%= h(@student.student_name) %></li>
+        <li><b><%= I18n.t('students.labels.phone_number') %></b>: <%= @student.student_phone %></li>
+        <li><b><%= I18n.t('students.labels.alt_phone_number') %></b>: <%= @student.alternative_phone %></li>
+        <li><b><%= I18n.t('students.labels.email') %></b>: <%= @student.student_email %></li>
+        <li><b><%= I18n.t('students.labels.has_scholarship') %></b>: <%= @student.has_scholarship ? I18n.t('students.data.has_scholarship.assigned') : I18n.t('students.data.has_scholarship.non_assigned') %></li>
       </ol>
-      <b><p class="text-danger">Todos los registros relacionados a este estudiante también serán eliminados.</p></b>
+      <b><p class="text-danger"><%= I18n.t('students.messages.warnings.related_records') %></p></b>
 
       <form action="/dashboard/students/<%= @student.student_id %>/delete" method="POST">
         <input type="hidden" name="_method" value="DELETE">
-        <button type="submit" class="btn btn-danger">Eliminar</button>
-        <a href="/dashboard/students" class="btn btn-default">Cancelar</a>
+        <button type="submit" class="btn btn-danger"><%= I18n.t('students.buttons.delete_student') %></button>
+        <a href="/dashboard/students" class="btn btn-default"><%= I18n.t('students.buttons.cancel') %></a>
       </form>
     </div>
   </div>

@@ -1,12 +1,12 @@
-<h3 align="center" style="padding-bottom:1%;">Cursos asignados — <%= h(@teacher.teacher_name) %></h3>
+<h3 align="center" style="padding-bottom:1%;"><%= I18n.t('teacher_courses.headers.assigned_courses', teacher_name: h(@teacher.teacher_name)) %></h3>
 
 <table class="table table-bordered table-responsive">
   <thead>
     <tr>
-      <th scope="col">Código</th>
-      <th scope="col">Modalidad</th>
-      <th scope="col">Sede</th>
-      <th scope="col">Acciones</th>
+      <th scope="col"><%= I18n.t('teacher_courses.labels.code') %></th>
+      <th scope="col"><%= I18n.t('teacher_courses.labels.modality') %></th>
+      <th scope="col"><%= I18n.t('teacher_courses.labels.office') %></th>
+      <th scope="col"><%= I18n.t('teacher_courses.labels.options') %></th>
     </tr>
   </thead>
   <tbody>
@@ -17,9 +17,9 @@
         <td><%= course.office_name %></td>
         <td>
           <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= I18n.t('teacher_courses.labels.options') %><span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/dashboard/teachers/<%= @teacher.teacher_id %>/courses/<%= course.course_id %>/remove_teacher">Remover profesor del curso</a></li>
+              <li><a href="/dashboard/teachers/<%= @teacher.teacher_id %>/courses/<%= course.course_id %>/remove_teacher"><%= I18n.t('teacher_courses.options.unlink_teacher') %></a></li>
             </ul>
           </div>
         </td>
@@ -28,5 +28,5 @@
   </tbody>
 </table>
 
-<a href="/dashboard/teachers/<%= @teacher.teacher_id %>/courses/assign" class="btn btn-success">Asignar nuevo curso</a>
-<a href="/dashboard/teachers" class="btn btn-default">Atrás</a>
+<a href="/dashboard/teachers/<%= @teacher.teacher_id %>/courses/assign" class="btn btn-success"><%= I18n.t('teacher_courses.buttons.assign_course') %></a>
+<a href="/dashboard/teachers" class="btn btn-default"><%= I18n.t('teacher_courses.buttons.back') %></a>

@@ -1,22 +1,22 @@
 <% if @course.course_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
-      <h3 class="panel-title">Eliminar curso</h3>
+      <h3 class="panel-title"><%= I18n.t('courses.page_titles.delete_course') %></h3>
     </div>
 
     <div class="panel-body">
-      <p>¿Está usted seguro de <b>eliminar</b> este curso? Esta acción no puede ser revertida.</p>
+      <p><%= I18n.t('courses.messages.warnings.are_you_sure') %></p>
       <ol style="list-style-type:disc;">
-        <li><b>Código</b>: <%= @course.course_code %></li>
-        <li><b>Modalidad</b>: <%= @course.course_modality %></li>
-        <li><b>Sede</b>: <%= @course.office_name %></li>
+        <li><b><%= I18n.t('courses.labels.code') %></b>: <%= @course.course_code %></li>
+        <li><b><%= I18n.t('courses.labels.modality') %></b>: <%= @course.course_modality %></li>
+        <li><b><%= I18n.t('courses.labels.office') %></b>: <%= @course.office_name %></li>
       </ol>
-      <b><p class="text-danger">Todos los registros relacionados a este curso también serán eliminados.</p></b>
+      <b><p class="text-danger"><%= I18n.t('courses.messages.warnings.related_records') %></p></b>
 
       <form action="/dashboard/courses/<%= @course.course_id %>/delete" method="POST">
         <input type="hidden" name="_method" value="DELETE">
-        <button type="submit" class="btn btn-danger">Eliminar</button>
-        <a href="/dashboard/courses" class="btn btn-default">Cancelar</a>
+        <button type="submit" class="btn btn-danger"><%= I18n.t('courses.buttons.delete') %></button>
+        <a href="/dashboard/courses" class="btn btn-default"><%= I18n.t('courses.buttons.cancel') %></a>
       </form>
     </div>
   </div>

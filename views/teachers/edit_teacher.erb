@@ -1,25 +1,25 @@
 <form action="/dashboard/teachers/<%= @teacher.teacher_id %>/edit" method="POST">
   <div class="form-group">
-    <label>Cédula</label>
+    <label><%= I18n.t('teachers.labels.id') %></label>
     <input type="text" name="teacher[teacher_cedula]" class="form-control" value="<%= @teacher.teacher_cedula %>"></input>
   </div>
 
   <div class="form-group">
-    <label>Nombre</label>
+    <label><%= I18n.t('teachers.labels.name') %></label>
     <input type="text" name="teacher[teacher_name]" class="form-control" value="<%= h(@teacher.teacher_name) %>"></input>
   </div>
 
   <div class="form-group">
-    <label>Teléfono</label>
+    <label><%= I18n.t('teachers.labels.phone_number') %></label>
     <input type="text" name="teacher[teacher_phone]" class="form-control" value="<%= @teacher.teacher_phone %>"></input>
   </div>
 
   <div class="form-group">
-    <label>Correo</label>
+    <label><%= I18n.t('teachers.labels.email') %></label>
     <input type="email" name="teacher[teacher_email]" class="form-control" value="<%= @teacher.teacher_email %>"></input>
   </div>
 
   <input type="hidden" name="_method" value="PUT">
-  <button type="submit" class="btn btn-success">Actualizar</button>
-  <a href="/dashboard/teachers" class="btn btn-default">Cancelar</a>
+  <button type="submit" class="btn btn-success"><%= I18n.t('teachers.buttons.update_teacher') %></button>
+  <a href="/dashboard/teachers" class="btn btn-default"><%= I18n.t('teachers.buttons.cancel') %></a>
 </form>

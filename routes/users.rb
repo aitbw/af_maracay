@@ -1,11 +1,17 @@
 get '/dashboard/users' do
-  set_page_title('Usuarios')
+  set_page_title(I18n.t('users.page_titles.main'))
   @users = User.search_user(params[:cedula]).page(params[:page])
   erb :'users/users', user_layout
 end
 
 get '/dashboard/users/new_user' do
-  set_page_title('Crear nuevo usuario')
+  set_page_title(I18n.t('users.page_titles.new_user'))
+  @roles = {
+    Admin: I18n.t('users.data.roles.admin'),
+    Educator: I18n.t('users.data.roles.educator'),
+    Clerk: I18n.t('users.data.roles.clerk')
+  }
+
   erb :'users/new_user', user_layout
 end
 
@@ -13,7 +19,8 @@ post '/dashboard/users/new_user' do
   new_user = User.new(params[:user])
 
   if new_user.save
-    redirect '/dashboard/users', notice: 'Usuario creado exitosamente.'
+    flash[:notice] = I18n.t('users.messages.success.created_user')
+    redirect '/dashboard/users'
   else
     flash[:errors] = new_user.errors.full_messages
     redirect(request.path_info.to_s)
@@ -21,30 +28,38 @@ post '/dashboard/users/new_user' do
 end
 
 get '/dashboard/users/:id/delete' do
+  set_page_title(I18n.t('users.page_titles.delete_user'))
   @user = User.find(params[:id])
-  set_page_title('Eliminar usuario')
   erb :'users/delete_user', user_layout
 end
 
 delete '/dashboard/users/:id/delete' do
   if User.destroy(params[:id])
-    redirect '/dashboard/users', notice: 'Usuario eliminado.'
+    flash[:notice] = I18n.t('users.messages.success.deleted_user')
+    redirect '/dashboard/users'
   else
-    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
+    flash[:error] = I18n.t('users.messages.errors.failed_transaction')
     redirect(request.path_info.to_s)
   end
 end
 
 get '/dashboard/users/:id/edit' do
+  set_page_title(I18n.t('users.page_titles.edit_user'))
+  @roles = {
+    Admin: I18n.t('users.data.roles.admin'),
+    Educator: I18n.t('users.data.roles.educator'),
+    Clerk: I18n.t('users.data.roles.clerk')
+  }
+
   @user = User.find(params[:id])
-  set_page_title('Editar usuario')
   erb :'users/edit_user', user_layout
 end
 
 put '/dashboard/users/:id/edit' do
   edit_user = User.find(params[:id])
   if edit_user.update(params[:user])
-    redirect '/dashboard/users', notice: 'Datos actualizados.'
+    flash[:notice] = I18n.t('users.messages.success.updated_user')
+    redirect '/dashboard/users'
   else
     flash[:errors] = edit_user.errors.full_messages
     redirect(request.path_info.to_s)
@@ -52,15 +67,15 @@ put '/dashboard/users/:id/edit' do
 end
 
 get '/dashboard/change_password' do
-  set_page_title('Cambiar contraseña')
+  set_page_title(I18n.t('users.page_titles.change_password'))
   erb :'users/change_password', user_layout
 end
 
 put '/dashboard/change_password' do
   if (params[:password] || params[:confirm]).blank?
-    flash[:error] = 'Debe completar todos los campos.'
+    flash[:error] = I18n.t('users.messages.errors.empty_fields')
   elsif params[:password] != params[:confirm]
-    flash[:error] = 'Los campos no coinciden.'
+    flash[:error] = I18n.t('users.messages.errors.mismatched_params')
   else
     change_password
   end
@@ -68,16 +83,16 @@ put '/dashboard/change_password' do
 end
 
 get '/dashboard/users/:id/reset_password' do
-  set_page_title('Reestablecer contraseña')
+  set_page_title(I18n.t('users.page_titles.reset_password'))
   @user_id = params[:id]
   erb :'users/reset_password', user_layout
 end
 
 put '/dashboard/users/:id/reset_password' do
   if (params[:password] || params[:confirm]).blank?
-    flash[:error] = 'Debe completar todos los campos.'
+    flash[:error] = I18n.t('users.messages.errors.empty_fields')
   elsif params[:password] != params[:confirm]
-    flash[:error] = 'Los campos no coinciden.'
+    flash[:error] = I18n.t('users.messages.errors.mismatched_params')
   else
     reset_password
   end
@@ -89,9 +104,9 @@ put '/dashboard/users/:id/lock_account' do
   user = User.find(params[:id])
 
   if user.update(has_access: false)
-    { message: 'Cuenta bloqueada' }.to_json
+    { message: I18n.t('users.messages.success.locked_account') }.to_json
   else
-    halt 400, 'Ha ocurrido un error, intente nuevamente.'
+    halt 400, I18n.t('users.messages.errors.failed_transaction')
   end
 end
 
@@ -100,8 +115,8 @@ put '/dashboard/users/:id/unlock_account' do
   user = User.find(params[:id])
 
   if user.update(has_access: true)
-    { message: 'Cuenta desbloqueada.' }.to_json
+    { message: I18n.t('users.messages.success.unlocked_account') }.to_json
   else
-    halt 400, 'Ha ocurrido un error, intente nuevamente.'
+    halt 400, I18n.t('users.messages.errors.failed_transaction')
   end
 end

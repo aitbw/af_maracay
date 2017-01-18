@@ -1,11 +1,11 @@
-def batch_grade_assignment
-  course = Course.find(params[:id])
+def batch_grade_assignment(course)
   ActiveRecord::Base.transaction do
     if Grade.create(params[:grade])
       course.update(grades_assigned: true)
-      redirect '/dashboard/courses', notice: 'Calificaciones asignadas.'
+      flash[:notice] = I18n.t('grades.messages.success.assigned_grades')
+      redirect '/dashboard/courses'
     else
-      flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
+      flash[:error] = I18n.t('grades.messages.errors.failed_transaction')
       redirect(request.path_info.to_s)
     end
   end

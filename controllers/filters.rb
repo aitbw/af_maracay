@@ -9,7 +9,7 @@ end
 
 before %r{\/dashboard\/*} do
   if session[:id].nil?
-    flash[:error] = 'Debe iniciar sesión para acceder al panel de control.'
+    flash[:error] = I18n.t('signin.messages.errors.nil_session')
     redirect '/signin'
   end
 end

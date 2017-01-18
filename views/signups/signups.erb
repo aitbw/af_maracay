@@ -1,36 +1,36 @@
-<h3 align="center" style="padding-bottom:1%;">Inscripciones — <%= h(@student.student_name) %></h3>
+<h3 align="center" style="padding-bottom:1%;"><%= I18n.t('payments.headers.signups', student_name: h(@student.student_name)) %></h3>
 
 <table class="table table-bordered table-responsive">
   <thead>
     <tr>
-      <th scope="col">Emisor</th>
-      <th scope="col">Monto cancelado</th>
-      <th scope="col">Método de pago</th>
-      <th scope="col">Estado</th>
-      <th scope="col">Fecha de emisión</th>
-      <th scope="col">Fecha de expiración</th>
-      <th scope="col">Banco</th>
-      <th scope="col">Número de referencia</th>
-      <th scope="col">Acciones</th>
+      <th scope="col"><%= I18n.t('payments.labels.issuer') %></th>
+      <th scope="col"><%= I18n.t('payments.labels.signup_amount') %></th>
+      <th scope="col"><%= I18n.t('payments.labels.payment_method') %></th>
+      <th scope="col"><%= I18n.t('payments.labels.signup_status') %></th>
+      <th scope="col"><%= I18n.t('payments.labels.issue_date') %></th>
+      <th scope="col"><%= I18n.t('payments.labels.expiration_date') %></th>
+      <th scope="col"><%= I18n.t('payments.labels.bank') %></th>
+      <th scope="col"><%= I18n.t('payments.labels.reference_number') %></th>
+      <th scope="col"><%= I18n.t('payments.labels.options') %></th>
     </tr>
   </thead>
   <tbody>
     <% @signups.each do |signup| %>
       <tr>
         <td><%= h(signup.user_name) %></td>
-        <td><%= signup.payment_amount %> BsF.</td>
+        <td><%= I18n.t('payments.data.payment_amount', amount: signup.payment_amount) %></td>
         <td><%= signup.payment_method %></td>
         <td><%= signup.payment_status %></td>
-        <td><%= signup.issue_date.strftime('%d/%m/%Y') %></td>
-        <td><%= signup.expiration_date.strftime('%d/%m/%Y') %></td>
+        <td><%= I18n.l(signup.issue_date) %></td>
+        <td><%= I18n.l(signup.expiration_date) %></td>
         <td><%= signup.bank.empty? ? "N/A" : signup.bank %></td>
         <td><%= signup.payment_method == "Efectivo" ? "N/A" : h(signup.reference_number) %></td>
         <td>
           <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= I18n.t('payments.labels.options') %><span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/dashboard/students/<%= signup.student_id %>/signups/<%= signup.payment_id %>/delete">Eliminar</a></li>
-              <li><a href="/dashboard/students/<%= signup.student_id %>/signups/<%= signup.payment_id %>/edit">Modificar</a></li>
+              <li><a href="/dashboard/students/<%= signup.student_id %>/signups/<%= signup.payment_id %>/delete"><%= I18n.t('payments.options.delete') %></a></li>
+              <li><a href="/dashboard/students/<%= signup.student_id %>/signups/<%= signup.payment_id %>/edit"><%= I18n.t('payments.options.edit') %></a></li>
             </ul>
           </div>
         </td>
@@ -45,7 +45,7 @@
   </div>
 <% end %>
 
-<% if @signups.empty? || Date.today >= @signups.first.expiration_date %>
-  <a href="/dashboard/students/<%= @student.student_id %>/signups/new" class="btn btn-success">Nueva inscripción</a>
+<% if @signups.blank? || Date.today >= @signups.first.expiration_date %>
+  <a href="/dashboard/students/<%= @student.student_id %>/signups/new" class="btn btn-success"><%= I18n.t('payments.buttons.new_signup') %></a>
 <% end %>
-<a href="/dashboard/students" class="btn btn-default">Atrás</a>
+<a href="/dashboard/students" class="btn btn-default"><%= I18n.t('payments.buttons.back') %></a>

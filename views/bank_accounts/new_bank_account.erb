@@ -1,8 +1,8 @@
 <form action="/dashboard/teachers/<%= params[:id] %>/bank_accounts/new" method="POST">
   <div class="form-group">
-  <label>Banco</label>
+  <label><%= I18n.t('bank_accounts.labels.bank') %></label>
     <select name="account[bank_id]" class="form-control">
-      <option value="" selected>Seleccione un banco</option>
+      <option value="" selected><%= I18n.t('bank_accounts.data.banks.default') %></option>
       <% @banks.each do |bank| %>
         <option value="<%= bank.bank_id %>"><%= bank.bank_name %></option>
       <% end %>
@@ -10,14 +10,14 @@
   </div>
 
   <div class="form-group">
-    <label>Número de cuenta</label>
-    <input type="text" class="form-control" name="account[account_number]" placeholder="Número de cuenta">
+    <label><%= I18n.t('bank_accounts.labels.account_number') %></label>
+    <input type="text" class="form-control" name="account[account_number]" placeholder="<%= I18n.t('bank_accounts.labels.account_number') %>">
   </div>
 
   <div class="form-group">
-    <label>Tipo de cuenta</label>
+    <label><%= I18n.t('bank_accounts.labels.account_type') %></label>
     <select name="account[account_type]" class="form-control">
-      <option value="" selected>Seleccione el tipo de cuenta</option>
+      <option value="" selected><%= I18n.t('bank_accounts.data.account_types.default') %></option>
       <% ['Ahorro', 'Corriente'].each do |type| %>
         <option value="<%= type %>"><%= type %></option>
       <% end %>
@@ -26,6 +26,6 @@
 
   <input type="hidden" name="account[teacher_id]" value="<%= params[:id] %>">
 
-  <button type="submit" class="btn btn-success">Crear cuenta</button>
-  <a href="/dashboard/teachers/<%= params[:id] %>/bank_accounts" class="btn btn-default">Cancelar</a>
+  <button type="submit" class="btn btn-success"><%= I18n.t('bank_accounts.buttons.new_bank_account') %></button>
+  <a href="/dashboard/teachers/<%= params[:id] %>/bank_accounts" class="btn btn-default"><%= I18n.t('bank_accounts.buttons.cancel') %></a>
 </form>

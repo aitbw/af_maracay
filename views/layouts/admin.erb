@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/application.css")%>">
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap-datetimepicker.min.css")%>">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-    <title><%= @page_title %> — Panel de control | AF Maracay</title>
+    <title><%= @page_title %> | AF Maracay</title>
   </head>
 
   <body>
@@ -27,30 +27,30 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Controles<span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= I18n.t('dashboard.menu.labels.modules') %><span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="/dashboard/courses">Cursos</a></li>
-                <li><a href="/dashboard/students">Estudiantes</a></li>
-                <li><a href="/dashboard/teachers">Profesores</a></li>
-                <li><a href="/dashboard/providers">Proveedores</a></li>
-                <li><a href="#">Salarios</a></li>
-                <li><a href="/dashboard/users">Usuarios</a></li>
+                <li><a href="/dashboard/courses"><%= I18n.t('dashboard.menu.labels.courses') %></a></li>
+                <li><a href="/dashboard/students"><%= I18n.t('dashboard.menu.labels.students') %></a></li>
+                <li><a href="/dashboard/teachers"><%= I18n.t('dashboard.menu.labels.teachers') %></a></li>
+                <li><a href="/dashboard/providers"><%= I18n.t('dashboard.menu.labels.providers') %></a></li>
+                <li><a href="#"><%= I18n.t('dashboard.menu.labels.wages') %></a></li>
+                <li><a href="/dashboard/users"><%= I18n.t('dashboard.menu.labels.users') %></a></li>
               </ul>
             </li>
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Inventario<span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= I18n.t('dashboard.menu.labels.inventory') %><span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Movimientos</a></li>
-                <li><a href="#">Ver inventario</a></li>
+                <li><a href="#"><%= I18n.t('dashboard.menu.labels.inventory_movements') %></a></li>
+                <li><a href="#"><%= I18n.t('dashboard.menu.labels.inventory_check') %></a></li>
               </ul>
             </li>
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes<span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= I18n.t('dashboard.menu.labels.reports') %><span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Generar reporte</a></li>
-                <li><a href="#">Ver reportes</a>
+                <li><a href="#"><%= I18n.t('dashboard.menu.labels.generate_report') %></a></li>
+                <li><a href="#"><%= I18n.t('dashboard.menu.labels.check_reports') %></a>
               </ul>
             </li>
           </ul>
@@ -58,13 +58,12 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="active"><a href="/dashboard/change_password"><%= session[:name] %></a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lenguaje<span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= I18n.t('dashboard.menu.labels.language') %><span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Español</a></li>
-                <li><a href="#">Français</a></li>
+              <!-- Here goes all the available locales -->
               </ul>
             </li>
-            <li><a href="/logout">Cerrar sesión</a></li>
+            <li><a href="/logout"><%= I18n.t('dashboard.menu.labels.signout') %></a></li>
           </ul>
         </div>
       </div>

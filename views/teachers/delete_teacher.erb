@@ -1,24 +1,24 @@
 <% if @teacher.teacher_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
-      <h3 class="panel-title">Eliminar profesor</h3>
+      <h3 class="panel-title"><%= I18n.t('teachers.page_titles.delete_teacher') %></h3>
     </div>
 
     <div class="panel-body">
-      <p>¿Está usted seguro de <b>eliminar</b> este profesor? Esta acción no puede ser revertida.</p>
+      <p><%= I18n.t('teachers.messages.warnings.are_you_sure') %></p>
       <ol style="list-style-type:disc;">
-        <li><b>Cédula</b>: <%= @teacher.teacher_cedula %></li>
-        <li><b>Nombre</b>: <%= h(@teacher.teacher_name) %></li>
-        <li><b>Teléfono</b>: <%= @teacher.teacher_phone %></li>
-        <li><b>Correo</b>: <%= @teacher.teacher_email %></li>
-        <li><b>Fecha de ingreso</b>: <%= @teacher.entry_date.strftime('%d/%m/%Y') %></li>
+        <li><b><%= I18n.t('teachers.labels.id') %></b>: <%= @teacher.teacher_cedula %></li>
+        <li><b><%= I18n.t('teachers.labels.name') %></b>: <%= h(@teacher.teacher_name) %></li>
+        <li><b><%= I18n.t('teachers.labels.phone_number') %></b>: <%= @teacher.teacher_phone %></li>
+        <li><b><%= I18n.t('teachers.labels.email') %></b>: <%= @teacher.teacher_email %></li>
+        <li><b><%= I18n.t('teachers.labels.entry_date') %></b>: <%= I18n.l(@teacher.entry_date) %></li>
       </ol>
-      <b><p class="text-danger">Todos los registros relacionados a este profesor también serán eliminados.</p></b>
+      <b><p class="text-danger"><%= I18n.t('teachers.messages.warnings.related_records') %></p></b>
 
       <form action="/dashboard/teachers/<%= @teacher.teacher_id %>/delete" method="POST">
         <input type="hidden" name="_method" value="DELETE">
-        <button type="submit" class="btn btn-danger">Eliminar</button>
-        <a href="/dashboard/teachers" class="btn btn-default">Cancelar</a>
+        <button type="submit" class="btn btn-danger"><%= I18n.t('teachers.buttons.delete_teacher') %></button>
+        <a href="/dashboard/teachers" class="btn btn-default"><%= I18n.t('teachers.buttons.cancel') %></a>
       </form>
     </div>
   </div>

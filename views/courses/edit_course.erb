@@ -1,11 +1,11 @@
 <form action="/dashboard/courses/<%= @course.course_id %>/edit" method="POST">
   <div class="form-group">
-    <label>Código</label>
+    <label><%= I18n.t('courses.labels.code') %></label>
     <input name="course[course_code]" class="form-control" value="<%= @course.course_code %>"></input>
   </div>
 
   <div class="form-group">
-    <label>Modalidad</label>
+    <label><%= I18n.t('courses.labels.modality') %></label>
     <select name="course[course_type_id]" class="form-control">
       <% @types.each do |type| %>
         <option <%= "selected" if type.course_type_id == @course.course_type_id %> value="<%= type.course_type_id %>"><%= type.course_modality %></option>
@@ -14,7 +14,7 @@
   </div>
 
   <div class="form-group">
-    <label>Sede</label>
+    <label><%= I18n.t('courses.labels.office') %></label>
     <select name="course[office_id]" class="form-control">
       <% @offices.each do |office| %>
         <option <%= "selected" if office.office_id == @course.office_id %> value="<%= office.office_id %>"><%= office.office_name %></option>
@@ -23,6 +23,6 @@
   </div>
 
   <input type="hidden" name="_method" value="PUT">
-  <button type="submit" class="btn btn-success">Actualizar</button>
-  <a href="/dashboard/courses" class="btn btn-default">Cancelar</a>
+  <button type="submit" class="btn btn-success"><%= I18n.t('courses.buttons.update') %></button>
+  <a href="/dashboard/courses" class="btn btn-default"><%= I18n.t('courses.buttons.cancel') %></a>
 </form>

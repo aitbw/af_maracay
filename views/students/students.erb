@@ -1,8 +1,8 @@
 <div>
   <form class="form-inline" action="/dashboard/students" method="GET">
     <div class="form-group">
-      <input class="form-control" name="cedula" placeholder="Buscar por cédula" value="<%= params[:cedula] %>">
-      <a href="/dashboard/students/new_student" class="btn btn-success">Nuevo estudiante</a>
+      <input class="form-control" name="cedula" placeholder="<%= I18n.t('students.search_placeholder') %>" value="<%= params[:cedula] %>">
+      <a href="/dashboard/students/new_student" class="btn btn-success"><%= I18n.t('students.buttons.new_student') %></a>
     </div>
   </form>
 
@@ -11,13 +11,13 @@
   <table class="table table-bordered table-responsive">
     <thead>
       <tr>
-        <th scope="col">Cédula</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Teléfono</th>
-        <th scope="col">Teléfono alternativo</th>
-        <th scope="col">Correo</th>
-        <th scope="col">¿Becado?</th>
-        <th scope="col">Acciones</th>
+        <th scope="col"><%= I18n.t('students.labels.id') %></th>
+        <th scope="col"><%= I18n.t('students.labels.name') %></th>
+        <th scope="col"><%= I18n.t('students.labels.phone_number') %></th>
+        <th scope="col"><%= I18n.t('students.labels.alt_phone_number') %></th>
+        <th scope="col"><%= I18n.t('students.labels.email') %></th>
+        <th scope="col"><%= I18n.t('students.labels.has_scholarship') %></th>
+        <th scope="col"><%= I18n.t('students.labels.options') %></th>
       </tr>
     </thead>
     <tbody>
@@ -28,18 +28,18 @@
           <td><%= student.student_phone %></td>
           <td><%= student.alternative_phone %></td>
           <td><%= student.student_email %></td>
-          <td><%= student.has_scholarship ? "Sí" : "No" %></td>
+          <td><%= student.has_scholarship ? I18n.t('students.data.has_scholarship.assigned') : I18n.t('students.data.has_scholarship.non_assigned') %></td>
           <td>
             <div class="btn-group">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= I18n.t('students.labels.options') %><span class="caret"></span></button>
               <ul class="dropdown-menu">
-                <li><a href="/dashboard/students/<%= student.student_id %>/grades">Calificaciones</a></li>
-                <li><a href="/dashboard/students/<%= student.student_id %>/delete">Eliminar</a></li>
-                <li><a href="/dashboard/students/<%= student.student_id %>/edit">Modificar</a></li>
-                <li><a href="/dashboard/students/<%= student.student_id %>/fees">Pagos (Cuotas)</a></li>
-                <li><a href="/dashboard/students/<%= student.student_id %>/signups">Pagos (Inscripciones)</a></li>
-                <li><a href="/dashboard/students/<%= student.student_id %>/">Pagos (Misceláneos)</a></li>
-                <li><a href="/dashboard/students/<%= student.student_id %>/reassign">Reasignar</a></li>
+                <li><a href="/dashboard/students/<%= student.student_id %>/grades"><%= I18n.t('students.options.grades') %></a></li>
+                <li><a href="/dashboard/students/<%= student.student_id %>/delete"><%= I18n.t('students.options.delete') %></a></li>
+                <li><a href="/dashboard/students/<%= student.student_id %>/edit"><%= I18n.t('students.options.edit') %></a></li>
+                <li><a href="/dashboard/students/<%= student.student_id %>/fees"><%= I18n.t('students.options.fee_payments') %></a></li>
+                <li><a href="/dashboard/students/<%= student.student_id %>/signups"><%= I18n.t('students.options.signup_payments') %></a></li>
+                <li><a href="#"><%= I18n.t('students.options.misc_payments') %></a></li>
+                <li><a href="#"><%= I18n.t('students.options.reassign') %></a></li>
               </ul>
             </div>
           </td>
@@ -51,5 +51,5 @@
 
 <div class="pagination">
   <%= will_paginate @students, container: false, previous_label: "&laquo", next_label: "&raquo" %>
-  <%= "<a href=\"/dashboard/students\">Volver</a>" if params[:cedula] %>
+  <%= "<a href=\"/dashboard/students\">#{I18n.t('students.buttons.back')}</a>" if params[:cedula] %>
 </div>
