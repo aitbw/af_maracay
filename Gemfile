@@ -7,6 +7,7 @@ gem 'sinatra', '1.4.6'
 gem 'sinatra-flash', '>= 0.3.0', require: 'sinatra/flash'
 gem 'sinatra-redirect-with-flash', '>= 0.2.1', require: 'sinatra/redirect_with_flash'
 gem 'sinatra-activerecord', '>= 2.0.8', require: 'sinatra/activerecord'
+gem 'sinatra-contrib', '~> 1.4', '>= 1.4.7', require: 'sinatra/content_for'
 gem 'pg', '>= 0.18.4'
 gem 'activerecord', '>= 4.2.4'
 gem 'activesupport', '>= 4.2.4', require: ['active_support', 'active_support/core_ext/string/inflections']
