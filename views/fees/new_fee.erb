@@ -1,3 +1,12 @@
+<% content_for :styles do %>
+  <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap-datetimepicker.min.css")%>">
+<% end %>
+
+<% content_for :scripts do %>
+  <script type="text/javascript" src="<%=url("/javascript/moment.min.js")%>"></script>
+  <script type="text/javascript" src="<%=url("/javascript/bootstrap-datetimepicker.min.js")%>"></script>
+<% end %>
+
 <form action="/dashboard/students/<%= params[:id] %>/fees/new" method="POST">
   <div class="form-group">
     <label>Monto de la cuota (BsF.)</label>
