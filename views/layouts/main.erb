@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/application.css")%>">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <%= yield_content :styles %>
-    <title><%= @page_title %> — Panel de control | AF Maracay</title>
+    <title><%= @page_title %> | AF Maracay</title>
   </head>
 
   <body>
@@ -32,13 +32,12 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="active"><a href="/dashboard/change_password"><%= session[:name] %></a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Lenguaje<span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= I18n.t('dashboard.menu.labels.language') %><span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Español</a></li>
-                <li><a href="#">Français</a></li>
+              <!-- Here goes all the available locales -->
               </ul>
             </li>
-            <li><a href="/logout">Cerrar sesión</a></li>
+            <li><a href="/logout"><%= I18n.t('dashboard.menu.labels.signout') %></a></li>
           </ul>
         </div>
       </div>

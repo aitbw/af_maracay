@@ -1,29 +1,29 @@
-<h3 align="center" style="padding-bottom:1%;">Horas cubiertas — <%= h(@teacher.teacher_name) %></h3>
+<h3 align="center" style="padding-bottom:1%;"><%= I18n.t('teacher_hours.headers.hours_covered', teacher_name: h(@teacher.teacher_name)) %></h3>
 
 <table class="table table-bordered table-responsive">
   <thead>
     <tr>
-      <th scope="col">Sección</th>
-      <th scope="col">Horas cubiertas</th>
-      <th scope="col">Fecha</th>
-      <th scope="col">Tarifa por hora</th>
-      <th scope="col">¿Suplencia?</th>
-      <th scope="col">Acciones</th>
+      <th scope="col"><%= I18n.t('teacher_hours.labels.section') %></th>
+      <th scope="col"><%= I18n.t('teacher_hours.labels.hours_covered') %></th>
+      <th scope="col"><%= I18n.t('teacher_hours.labels.date') %></th>
+      <th scope="col"><%= I18n.t('teacher_hours.labels.fee_per_hour') %></th>
+      <th scope="col"><%= I18n.t('teacher_hours.labels.is_substitution') %></th>
+      <th scope="col"><%= I18n.t('teacher_hours.labels.options') %></th>
     </tr>
   </thead>
   <tbody>
     <% @hours.each do |hour| %>
       <tr>
         <td><%= hour.section_code %></td>
-        <td><%= hour.hours_covered %></td>
-        <td><%= hour.date_covered.strftime('%d/%m/%Y') %></td>
-        <td><%= hour.fare_per_hour %></td>
-        <td><%= hour.teacher_substituted ? "Sí" : "No" %></td>
+        <td><%= I18n.t('teacher_hours.data.hours', hours: hour.hours_covered) %></td>
+        <td><%= I18n.l(hour.date_covered) %></td>
+        <td><%= I18n.t('teacher_hours.data.fare_per_hour', fare: hour.fare_per_hour) %></td>
+        <td><%= hour.teacher_substituted ? I18n.t('teacher_hours.data.teacher_substituted.yes') : I18n.t('teacher_hours.data.teacher_substituted.no') %></td>
         <td>
           <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= I18n.t('teacher_hours.labels.options') %><span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="/dashboard/teachers/<%= hour.teacher_id %>/hours/<%= hour.teacher_hour_id %>/delete">Eliminar</a></li>
+              <li><a href="/dashboard/teachers/<%= hour.teacher_id %>/hours/<%= hour.teacher_hour_id %>/delete"><%= I18n.t('teacher_hours.options.delete') %></a></li>
             </ul>
           </div>
         </td>
@@ -38,5 +38,5 @@
   </div>
 <% end %>
 
-<a href="/dashboard/teachers/<%= @teacher.teacher_id %>/hours/assign" class="btn btn-success">Asignar horas</a>
-<a href="/dashboard/teachers" class="btn btn-default">Atrás</a>
+<a href="/dashboard/teachers/<%= @teacher.teacher_id %>/hours/assign" class="btn btn-success"><%= I18n.t('teacher_hours.buttons.assign_hours') %></a>
+<a href="/dashboard/teachers" class="btn btn-default"><%= I18n.t('teacher_hours.buttons.back') %></a>

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/bootstrap.css")%>">
     <link rel="stylesheet" type="text/css" href="<%=url("/stylesheets/signin.css")%>">
-    <title>Iniciar sesión | AF Maracay</title>
+    <title><%= I18n.t('signin.page_title') %> | AF Maracay</title>
   </head>
 
   <body>
@@ -20,9 +20,9 @@
         <% if flash[:error] %>
           <p class="alert alert-danger" align="center"><%= flash[:error] %></p>
         <% end %>
-        <input type="text" class="form-control" name="cedula" placeholder="Cédula" autofocus>
-        <input type="password" class="form-control" name="password" placeholder="Contraseña">
-        <button class="btn btn-lg button btn-block" type="submit">Iniciar sesión</button>
+        <input type="text" class="form-control" name="cedula" placeholder="<%= I18n.t('signin.placeholders.id') %>" autofocus>
+        <input type="password" class="form-control" name="password" placeholder="<%= I18n.t('signin.placeholders.password') %>">
+        <button class="btn btn-lg button btn-block" type="submit"><%= I18n.t('signin.buttons.submit') %></button>
       </form>
     </div>
 

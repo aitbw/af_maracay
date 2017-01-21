@@ -1,14 +1,14 @@
-<h3 align="center" style="padding-bottom:1%;">Estudiantes del nivel <%= @section.level_description %></h3>
+<h3 align="center" style="padding-bottom:1%;"><%= I18n.t('sections.page_titles.section_students', level: @section.level_description) %></h3>
 
 <table class="table table-bordered table-responsive">
   <thead>
     <tr>
-      <th scope="col">Cédula</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Teléfono</th>
-      <th scope="col">Teléfono alternativo</th>
-      <th scope="col">Correo</th>
-      <th scope="col">¿Becado?</th>
+      <th scope="col"><%= I18n.t('students.labels.id') %></th>
+      <th scope="col"><%= I18n.t('students.labels.name') %></th>
+      <th scope="col"><%= I18n.t('students.labels.phone_number') %></th>
+      <th scope="col"><%= I18n.t('students.labels.alt_phone_number') %></th>
+      <th scope="col"><%= I18n.t('students.labels.email') %></th>
+      <th scope="col"><%= I18n.t('students.labels.has_scholarship') %></th>
     </tr>
   </thead>
   <tbody>
@@ -19,7 +19,7 @@
         <td><%= student.student_phone %></td>
         <td><%= student.alternative_phone %></td>
         <td><%= student.student_email %></td>
-        <td><%= student.has_scholarship ? "Sí" : "No" %></td>
+        <td><%= student.has_scholarship ? I18n.t('students.data.has_scholarship.assigned') : I18n.t('students.data.has_scholarship.non_assigned') %></td>
       </tr>
     <% end %>
   </tbody>
@@ -31,4 +31,4 @@
   </div>
 <% end %>
 
-<a href="/dashboard/courses/<%= params[:course] %>/sections" class="btn btn-default">Atrás</a>
+<a href="/dashboard/courses/<%= params[:course] %>/sections" class="btn btn-default"><%= I18n.t('students.buttons.back') %></a>

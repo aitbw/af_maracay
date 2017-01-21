@@ -1,20 +1,20 @@
 <div id="coursesPanel" class="panel panel-default teacher-courses">
-  <div class="panel-heading">Cursos asignados — <%= h(@teacher.teacher_name) %></div>
-  <% if @teacher.courses.empty? %>
+  <div class="panel-heading"><%= I18n.t('teacher_courses.headers.assigned_courses', teacher_name: h(@teacher.teacher_name)) %></div>
+  <% if @courses.blank? %>
     <div class="panel-body">
-      <p>El/la profesor/a <%= h(@teacher.teacher_name) %> no tiene cursos asignados.</p>
+      <p><%= I18n.t('teacher_courses.panels.assigned_courses.no_courses') %></p>
     </div>
   <% else %>
     <div class="panel-body">
-      <p>El/la profesor/a <%= h(@teacher.teacher_name) %> tiene los siguientes cursos asignados</p>
+      <p><%= I18n.t('teacher_courses.panels.assigned_courses.has_courses') %></p>
     </div>
 
     <table class="table table-responsive">
       <thead>
         <tr>
-          <th scope="col">Código del curso</th>
-          <th scope="col">Modalidad del curso</th>
-          <th scope="col">Sede del curso</th>
+          <th scope="col"><%= I18n.t('teacher_courses.labels.code') %></th>
+          <th scope="col"><%= I18n.t('teacher_courses.labels.modality') %></th>
+          <th scope="col"><%= I18n.t('teacher_courses.labels.office') %></th>
         </tr>
       </thead>
       <tbody>
@@ -34,17 +34,17 @@
   <div class="panel-body">
     <form action="/dashboard/teachers/<%= @teacher.teacher_id %>/courses/assign" method="POST">
       <div class="form-group">
-        <label>Curso a asignar</label>
+        <label><%= I18n.t('teacher_courses.panels.available_courses.course_to_assign') %></label>
         <select name="course_teacher[course_id]" class="form-control">
-          <option value="">Seleccione el curso que desea asignar</option>
+          <option value=""><%= I18n.t('teacher_courses.panels.available_courses.options.default') %></option>
           <% @available_courses.each do |course| %>
           <option value="<%= course.course_id %>"><%= "#{course.course_code} - #{course.course_modality}" %></option>
           <% end %>
         </select>
       </div>
       <input type="hidden" name="course_teacher[teacher_id]" value="<%= params[:id] %>"></input>
-      <button type="submit" class="btn btn-success">Asignar curso</button>
-      <a href="/dashboard/teachers/<%= @teacher.teacher_id %>/courses" class="btn btn-default">Cancelar</a>
+      <button type="submit" class="btn btn-success"><%= I18n.t('teacher_courses.buttons.assign_course') %></button>
+      <a href="/dashboard/teachers/<%= @teacher.teacher_id %>/courses" class="btn btn-default"><%= I18n.t('teacher_courses.buttons.cancel') %></a>
     </form>
   </div>
 </div>

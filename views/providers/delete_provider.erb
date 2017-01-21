@@ -1,22 +1,24 @@
 <% if @provider.provider_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
-        <h3 class="panel-title">Eliminar proveedor</h3>
+      <h3 class="panel-title"><%= I18n.t('providers.page_titles.delete_provider') %></h3>
     </div>
+
     <div class="panel-body">
-        <p>¿Está usted seguro de <b>eliminar</b> este proveedor? Esta acción no puede ser revertida.</p>
-        <ol style="list-style-type:disc;">
-        <li><b>Nombre</b>: <%= h(@provider.provider_name) %></li>
-        <li><b>RIF</b>: <%= @provider.provider_rif %></li>
-        <li><b>Teléfono</b>: <%= @provider.provider_phone %></li>
-        <li><b>Correo</b>: <%= @provider.provider_email %></li>
-        <li><b>Encargado</b>: <%= h(@provider.manager_name) %></li>
-        </ol>
-        <form action="/dashboard/providers/<%= @provider.provider_id %>/delete" method="POST">
-          <input type="hidden" name="_method" value="DELETE">
-          <button type="submit" class="btn btn-danger">Eliminar</button>
-          <a href="/dashboard/providers" class="btn btn-default">Cancelar</a>
-        </form>
+      <p><%= I18n.t('providers.messages.warnings.are_you_sure') %></p>
+      <ol style="list-style-type:disc;">
+        <li><b><%= I18n.t('providers.labels.name') %></b>: <%= h(@provider.provider_name) %></li>
+        <li><b><%= I18n.t('providers.labels.rif') %></b>: <%= @provider.provider_rif %></li>
+        <li><b><%= I18n.t('providers.labels.phone') %></b>: <%= @provider.provider_phone %></li>
+        <li><b><%= I18n.t('providers.labels.email') %></b>: <%= @provider.provider_email %></li>
+        <li><b><%= I18n.t('providers.labels.manager') %></b>: <%= h(@provider.manager_name) %></li>
+      </ol>
+
+      <form action="/dashboard/providers/<%= @provider.provider_id %>/delete" method="POST">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="btn btn-danger"><%= I18n.t('providers.buttons.delete') %></button>
+        <a href="/dashboard/providers" class="btn btn-default"><%= I18n.t('providers.buttons.cancel') %></a>
+      </form>
     </div>
   </div>
 <% end %>

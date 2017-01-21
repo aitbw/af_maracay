@@ -1,22 +1,25 @@
 <% if @hour.teacher_hour_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
-        <h3 class="panel-title">Eliminar hora</h3>
+      <h3 class="panel-title"><%= I18n.t('teacher_hours.page_titles.delete_assigned_hour') %></h3>
     </div>
+
     <div class="panel-body">
-        <p>¿Está usted seguro de <b>eliminar</b> esta hora? Esta acción no puede ser revertida.</p>
-        <ol style="list-style-type:disc;">
-            <li><b>Horas cubiertas</b>: <%= @hour.hours_covered %> horas</li>
-            <li><b>Fecha</b>: <%= @hour.date_covered.strftime('%d/%m/%Y') %></li>
-            <li><b>Profesor</b>: <%= h(@hour.teacher_name) %></li>
-            <li><b>Curso</b>: <%= @hour.course_code %></li>
-        </ol>
-        <form action="/dashboard/teachers/<%= @hour.teacher_id %>/hours/<%= @hour.teacher_hour_id %>/delete" method="POST">
-          <input type="hidden" name="_method" value="DELETE"></input>
-          <button type="submit" class="btn btn-danger">Eliminar</button>
-          <a href="/dashboard/teachers/<%= @hour.teacher_id %>/hours" class="btn btn-default">Cancelar</a>
-        </form>
-    </div>
+      <p><%= I18n.t('teacher_hours.messages.warnings.are_you_sure') %></p>
+      <ol style="list-style-type:disc;">
+        <li><b><%= I18n.t('teacher_hours.labels.section') %></b>: <%= @hour.section_code %></li>
+        <li><b><%= I18n.t('teacher_hours.labels.teacher') %></b>: <%= h(@hour.teacher_name) %></li>
+        <li><b><%= I18n.t('teacher_hours.labels.hours_covered') %></b>: <%= I18n.t('teacher_hours.data.hours', hours: @hour.hours_covered) %></li>
+        <li><b><%= I18n.t('teacher_hours.labels.date') %></b>: <%= I18n.l(@hour.date_covered) %></li>
+        <li><b><%= I18n.t('teacher_hours.labels.fare_per_hour') %></b>: <%= I18n.t('teacher_hours.data.fare_per_hour', fare: @hour.fare_per_hour) %></li>
+        <li><b><%= I18n.t('teacher_hours.labels.is_substitution') %></b>: <%= @hour.teacher_substituted ? I18n.t('teacher_hours.data.teacher_substituted.yes') : I18n.t('teacher_hours.data.teacher_substituted.no') %></li>
+      </ol>
+
+      <form action="/dashboard/teachers/<%= @hour.teacher_id %>/hours/<%= @hour.teacher_hour_id %>/delete" method="POST">
+        <input type="hidden" name="_method" value="DELETE"></input>
+        <button type="submit" class="btn btn-danger"><%= I18n.t('teacher_hours.buttons.delete') %></button>
+        <a href="/dashboard/teachers/<%= @hour.teacher_id %>/hours" class="btn btn-default"><%= I18n.t('teacher_hours.buttons.cancel') %></a>
+      </form>
     </div>
   </div>
 <% end %>

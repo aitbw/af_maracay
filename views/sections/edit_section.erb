@@ -1,6 +1,6 @@
 <form action="/dashboard/courses/<%= @section.course_id %>/sections/<%= @section.section_id %>/edit" method="POST">
   <div class="form-group">
-    <label>Curso</label>
+    <label><%= I18n.t('sections.labels.course') %></label>
     <select name="form[course_id]" class="form-control">
       <% @courses.each do |course| %>
         <option <%= "selected" if course.course_id == @section.course_id %> value="<%= course.course_id %>"><%= course.course_code %></option>
@@ -9,7 +9,7 @@
   </div>
 
   <div class="form-group">
-    <label>Nivel</label>
+    <label><%= I18n.t('sections.labels.level') %></label>
     <select name="form[level_id]" class="form-control">
       <% @levels.each do |level| %>
         <option <%= "selected" if level.level_id == @section.level_id %> value="<%= level.level_id %>"><%= level.level_description %></option>
@@ -18,6 +18,6 @@
   </div>
 
   <input type="hidden" name="_method" value="PUT">
-  <button type="submit" class="btn btn-success">Actualizar</button>
-  <a href="/dashboard/courses/<%= @section.course_id %>/sections" class="btn btn-default">Cancelar</a>
+  <button type="submit" class="btn btn-success"><%= I18n.t('sections.buttons.update') %></button>
+  <a href="/dashboard/courses/<%= @section.course_id %>/sections" class="btn btn-default"><%= I18n.t('sections.buttons.cancel') %></a>
 </form>

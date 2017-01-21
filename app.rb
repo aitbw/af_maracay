@@ -7,6 +7,12 @@ require './init'
 configure do
   enable :sessions
   set :session_secret, ENV.fetch('SESSION_SECRET') { SecureRandom.hex(64) }
+  I18n::Backend::Simple.send(:include, I18n::Backend::Fallbacks)
+  I18n.load_path = Dir[File.join(settings.root, 'config/locales', 'es.yml')]
+  I18n.backend.load_translations
+  I18n.enforce_available_locales = false
+  I18n.available_locales = ['es']
+  I18n.default_locale = :es
   # use Sinatra::CacheAssets, max_age: 86_400
   Rack::Builder.new do
     cookie_settings = {
@@ -36,10 +42,10 @@ helpers do
     case session[:role]
     when 'Admin'
       erb :'menus/admin', options.merge!(layout: false)
-    when 'Pedagogo'
-      erb :'menus/educator', options.merge!(layout: false)
-    when 'Recepcionista'
+    when 'Clerk'
       erb :'menus/clerk', options.merge!(layout: false)
+    when 'Educator'
+      erb :'menus/educator', options.merge!(layout: false)
     end
   end
 
@@ -61,22 +67,29 @@ end
 
 post '/signin' do
   if (params[:cedula] || params[:password]).blank?
-    redirect '/signin', error: 'Debe completar todos los campos.'
+    redirect '/signin', error: I18n.t('signin.messages.errors.empty_fields')
   else
     user_exists?(params[:cedula])
   end
 end
 
 get '/dashboard' do
-  set_page_title('Inicio')
-  @expired_signups = Payment.where('payment_status = ? AND expiration_date <= ?', 'Inscripción vigente', Date.today)
-  @expired_fees = Payment.where('payment_status = ? AND expiration_date <= ?', 'Cuota vigente', Date.today)
+  set_page_title(I18n.t('dashboard.page_title'))
+  @expired_signups = Payment.where(
+    'payment_status = ? AND expiration_date <= ?',
+    'Inscripción vigente', Date.today
+  )
+
+  @expired_fees = Payment.where(
+    'payment_status = ? AND expiration_date <= ?',
+    'Cuota vigente', Date.today
+  )
   erb :index, layout: :'layouts/main'
 end
 
 get '/logout' do
   session.clear
-  redirect '/signin', notice: 'Usted ha cerrado sesión.'
+  redirect '/signin', notice: I18n.t('signin.messages.success.signout')
 end
 
 not_found do

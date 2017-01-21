@@ -3,9 +3,9 @@ def change_password
   user.user_password = BCrypt::Password.create(params[:password])
 
   if user.save
-    flash[:notice] = 'Cambio de contraseña exitoso.'
+    flash[:notice] = I18n.t('users.messages.success.password_change')
   else
-    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
+    flash[:error] = I18n.t('users.messages.errors.failed_transaction')
   end
 end
 
@@ -14,9 +14,9 @@ def reset_password
   user.user_password = BCrypt::Password.create(params[:password])
 
   if user.save
-    flash[:notice] = 'Contraseña reestablecida exitosamente.'
+    flash[:notice] = I18n.t('users.messages.success.password_reset')
     redirect '/dashboard/users'
   else
-    flash[:error] = 'Ha ocurrido un error, intente nuevamente.'
+    flash[:error] = I18n.t('users.messages.errors.failed_transaction')
   end
 end

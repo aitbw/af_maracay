@@ -4,11 +4,11 @@ class ReferenceNumberValidator < ActiveModel::Validator
     case record.payment_method
     when 'Débito', 'Crédito'
       unless record.reference_number =~ /\A\d{4}\z/
-        record.errors[:reference_number].push('is invalid')
+        record.errors.add(:reference_number, :invalid)
       end
     when 'Depósito', 'Transferencia'
-      if record.reference_number.empty?
-        record.errors[:reference_number].push("can't be blank")
+      if record.reference_number.blank?
+        record.errors.add(:reference_number, :blank)
       end
     end
   end
@@ -46,7 +46,7 @@ class Payment < ActiveRecord::Base
 
   # Custom validations
   validate :expiration_date_cant_be_blank_for_fees
-  validate :issue_date_cant_be_null_for_signups_and_fees
+  validate :issue_date_cant_be_blank_for_signups_and_fees
   validate :issue_date_cant_be_in_the_past
 
   # Methods
@@ -61,7 +61,7 @@ class Payment < ActiveRecord::Base
 
   def expiration_date_cant_be_blank_for_fees
     return unless payment_description == 'Cuota' && expiration_date.blank?
-    errors.add(:expiration_date, "can't be blank")
+    errors.add(:expiration_date, :blank)
   end
 
   def extra_fee_for_credit_payments
@@ -72,13 +72,13 @@ class Payment < ActiveRecord::Base
 
   def issue_date_cant_be_in_the_past
     return unless issue_date.present? && issue_date < Date.today
-    errors.add(:issue_date, "can't be in the past")
+    errors.add(:issue_date, :in_the_past)
   end
 
-  def issue_date_cant_be_null_for_signups_and_fees
+  def issue_date_cant_be_blank_for_signups_and_fees
     case payment_description
     when 'Inscripción', 'Cuota'
-      errors.add(:issue_date, "can't be blank") if issue_date.blank?
+      errors.add(:issue_date, :blank) if issue_date.blank?
     end
   end
 

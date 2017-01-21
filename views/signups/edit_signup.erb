@@ -9,12 +9,12 @@
 
 <form action="/dashboard/students/<%= @signup.student_id %>/signups/<%= @signup.payment_id %>/edit" method="POST">
   <div class="form-group">
-    <label>Monto de inscripción (BsF.)</label>
+    <label><%= I18n.t('payments.labels.signup_amount') %></label>
     <input name="form[payment_amount]" class="form-control" value="<%= @signup.payment_amount %>"></input>
   </div>
 
   <div class="form-group">
-    <label>Método de pago</label>
+    <label><%= I18n.t('payments.labels.payment_method') %></label>
     <select name="form[payment_method]" id="paymentMethod" class="form-control">
       <% ["Débito", "Depósito", "Transferencia", "Crédito", "Efectivo"].each do |method| %>
         <option <%= "selected" if method == @signup.payment_method %> value="<%= method %>"><%= method %></option>
@@ -23,9 +23,9 @@
   </div>
 
   <div class="form-group">
-    <label>Fecha de emisión</label>
+    <label><%= I18n.t('payments.labels.issue_date') %></label>
     <div class="input-group date" id="datePicker">
-      <input type="text" class="form-control" name="form[issue_date]" value="<%= @signup.issue_date.strftime('%d/%m/%Y') %>">
+      <input type="text" class="form-control" name="form[issue_date]" value="<%= I18n.l(@signup.issue_date) %>">
       <span class="input-group-addon">
         <span class="glyphicon glyphicon-calendar"></span>
       </span>
@@ -34,18 +34,18 @@
 
   <% if current_user_is_admin? %>
     <div class="form-group">
-      <label>Estado de la inscripción</label>
-      <select name="form[payment_status]" class="form-control">
-        <option value="" selected>Seleccione el estado del pago</option>
-        <% ['Inscripción vigente', 'Inscripción no aprobada'].each do |status| %>
-          <option value="<%= status %>"><%= status %></option>
-        <% end %>
-      </select>
+      <label><%= I18n.t('payments.labels.signup_status') %></label>
+      <label class="radio-inline">
+        <input type="radio" name="form[payment_status]" value="Current signup"><%= I18n.t('payments.data.payment_statuses.current_signup') %>
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="form[payment_status]" value="Non-approved signup"><%= I18n.t('payments.data.payment_statuses.non_approved_signup') %>
+      </label>
     </div>
   <% end %>
 
   <div class="form-group" id="bank" style="display:none;">
-    <label>Banco</label>
+    <label><%= I18n.t('payments.labels.bank') %></label>
     <select name="form[bank]" class="form-control">
       <% @banks.each do |bank| %>
         <option <%= "selected" if bank.bank_name == @signup.bank %> value="<%= bank.bank_name %>"><%= h(bank.bank_name) %></option>
@@ -54,11 +54,11 @@
   </div>
 
   <div class="form-group" id="referenceNumber">
-    <label>Número de referencia</label>
+    <label><%= I18n.t('payments.labels.bank') %></label>
     <input name="form[reference_number]" class="form-control" value="<%= h(@signup.reference_number) %>"></input>
   </div>
 
   <input type="hidden" name="_method" value="PUT">
-  <button type="submit" class="btn btn-success">Actualizar</button>
-  <a href="/dashboard/students/<%= @signup.student_id %>/signups" class="btn btn-default">Cancelar</a>
+  <button type="submit" class="btn btn-success"><%= I18n.t('payments.buttons.update_record') %></button>
+  <a href="/dashboard/students/<%= @signup.student_id %>/signups" class="btn btn-default"><%= I18n.t('payments.buttons.cancel') %></a>
 </form>

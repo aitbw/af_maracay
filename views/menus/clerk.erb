@@ -1,16 +1,16 @@
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Controles<span class="caret"></span></a>
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= I18n.t('dashboard.menu.labels.modules') %><span class="caret"></span></a>
   <ul class="dropdown-menu">
-    <li><a href="/dashboard/courses">Cursos</a></li>
-    <li><a href="/dashboard/students">Estudiantes</a></li>
-    <li><a href="/dashboard/providers">Proveedores</a></li>
+    <li><a href="/dashboard/courses"><%= I18n.t('dashboard.menu.labels.courses') %></a></li>
+    <li><a href="/dashboard/students"><%= I18n.t('dashboard.menu.labels.students') %></a></li>
+    <li><a href="/dashboard/providers"><%= I18n.t('dashboard.menu.labels.providers') %></a></li>
   </ul>
 </li>
 
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Inventario<span class="caret"></span></a>
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= I18n.t('dashboard.menu.labels.inventory') %><span class="caret"></span></a>
   <ul class="dropdown-menu">
-    <li><a href="#">Movimientos</a></li>
-    <li><a href="#">Ver inventario</a></li>
+    <li><a href="#"><%= I18n.t('dashboard.menu.labels.inventory_movements') %></a></li>
+    <li><a href="#"><%= I18n.t('dashboard.menu.labels.inventory_check') %></a></li>
   </ul>
 </li>

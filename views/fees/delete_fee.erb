@@ -1,31 +1,31 @@
 <% if @fee.payment_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
-      <h3 class="panel-title">Eliminar cuota</h3>
+      <h3 class="panel-title"><%= I18n.t('payments.page_titles.delete_fee') %></h3>
     </div>
 
     <div class="panel-body">
-      <p>¿Está usted seguro de <b>eliminar</b> esta cuota? Esta acción no puede ser revertida.</p>
+      <p><%= I18n.t('payments.messages.warnings.are_you_sure') %></p>
       <ol style="list-style-type:disc;">
-        <li><b>Estudiante</b>: <%= h(@fee.student_name) %></li>
-        <li><b>Emisor</b>: <%= h(@fee.user_name) %></li>
-        <li><b>Monto cancelado</b>: <%= @fee.payment_amount %> BsF.</li>
-        <li><b>Método de pago</b>: <%= @fee.payment_method %></li>
-        <li><b>Estado del pago</b>: <%= @fee.payment_status %></li>
-        <li><b>Fecha de emision</b>: <%= @fee.issue_date.strftime('%d/%m/%Y') %></li>
-        <li><b>Fecha de expiración</b>: <%= @fee.expiration_date.strftime('%d/%m/%Y') %></li>
+        <li><b><%= I18n.t('payments.labels.student') %></b>: <%= h(@fee.student_name) %></li>
+        <li><b><%= I18n.t('payments.labels.issuer') %></b>: <%= h(@fee.user_name) %></li>
+        <li><b><%= I18n.t('payments.labels.fee_amount') %></b>: <%= I18n.t('payments.data.payment_amount', amount: @fee.payment_amount) %></li>
+        <li><b><%= I18n.t('payments.labels.payment_method') %></b>: <%= @fee.payment_method %></li>
+        <li><b><%= I18n.t('payments.labels.fee_status') %></b>: <%= @fee.payment_status %></li>
+        <li><b><%= I18n.t('payments.labels.issue_date') %></b>: <%= I18n.l(@fee.issue_date) %></li>
+        <li><b><%= I18n.t('payments.labels.expiration_date') %></b>: <%= I18n.l(@fee.expiration_date) %></li>
         <% unless @fee.bank.empty? %>
-          <li><b>Banco</b>: <%= h(@fee.bank) %></li>
+          <li><b><%= I18n.t('payments.labels.bank') %></b>: <%= h(@fee.bank) %></li>
         <% end %>
         <% unless @fee.payment_method == 'Efectivo' %>
-          <li><b>Número de referencia</b>: <%= h(@fee.reference_number) %></li>
+          <li><b><%= I18n.t('payments.labels.reference_number') %></b>: <%= h(@fee.reference_number) %></li>
         <% end %>
       </ol>
 
       <form action="/dashboard/students/<%= @fee.student_id %>/fees/<%= @fee.payment_id %>/delete" method="POST">
         <input type="hidden" name="_method" value="DELETE">
-        <button type="submit" class="btn btn-danger">Eliminar</button>
-        <a href="/dashboard/students/<%= @fee.student_id %>/fees" class="btn btn-default">Cancelar</a>
+        <button type="submit" class="btn btn-danger"><%= I18n.t('payments.buttons.delete_record') %></button>
+        <a href="/dashboard/students/<%= @fee.student_id %>/fees" class="btn btn-default"><%= I18n.t('payments.buttons.cancel') %></a>
       </form>
     </div>
   </div>

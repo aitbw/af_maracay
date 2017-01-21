@@ -9,14 +9,14 @@
 
 <form action="/dashboard/students/<%= params[:id] %>/fees/new" method="POST">
   <div class="form-group">
-    <label>Monto de la cuota (BsF.)</label>
-    <input type="text" class="form-control" name="payment[payment_amount]" placeholder="Monto">
+    <label><%= I18n.t('payments.labels.fee_amount') %></label>
+    <input type="text" class="form-control" name="payment[payment_amount]" placeholder="<%= I18n.t('payments.labels.fee_amount') %>">
   </div>
 
   <div class="form-group">
-    <label>Concepto</label>
+    <label><%= I18n.t('payments.labels.payment_description') %></label>
     <select name="payment[payment_description]" class="form-control">
-      <option value="" selected>Seleccione el concepto del pago</option>
+      <option value="" selected><%= I18n.t('payments.data.payment_descriptions.default') %></option>
       <% ["Inscripción", "Cuota"].each do |description| %>
         <option value="<%= description %>"><%= description %></option>
       <% end %>
@@ -24,9 +24,9 @@
   </div>
 
   <div class="form-group">
-    <label>Método de pago</label>
+    <label><%= I18n.t('payments.labels.payment_method') %></label>
     <select name="payment[payment_method]" class="form-control" id="paymentMethod">
-      <option value="" selected>Seleccione un método de pago</option>
+      <option value="" selected><%= I18n.t('payments.data.payment_methods.default') %></option>
       <% ["Débito", "Depósito", "Transferencia", "Crédito"].each do |method| %>
         <option value="<%= method %>"><%= method %></option>
       <% end %>
@@ -34,7 +34,7 @@
   </div>
 
   <div class="form-group">
-    <label>Fecha de emisión</label>
+    <label><%= I18n.t('payments.labels.issue_date') %></label>
     <div class="input-group date" id="leftDatePicker">
       <input type="text" class="form-control" name="payment[issue_date]">
       <span class="input-group-addon">
@@ -44,7 +44,7 @@
   </div>
 
   <div class="form-group">
-    <label>Fecha de expiración</label>
+    <label><%= I18n.t('payments.labels.expiration_date') %></label>
     <div class="input-group date" id="rightDatePicker">
       <input type="text" class="form-control" name="payment[expiration_date]">
       <span class="input-group-addon">
@@ -54,9 +54,9 @@
   </div>
 
   <div class="form-group" id="bank" style="display:none;">
-    <label>Banco</label>
+    <label><%= I18n.t('payments.labels.bank') %></label>
     <select name="payment[bank]" class="form-control">
-      <option value="" selected>Seleccione un banco</option>
+      <option value="" selected><%= I18n.t('payments.data.banks.default') %></option>
       <% @banks.each do |bank| %>
         <option value="<%= bank.bank_name %>"><%= bank.bank_name %></option>
       <% end %>
@@ -64,13 +64,13 @@
   </div>
 
   <div class="form-group">
-    <label>Número de referencia</label>
-    <input type="text" class="form-control" name="payment[reference_number]" placeholder="Referencia">
+    <label><%= I18n.t('payments.labels.reference_number') %></label>
+    <input type="text" class="form-control" name="payment[reference_number]" placeholder="<%= I18n.t('payments.labels.reference_number') %>">
   </div>
 
   <input type="hidden" name="payment[student_id]" value="<%= params[:id] %>">
   <input type="hidden" name="payment[user_id]" value="<%= session[:id] %>">
 
-  <button type="submit" class="btn btn-success">Generar cuota</button>
-  <a href="/dashboard/students/<%= params[:id] %>/fees" class="btn btn-default">Cancelar</a>
+  <button type="submit" class="btn btn-success"><%= I18n.t('payments.buttons.new_fee') %></button>
+  <a href="/dashboard/students/<%= params[:id] %>/fees" class="btn btn-default"><%= I18n.t('payments.buttons.cancel') %></a>
 </form>

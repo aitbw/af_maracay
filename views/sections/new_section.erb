@@ -9,9 +9,9 @@
 
 <form action="/dashboard/courses/<%= params[:id] %>/sections/new" method="POST">
   <div class="form-group">
-    <label>Nivel</label>
+    <label><%= I18n.t('sections.labels.level') %></label>
     <select name="section[level_id]" class="form-control">
-      <option value="" selected>Seleccione un nivel</option>
+      <option value="" selected><%= I18n.t('sections.data.levels.default') %></option>
       <% @levels.each do |level| %>
         <option value="<%= level.level_id %>"><%= level.level_description %></option>
       <% end %>
@@ -19,12 +19,12 @@
   </div>
 
   <div class="form-group">
-    <label>Capacidad</label>
+    <label><%= I18n.t('sections.labels.capacity') %></label>
     <input type="text" class="form-control" name="section[section_capacity]" placeholder="XXXX">
   </div>
 
   <div class="form-group">
-    <label>Fecha de apertura</label>
+    <label><%= I18n.t('sections.labels.start_date') %></label>
       <div class="input-group date" id="leftDatePicker">
       <input type="text" class="form-control" name="section[start_date]">
       <span class="input-group-addon">
@@ -34,7 +34,7 @@
   </div>
 
   <div class="form-group">
-    <label>Fecha de clausura</label>
+    <label><%= I18n.t('sections.labels.end_date') %></label>
       <div class="input-group date" id="rightDatePicker">
       <input type="text" class="form-control" name="section[end_date]">
       <span class="input-group-addon">
@@ -44,10 +44,10 @@
   </div>
 
   <div class="form-group">
-    <label>Duración de la sección (en horas)</label>
+    <label><%= I18n.t('sections.labels.section_hours') %></label>
     <input type="text" class="form-control" name="section[section_hours]" placeholder="XXXX">
   </div>
 
-  <button type="submit" class="btn btn-success">Crear sección</button>
-  <a href="/dashboard/courses/<%= params[:id] %>/sections" class="btn btn-default">Cancelar</a>
+  <button type="submit" class="btn btn-success"><%= I18n.t('sections.buttons.new_section') %></button>
+  <a href="/dashboard/courses/<%= params[:id] %>/sections" class="btn btn-default"><%= I18n.t('sections.buttons.cancel') %></a>
 </form>

@@ -1,28 +1,28 @@
 <% if @section.section_id %>
   <div class="panel panel-danger">
     <div class="panel-heading">
-      <h3 class="panel-title">Eliminar sección</h3>
+      <h3 class="panel-title"><%= I18n.t('sections.page_titles.delete_section') %></h3>
     </div>
 
     <div class="panel-body">
-      <p>¿Está usted seguro de <b>eliminar</b> esta sección? Esta acción no puede ser revertida.</p>
+      <p><%= I18n.t('sections.messages.warnings.are_you_sure') %></p>
       <ol style="list-style-type:disc;">
-        <li><b>Curso</b>: <%= @section.course_code %></li>
-        <li><b>Nivel</b>: <%= @section.level_description %></li>
-        <li><b>Capacidad</b>: <%= @section.section_capacity %></li>
-        <li><b>Fecha de apertura</b>: <%= @section.start_date.strftime('%d/%m/%Y') %></li>
-        <li><b>Fecha de clausura</b>: <%= @section.end_date.strftime('%d/%m/%Y') %></li>
-        <li><b>Horas académicas</b>: <%= @section.section_hours %></li>
-        <li><b>Horas cubiertas</b>: <%= @section.hours_covered %></li>
-        <li><b>¿Calificaciones asignadas?</b>: <%= @section.grades_assigned ? "Sí" : "No" %></li>
-        <li><b>¿Sección clausurada?</b>: <%= @section.is_finished ? "Sí" : "No" %></li>
+        <li><b><%= I18n.t('sections.labels.course') %></b>: <%= @section.course_code %></li>
+        <li><b><%= I18n.t('sections.labels.level') %></b>: <%= @section.level_description %></li>
+        <li><b><%= I18n.t('sections.labels.capacity') %></b>: <%= I18n.t('sections.data.capacity', count: @section.section_capacity) %></li>
+        <li><b><%= I18n.t('sections.labels.start_date') %></b>: <%= I18n.l(@section.start_date) %></li>
+        <li><b><%= I18n.t('sections.labels.end_date') %></b>: <%= I18n.l(@section.end_date) %></li>
+        <li><b><%= I18n.t('sections.labels.section_hours') %></b>: <%= I18n.t('sections.data.hours', count: @section.section_hours) %></li>
+        <li><b><%= I18n.t('sections.labels.hours_covered') %></b>: <%= I18n.t('sections.data.hours', count: @section.hours_covered) %></li>
+        <li><b><%= I18n.t('sections.labels.assigned_grades') %></b>: <%= @section.grades_assigned ? I18n.t('sections.data.grades_assigned.assigned') : I18n.t('sections.data.grades_assigned.non_assigned') %></li>
+        <li><b><%= I18n.t('sections.labels.closed_section') %></b>: <%= @section.is_finished ? I18n.t('sections.data.closed_section.closed') : I18n.t('sections.data.closed_section.not_closed') %></li>
       </ol>
-      <b><p class="text-danger">Todos los registros relacionados a este usuario también serán eliminados.</p></b>
+      <b><p class="text-danger"><%= I18n.t('sections.messages.warnings.related_records') %></p></b>
 
       <form action="/dashboard/courses/<%= @section.course_id %>/sections/<%= @section.section_id %>/delete" method="POST">
         <input type="hidden" name="_method" value="DELETE">
-        <button type="submit" class="btn btn-danger">Eliminar</button>
-        <a href="/dashboard/courses/<%= @section.course_id %>/sections" class="btn btn-default">Cancelar</a>
+        <button type="submit" class="btn btn-danger"><%= I18n.t('sections.buttons.delete') %></button>
+        <a href="/dashboard/courses/<%= @section.course_id %>/sections" class="btn btn-default"><%= I18n.t('sections.buttons.cancel') %></a>
       </form>
     </div>
   </div>

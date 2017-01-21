@@ -1,24 +1,24 @@
 <form action="/dashboard/users/<%= @user.user_id %>/edit" method="POST">
   <div class="form-group">
-    <label>Cédula</label>
-    <input type="text" name="user[user_cedula]" class="form-control" value="<%= @user.user_cedula %>"></input>
+    <label><%= I18n.t('users.labels.id') %></label>
+    <input type="text" name="user[user_cedula]" class="form-control" value="<%= @user.user_cedula %>">
   </div>
 
   <div class="form-group">
-    <label>Nombre</label>
-    <input type="text" name="user[user_name]" class="form-control" value="<%= h(@user.user_name) %>"></input>
+    <label><%= I18n.t('users.labels.name') %></label>
+    <input type="text" name="user[user_name]" class="form-control" value="<%= h(@user.user_name) %>">
   </div>
 
   <div class="form-group">
-    <label>Rol</label>
+    <label><%= I18n.t('users.labels.role') %></label>
     <select name="user[access_level]" class="form-control">
-      <% ['Admin', 'Pedagogo', 'Recepcionista'].each do |role| %>
-        <option <%= "selected" if role == @user.access_level %> value="<%= role %>"><%= role %></option>
+      <% @roles.each do |key, value| %>
+        <option <%= "selected" if @user.access_level == key.to_s %> value="<%= key %>"><%= value %></option>
       <% end %>
     </select>
   </div>
 
   <input type="hidden" name="_method" value="PUT">
-  <button type="submit" class="btn btn-success">Actualizar</button>
-  <a href="/dashboard/users" class="btn btn-default">Cancelar</a>
+  <button type="submit" class="btn btn-success"><%= I18n.t('users.buttons.update_user') %></button>
+  <a href="/dashboard/users" class="btn btn-default"><%= I18n.t('users.buttons.cancel') %></a>
 </form>

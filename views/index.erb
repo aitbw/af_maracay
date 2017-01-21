@@ -1,21 +1,21 @@
 <div id="signupsPanel" class="panel panel-default notifications">
-  <div class="panel-heading">Inscripciones expiradas</div>
-  <% if @expired_signups.empty? %>
+  <div class="panel-heading"><%= I18n.t('dashboard.panels.signups.labels.main_label') %></div>
+  <% if @expired_signups.blank? %>
     <div class="panel-body">
-      <p>No hay inscripciones expiradas el día de hoy.</p>
+      <p><%= I18n.t('dashboard.panels.signups.labels.empty_panel') %></p>
     </div>
   <% else %>
     <div class="panel-body">
-      <p>Inscripciones vencidas a la fecha (<%= Date.today.strftime('%d/%m/%Y') %>)</p>
+      <p><%= I18n.t('dashboard.panels.signups.labels.non_empty') %></p>
     </div>
 
     <table class="table table-responsive">
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Nombre del estudiante</th>
-          <th scope="col">Fecha de expiración</th>
-          <th scope="col">Opciones</th>
+          <th scope="col"><%= I18n.t('dashboard.panels.signups.columns.student_name') %></th>
+          <th scope="col"><%= I18n.t('dashboard.panels.signups.columns.expiration_date') %></th>
+          <th scope="col"><%= I18n.t('dashboard.panels.signups.columns.options.label') %></th>
         </tr>
       </thead>
       <tbody>
@@ -23,8 +23,8 @@
           <tr>
             <td><%= signup.payment_id %></td>
             <td><%= h(signup.student_name) %></td>
-            <td><%= signup.expiration_date.strftime('%d/%m/%Y') %></td>
-            <td><a href="/dashboard/students/<%= signup.student_id %>/signups/new">Renovar</a></td>
+            <td><%= I18n.l(signup.expiration_date) %></td>
+            <td><a href="/dashboard/students/<%= signup.student_id %>/signups/new"><%= I18n.t('dashboard.panels.signups.columns.options.renew') %></a></td>
           </tr>
         <% end %>
       </tbody>
@@ -33,23 +33,23 @@
 </div>
 
 <div id="feesPanel" class="panel panel-default notifications">
-  <div class="panel-heading">Cuotas expiradas</div>
-  <% if @expired_fees.empty? %>
+  <div class="panel-heading"><%= I18n.t('dashboard.panels.fees.labels.main_label') %></div>
+  <% if @expired_fees.blank? %>
     <div class="panel-body">
-      <p>No hay cuotas expiradas el día de hoy.</p>
+      <p><%= I18n.t('dashboard.panels.fees.labels.empty_panel') %></p>
     </div>
   <% else %>
     <div class="panel-body">
-      <p>Cuotas vencidas a la fecha (<%= Date.today.strftime('%d/%m/%Y') %>)</p>
+      <p><%= I18n.t('dashboard.panels.fees.labels.non_empty') %></p>
     </div>
 
     <table class="table table-responsive">
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Nombre del estudiante</th>
-          <th scope="col">Fecha de expiración</th>
-          <th scope="col">Opciones</th>
+          <th scope="col"><%= I18n.t('dashboard.panels.fees.columns.student_name') %></th>
+          <th scope="col"><%= I18n.t('dashboard.panels.fees.columns.expiration_date') %></th>
+          <th scope="col"><%= I18n.t('dashboard.panels.fees.columns.options.label') %></th>
         </tr>
       </thead>
       <tbody>
@@ -57,8 +57,8 @@
           <tr>
             <td><%= fee.payment_id %></td>
             <td><%= h(fee.student_name) %></td>
-            <td><%= fee.expiration_date.strftime('%d/%m/%Y') %></td>
-            <td><a href="/dashboard/students/<%= fee.student_id %>/fees/new">Renovar</a></td>
+            <td><%= I18n.l(fee.expiration_date) %></td>
+            <td><a href="/dashboard/students/<%= fee.student_id %>/fees/new"><%= I18n.t('dashboard.panels.fees.columns.options.renew') %></a></td>
           </tr>
         <% end %>
       </tbody>
