@@ -1,12 +1,12 @@
 get '/dashboard/users' do
   set_page_title('Usuarios')
   @users = User.search_user(params[:cedula]).page(params[:page])
-  erb :'users/users', user_layout
+  erb :'users/users', layout: :'layouts/main'
 end
 
 get '/dashboard/users/new_user' do
   set_page_title('Crear nuevo usuario')
-  erb :'users/new_user', user_layout
+  erb :'users/new_user', layout: :'layouts/main'
 end
 
 post '/dashboard/users/new_user' do
@@ -23,7 +23,7 @@ end
 get '/dashboard/users/:id/delete' do
   @user = User.find(params[:id])
   set_page_title('Eliminar usuario')
-  erb :'users/delete_user', user_layout
+  erb :'users/delete_user', layout: :'layouts/main'
 end
 
 delete '/dashboard/users/:id/delete' do
@@ -38,7 +38,7 @@ end
 get '/dashboard/users/:id/edit' do
   @user = User.find(params[:id])
   set_page_title('Editar usuario')
-  erb :'users/edit_user', user_layout
+  erb :'users/edit_user', layout: :'layouts/main'
 end
 
 put '/dashboard/users/:id/edit' do
@@ -53,7 +53,7 @@ end
 
 get '/dashboard/change_password' do
   set_page_title('Cambiar contraseña')
-  erb :'users/change_password', user_layout
+  erb :'users/change_password', layout: :'layouts/main'
 end
 
 put '/dashboard/change_password' do
@@ -70,7 +70,7 @@ end
 get '/dashboard/users/:id/reset_password' do
   set_page_title('Reestablecer contraseña')
   @user_id = params[:id]
-  erb :'users/reset_password', user_layout
+  erb :'users/reset_password', layout: :'layouts/main'
 end
 
 put '/dashboard/users/:id/reset_password' do

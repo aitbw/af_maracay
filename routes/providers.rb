@@ -1,12 +1,12 @@
 get '/dashboard/providers' do
   set_page_title('Proveedores')
   @providers = Provider.search_provider(params[:provider_name]).page(params[:page])
-  erb :'providers/providers', user_layout
+  erb :'providers/providers', layout: :'layouts/main'
 end
 
 get '/dashboard/providers/new_provider' do
   set_page_title('Nuevo proveedor')
-  erb :'providers/new_provider', user_layout
+  erb :'providers/new_provider', layout: :'layouts/main'
 end
 
 post '/dashboard/providers/new_provider' do
@@ -16,7 +16,7 @@ end
 get '/dashboard/providers/:id/edit' do
   set_page_title('Editar proveedor')
   @provider = Provider.find(params[:id])
-  erb :'providers/edit_provider', user_layout
+  erb :'providers/edit_provider', layout: :'layouts/main'
 end
 
 put '/dashboard/providers/:id/edit' do
@@ -26,7 +26,7 @@ end
 get '/dashboard/providers/:id/delete' do
   set_page_title('Eliminar proveedor')
   @provider = Provider.find(params[:id])
-  erb :'providers/delete_provider', user_layout
+  erb :'providers/delete_provider', layout: :'layouts/main'
 end
 
 delete '/dashboard/providers/:id/delete' do

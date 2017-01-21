@@ -1,12 +1,12 @@
 get '/dashboard/teachers' do
   set_page_title('Profesores')
   @teachers = Teacher.search_teacher(params[:cedula]).page(params[:page])
-  erb :'teachers/teachers', user_layout
+  erb :'teachers/teachers', layout: :'layouts/main'
 end
 
 get '/dashboard/teachers/new_teacher' do
   set_page_title('Crear nuevo profesor')
-  erb :'teachers/new_teacher', user_layout
+  erb :'teachers/new_teacher', layout: :'layouts/main'
 end
 
 post '/dashboard/teachers/new_teacher' do
@@ -16,7 +16,7 @@ end
 get '/dashboard/teachers/:id/delete' do
   set_page_title('Eliminar profesor')
   @teacher = Teacher.find(params[:id])
-  erb :'teachers/delete_teacher', user_layout
+  erb :'teachers/delete_teacher', layout: :'layouts/main'
 end
 
 delete '/dashboard/teachers/:id/delete' do
@@ -26,7 +26,7 @@ end
 get '/dashboard/teachers/:id/edit' do
   set_page_title('Editar profesor')
   @teacher = Teacher.find(params[:id])
-  erb :'teachers/edit_teacher', user_layout
+  erb :'teachers/edit_teacher', layout: :'layouts/main'
 end
 
 put '/dashboard/teachers/:id/edit' do
@@ -37,7 +37,7 @@ get '/dashboard/teachers/:id/courses' do
   set_page_title('Cursos asignados')
   @teacher = Teacher.find(params[:id])
   @courses = @teacher.courses.includes(:course_type)
-  erb :'teachers/teacher_courses', user_layout
+  erb :'teachers/teacher_courses', layout: :'layouts/main'
 end
 
 get '/dashboard/teachers/:id/courses/assign' do
@@ -45,7 +45,7 @@ get '/dashboard/teachers/:id/courses/assign' do
   @teacher = Teacher.find(params[:id])
   @courses = @teacher.courses.includes(:course_type, :office)
   @available_courses = Course.where.not(course_id: @courses.pluck(:course_id))
-  erb :'teachers/assign_course', user_layout
+  erb :'teachers/assign_course', layout: :'layouts/main'
 end
 
 post '/dashboard/teachers/:id/courses/assign' do
@@ -83,14 +83,14 @@ get '/dashboard/teachers/:id/hours' do
   set_page_title('Horas cubiertas')
   @teacher = Teacher.find(params[:id])
   @hours = TeacherHour.where(teacher_id: params[:id]).includes(:course).page(params[:page])
-  erb :'teacher_hours/teacher_hours', user_layout
+  erb :'teacher_hours/teacher_hours', layout: :'layouts/main'
 end
 
 get '/dashboard/teachers/:id/hours/assign' do
   set_page_title('Asignar horas a profesor')
   @teacher = Teacher.find(params[:id])
   @courses = @teacher.courses
-  erb :'teacher_hours/assign_hours', user_layout
+  erb :'teacher_hours/assign_hours', layout: :'layouts/main'
 end
 
 post '/dashboard/teachers/:id/hours/assign' do
@@ -108,7 +108,7 @@ end
 get '/dashboard/teachers/:teacher/hours/:hour/delete' do
   set_page_title('Eliminar hora')
   @hour = TeacherHour.find(params[:hour])
-  erb :'teacher_hours/delete_hour', user_layout
+  erb :'teacher_hours/delete_hour', layout: :'layouts/main'
 end
 
 delete '/dashboard/teachers/:teacher/hours/:hour/delete' do

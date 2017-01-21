@@ -26,23 +26,7 @@
 
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Controles<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="/dashboard/courses">Cursos</a></li>
-                <li><a href="/dashboard/students">Estudiantes</a></li>
-                <li><a href="/dashboard/teachers">Profesores</a></li>
-                <li><a href="/dashboard/providers">Proveedores</a></li>
-              </ul>
-            </li>
-
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Inventario<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Movimientos</a></li>
-                <li><a href="#">Ver inventario</a></li>
-              </ul>
-            </li>
+            <%= render_menu %>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">

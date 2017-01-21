@@ -2,14 +2,14 @@ get '/dashboard/courses' do
   set_page_title('Cursos')
   @courses = Course.search_course(params[:code]).page(params[:page]).includes(:course_type, :office)
   @course_types = CourseType.all
-  erb :'courses/courses', user_layout
+  erb :'courses/courses', layout: :'layouts/main'
 end
 
 get '/dashboard/courses/new_course' do
   set_page_title('Crear nuevo curso')
   @types = CourseType.select(:course_type_id, :course_modality)
   @offices = Office.all
-  erb :'courses/new_course', user_layout
+  erb :'courses/new_course', layout: :'layouts/main'
 end
 
 post '/dashboard/courses/new_course' do
@@ -19,7 +19,7 @@ end
 get '/dashboard/courses/:id/delete' do
   set_page_title('Eliminar curso')
   @course = Course.find(params[:id])
-  erb :'courses/delete_course', user_layout
+  erb :'courses/delete_course', layout: :'layouts/main'
 end
 
 delete '/dashboard/courses/:id/delete' do
@@ -31,7 +31,7 @@ get '/dashboard/courses/:id/edit' do
   @course = Course.find(params[:id])
   @types = CourseType.all
   @offices = Office.all
-  erb :'courses/edit_course', user_layout
+  erb :'courses/edit_course', layout: :'layouts/main'
 end
 
 put '/dashboard/courses/:id/edit' do
@@ -41,7 +41,7 @@ end
 get '/dashboard/courses/:id/grades/assign' do
   set_page_title('Asignar calificaciones')
   @course = Course.find(params[:id])
-  erb :'grades/assign_grades', user_layout
+  erb :'grades/assign_grades', layout: :'layouts/main'
 end
 
 post '/dashboard/courses/:id/grades/assign' do

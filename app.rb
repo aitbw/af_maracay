@@ -28,23 +28,23 @@ before do
 end
 
 helpers do
-  def set_page_title(title)
-    @page_title = title
+  def current_user_is_admin?
+    return true if session[:role] == 'Admin'
   end
 
-  def user_layout
+  def render_menu(options = {})
     case session[:role]
     when 'Admin'
-      { layout: :'layouts/admin' }
+      erb :'menus/admin', options.merge!(layout: false)
     when 'Pedagogo'
-      { layout: :'layouts/educator' }
+      erb :'menus/educator', options.merge!(layout: false)
     when 'Recepcionista'
-      { layout: :'layouts/clerk' }
+      erb :'menus/clerk', options.merge!(layout: false)
     end
   end
 
-  def current_user_is_admin?
-    return true if session[:role] == 'Admin'
+  def set_page_title(title)
+    @page_title = title
   end
 
   include Rack::Utils
@@ -71,7 +71,7 @@ get '/dashboard' do
   set_page_title('Inicio')
   @expired_signups = Payment.where('payment_status = ? AND expiration_date <= ?', 'Inscripción vigente', Date.today)
   @expired_fees = Payment.where('payment_status = ? AND expiration_date <= ?', 'Cuota vigente', Date.today)
-  erb :index, user_layout
+  erb :index, layout: :'layouts/main'
 end
 
 get '/logout' do
