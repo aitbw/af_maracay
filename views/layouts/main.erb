@@ -32,9 +32,13 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="active"><a href="/dashboard/change_password"><%= session[:name] %></a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= I18n.t('dashboard.menu.labels.language') %><span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= I18n.t('dashboard.menu.labels.languages.label') %><span class="caret"></span></a>
               <ul class="dropdown-menu">
-              <!-- Here goes all the available locales -->
+                <% { en: 'english', es: 'spanish', fr: 'french' }.each do |key, value| %>
+                  <% unless params[:locale] == key.to_s %>
+                    <li><a href="<%= "#{request.path_info.to_s}?locale=#{key}" %>"><%= I18n.t("dashboard.menu.labels.languages.#{value}") %></a></li>
+                  <% end %>
+                <% end %>
               </ul>
             </li>
             <li><a href="/logout"><%= I18n.t('dashboard.menu.labels.signout') %></a></li>

@@ -37,7 +37,11 @@ es:
         reports: Reportes
         generate_report: Generar reporte
         check_reports: Ver reportes
-        language: Lenguaje
+        languages:
+          label: Lenguaje
+          english: Inglés
+          french: Francés
+          spanish: Español
         signout: Cerrar sesión
     panels:
       signups:
