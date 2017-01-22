@@ -19,7 +19,7 @@ post '/dashboard/students/:id/signups/new' do
     flash[:notice] = I18n.t('payments.messages.success.created_signup')
     redirect "/dashboard/students/#{params[:id]}/signups"
   else
-    flash[:errors] = new_signup.errors.full_messages
+    flash[:errors] = new_signup.errors
     redirect(request.path_info.to_s)
   end
 end
@@ -54,7 +54,7 @@ put '/dashboard/students/:student/signups/:signup/edit' do
     flash[:notice] = I18n.t('payments.messages.success.updated_record')
     redirect "/dashboard/students/#{params[:student]}/signups"
   else
-    flash[:errors] = edit_signup.errors.full_messages
+    flash[:errors] = edit_signup.errors
     redirect(request.path_info.to_s)
   end
 end
@@ -80,7 +80,7 @@ post '/dashboard/students/:id/fees/new' do
     flash[:notice] = I18n.t('payments.messages.success.created_fee')
     redirect "/dashboard/students/#{params[:id]}/fees"
   else
-    flash[:errors] = new_fee.errors.full_messages
+    flash[:errors] = new_fee.errors
     redirect(request.path_info.to_s)
   end
 end
@@ -115,7 +115,7 @@ put '/dashboard/students/:student/fees/:fee/edit' do
     flash[:notice] = I18n.t('payments.messages.success.updated_record')
     redirect "/dashboard/students/#{params[:student]}/fees"
   else
-    flash[:errors] = edit_fee.errors.full_messages
+    flash[:errors] = edit_fee.errors
     redirect(request.path_info.to_s)
   end
 end

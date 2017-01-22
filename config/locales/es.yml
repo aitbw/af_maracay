@@ -72,69 +72,69 @@ es:
       provider: Proveedor
       section: Sección
       student: Estudiante
-      user: Usuario
-      teacher_hour: Hora laboral
       teacher: Profesor
+      teacher_hour: Hora laboral
+      user: Usuario
     attributes:
       bank_account:
-        bank_id: Banco
-        account_type: Tipo de cuenta
-        account_number: Número de cuenta
+        bank_id: banco
+        account_type: tipo de cuenta
+        account_number: número de cuenta
       course:
-        course_code: Código del curso
-        course_type_id: Modalidad
-        office_id: Sede
+        course_code: código del curso
+        course_type_id: modalidad
+        office_id: sede
       grade:
-        final_grade: Calificación final
-        date_assigned: Fecha de emisión
-        student_id: Nombre del estudiante
-        section_id: Sección
+        final_grade: calificación final
+        date_assigned: fecha de emisión
+        student_id: nombre del estudiante
+        section_id: sección
       payment:
-        payment_amount: Monto
-        payment_description: Concepto
-        payment_method: Método de pago
-        payment_status: Estado del pago
-        issue_date: Fecha de emisión
-        expiration_date: Fecha de expiración
-        bank: Banco
-        reference_number: Número de referencia
-        user_id: Emisor
-        student_id: Nombre del estudiante
+        payment_amount: monto
+        payment_description: concepto
+        payment_method: método de pago
+        payment_status: estado del pago
+        issue_date: fecha de emisión
+        expiration_date: fecha de expiración
+        bank: fanco
+        reference_number: número de referencia
+        user_id: emisor
+        student_id: nombre del estudiante
       provider:
-        provider_name: Nombre del proveedor
+        provider_name: nombre del proveedor
         provider_rif: RIF
-        provider_phone: Número de teléfono
-        provider_email: Correo electrónico
-        manager_name: Nombre del encargado
+        provider_phone: número de teléfono
+        provider_email: correo electrónico
+        manager_name: nombre del encargado
       section:
-        section_capacity: Capacidad
-        start_date: Fecha de apertura
-        end_date: Fecha de clausura
-        section_hours: Horas académicas
-        hours_covered: Horas cubiertas
-        level_id: Nivel
-        course_id: Curso
+        section_capacity: capacidad
+        start_date: fecha de inicio
+        end_date: fecha de clausura
+        section_hours: horas académicas
+        hours_covered: horas cubiertas
+        level_id: nivel
+        course_id: curso
       student:
-        student_name: Nombre del estudiante
-        student_cedula: Cédula
-        student_name: Correo electrónico
-        student_phone: Número de telefono
-        alternative_phone: Número alternativo
-        section_id: Sección
-      teacher_hour:
-        hours_covered: Horas cubiertas
-        date_covered: Fecha cubierta
-        section_id: Sección
-        fare_per_hour: Pago por hora
+        student_name: nombre del estudiante
+        student_cedula: cédula
+        student_name: correo electrónico
+        student_phone: número de telefono
+        alternative_phone: número alternativo
+        section_id: sección
       teacher:
-        teacher_name: Nombre del profesor
-        teacher_email: Correo electrónico
-        teacher_phone: Número de telefono
-        teacher_cedula: Cédula
-        teacher_wages: Tarifas del profesor
-        entry_date: Fecha de ingreso
+        teacher_name: nombre del profesor
+        teacher_email: correo electrónico
+        teacher_phone: número de telefono
+        teacher_cedula: cédula
+        teacher_wages: tarifas del profesor
+        entry_date: fecha de ingreso
+      teacher_hour:
+        hours_covered: horas cubiertas
+        date_covered: fecha cubierta
+        section_id: sección
+        fare_per_hour: pago por hora
       user:
-        user_name: nombre
+        user_name: nombre del usuario
         user_cedula: cédula
         user_password: contraseña
         access_level: rol
@@ -143,24 +143,26 @@ es:
         bank_account:
           attributes:
             bank_id:
-              bank: debe seleccionar uno
+              blank: "Debe seleccionar un %{attribute}"
             account_type:
-              blank: no puede estar vacío
-              not_a_number: no es un número
-              not_an_integer: no es un número entero
+              blank: "Debe seleccionar un %{attribute}"
+            account_number:
+              blank: "Debe ingresar un %{attribute}"
+              not_a_number: "El %{attribute} ingresado no es un número"
+              not_an_integer: "El %{attribute} ingresado no es un número entero"
               wrong_length:
-                other: no es válido (deben ser %{count} caracteres)
-              taken: ya se encuentra en uso
+                other: "El %{attribute} ingresado es inválido (debe contener %{count} caracteres)"
+              taken: "El %{attribute} ingresado ya se encuentra en uso"
         course:
           attributes:
             course_code:
-              blank: no puede estar vacío
-              taken: ya es encuentra en uso
-              invalid: no cumple con el formato establecido
+              blank: "Debe ingresar el %{attribute}"
+              taken: "El %{attribute} ingresado ya se encuentra en uso"
+              invalid: "El %{attribute} ingresado no cumple con el formato establecido"
             course_type_id:
-              blank: debe seleccionar una
+              blank: "Debe seleccionar una %{attribute}"
             office_id:
-              blank: debe seleccionar una
+              blank: "Debe seleccionar una %{attribute}"
         grade:
           attributes:
             final_grade:
@@ -172,82 +174,107 @@ es:
         payment:
           attributes:
             payment_amount:
-              blank: no puede estar vacío
-              not_a_number: no es un número
+              blank: "Debe ingresar el %{attribute} correspondiente"
+              not_a_number: "El %{attribute} ingresado no es un número"
             payment_description:
-              blank: no puede estar vacío
+              blank: "Debe indicar el %{attribute} del pago"
             payment_method:
-              blank: no puede estar vacío
+              blank: "Debe seleccionar un %{attribute}"
             bank:
-              blank: no puede estar vacío
+              blank: "Debe seleccionar un %{attribute}"
             reference_number:
-              invalid: es inválido (debe contener 4 números)
-              blank: no puede estar vacío
+              blank: "Debe ingresar el %{attribute}"
+              invalid: "El %{attribute} ingresado es inválido"
             issue_date:
-              blank: no puede estar vacía
-              in_the_past: no puede estar en el pasado
+              blank: "Debe indicar la %{attribute}"
+              in_the_past: "La %{attribute} no puede estar en el pasado"
             expiration_date:
-              blank: no puede estar vacía
+              blank: "Debe indicar la %{attribute}"
         provider:
           attributes:
             provider_name:
-              blank: no puede estar vacío
+              blank: "Debe ingresar el %{attribute}"
             provider_rif:
-              blank: no puede estar vacío
-              taken: ya se encuentra en uso
-              invalid: no cumple con el formato establecido
+              blank: "Debe ingresar el %{attribute}"
+              taken: "El %{attribute} ingresado pertenece a otro proveedor"
+              invalid: "El %{attribute} ingresado no cumple con el formato establecido"
             provider_phone:
-              blank: no puede estar vacío
-              invalid: no cumple con el formato establecido
+              blank: "Debe ingresar un %{attribute}"
+              invalid: "El %{attribute} ingresado no cumple con el formato establecido"
             provider_email:
-              blank: no puede estar vacío
-              taken: ya se encuentra en uso
-              invalid: no es válido
+              blank: "Debe ingresar el %{attribute}"
+              taken: "El %{attribute} ingresado ya se encuentra en uso"
+              invalid: "El %{attribute} es inválido"
             manager_name:
-              blank: no puede estar vacío
+              blank: "Debe ingresar el %{attribute}"
         section:
           attributes:
             section_capacity:
-              blank: no puede estar vacío
-              not_a_number: no es un número
-              not_an_integer: no es un número entero
+              blank: "Debe indicar la %{attribute} de la sección"
+              not_a_number: "La %{attribute} ingresada no es un número"
+              not_an_integer: "La %{attribute} ingresada no es un número entero"
             section_hours:
-              blank: no puede estar vacío
-              not_a_number: no es un número
-              not_an_integer: no es un número entero
+              blank: "Debe indicar las %{attribute} correspondientes"
+              not_a_number: "Las %{attribute} ingresadas no son un número"
+              not_an_integer: "Las %{attribute} ingresadas no son un número entero"
             start_date:
-              blank: no puede estar vacía
-              in_the_past: no puede estar en el pasado
+              blank: "Debe indicar la %{attribute}"
+              in_the_past: "La %{attribute} no puede estar en el pasado"
             end_date:
-              blank: no puede estar vacía
+              blank: "Debe indicar la %{attribute}"
             level_id:
-              blank: debe seleccionar uno
-              taken: ya se encuentra en uso
+              blank: "Debe seleccionar el %{attribute} correspondiente"
+              taken: "El %{attribute} seleccionado ya se encuentra en uso"
         student:
           attributes:
             student_name:
-              blank: no puede estar vacío
+              blank: "Debe ingresar el %{attribute}"
             student_cedula:
-              blank: no puede estar vacía
-              taken: ya se encuentra en uso
-              not_a_number: no es un número
-              not_an_integer: no es un número entero
+              blank: "Debe ingresar la %{attribute}"
+              taken: "La %{attribute} ingresada pertenece a otro estudiante"
+              not_a_number: "La %{attribute} ingresada no es un número"
+              not_an_integer: "La %{attribute} ingresada no es un número entero"
               too_short:
-                other: es muy corta (mínimo de %{count} caracteres)
+                other: "La %{attribute} ingresada es muy corta (mínimo de %{count} caracteres)"
               too_long:
-                other: es muy larga (máximo de %{count} caracteres)
+                other: "La %{attribute} ingresada es muy larga (máximo de %{count} caracteres)"
             student_email:
-              blank: no puede estar vacío
-              taken: ya se encuentra en uso
-              invalid: no es válido
+              blank: "Debe ingresar el %{attribute}"
+              taken: "El %{attribute} ingresado ya se encuentra en uso"
+              invalid: "El %{attribute} es inválido"
             student_phone:
-              blank: no puede estar vacío
-              invalid: no cumple con el formato establecido
+              blank: "Debe ingresar un %{attribute}"
+              invalid: "El %{attribute} ingresado no cumple con el formato establecido"
             alternative_phone:
-              blank: no puede estar vacío
-              invalid: no cumple con el formato establecido
+              blank: "Debe ingresar un %{attribute}"
+              invalid: "El %{attribute} ingresado no cumple con el formato establecido"
             section_id:
-              blank: debe seleccionar una
+              blank: "Debe seleccionar una %{attribute}"
+        teacher:
+          attributes:
+            teacher_name:
+              blank: "Debe ingresar el %{attribute}"
+            teacher_email:
+              blank: "Debe ingresar el %{attribute}"
+              taken: "El %{attribute} ingresado ya se encuentra en uso"
+              invalid: "El %{attribute} ingresado es inválido"
+            teacher_phone:
+              blank: "Debe ingresar un %{attribute}"
+              invalid: "El %{attribute} ingresado no cumple con el formato establecido"
+            teacher_cedula:
+              blank: "Debe ingresar la %{attribute}"
+              taken: "La %{attribute} ingresada pertenece a otro docente"
+              not_a_number: "La %{attribute} ingresada no es un número"
+              not_an_integer: "La %{attribute} ingresada no es un número entero"
+              too_short:
+                other: "La %{attribute} ingresada es muy corta (mínimo de %{count} caracteres)"
+              too_long:
+                other: "La %{attribute} ingresada es muy larga (máximo de %{count} caracteres)"
+            teacher_wages:
+              blank: no puede estar vacía
+              not_a_number: no es un número
+            entry_date:
+              blank: "Debe indicar la %{attribute}"
         teacher_hour:
           attributes:
             hours_covered:
@@ -261,38 +288,13 @@ es:
               blank: debe seleccionar una
             fare_per_hour:
               blank: no puede estar vacío
-        teacher:
-          attributes:
-            teacher_name:
-              blank: no puede estar vacío
-            teacher_email:
-              blank: no puede estar vacío
-              taken: ya se encuentra en uso
-              invalid: no es válido
-            teacher_phone:
-              blank: no puede estar vacío
-              invalid: no cumple con el formato establecido
-            teacher_cedula:
-              blank: no puede estar vacía
-              taken: ya se encuentra en uso
-              not_a_number: no es un número
-              not_an_integer: no es un número entero
-              too_short:
-                other: es muy corta (mínimo de %{count} caracteres)
-              too_long:
-                other: es muy larga (máximo de %{count} caracteres)
-            teacher_wages:
-              blank: no puede estar vacía
-              not_a_number: no es un número
-            entry_date:
-              blank: no puede estar vacía
         user:
           attributes:
             user_name:
-              blank: "Debe ingresar un %{attribute}"
+              blank: "Debe ingresar el %{attribute}"
             user_cedula:
-              blank: "Debe ingresar una %{attribute}"
-              taken: "La %{attribute} ingresada ya se encuentra en uso"
+              blank: "Debe ingresar la %{attribute}"
+              taken: "La %{attribute} ingresada pertenece a otro usuario"
               not_a_number: "La %{attribute} ingresada no es un número"
               not_an_integer: "La %{attribute} ingresada no es un número entero"
               too_short:
@@ -522,7 +524,7 @@ es:
       level: Nivel
       course: Curso
       capacity: Capacidad
-      start_date: Fecha de apertura
+      start_date: Fecha de inicio
       end_date: Fecha de clausura
       section_hours: Horas académicas
       hours_covered: Horas cubiertas

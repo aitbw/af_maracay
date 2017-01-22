@@ -67,8 +67,8 @@
 
     <% if flash[:errors] %>
       <script type="text/javascript">
-        <% flash[:errors].reverse_each do |error| %>
-        toastr.error('<%= h(error) %>');
+        <% flash[:errors].reverse_each do |_attr, msg| %>
+        toastr.error('<%= h(msg) %>');
         <% end %>
       </script>
     <% end %>

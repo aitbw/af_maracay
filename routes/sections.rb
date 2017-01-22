@@ -45,7 +45,7 @@ post '/dashboard/courses/:id/sections/new' do
     flash[:notice] = I18n.t('sections.messages.success.created_section')
     redirect "/dashboard/courses/#{params[:id]}/sections"
   else
-    flash[:errors] = new_section.errors.full_messages
+    flash[:errors] = new_section.errors
     redirect(request.path_info.to_s)
   end
 end
@@ -81,7 +81,7 @@ put '/dashboard/courses/:course/sections/:section/edit' do
     flash[:notice] = I18n.t('sections.messages.success.updated_section')
     redirect "/dashboard/courses/#{params[:course]}"
   else
-    flash[:errors] = edit_section.errors.full_messages
+    flash[:errors] = edit_section.errors
     redirect(request.path_info.to_s)
   end
 end

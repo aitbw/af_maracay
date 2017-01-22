@@ -5,7 +5,7 @@ def new_provider
     flash[:notice] = I18n.t('providers.messages.success.created_provider')
     redirect '/dashboard/providers'
   else
-    flash[:errors] = new_provider.errors.full_messages
+    flash[:errors] = new_provider.errors
     redirect(request.path_info.to_s)
   end
 end
@@ -15,7 +15,7 @@ def edit_existing_provider(edit_provider)
     flash[:notice] = I18n.t('providers.messages.success.updated_provider')
     redirect '/dashboard/providers'
   else
-    flash[:errors] = edit_provider.errors.full_messages
+    flash[:errors] = edit_provider.errors
     redirect(request.path_info.to_s)
   end
 end

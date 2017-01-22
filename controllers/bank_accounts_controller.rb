@@ -5,7 +5,7 @@ def new_bank_account(new_account)
     )
     redirect "/dashboard/teachers/#{params[:id]}/bank_accounts"
   else
-    flash[:errors] = new_account.errors.full_messages
+    flash[:errors] = new_account.errors
     redirect(request.path_info.to_s)
   end
 end
@@ -29,7 +29,7 @@ def edit_bank_account(edit_account, account_id)
     )
     redirect "/dashboard/teachers/#{account_id}/bank_accounts"
   else
-    flash[:errors] = edit_account.errors.full_messages
+    flash[:errors] = edit_account.errors
     redirect(request.path_info.to_s)
   end
 end

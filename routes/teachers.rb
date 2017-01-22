@@ -106,7 +106,7 @@ post '/dashboard/teachers/:id/hours/assign' do
     flash[:notice] = I18n.t('teacher_hours.messages.success.assigned_hours')
     redirect("/dashboard/teachers/#{params[:id]}/hours")
   else
-    flash[:errors] = teacher_hours.errors.full_messages
+    flash[:errors] = teacher_hours.errors
     redirect(request.path_info.to_s)
   end
 end

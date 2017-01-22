@@ -5,7 +5,7 @@ def create_new_student
     flash[:notice] = I18n.t('students.messages.success.created_student')
     redirect '/dashboard/students'
   else
-    flash[:errors] = new_student.errors.full_messages
+    flash[:errors] = new_student.errors
     redirect(request.path_info.to_s)
   end
 end
@@ -27,7 +27,7 @@ def edit_student(id)
     flash[:notice] = I18n.t('students.messages.success.updated_student')
     redirect '/dashboard/students'
   else
-    flash[:errors] = edit_student.errors.full_messages
+    flash[:errors] = edit_student.errors
     redirect(request.path_info.to_s)
   end
 end

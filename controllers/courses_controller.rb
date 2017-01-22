@@ -5,7 +5,7 @@ def new_course
     flash[:notice] = I18n.t('courses.messages.success.created_course')
     redirect '/dashboard/courses'
   else
-    flash[:errors] = new_course.errors.full_messages
+    flash[:errors] = new_course.errors
     redirect(request.path_info.to_s)
   end
 end
@@ -27,7 +27,7 @@ def edit_course(id)
     flash[:notice] = I18n.t('courses.messages.success.updated_course')
     redirect '/dashboard/courses'
   else
-    flash[:errors] = edit_course.errors.full_messages
+    flash[:errors] = edit_course.errors
     redirect(request.path_info.to_s)
   end
 end

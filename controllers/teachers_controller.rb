@@ -5,7 +5,7 @@ def new_teacher
     flash[:notice] = I18n.t('teachers.messages.success.created_teacher')
     redirect '/dashboard/teachers'
   else
-    flash[:errors] = new_teacher.errors.full_messages
+    flash[:errors] = new_teacher.errors
     redirect(request.path_info.to_s)
   end
 end
@@ -27,7 +27,7 @@ def edit_teacher(id)
     flash[:notice] = I18n.t('teachers.messages.success.updated_teacher')
     redirect '/dashboard/teachers'
   else
-    flash[:errors] = edit_teacher.errors.full_messages
+    flash[:errors] = edit_teacher.errors
     redirect(request.path_info.to_s)
   end
 end

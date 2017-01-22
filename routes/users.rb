@@ -22,7 +22,7 @@ post '/dashboard/users/new_user' do
     flash[:notice] = I18n.t('users.messages.success.created_user')
     redirect '/dashboard/users'
   else
-    flash[:errors] = new_user.errors.full_messages
+    flash[:errors] = new_user.errors
     redirect(request.path_info.to_s)
   end
 end
@@ -61,7 +61,7 @@ put '/dashboard/users/:id/edit' do
     flash[:notice] = I18n.t('users.messages.success.updated_user')
     redirect '/dashboard/users'
   else
-    flash[:errors] = edit_user.errors.full_messages
+    flash[:errors] = edit_user.errors
     redirect(request.path_info.to_s)
   end
 end
